@@ -22,10 +22,14 @@ public class UserService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
+    public UserService() {
+    }
+
+
     public Optional<User> login(String login, String password) throws ServiceException {
         LOGGER.debug("Called method login");
 
-        try (DaoHelper daoHelper = daoHelperFactory.create()){
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
             LOGGER.debug("was called method daoHelperFactory.create()" + daoHelper);
             UserDao userDao = daoHelper.createUserDao();
             LOGGER.debug("return userDao.findByLoginAndPassword(login, password);");
@@ -35,5 +39,7 @@ public class UserService {
             throw new ServiceException((DaoException) e);
         }
     }
+
+
 
 }

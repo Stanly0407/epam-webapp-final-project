@@ -1,0 +1,160 @@
+/* roboto-regular - latin_cyrillic */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/roboto-v20-latin_cyrillic-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/roboto-v20-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/roboto-v20-latin_cyrillic-regular.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/roboto-v20-latin_cyrillic-regular.woff') format('woff'), /* Modern Browsers */ url('../fonts/roboto-v20-latin_cyrillic-regular.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/roboto-v20-latin_cyrillic-regular.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* roboto-500 - latin_cyrillic */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../fonts/roboto-v20-latin_cyrillic-500.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/roboto-v20-latin_cyrillic-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/roboto-v20-latin_cyrillic-500.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/roboto-v20-latin_cyrillic-500.woff') format('woff'), /* Modern Browsers */ url('../fonts/roboto-v20-latin_cyrillic-500.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/roboto-v20-latin_cyrillic-500.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+/* roboto-900 - latin_cyrillic */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/roboto-v20-latin_cyrillic-900.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('../fonts/roboto-v20-latin_cyrillic-900.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/roboto-v20-latin_cyrillic-900.woff2') format('woff2'), /* Super Modern Browsers */ url('../fonts/roboto-v20-latin_cyrillic-900.woff') format('woff'), /* Modern Browsers */ url('../fonts/roboto-v20-latin_cyrillic-900.ttf') format('truetype'), /* Safari, Android, iOS */ url('../fonts/roboto-v20-latin_cyrillic-900.svg#Roboto') format('svg'); /* Legacy iOS */
+}
+
+
+/* COMMON */
+html {
+    background-color: #1A214C;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 17px;
+    line-height: 1.2;
+    font-weight: normal;
+    color: #1A214C;
+}
+
+.common-input {
+    border: none;
+    width: 400px;
+    height: 60px;
+    padding: 8px;
+    border-radius: 25px;
+    background-color: #28336F;
+}
+
+.common-label {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    color: #48D5CD;
+}
+
+.wrapper {
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* HEADER */
+
+/*select {*/
+/*    color: red;*/
+/*}*/
+
+.header {
+    height: 70px;
+    background-color: #28336F;
+}
+
+.header__logo-pic {
+    height: 64px;
+    padding: 3px;
+}
+
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.header__item {
+    margin-right: 30px;
+    /*font-family: 'Roboto', sans-serif;*/
+    /*font-style: normal;*/
+    /*font-size: 18px;*/
+    /*line-height: 1.2;*/
+    /*font-weight: normal;*/
+}
+
+.header__link {
+    font-size: 18px;
+    line-height: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+select {
+/*.header__select {*/
+    appearance: none;
+/*background-color: transparent;*/
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    background-color: #28336F;
+    text-align: center;
+    color: white;
+}
+
+
+/*CONTAINERS*/
+.container-login {
+    padding-left: 100px;
+    padding-top: 80px;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: normal;
+}
+
+.button-main {
+    background-color: #48D5CD;
+    color: #1A214C;
+    margin-top: 25px;
+    width: 140px;
+    height: 55px;
+    border: none;
+    border-radius: 20px 20px;
+
+
+
+}
+
+
+
+
+

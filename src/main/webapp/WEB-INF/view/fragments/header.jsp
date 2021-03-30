@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
@@ -34,9 +35,12 @@
                     <li class="header__item">
                         <a href="#!" class="header__link">About us</a>
                     </li>
-<%--                    <li class="header__item">--%>
-<%--                        <a href="#!" class="header__link">Log out</a>--%>
-<%--                    </li>--%>
+                    <c:if test="${not empty name}" >
+                    <li class="header__item">
+                        <a href="/musicwebapp/controller?command=logout" class="header__link" >Log out</a>
+                    </li>
+                    </c:if>
+
                 </ul>
             </nav>
         </div>

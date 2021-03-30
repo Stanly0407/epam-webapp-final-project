@@ -6,13 +6,17 @@
 <body>
 
 <div class="header">
-    <jsp:include page="view/fragments/header.jsp"/>
+    <jsp:include page="../fragments/header.jsp"/>
 </div>
 
 
 <div class="container" align="center">
 
         <b style="color: aliceblue">Hello, ${name}!</b>
+
+    <button class="button-main" type="submit">
+            <a href="/musicwebapp/controller?command=logout" class="header__link" >Log out</a>
+    </button>
 
 </div>
 

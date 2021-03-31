@@ -12,7 +12,7 @@
 
 <div class="container" align="center">
 
-        <b style="color: aliceblue">Hello, ${name}!</b>
+        <b style="color: aliceblue">Hello, ${name}!</b><br>
 
     <button class="button-main" type="submit">
             <a href="/musicwebapp/controller?command=logout" class="header__link" >Log out</a>

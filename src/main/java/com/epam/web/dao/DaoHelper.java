@@ -15,7 +15,6 @@ public class DaoHelper implements AutoCloseable {
     private ProxyConnection proxyConnection;
 
     public DaoHelper(ConnectionPool connectionPool) throws InterruptedException {
-        LOGGER.debug("  ++++ this.proxyConnection = connectionPool.getConnection();" + connectionPool.getConnection() );
         this.proxyConnection = connectionPool.getConnection();
     }
 
@@ -41,6 +40,15 @@ public class DaoHelper implements AutoCloseable {
     public void startTransaction() throws DaoException {
         try {
             proxyConnection.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+    }
+
+    public void endTransaction() throws DaoException {
+        try {
+            proxyConnection.commit();
+            proxyConnection.setAutoCommit(true);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

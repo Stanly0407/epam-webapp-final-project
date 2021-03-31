@@ -17,7 +17,7 @@ import java.util.Optional;
 public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     private static final Logger LOGGER = LogManager.getLogger(AbstractDao.class);
 
-    private Connection connection;
+    private final Connection connection;
     private RowMapper<T> mapper;
 
     public AbstractDao(Connection connection, RowMapper<T> mapper) {
@@ -39,6 +39,15 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             return entities;
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage() + e.getSQLState() + e.getNextException());
+            throw new DaoException(e);
+        }
+    }
+
+    protected void executeUpdate(String query, Object... params) throws DaoException {
+        LOGGER.debug("was called  executeUpdate + started..");
+        try (PreparedStatement preparedStatement = createStatement(query, params)){
+             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
             throw new DaoException(e);
         }
     }
@@ -69,6 +78,8 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             return Optional.empty();
         }
     }
+
+
 
     protected abstract String getTableName();
 

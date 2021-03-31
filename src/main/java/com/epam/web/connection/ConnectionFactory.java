@@ -33,13 +33,24 @@ public class ConnectionFactory {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             Connection connection = DriverManager.getConnection(URL, properties);
             LOGGER.debug("Connection = " + connection);
-            //     return new ProxyConnection(connection);
-            return new ProxyConnection(connection, ConnectionPool.getInstance());
+             return new ProxyConnection(connection);
+            //      return new ProxyConnection(connection, ConnectionPool.getInstance());
         } catch (SQLException e) {
             LOGGER.debug(e.getMessage());
             throw new DaoException(e);
         }
     }
+
+    //try (InputStream input = new FileInputStream("src//resources/db.properties")) {
+    //            Properties properties = new Properties();
+    //            properties.load(input);
+    //
+    //            CONNECTION_URL = properties.getProperty("CONNECTION_URL");
+    //            USER = properties.getProperty("USER");
+    //            PASS = properties.getProperty("PASS");
+    //        } catch (IOException e) {
+    //            e.printStackTrace();
+    //        }
 
 
 }

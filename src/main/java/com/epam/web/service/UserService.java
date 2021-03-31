@@ -25,17 +25,12 @@ public class UserService {
     public UserService() {
     }
 
-
     public Optional<User> login(String login, String password) throws ServiceException {
         LOGGER.debug("Called method login");
-
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            LOGGER.debug("was called method daoHelperFactory.create()" + daoHelper);
             UserDao userDao = daoHelper.createUserDao();
-            LOGGER.debug("return userDao.findByLoginAndPassword(login, password);");
             return userDao.findByLoginAndPassword(login, password);
         } catch (DaoException | IOException | InterruptedException | SQLException e) {
-            LOGGER.debug("ServiceException === " + e.getMessage());
             throw new ServiceException((DaoException) e);
         }
     }

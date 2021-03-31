@@ -12,7 +12,7 @@ public abstract class Entity implements Cloneable, Serializable {
         this.id = id;
     }
 
-    private Long getId() {
+    public Long getId() {
         return id;
     }
 }

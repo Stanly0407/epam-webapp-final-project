@@ -37,6 +37,7 @@ public class LoginCommand implements Command {
         String showPageCommandType = null;
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            LOGGER.debug("ID___________ " + user.getId());
             if (user.getRole().getValue().equals(ADMIN_ROLE)) {
                 session.setAttribute("name", user.getName());
                 showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;

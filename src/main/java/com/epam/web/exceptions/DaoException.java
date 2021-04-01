@@ -11,10 +11,6 @@ public class DaoException extends Exception {
         super(message);
     }
 
-//    public DaoException(String message, Throwable cause) {
-//        super(message, cause);
-//    }
-
     public DaoException(SQLException e) {
     }
 }

@@ -26,14 +26,13 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     }
 
     protected List<T> executeQuery(String query, RowMapper<T> mapper, Object... params) throws DaoException {
-        LOGGER.debug("was called  executeQuery + started..");
+
         try (PreparedStatement preparedStatement = createStatement(query, params);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             List<T> entities = new ArrayList<>();
-            LOGGER.debug("mapper.getClass() -- " + mapper.getClass());
+
             while (resultSet.next()) {
                 T entity = mapper.map(resultSet);
-                LOGGER.debug("T entity = mapper.map(resultSet); -- " + entity);
                 entities.add(entity);
             }
             return entities;
@@ -62,13 +61,15 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         return preparedStatement;
     }
 
-    public List<T> getAll() throws DaoException, SQLException {
+    public List<T> getAll() throws DaoException {
         String table = getTableName();
+        LOGGER.debug("table " + table);
         RowMapper<T> mapper = (RowMapper<T>) RowMapper.create(table);
-        return executeQuery("SELECT * FROM" + table, mapper);
+        LOGGER.debug("getAll");
+        return executeQuery("SELECT * FROM " + table, mapper);
     }
 
-    protected Optional<T> executeForSingleResult(String query, RowMapper<T> mapper, Object... params) throws DaoException, SQLException {
+    protected Optional<T> executeForSingleResult(String query, RowMapper<T> mapper, Object... params) throws DaoException {
         List<T> items = executeQuery(query, mapper, params);
         if (items.size() == 1) {
             return Optional.of(items.get(0));
@@ -78,8 +79,6 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             return Optional.empty();
         }
     }
-
-
 
     protected abstract String getTableName();
 

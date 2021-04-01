@@ -14,7 +14,8 @@ public class TrackRowMapper implements RowMapper<Track> {
         String title = resultSet.getString(Track.TITLE);
         String description = resultSet.getString(Track.DESCRIPTION);
         BigDecimal price = resultSet.getBigDecimal(Track.PRICE);
+        String filename = resultSet.getString(Track.FILENAME);
         Long artistId = resultSet.getLong(Track.ARTIST_ID);
-        return new Track(id, title, description, price, artistId);
+        return new Track(id, title, description, price, filename, artistId);
     }
 }

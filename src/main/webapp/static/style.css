@@ -45,7 +45,7 @@ body {
     font-size: 17px;
     line-height: 1.2;
     font-weight: normal;
-    color: #1A214C;
+    color: lightblue;
 }
 
 .common-input {
@@ -67,12 +67,6 @@ body {
     max-width: 1500px;
     margin: 0 auto;
 }
-
-/* HEADER */
-
-/*select {*/
-/*    color: red;*/
-/*}*/
 
 .header {
     height: 70px;
@@ -128,8 +122,17 @@ select {
     color: white;
 }
 
+table{
+    margin: auto;
+}
 
-/*CONTAINERS*/
+td, th {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+
 .container-login {
     padding-left: 100px;
     padding-top: 80px;
@@ -149,10 +152,20 @@ select {
     height: 55px;
     border: none;
     border-radius: 20px 20px;
-
-
-
 }
+
+.track__list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.track__item {
+    font-size: 18px;
+    line-height: 24px;
+    color: white;
+}
+
+
 
 
 

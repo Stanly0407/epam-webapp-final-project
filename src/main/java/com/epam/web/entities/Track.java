@@ -9,19 +9,32 @@ public class Track extends Entity {
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
     public static final String PRICE = "price";
+    public static final String FILENAME = "filename";
     public static final String ARTIST_ID = "artist_id";
 
     private String title;
     private String description;
     private BigDecimal price;
+    private String filename;
     private Long artistId;
 
-    public Track(Long id, String title, String description, BigDecimal price, Long artistId) {
+    public Track(Long id, String title, String description, BigDecimal price, String filename, Long artistId) {
         super(id);
         this.title = title;
         this.description = description;
         this.price = price;
+        this.filename = filename;
         this.artistId = artistId;
+    }
+
+    public Track(String title, String description, BigDecimal price, String filename) {
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.filename = filename;
+    }
+
+    public Track() {
     }
 
     public String getTitle() {
@@ -46,6 +59,14 @@ public class Track extends Entity {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public Long getArtistId() {

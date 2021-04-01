@@ -20,6 +20,7 @@ public class LoginCommand implements Command {
     private static final String ADMIN_ROLE = "ADMIN";
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
+    private static final String CONTROLLER_COMMAND = "/controller?command=";
 
     private final UserService userService;
 
@@ -48,7 +49,7 @@ public class LoginCommand implements Command {
         }
         LOGGER.debug("login session = " + session.getAttribute("name") + "||| session ID: " + session.getId());
 
-        return CommandResult.redirect("/controller?command=" + showPageCommandType);
+        return CommandResult.redirect(CONTROLLER_COMMAND + showPageCommandType);
     }
 
 }

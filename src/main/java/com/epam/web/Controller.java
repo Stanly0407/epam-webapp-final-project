@@ -32,7 +32,9 @@ public class Controller extends HttpServlet {
 
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String commandType = request.getParameter(PARAMETER_COMMAND);
+        String commandType =  request.getParameter(PARAMETER_COMMAND);
+        LOGGER.debug("PARAMETER_COMMAND = " + commandType);
+
         Command command = commandFactory.create(commandType);
         String page;
         boolean isRedirect = false;
@@ -40,9 +42,7 @@ public class Controller extends HttpServlet {
             CommandResult result = command.execute(request, response);
             page = result.getPage();
             isRedirect = result.isRedirect();
-            LOGGER.debug("page = " + page + "    =======     " + "");
         } catch (ServiceException e){
-            LOGGER.debug("SQLException -- " + e + " ---" + e.fillInStackTrace() );
             request.setAttribute("errorMessage ----", e.getMessage());
             page = "/error.jsp";
         }

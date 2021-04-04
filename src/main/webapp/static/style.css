@@ -55,6 +55,7 @@ body {
     padding: 8px;
     border-radius: 25px;
     background-color: #28336F;
+    color: lightblue;
 }
 
 .common-label {
@@ -145,6 +146,17 @@ td, th {
 }
 
 .button-main {
+    background-color: #48D5CD;
+    color: #1A214C;
+    margin-top: 25px;
+    width: 140px;
+    height: 55px;
+    border: none;
+    border-radius: 20px 20px;
+}
+
+.button__center{
+    text-align: center;
     background-color: #48D5CD;
     color: #1A214C;
     margin-top: 25px;

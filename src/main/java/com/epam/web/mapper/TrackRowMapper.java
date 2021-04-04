@@ -1,5 +1,6 @@
 package com.epam.web.mapper;
 
+import com.epam.web.entities.Artist;
 import com.epam.web.entities.Track;
 
 import java.math.BigDecimal;
@@ -16,6 +17,7 @@ public class TrackRowMapper implements RowMapper<Track> {
         BigDecimal price = resultSet.getBigDecimal(Track.PRICE);
         String filename = resultSet.getString(Track.FILENAME);
         Long artistId = resultSet.getLong(Track.ARTIST_ID);
+
         return new Track(id, title, description, price, filename, artistId);
     }
 }

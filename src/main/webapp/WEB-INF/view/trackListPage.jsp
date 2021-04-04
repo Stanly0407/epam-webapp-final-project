@@ -23,6 +23,8 @@
             <th width="250">DESCRIPTION</th>
             <th width="120">PRICE</th>
             <th width="120">ARTIST_ID</th>
+            <th width="120">ARTIST_NAME</th>
+            <th width="120">ARTIST_LASTNAME</th>
 
             <th width="80"></th>
             <th width="80"></th>
@@ -34,8 +36,10 @@
                 <td>${track.description}</td>
                 <td>${track.price} $</td>
                 <td>${track.artistId}</td>
+                <td>${track.artistName}</td>
+                <td>${track.artistLastname}</td>
 
-                <td><a class="header__link" href="<c:url value='controller?command=editTrack/${track.id}'/>">Edit</a></td>
+                <td><a class="header__link" href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
                 <td><a class="header__link" href="<c:url value='controller?command=deleteTrack/${track.id}'/>">Delete</a></td>
             </tr>
         </c:forEach>

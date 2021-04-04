@@ -30,7 +30,7 @@ public class UserService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();
             return userDao.findByLoginAndPassword(login, password);
-        } catch (DaoException | IOException | InterruptedException | SQLException e) {
+        } catch (DaoException | InterruptedException | SQLException e) {
             throw new ServiceException((DaoException) e);
         }
     }

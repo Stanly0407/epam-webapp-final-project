@@ -18,9 +18,10 @@ public class LoginCommand implements Command {
     private static final String PARAMETER_LOGIN = "login";
     private static final String PARAMETER_PASSWORD = "password";
     private static final String ADMIN_ROLE = "ADMIN";
+    private static final String CONTROLLER_COMMAND = "/controller?command=";
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
-    private static final String CONTROLLER_COMMAND = "/controller?command=";
+
 
     private final UserService userService;
 
@@ -38,12 +39,10 @@ public class LoginCommand implements Command {
         String showPageCommandType = null;
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            LOGGER.debug("ID___________ " + user.getId());
+            session.setAttribute("name", user.getName());
             if (user.getRole().getValue().equals(ADMIN_ROLE)) {
-                session.setAttribute("name", user.getName());
                 showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
             } else {
-                session.setAttribute("name", user.getName());
                 showPageCommandType = SHOW_USER_MAIN_PAGE_COMMAND;
             }
         }

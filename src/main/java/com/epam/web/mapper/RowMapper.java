@@ -1,5 +1,6 @@
 package com.epam.web.mapper;
 
+import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Artist;
 import com.epam.web.entities.Entity;
 import com.epam.web.entities.Track;
@@ -17,7 +18,7 @@ public interface RowMapper <T extends Entity> {
             case User.TABLE: return new UserRowMapper();
             case Track.TABLE: return new TrackRowMapper();
             case Artist.TABLE: return new ArtistRowMapper();
-
+            case TrackDto.TABLE: return new TrackRowMapper();
             default:
                 throw new IllegalArgumentException("Unknown table => " + table);
         }

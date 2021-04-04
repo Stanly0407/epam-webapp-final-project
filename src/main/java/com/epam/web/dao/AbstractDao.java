@@ -26,27 +26,25 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     }
 
     protected List<T> executeQuery(String query, RowMapper<T> mapper, Object... params) throws DaoException {
-
         try (PreparedStatement preparedStatement = createStatement(query, params);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             List<T> entities = new ArrayList<>();
-
             while (resultSet.next()) {
                 T entity = mapper.map(resultSet);
                 entities.add(entity);
             }
             return entities;
         } catch (SQLException e) {
-            LOGGER.debug(e.getMessage() + e.getSQLState() + e.getNextException());
+            LOGGER.debug(e.getMessage() + e);
             throw new DaoException(e);
         }
     }
 
     protected void executeUpdate(String query, Object... params) throws DaoException {
-        LOGGER.debug("was called  executeUpdate + started..");
         try (PreparedStatement preparedStatement = createStatement(query, params)){
              preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            LOGGER.debug("executeUpdate " + e);
             throw new DaoException(e);
         }
     }
@@ -57,7 +55,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         for (int i = 0; i < params.length; ++i) {
             preparedStatement.setObject(i + 1, params[i]);
         }
-        LOGGER.debug("preparedStatement === " + preparedStatement);
+        LOGGER.debug("preparedStatement " + preparedStatement);
         return preparedStatement;
     }
 

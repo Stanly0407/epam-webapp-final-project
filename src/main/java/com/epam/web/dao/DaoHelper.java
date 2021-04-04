@@ -3,6 +3,7 @@ package com.epam.web.dao;
 import com.epam.web.connection.ConnectionPool;
 import com.epam.web.connection.ProxyConnection;
 import com.epam.web.exceptions.DaoException;
+import com.epam.web.mapper.TrackDtoRowMapper;
 import com.epam.web.mapper.TrackRowMapper;
 import com.epam.web.mapper.UserRowMapper;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +26,7 @@ public class DaoHelper implements AutoCloseable {
     }
 
     public TrackDao createTrackDao() {
-        TrackRowMapper trackRowMapper = new TrackRowMapper();
+        TrackDtoRowMapper trackRowMapper = new TrackDtoRowMapper();
         return new TrackDao(proxyConnection, trackRowMapper);
     }
 

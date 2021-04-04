@@ -18,6 +18,8 @@ public class ConnectionFactory {
     private static final String PROPERTIES_USER = "USER";
     private static final String PROPERTIES_PASSWORD = "PASSWORD";
 
+    // todo read properties file method
+
     public static ProxyConnection create() throws DaoException, IOException {
 
         try (InputStream input = ConnectionFactory.class.getClassLoader().getResourceAsStream(PROPERTIES_FILENAME)) {

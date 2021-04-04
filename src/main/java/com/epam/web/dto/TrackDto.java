@@ -1,0 +1,104 @@
+package com.epam.web.dto;
+
+import com.epam.web.entities.Entity;
+
+import java.math.BigDecimal;
+
+public class TrackDto extends Entity {
+    public static final String TABLE = "track_"; // ???????
+    private Long id;
+    private String title;
+    private String description;
+    private BigDecimal price;
+    private String filename;
+    private Long artistId;
+    private String artistName;
+    private String artistLastname;
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public Long getArtistId() {
+        return artistId;
+    }
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public String getArtistLastname() {
+        return artistLastname;
+    }
+
+    public static class Builder {
+        private TrackDto newTrack;
+
+        public Builder() {
+            newTrack = new TrackDto();
+        }
+
+        public Builder id (Long id){
+            newTrack.id = id;
+            return this;
+        }
+
+        public Builder title(String title){
+            newTrack.title = title;
+            return this;
+        }
+
+        public Builder description(String description){
+            newTrack.description = description;
+            return this;
+        }
+
+        public Builder price(BigDecimal price){
+            newTrack.price = price;
+            return this;
+        }
+
+        public Builder filename(String filename){
+            newTrack.filename = filename;
+            return this;
+        }
+
+        public Builder artistId (Long artistId){
+            newTrack.artistId = artistId;
+            return this;
+        }
+
+        public Builder artistName(String artistName){
+            newTrack.artistName = artistName;
+            return this;
+        }
+
+        public Builder artistLastname(String artistLastname){
+            newTrack.artistLastname = artistLastname;
+            return this;
+        }
+
+        public TrackDto build(){
+            return newTrack;
+        }
+
+    }
+
+
+}

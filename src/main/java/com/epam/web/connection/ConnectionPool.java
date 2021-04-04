@@ -10,19 +10,19 @@ import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
-    private static final int POOL_SIZE = 3                 ;
+    private static final int POOL_SIZE = 3;
     private BlockingQueue<ProxyConnection> proxyConnections;
 
-    private ConnectionPool(final int size)  {
-      try{
-        proxyConnections = new ArrayBlockingQueue<>(size);
-        for (int i = 0; i < size; i++) {
-            ProxyConnection connection = ConnectionFactory.create();
-            proxyConnections.offer(connection);
+    private ConnectionPool(final int size) {
+        try {
+            proxyConnections = new ArrayBlockingQueue<>(size);
+            for (int i = 0; i < size; i++) {
+                ProxyConnection connection = ConnectionFactory.create();
+                proxyConnections.offer(connection);
+            }
+        } catch (IOException | DaoException e) {
+            LOGGER.error(e.getMessage());
         }
-    }catch (IOException | DaoException e){
-
-      }
     }
 
     private static class ConnectionPoolHolder {
@@ -34,15 +34,19 @@ public class ConnectionPool {
     }
 
 
-    public ProxyConnection getConnection() throws InterruptedException {
-        BlockingQueue<ProxyConnection> pool = getInstance().proxyConnections;
-        LOGGER.debug("getConnection / proxyConnections ===" + getInstance().proxyConnections.size());
-        return pool.take();
+    public ProxyConnection getConnection() {
+        ProxyConnection proxyConnection = null;
+        try {
+            BlockingQueue<ProxyConnection> pool = getInstance().proxyConnections;
+            proxyConnection = pool.take();
+        } catch (InterruptedException e) {
+            LOGGER.error(e.getMessage());
+        }
+        return proxyConnection;
     }
 
-    public void closeConnection(ProxyConnection connection)  { // returnConnection
+    public void closeConnection(ProxyConnection connection) { // returnConnection
         BlockingQueue<ProxyConnection> pool = getInstance().proxyConnections;
-        LOGGER.debug("before returnConnection " + getInstance().proxyConnections.size());
         pool.offer(connection);
     }
 

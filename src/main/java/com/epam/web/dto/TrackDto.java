@@ -3,10 +3,12 @@ package com.epam.web.dto;
 import com.epam.web.entities.Entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class TrackDto extends Entity {
-    public static final String TABLE = "track_"; // ???????
+    public static final String TABLE = ""; // ???????
     private Long id;
+    private LocalDate releaseDate;
     private String title;
     private String description;
     private BigDecimal price;
@@ -17,6 +19,10 @@ public class TrackDto extends Entity {
 
     public Long getId() {
         return id;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
     }
 
     public String getTitle() {
@@ -56,6 +62,11 @@ public class TrackDto extends Entity {
 
         public Builder id (Long id){
             newTrack.id = id;
+            return this;
+        }
+
+        public Builder releaseDate (LocalDate releaseDate){
+            newTrack.releaseDate = releaseDate;
             return this;
         }
 

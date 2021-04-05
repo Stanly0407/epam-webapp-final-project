@@ -1,25 +1,29 @@
 package com.epam.web.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class Track extends Entity {
 
     public static final String TABLE = "track";
     public static final String ID = "id";
+    public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
     public static final String DESCRIPTION = "description";
     public static final String PRICE = "price";
     public static final String FILENAME = "filename";
     public static final String ARTIST_ID = "artist_id";
 
+    private LocalDate releaseDate;
     private String title;
     private String description;
     private BigDecimal price;
     private String filename;
     private Long artistId;
 
-    public Track(Long id, String title, String description, BigDecimal price, String filename, Long artistId) {
+    public Track(Long id, LocalDate releaseDate, String title, String description, BigDecimal price, String filename, Long artistId) {
         super(id);
+        this.releaseDate = releaseDate;
         this.title = title;
         this.description = description;
         this.price = price;
@@ -35,6 +39,14 @@ public class Track extends Entity {
     }
 
     public Track() {
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getTitle() {
@@ -80,9 +92,11 @@ public class Track extends Entity {
     @Override
     public String toString() {
         return "Track{" +
-                "title='" + title + '\'' +
+                "releaseDate=" + releaseDate +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
+                ", filename='" + filename + '\'' +
                 ", artistId=" + artistId +
                 '}';
     }

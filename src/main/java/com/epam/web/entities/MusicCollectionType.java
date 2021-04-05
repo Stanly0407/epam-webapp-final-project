@@ -1,12 +1,12 @@
 package com.epam.web.entities;
 
-public enum TracksCollectionType {
+public enum MusicCollectionType {
     COLLECTION("COLLECTION"),
     ALBUM("ALBUM");
 
     private String value;
 
-    TracksCollectionType(String value) {
+    MusicCollectionType(String value) {
         this.value = value;
     }
 

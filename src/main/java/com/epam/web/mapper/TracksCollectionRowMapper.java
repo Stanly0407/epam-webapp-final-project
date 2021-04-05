@@ -1,19 +1,21 @@
 package com.epam.web.mapper;
 
-import com.epam.web.entities.TracksCollection;
-import com.epam.web.entities.TracksCollectionType;
+import com.epam.web.entities.MusicCollection;
+import com.epam.web.entities.MusicCollectionType;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
-public class TracksCollectionRowMapper implements RowMapper<TracksCollection> {
+public class TracksCollectionRowMapper implements RowMapper<MusicCollection> {
 
     @Override
-    public TracksCollection map(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong(TracksCollection.ID);
-        String type = resultSet.getString(TracksCollection.COLLECTION_TYPE);
-        String title = resultSet.getString(TracksCollection.TITLE);
-        Long artistId = resultSet.getLong(TracksCollection.ARTIST_ID);
-        return new TracksCollection(id, TracksCollectionType.valueOf(type), title, artistId);
+    public MusicCollection map(ResultSet resultSet) throws SQLException {
+        Long id = resultSet.getLong(MusicCollection.ID);
+        String type = resultSet.getString(MusicCollection.COLLECTION_TYPE);
+        LocalDate releaseDate = resultSet.getObject(MusicCollection.RELEASE_DATE, LocalDate.class);
+        String title = resultSet.getString(MusicCollection.TITLE);
+        Long artistId = resultSet.getLong(MusicCollection.ARTIST_ID);
+        return new MusicCollection(id, MusicCollectionType.valueOf(type), releaseDate, title, artistId);
     }
 }

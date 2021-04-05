@@ -2,7 +2,7 @@ package com.epam.web.commands;
 
 import com.epam.web.commands.trackCommands.EditTrackCommand;
 import com.epam.web.commands.trackCommands.ShowEditTrackFormCommand;
-import com.epam.web.commands.trackCommands.ShowTrackListCommand;
+import com.epam.web.commands.trackCommands.ShowAdminTrackListCommand;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.service.TrackService;
 import com.epam.web.service.UserService;
@@ -18,6 +18,7 @@ public class CommandFactory {
     private static final String USER_MAIN_PAGE = "/WEB-INF/view/userPages/userMainPage.jsp";
     private static final String ADMIN_MAIN_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String EDIT_TRACK_FORM_PAGE_COMMAND = "editTrack";
+    private static final String SEARCH_TRACK_COMMAND = "searchMusic";
 
     public Command create(String type) {
         switch (type) {
@@ -32,9 +33,11 @@ public class CommandFactory {
             case CREATE_EDIT_TRACK_COMMAND:
                 return new EditTrackCommand(new TrackService(new DaoHelperFactory()));
             case SHOW_TRACK_LIST_PAGE_COMMAND:
-                return new ShowTrackListCommand(new TrackService(new DaoHelperFactory()));
+                return new ShowAdminTrackListCommand(new TrackService(new DaoHelperFactory()));
             case EDIT_TRACK_FORM_PAGE_COMMAND:
                 return new ShowEditTrackFormCommand(new TrackService(new DaoHelperFactory()));
+            case SEARCH_TRACK_COMMAND:
+                return new SearchTrackCommand(new TrackService(new DaoHelperFactory()));
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }

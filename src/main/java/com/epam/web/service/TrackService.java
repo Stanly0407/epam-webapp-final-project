@@ -29,24 +29,24 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             trackDao.editTrack(title, description, price, filename, id);
-            // todo будет включать и обновление артиста админом, т.е. в дао будет транзакция из двух админов
+            // todo будет включать и обновление артиста админом, т.е. в дао будет транзакция из двух запросов update
         } catch (DaoException | InterruptedException e) {
             LOGGER.debug("createTrack " + e);
             throw new ServiceException((DaoException) e);
         }
     }
 
-//    public List<Track> getAllTracks() throws ServiceException {
-//        LOGGER.debug("Called method getAllTracks");
-//        try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
-//            TrackDao trackDao = daoHelper.createTrackDao();
-//            // return trackDao.getTrackList(Track.TABLE, Artist.TABLE);
-//            return trackDao.getAll();
-//
-//        } catch (DaoException | InterruptedException e) {
-//            throw new ServiceException((DaoException) e);
-//        }
-//    }
+    public List<TrackDto> getMusicByCondition() throws ServiceException {
+        LOGGER.debug("Called method getAllTracks");
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
+            TrackDao trackDao = daoHelper.createTrackDao();
+            // return trackDao.getTrackList(Track.TABLE, Artist.TABLE);
+            return trackDao.findMusicByCondition();
+
+        } catch (DaoException | InterruptedException e) {
+            throw new ServiceException((DaoException) e);
+        }
+    }
 
     public List<TrackDto> getAllTracks() throws ServiceException {
         LOGGER.debug("Called method getAllTracks");

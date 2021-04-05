@@ -20,14 +20,11 @@
             <nav class="header__nav">
                 <ul class="header__list">
                     <li class="header__item">
-<%--<div class="header__select">--%>
                          <select>
                                 <option  data-content="English">en</option>
                                 <option  data-content="Russian">ru</option>
                                 <option  data-content="Belorussian">be</option>
                             </select>
-
-                        <%--        </div>--%>
                     </li>
                     <li class="header__item">
                         <a href="#!" class="header__link">Home</a>

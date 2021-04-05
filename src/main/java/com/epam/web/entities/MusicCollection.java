@@ -1,30 +1,43 @@
 package com.epam.web.entities;
 
-public class TracksCollection extends Entity {
+import java.time.LocalDate;
+
+public class MusicCollection extends Entity {
 
     public static final String TABLE = "collection";
     public static final String ID = "id";
     public static final String COLLECTION_TYPE = "type";
+    public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
     public static final String ARTIST_ID = "artist_id";
 
-    private TracksCollectionType type;
+    private MusicCollectionType type;
+    private LocalDate releaseDate;
     private String title;
     private Long artistId;
 
-    public TracksCollection(Long id, TracksCollectionType type, String title, Long artistId) {
+    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, Long artistId) {
         super(id);
         this.type = type;
+        this.releaseDate = releaseDate;
         this.title = title;
         this.artistId = artistId;
     }
 
-    public TracksCollectionType getType() {
+    public MusicCollectionType getType() {
         return type;
     }
 
-    public void setType(TracksCollectionType type) {
+    public void setType(MusicCollectionType type) {
         this.type = type;
+    }
+
+    public LocalDate getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(LocalDate releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getTitle() {
@@ -45,8 +58,9 @@ public class TracksCollection extends Entity {
 
     @Override
     public String toString() {
-        return "Collection{" +
+        return "MusicCollection{" +
                 "type=" + type +
+                ", releaseDate=" + releaseDate +
                 ", title='" + title + '\'' +
                 ", artistId=" + artistId +
                 '}';

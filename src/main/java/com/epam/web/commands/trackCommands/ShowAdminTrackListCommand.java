@@ -15,7 +15,7 @@ import java.util.List;
 public class ShowAdminTrackListCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(ShowAdminTrackListCommand.class);
 
-    private static final String TRACK_LIST_PAGE = "/WEB-INF/view/adminTrackListPage.jsp";
+    private static final String ADMIN_TRACK_LIST_PAGE = "/WEB-INF/view/adminPages/adminTrackListPage.jsp";
     private static final String ATTRIBUTE_TRACK_LIST = "trackList";
     private static final String ATTRIBUTE_TRACK= "track";
 
@@ -31,6 +31,6 @@ public class ShowAdminTrackListCommand implements Command {
         List<TrackDto> trackList = trackService.getAllTracks();
         request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
-        return CommandResult.forward(TRACK_LIST_PAGE);
+        return CommandResult.forward(ADMIN_TRACK_LIST_PAGE);
     }
 }

@@ -18,7 +18,6 @@ public class TrackDtoRowMapper extends Entity implements RowMapper<TrackDto> {
 
     @Override
     public TrackDto map(ResultSet resultSet) throws SQLException {
-
         Long id = resultSet.getLong(Track.ID);
         LocalDate releaseDate = resultSet.getObject(Track.RELEASE_DATE, LocalDate.class);
         String title = resultSet.getString(Track.TITLE);
@@ -27,7 +26,6 @@ public class TrackDtoRowMapper extends Entity implements RowMapper<TrackDto> {
         String filename = resultSet.getString(Track.FILENAME);
         Long artistId = resultSet.getLong(Artist.ID);
         String artistName = resultSet.getString(Artist.NAME);
-        String artistLastname = resultSet.getString(Artist.LASTNAME);
 
         return new TrackDto.Builder()
                 .id(id)
@@ -38,7 +36,6 @@ public class TrackDtoRowMapper extends Entity implements RowMapper<TrackDto> {
                 .filename(filename)
                 .artistId(artistId)
                 .artistName(artistName)
-                .artistLastname(artistLastname)
                 .build();
     }
 }

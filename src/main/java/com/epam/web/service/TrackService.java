@@ -4,14 +4,11 @@ import com.epam.web.dao.DaoHelper;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.dao.TrackDao;
 import com.epam.web.dto.TrackDto;
-import com.epam.web.entities.Artist;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,12 +33,11 @@ public class TrackService {
         }
     }
 
-    public List<TrackDto> getMusicByCondition() throws ServiceException {
+    public List<TrackDto> getMusicByCondition(String searchSubject, String searchCondition) throws ServiceException {
         LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             TrackDao trackDao = daoHelper.createTrackDao();
-            // return trackDao.getTrackList(Track.TABLE, Artist.TABLE);
-            return trackDao.findMusicByCondition();
+            return trackDao.findMusicByCondition(searchSubject, searchCondition);
 
         } catch (DaoException | InterruptedException e) {
             throw new ServiceException((DaoException) e);
@@ -51,8 +47,8 @@ public class TrackService {
     public List<TrackDto> getAllTracks() throws ServiceException {
         LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
-          TrackDao trackDao = daoHelper.createTrackDao();
-             return trackDao.getAllTracks();
+            TrackDao trackDao = daoHelper.createTrackDao();
+            return trackDao.getAllTracks();
 
         } catch (DaoException | InterruptedException e) {
             throw new ServiceException((DaoException) e);
@@ -69,5 +65,17 @@ public class TrackService {
             throw new ServiceException((DaoException) e);
         }
     }
+
+    public List<TrackDto> getNewTracks() throws ServiceException {
+        LOGGER.debug("Called method getAllTracks");
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
+            TrackDao trackDao = daoHelper.createTrackDao();
+            return trackDao.getNewTracks();
+
+        } catch (DaoException | InterruptedException e) {
+            throw new ServiceException((DaoException) e);
+        }
+    }
+
 
 }

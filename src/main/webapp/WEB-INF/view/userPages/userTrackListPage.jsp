@@ -6,7 +6,7 @@
 <body>
 
 <div class="header">
-    <jsp:include page="fragments/header.jsp"/>
+    <jsp:include page="../fragments/header.jsp"/>
 </div>
 <h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">Track List:</h1>
 
@@ -16,7 +16,7 @@
     <div>
         <table style="color: #b3d4fc;">
             <tr>
-                <th width="40">ID</th>
+                <th width="4"></th>
                 <th width="70">RELEASE DATE</th>
                 <th width="200">TITLE</th>
                 <th width="250">DESCRIPTION</th>

@@ -5,7 +5,7 @@ import com.epam.web.entities.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class TrackDto extends Entity {
+public class TrackDto extends Dto {
     public static final String TABLE = ""; // ???????
     private Long id;
     private LocalDate releaseDate;

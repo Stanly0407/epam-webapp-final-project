@@ -11,7 +11,6 @@ public class ArtistRowMapper implements RowMapper<Artist> {
     public Artist map(ResultSet resultSet) throws SQLException {
         Long id = resultSet.getLong(Artist.ID);
         String name = resultSet.getString(Artist.NAME);
-        String lastname = resultSet.getString(Artist.LASTNAME);
-        return new Artist(id, name, lastname);
+        return new Artist(id, name);
     }
 }

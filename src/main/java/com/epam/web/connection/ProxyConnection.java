@@ -1,16 +1,11 @@
 package com.epam.web.connection;
 
-import com.epam.web.dao.DaoHelper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
 public class ProxyConnection implements Connection {
-    private static final Logger LOGGER = LogManager.getLogger(DaoHelper.class);
 
     private Connection connection;
 
@@ -19,7 +14,7 @@ public class ProxyConnection implements Connection {
     }
 
     @Override
-    public void close() throws SQLException {
+    public void close() {
         if (ConnectionPool.getInstance() != null) {
             ConnectionPool.getInstance().closeConnection(this);
         }

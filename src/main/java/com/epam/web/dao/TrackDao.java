@@ -86,19 +86,15 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
         return executeQuery(GET_FIVE_NEW_TRACKS, new TrackDtoRowMapper());
     }
 
-
-
     @Override
     public void save(TrackDto entity) {
-
     }
 
     @Override
     public void removeById(Long id) {
-
     }
 
-    @Override   // todo remove this method because all select queries are join queries
+    @Override   // todo: remove this method because all select queries are join queries
     protected String getTableName() {
         return Track.TABLE;
     }

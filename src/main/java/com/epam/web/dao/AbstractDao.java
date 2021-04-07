@@ -44,11 +44,9 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         try (PreparedStatement preparedStatement = createStatement(query, params)){
              preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.debug("executeUpdate " + e);
             throw new DaoException(e);
         }
     }
-
 
     private PreparedStatement createStatement(String query, Object... params) throws SQLException {
        PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -61,9 +59,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
 
     public List<T> getAll() throws DaoException {
         String table = getTableName();
-        LOGGER.debug("table " + table);
         RowMapper<T> mapper = (RowMapper<T>) RowMapper.create(table);
-        LOGGER.debug("getAll");
         return executeQuery("SELECT * FROM " + table, mapper);
     }
 

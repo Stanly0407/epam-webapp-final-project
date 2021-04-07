@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class MusicCollectionDtoRowMapper implements RowMapper<MusicCollectionDto> {
-    private static final Logger LOGGER = LogManager.getLogger(MusicCollectionDtoRowMapper.class);
+    private static final String TYPE_ALBUM = "ALBUM";
 
     @Override
     public MusicCollectionDto map(ResultSet resultSet) throws SQLException {
@@ -24,9 +24,7 @@ public class MusicCollectionDtoRowMapper implements RowMapper<MusicCollectionDto
         LocalDate releaseDate = resultSet.getObject(MusicCollection.RELEASE_DATE, LocalDate.class);
         String title = resultSet.getString(MusicCollection.TITLE);
 
-        LOGGER.debug("type ++++ " + type);
-
-        if (type.equals("ALBUM")) {
+        if (type.equals(TYPE_ALBUM)) {
             artistId = resultSet.getLong(Artist.ID);
             artistName = resultSet.getString(Artist.NAME);
             musicCollection = new MusicCollectionDto.Builder()

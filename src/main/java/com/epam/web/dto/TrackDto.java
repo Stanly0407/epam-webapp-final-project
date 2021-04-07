@@ -1,12 +1,10 @@
 package com.epam.web.dto;
 
-import com.epam.web.entities.Entity;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class TrackDto extends Dto {
-    public static final String TABLE = ""; // ???????
+    public static final String TABLE = ""; // change with Track logic
     private Long id;
     private LocalDate releaseDate;
     private String title;
@@ -60,56 +58,54 @@ public class TrackDto extends Dto {
             newTrack = new TrackDto();
         }
 
-        public Builder id (Long id){
+        public Builder id(Long id) {
             newTrack.id = id;
             return this;
         }
 
-        public Builder releaseDate (LocalDate releaseDate){
+        public Builder releaseDate(LocalDate releaseDate) {
             newTrack.releaseDate = releaseDate;
             return this;
         }
 
-        public Builder title(String title){
+        public Builder title(String title) {
             newTrack.title = title;
             return this;
         }
 
-        public Builder description(String description){
+        public Builder description(String description) {
             newTrack.description = description;
             return this;
         }
 
-        public Builder price(BigDecimal price){
+        public Builder price(BigDecimal price) {
             newTrack.price = price;
             return this;
         }
 
-        public Builder filename(String filename){
+        public Builder filename(String filename) {
             newTrack.filename = filename;
             return this;
         }
 
-        public Builder artistId (Long artistId){
+        public Builder artistId(Long artistId) {
             newTrack.artistId = artistId;
             return this;
         }
 
-        public Builder artistName(String artistName){
+        public Builder artistName(String artistName) {
             newTrack.artistName = artistName;
             return this;
         }
 
-        public Builder artistLastname(String artistLastname){
+        public Builder artistLastname(String artistLastname) {
             newTrack.artistLastname = artistLastname;
             return this;
         }
 
-        public TrackDto build(){
+        public TrackDto build() {
             return newTrack;
         }
-
     }
-
 
 }

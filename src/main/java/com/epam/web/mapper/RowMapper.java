@@ -16,9 +16,9 @@ public interface RowMapper <T extends Entity> {
     static RowMapper<? extends Entity> create(String table) {
         switch (table){
             case User.TABLE: return new UserRowMapper();
-            case Track.TABLE: return new TrackRowMapper();
+            case Track.TABLE: return new TrackRowMapper(); //delete, change on TrackDto
             case Artist.TABLE: return new ArtistRowMapper();
-            case TrackDto.TABLE: return new TrackRowMapper();
+            case TrackDto.TABLE: return new TrackDtoRowMapper();
             default:
                 throw new IllegalArgumentException("Unknown table => " + table);
         }

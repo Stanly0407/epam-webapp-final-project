@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class MusicCollectionDao extends AbstractDao<MusicCollectionDto> implements Dao<MusicCollectionDto> {
-    private static final Logger LOGGER = LogManager.getLogger(MusicCollectionDao.class);
 
     private static final String FIND_COLLECTION_BY_ID = "SELECT t.id, c.type, t.release_date, t.title, t.description, t.price, t.filename, a.id, a.name " +
             "FROM track t INNER JOIN artist a ON t.artist_id=a.id WHERE t.id=?"; //todo change
@@ -54,12 +53,10 @@ public class MusicCollectionDao extends AbstractDao<MusicCollectionDto> implemen
 
     @Override
     public void save(MusicCollectionDto entity) {
-
     }
 
     @Override
     public void removeById(Long id) {
-
     }
 
     @Override   // todo remove this method because all select queries are join queries

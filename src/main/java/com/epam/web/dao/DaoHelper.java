@@ -5,19 +5,15 @@ import com.epam.web.connection.ProxyConnection;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.mapper.MusicCollectionDtoRowMapper;
 import com.epam.web.mapper.TrackDtoRowMapper;
-import com.epam.web.mapper.TrackRowMapper;
 import com.epam.web.mapper.UserRowMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
 public class DaoHelper implements AutoCloseable {
-    private static final Logger LOGGER = LogManager.getLogger(DaoHelper.class);
 
     private ProxyConnection proxyConnection;
 
-    public DaoHelper(ConnectionPool connectionPool) throws InterruptedException {
+    public DaoHelper(ConnectionPool connectionPool) {
         this.proxyConnection = connectionPool.getConnection();
     }
 
@@ -37,12 +33,8 @@ public class DaoHelper implements AutoCloseable {
     }
 
     @Override
-    public void close() throws DaoException {
-        try {
-            proxyConnection.close();
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+    public void close() {
+        proxyConnection.close();
     }
 
     public void startTransaction() throws DaoException {

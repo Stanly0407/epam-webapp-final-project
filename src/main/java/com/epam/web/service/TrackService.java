@@ -27,9 +27,9 @@ public class TrackService {
             TrackDao trackDao = daoHelper.createTrackDao();
             trackDao.editTrack(title, description, price, filename, id);
             // todo будет включать и обновление артиста админом, т.е. в дао будет транзакция из двух запросов update
-        } catch (DaoException | InterruptedException e) {
+        } catch (DaoException e) {
             LOGGER.debug("createTrack " + e);
-            throw new ServiceException((DaoException) e);
+            throw new ServiceException(e);
         }
     }
 
@@ -38,9 +38,8 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             TrackDao trackDao = daoHelper.createTrackDao();
             return trackDao.findMusicByCondition(searchSubject, searchCondition);
-
-        } catch (DaoException | InterruptedException e) {
-            throw new ServiceException((DaoException) e);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
     }
 
@@ -48,32 +47,27 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             TrackDao trackDao = daoHelper.createTrackDao();
             return trackDao.getAllTracks();
-        } catch (DaoException | InterruptedException e) {
-            throw new ServiceException((DaoException) e);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
     }
 
     public Optional<TrackDto> getTrack(Long id) throws ServiceException {
-        LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             return trackDao.getById(id);
-
-        } catch (DaoException | InterruptedException e) {
-            throw new ServiceException((DaoException) e);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
     }
 
     public List<TrackDto> getNewTracks() throws ServiceException {
-        LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             TrackDao trackDao = daoHelper.createTrackDao();
             return trackDao.getNewTracks();
-
-        } catch (DaoException | InterruptedException e) {
-            throw new ServiceException((DaoException) e);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
     }
-
 
 }

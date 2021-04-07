@@ -12,7 +12,6 @@ public class MusicCollectionDto extends Dto{
     private String title;
     private Long artistId;
     private String artistName;
-    private String artistLastname;
   //  private BigDecimal price;
 
     @Override
@@ -37,10 +36,6 @@ public class MusicCollectionDto extends Dto{
 
     public String getArtistName() {
         return artistName;
-    }
-
-    public String getArtistLastname() {
-        return artistLastname;
     }
 
     public static class Builder {
@@ -80,10 +75,6 @@ public class MusicCollectionDto extends Dto{
             return this;
         }
 
-        public MusicCollectionDto.Builder artistLastname(String artistLastname){
-            musicCollectionDto.artistLastname = artistLastname;
-            return this;
-        }
 
         public MusicCollectionDto build(){
             return musicCollectionDto;

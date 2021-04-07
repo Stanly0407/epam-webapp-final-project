@@ -18,7 +18,7 @@ public class ConnectionFactory {
     private static final String PROPERTIES_USER = "USER";
     private static final String PROPERTIES_PASSWORD = "PASSWORD";
 
-    // todo read properties file method
+    // todo read properties method
 
     public static ProxyConnection create() throws DaoException, IOException {
 
@@ -31,11 +31,9 @@ public class ConnectionFactory {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             Connection connection = DriverManager.getConnection(url, user, password);
             return new ProxyConnection(connection);
-            //      return new ProxyConnection(connection, ConnectionPool.getInstance());
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-
 
     }
 }

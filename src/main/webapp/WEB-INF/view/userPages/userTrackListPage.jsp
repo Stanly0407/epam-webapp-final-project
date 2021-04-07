@@ -17,30 +17,23 @@
         <table style="color: #b3d4fc;">
             <tr>
                 <th width="4"></th>
-                <th width="70">RELEASE DATE</th>
                 <th width="200">TITLE</th>
                 <th width="250">DESCRIPTION</th>
                 <th width="120">PRICE</th>
-                <th width="120">ARTIST ID</th>
-                <th width="120">ARTIST NAME</th>
-                <th width="120">ARTIST LASTNAME</th>
+                <th width="120">ARTIST </th>
 
                 <th width="80"></th>
-                <th width="80"></th>
+
             </tr>
             <c:forEach items="${trackList}" var="track">
                 <tr style="align-content: center">
-                    <td>${track.id}</td>
-                    <td>${track.releaseDate}</td>
+                    <td>   <input type="hidden" name="${track.id}"/></td>
                     <td>${track.title}</td>
                     <td>${track.description}</td>
                     <td>${track.price} $</td>
-                    <td>${track.artistId}</td>
                     <td>${track.artistName}</td>
-                    <td>${track.artistLastname}</td>
 
-                    <td><a class="header__link" href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
-                    <td><a class="header__link" href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">Delete</a>
+                    <td><a class="header__link" href="<c:url value='controller?command=editTrack&id=${track.id}'/>">ADD TO CART</a></td>
                     </td>
                 </tr>
             </c:forEach>

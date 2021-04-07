@@ -23,7 +23,6 @@
                 <th width="120">PRICE</th>
                 <th width="120">ARTIST ID</th>
                 <th width="120">ARTIST NAME</th>
-                <th width="120">ARTIST LASTNAME</th>
 
                 <th width="80"></th>
                 <th width="80"></th>
@@ -37,7 +36,6 @@
                     <td>${track.price} $</td>
                     <td>${track.artistId}</td>
                     <td>${track.artistName}</td>
-                    <td>${track.artistLastname}</td>
 
                     <td><a class="header__link" href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
                     <td><a class="header__link" href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">Delete</a>

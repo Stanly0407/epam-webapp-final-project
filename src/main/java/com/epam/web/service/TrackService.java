@@ -45,11 +45,9 @@ public class TrackService {
     }
 
     public List<TrackDto> getAllTracks() throws ServiceException {
-        LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             TrackDao trackDao = daoHelper.createTrackDao();
             return trackDao.getAllTracks();
-
         } catch (DaoException | InterruptedException e) {
             throw new ServiceException((DaoException) e);
         }

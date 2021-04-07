@@ -21,9 +21,9 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
     private static final String INSERT_TRACK = "INSERT INTO track (id, title, description, price, filename, artist_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
 
     private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, " +
-            "a.name, a.lastname FROM track t INNER JOIN artist a ON (t.artist_id = a.id)";
+            "a.name FROM track t INNER JOIN artist a ON (t.artist_id = a.id)";
 
-    private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, a.name, a.lastname " +
+    private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, a.name " +
             "FROM track t INNER JOIN artist a ON t.artist_id=a.id WHERE t.id=?";
 
     private static final String TRACK_SEARCH_CONDITION = "Track";
@@ -34,7 +34,7 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
     private static final String FIND_TRACKS_BY_TITLE = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, a.name " +
             "FROM track t INNER JOIN artist a ON t.artist_id=a.id WHERE t.title=?";
     private static final String FIND_TRACKS_BY_ARTIST_NAME = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, a.name " +
-            "FROM track t INNER JOIN artist a ON t.artist_id=a.id WHERE a.=?";
+            "FROM track t INNER JOIN artist a ON t.artist_id=a.id WHERE a.name=?";
     private static final String FIND_TRACKS_BY_ALBUM_TITLE = "SELECT c.title, t.id, t.release_date,t.title, t.description, t.price, t.filename, t.artist_id, \n" +
             "a.name FROM track t INNER JOIN artist a ON t.artist_id=a.id INNER JOIN track_collection tc ON t.id=tc.track_id \n" +
             "INNER JOIN collection c ON tc.collection_id=c.id where c.title = ?  AND c.type = 'ALBUM'";

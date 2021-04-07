@@ -22,7 +22,7 @@
     <table>
         <tr>
             <td>ID:</td>
-            <td><input class="common-input" type="hidden" name="id" readonly value="${track.id}"/></td>
+            <td><input class="common-input" type="text" name="id" readonly value="${track.id}"/></td>
         <tr>
             <td>Title:</td>
             <td><input class="common-input" type="text" name="title" value="${track.title}"/></td>
@@ -41,7 +41,7 @@
         </tr>
         <tr>
             <td>Artist Id:</td>
-            <td><input class="common-input" type="hidden" name="artistId" readonly value="${track.artistId}"/></td>
+            <td><input class="common-input" type="text" name="artistId" readonly value="${track.artistId}"/></td>
         </tr>
     </table>
         <button class="button__center" type="submit" >Save</button>

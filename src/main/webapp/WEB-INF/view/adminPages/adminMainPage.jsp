@@ -15,7 +15,7 @@
         <b style="color: aliceblue">Hello, ${name}!</b><br>
 
     <button class="button-main" type="submit"  >
-            <a href="/musicwebapp/controller?command=trackList" class="header__link" >trackList</a>
+            <a href="/musicwebapp/controller?command=adminTrackList" class="header__link" >trackList</a>
     </button>
 
 </div>

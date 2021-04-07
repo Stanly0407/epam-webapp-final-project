@@ -71,11 +71,11 @@
     <div>
         <table style="color: #b3d4fc;">
             <tr>
-                <th width="1"></th>
-                <th width="200">TITLE</th>
-                <th width="120">ARTIST</th>
+<%--                <th width="1"></th>--%>
+<%--                <th width="200">TITLE</th>--%>
+<%--                <th width="120">ARTIST</th>--%>
 
-                <th width="80"></th>
+<%--                <th width="80"></th>--%>
             </tr>
             <c:forEach items="${albumList}" var="album">
                 <tr style="align-content: center">
@@ -97,10 +97,10 @@
     <div>
         <table style="color: #b3d4fc;">
             <tr>
-                <th width="1"></th>
-                <th width="200">TITLE</th>
+<%--                <th width="1"></th>--%>
+<%--                <th width="200">TITLE</th>--%>
 
-                <th width="80"></th>
+<%--                <th width="80"></th>--%>
             </tr>
             <c:forEach items="${collectionList}" var="collection">
                 <tr style="align-content: center">

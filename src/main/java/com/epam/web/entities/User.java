@@ -65,15 +65,4 @@ public class User extends Entity {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID" + this.getId() +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", role=" + role +
-                '}';
-    }
 }

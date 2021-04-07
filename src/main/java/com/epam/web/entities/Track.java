@@ -89,15 +89,4 @@ public class Track extends Entity {
         this.artistId = artistId;
     }
 
-    @Override
-    public String toString() {
-        return "Track{" +
-                "releaseDate=" + releaseDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", filename='" + filename + '\'' +
-                ", artistId=" + artistId +
-                '}';
-    }
 }

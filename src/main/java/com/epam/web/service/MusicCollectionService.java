@@ -6,13 +6,10 @@ import com.epam.web.dao.MusicCollectionDao;
 import com.epam.web.dto.MusicCollectionDto;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class MusicCollectionService {
-    private static final Logger LOGGER = LogManager.getLogger(MusicCollectionService.class);
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -22,7 +19,6 @@ public class MusicCollectionService {
 
 
     public List<MusicCollectionDto> getNewMusicCollections(String collectionType) throws ServiceException {
-        LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
             return musicCollectionDao.getNewMusicCollections(collectionType);

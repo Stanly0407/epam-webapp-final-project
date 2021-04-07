@@ -1,6 +1,5 @@
 package com.epam.web.commands;
 
-import com.epam.web.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +12,7 @@ public class LogoutCommand implements Command {
     private static final String LOGIN_PAGE = "/WEB-INF/view/login.jsp";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         LOGGER.debug("logout user = " + request.getSession().getAttribute("name"));
         request.getSession().invalidate();
         return CommandResult.forward(LOGIN_PAGE);

@@ -11,14 +11,11 @@ public class CommandFactory {
     private static final String LOGIN_COMMAND = "login";
     private static final String LOGOUT_COMMAND = "logout";
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
-
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
-    private static final String CREATE_EDIT_TRACK_COMMAND = "editSaveTrack";
+    private static final String SAVE_EDIT_TRACK_COMMAND = "editSaveTrack";
     private static final String SHOW_ADMIN_TRACK_LIST_PAGE_COMMAND = "adminTrackList";
-
     private static final String SHOW_SEARCH_MUSIC_RESULT_COMMAND = "searchMusicResult";
     private static final String SEARCH_MUSIC_COMMAND = "searchMusic";
-
     private static final String ADMIN_MAIN_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String EDIT_TRACK_FORM_PAGE_COMMAND = "editTrack";
 
@@ -29,14 +26,11 @@ public class CommandFactory {
                 return new LoginCommand(new UserService(new DaoHelperFactory()));
             case LOGOUT_COMMAND:
                 return new LogoutCommand();
-//            case SHOW_USER_MAIN_PAGE_COMMAND:
-//                return new ShowPageCommand(USER_MAIN_PAGE);
             case SHOW_USER_MAIN_PAGE_COMMAND:
-                return new ShowUserTrackListCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+                return new ShowUserMainPageCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case SHOW_ADMIN_MAIN_PAGE_COMMAND:
                 return new ShowPageCommand(ADMIN_MAIN_PAGE);
-
-            case CREATE_EDIT_TRACK_COMMAND:
+            case SAVE_EDIT_TRACK_COMMAND:
                 return new EditTrackCommand(new TrackService(new DaoHelperFactory()));
             case SHOW_ADMIN_TRACK_LIST_PAGE_COMMAND:
                 return new ShowAdminTrackListCommand(new TrackService(new DaoHelperFactory()));
@@ -50,6 +44,5 @@ public class CommandFactory {
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }
-
     }
 }

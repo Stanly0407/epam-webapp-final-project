@@ -21,7 +21,7 @@ public class LoginCommand implements Command {
     private static final String CONTROLLER_COMMAND = "/controller?command=";
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
-
+    private static final String ATTRIBUTE_NAME = "name";
 
     private final UserService userService;
 
@@ -34,19 +34,18 @@ public class LoginCommand implements Command {
         String login = request.getParameter(PARAMETER_LOGIN);
         String password = request.getParameter(PARAMETER_PASSWORD);
         Optional<User> optionalUser = userService.login(login, password);
-        LOGGER.debug("User = " + optionalUser);
         HttpSession session = request.getSession(false);
         String showPageCommandType = null;
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            session.setAttribute("name", user.getName());
+            session.setAttribute(ATTRIBUTE_NAME, user.getName());
             if (user.getRole().getValue().equals(ADMIN_ROLE)) {
                 showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
             } else {
                 showPageCommandType = SHOW_USER_MAIN_PAGE_COMMAND;
             }
         }
-        LOGGER.debug("login session = " + session.getAttribute("name") + "||| session ID: " + session.getId());
+        LOGGER.debug("login session = " + session.getAttribute(ATTRIBUTE_NAME) + "||| session ID: " + session.getId());
 
         return CommandResult.redirect(CONTROLLER_COMMAND + showPageCommandType);
     }

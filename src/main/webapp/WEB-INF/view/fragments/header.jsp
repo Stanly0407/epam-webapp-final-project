@@ -20,22 +20,33 @@
             <nav class="header__nav">
                 <ul class="header__list">
                     <li class="header__item">
-                         <select>
-                                <option  data-content="English">en</option>
-                                <option  data-content="Russian">ru</option>
-                                <option  data-content="Belorussian">be</option>
-                            </select>
+                        <select class="select_header">
+                            <option data-content="English">en</option>
+                            <option data-content="Russian">ru</option>
+                            <option data-content="Belorussian">be</option>
+                        </select>
                     </li>
+                    <c:if test="${empty name}">
                     <li class="header__item">
-                        <a href="#!" class="header__link">Home</a>
+                        <a href="/musicwebapp/controller?command=aboutUs" class="header__link">About us</a>
                     </li>
-                    <li class="header__item">
-                        <a href="#!" class="header__link">About us</a>
-                    </li>
-                    <c:if test="${not empty name}" >
-                    <li class="header__item">
-                        <a href="/musicwebapp/controller?command=logout" class="header__link" >Log out</a>
-                    </li>
+                    </c:if>
+
+                    <c:if test="${not empty name}">
+                        <li class="header__item">
+                            <a href="/musicwebapp/controller?command=userMusic" class="header__link">My music</a>
+                        </li>
+                        <li>
+                            <a href="./musicwebapp/controller?command=cart">
+                                <img src="img/svg/Cart_header.svg" alt="Cart" class="header__cart-pic">
+                            </a>
+                        </li>
+                        <li class="header__item">
+                            <a href="/musicwebapp/controller?command=userAccount" class="header__link__button">Account</a>
+                        </li>
+                        <li class="header__item">
+                            <a href="/musicwebapp/controller?command=logout" class="header__link">Log out</a>
+                        </li>
                     </c:if>
 
                 </ul>

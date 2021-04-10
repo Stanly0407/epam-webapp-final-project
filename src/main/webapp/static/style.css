@@ -78,6 +78,11 @@ body {
     height: 64px;
     padding: 3px;
 }
+.header__cart-pic {
+    height: 45px;
+    padding: 1px;
+    margin-right: 15px;
+}
 
 .header__wrapper {
     display: flex;
@@ -88,6 +93,7 @@ body {
 .header__list {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .header__item {
@@ -106,10 +112,53 @@ body {
     text-decoration: none;
 }
 
-select {
+/*.button-main {*/
+/*    margin-top: 25px;*/
+/*    border: none;*/
+/*}*/
+.header__link__button {
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A214C;
+    text-decoration: none;
+    background-color: #48D5CD;
+    border-radius: 20px 20px;
+    padding: 7px 15px;
+    width: 120px;
+    height: 30px;
+}
+
+.header__link__button:hover, .button-main:hover, .button__center:hover {
+    background-color: #95EAE4;
+    cursor: pointer;
+}
+
+.header__link__button:hover, .button-main:hover, .button__center:active {
+    box-shadow: none;
+    top: 5px;
+}
+
+.select_header {
 /*.header__select {*/
     appearance: none;
 /*background-color: transparent;*/
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 40px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    background-color: #28336F;
+    text-align: center;
+    color: white;
+}
+
+.select_search {
+    /*.header__select {*/
+    appearance: none;
+    /*background-color: transparent;*/
     border: none;
     padding: 0 1em 0 0;
     margin: 0;
@@ -169,6 +218,7 @@ td, th {
     border: none;
     border-radius: 20px 20px;
 }
+
 
 .track__list {
     display: flex;

@@ -18,10 +18,11 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
 
     private static final String UPDATE_TRACK = "UPDATE track SET title=?, description=?, price=?, filename=? where id=?";
 
-    private static final String INSERT_TRACK = "INSERT INTO track (id, title, description, price, filename, artist_id) VALUE (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_TRACK = "INSERT INTO track (id, title, description, price, filename) VALUE (?, ?, ?, ?, ?, ?, ?)";
 
-    private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, " +
-            "a.name FROM track t INNER JOIN artist a ON (t.artist_id = a.id)";
+    private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.description, t.price, " +
+            "t.filename, a.id, a.name FROM track t " +
+            "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id)";
 
     private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, a.id, a.name " +
             "FROM track t INNER JOIN artist a ON t.artist_id=a.id WHERE t.id=?";
@@ -42,8 +43,10 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
             "a.name FROM track t INNER JOIN artist a ON t.artist_id=a.id INNER JOIN track_collection tc ON t.id=tc.track_id \n" +
             "INNER JOIN collection c ON tc.collection_id=c.id where c.title = ?  AND c.type = 'COLLECTION'";
 
-    private static final String GET_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, t.artist_id, a.name " +
-            "FROM track t INNER JOIN artist a ON t.artist_id=a.id ORDER BY t.release_date DESC LIMIT 5";
+    private static final String GET_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.description, t.price, t.filename, " +
+            "a.id, a.name " +
+            "FROM track t INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id)" +
+            " ORDER BY t.release_date DESC LIMIT 5";
 
 
     public TrackDao(Connection connection, RowMapper<TrackDto> mapper) {
@@ -70,20 +73,20 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
             case COLLECTION_SEARCH_CONDITION:
                 query = FIND_TRACKS_BY_COLLECTION_TITLE;
         }
-        return executeQuery(query, new TrackDtoRowMapper(), searchSubject);
+        return executeQuery(query, searchSubject);
     }
 
     @Override
     public Optional<TrackDto> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_TRACK_BY_ID, new TrackDtoRowMapper(), id);
+        return executeForSingleResult(FIND_TRACK_BY_ID, id);
     }
 
     public List<TrackDto> getAllTracks() throws DaoException {
-        return executeQuery(GET_TRACK_LIST, new TrackDtoRowMapper());
+        return executeQuery(GET_TRACK_LIST);
     }
 
     public List<TrackDto> getNewTracks() throws DaoException {
-        return executeQuery(GET_FIVE_NEW_TRACKS, new TrackDtoRowMapper());
+        return executeQuery(GET_FIVE_NEW_TRACKS);
     }
 
     @Override
@@ -94,7 +97,7 @@ public class TrackDao extends AbstractDao<TrackDto> implements Dao<TrackDto> {
     public void removeById(Long id) {
     }
 
-    @Override   // todo: remove this method because all select queries are join queries
+    @Override   // todo: remove
     protected String getTableName() {
         return Track.TABLE;
     }

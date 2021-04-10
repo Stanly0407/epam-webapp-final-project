@@ -2,6 +2,7 @@ package com.epam.web.entities;
 
 import java.time.LocalDate;
 
+
 public class MusicCollection extends Entity {
 
     public static final String TABLE = "collection";
@@ -9,19 +10,19 @@ public class MusicCollection extends Entity {
     public static final String COLLECTION_TYPE = "type";
     public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
-    public static final String ARTIST_ID = "artist_id";
+    public static final String ARTIST = "name";
 
     private MusicCollectionType type;
     private LocalDate releaseDate;
     private String title;
-    private Long artistId;
+    private Artist artist;
 
-    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, Long artistId) {
+    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, Artist artist) {
         super(id);
         this.type = type;
         this.releaseDate = releaseDate;
         this.title = title;
-        this.artistId = artistId;
+        this.artist = artist;
     }
 
     public MusicCollectionType getType() {
@@ -48,12 +49,13 @@ public class MusicCollection extends Entity {
         this.title = title;
     }
 
-    public Long getArtistId() {
-        return artistId;
+    public Artist getArtist() {
+        return artist;
     }
 
-    public void setArtistId(Long artistId) {
-        this.artistId = artistId;
+    public void setArtist(Artist artist) {
+        this.artist = artist;
     }
+
 
 }

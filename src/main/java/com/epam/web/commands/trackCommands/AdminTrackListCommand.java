@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class ShowAdminTrackListCommand implements Command {
+public class AdminTrackListCommand implements Command {
 
     private static final String ADMIN_TRACK_LIST_PAGE = "/WEB-INF/view/adminPages/adminTrackListPage.jsp";
     private static final String ATTRIBUTE_TRACK_LIST = "trackList";
@@ -18,7 +18,7 @@ public class ShowAdminTrackListCommand implements Command {
 
     private final TrackService trackService;
 
-    public ShowAdminTrackListCommand(TrackService trackService) {
+    public AdminTrackListCommand(TrackService trackService) {
         this.trackService = trackService;
     }
 

@@ -13,7 +13,7 @@
 <div class="container-login" align="center">
 
     <b style="color: aliceblue">Hello, dear ${name}!</b><br>
-    <br/><br/>
+    <br/>
 
     <div class="common-label"><label for="searchMusic">Search music</label></div>
 
@@ -22,7 +22,7 @@
 
         <input class="common-input" type="text" id="searchMusic" placeholder="Track, artist, album, collection" name="searchSubject" required/>
 
-        <select name="searchCondition">
+        <select class="select_search" name="searchCondition">
             <option selected value="Track">Track</option>
             <option value="Artist">Artist</option>
             <option value="Album">Album</option>
@@ -33,8 +33,7 @@
     </form>
 </div>
 
-    <br/><br/>    <br/><br/>
-
+    <br/><br/>
 
     <div class="common-label"><label for="searchMusic">New Tracks</label></div>
     <div>
@@ -54,10 +53,11 @@
                     <td>   <input type="hidden" name="${track.id}"/></td>
                     <td>${track.title}</td>
                     <td>${track.description}</td>
-                    <td>${track.price} $</td>
+                    <td>$ ${track.price} </td>
                     <td>${track.artistName}</td>
+<%--Проверку добавить, если трек куплен, то кнопка не появляется --%>
+                    <td><a class="header__link__button" href="<c:url value='controller?command=addTrackToCart&id=${track.id}'/>">ADD TO CART</a></td>
 
-                    <td><a class="header__link" href="<c:url value='controller?command=addTrackToCart&id=${track.id}'/>">ADD TO CART</a></td>
                     </td>
                 </tr>
             </c:forEach>
@@ -71,11 +71,7 @@
     <div>
         <table style="color: #b3d4fc;">
             <tr>
-<%--                <th width="1"></th>--%>
-<%--                <th width="200">TITLE</th>--%>
-<%--                <th width="120">ARTIST</th>--%>
 
-<%--                <th width="80"></th>--%>
             </tr>
             <c:forEach items="${albumList}" var="album">
                 <tr style="align-content: center">
@@ -92,15 +88,12 @@
     <br>
     <br/><br/>
 
-    <div class="common-label"><label for="searchMusic">New Collections</label></div>
+    <div class="common-label"><label for="searchMusic">New Playlists</label></div>
 
     <div>
         <table style="color: #b3d4fc;">
             <tr>
-<%--                <th width="1"></th>--%>
-<%--                <th width="200">TITLE</th>--%>
 
-<%--                <th width="80"></th>--%>
             </tr>
             <c:forEach items="${collectionList}" var="collection">
                 <tr style="align-content: center">

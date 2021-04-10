@@ -25,7 +25,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         this.mapper = mapper;
     }
 
-    protected List<T> executeQuery(String query, RowMapper<T> mapper, Object... params) throws DaoException {
+    protected List<T> executeQuery(String query,  Object... params) throws DaoException {
         try (PreparedStatement preparedStatement = createStatement(query, params);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             List<T> entities = new ArrayList<>();
@@ -59,12 +59,11 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
 
     public List<T> getAll() throws DaoException {
         String table = getTableName();
-        RowMapper<T> mapper = (RowMapper<T>) RowMapper.create(table);
-        return executeQuery("SELECT * FROM " + table, mapper);
+        return executeQuery("SELECT * FROM " + table);
     }
 
-    protected Optional<T> executeForSingleResult(String query, RowMapper<T> mapper, Object... params) throws DaoException {
-        List<T> items = executeQuery(query, mapper, params);
+    protected Optional<T> executeForSingleResult(String query,  Object... params) throws DaoException {
+        List<T> items = executeQuery(query, params);
         if (items.size() == 1) {
             return Optional.of(items.get(0));
         } else if (items.size() > 1) {

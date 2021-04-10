@@ -26,12 +26,11 @@ public class UserService {
     }
 
     public Optional<User> login(String login, String password) throws ServiceException {
-        LOGGER.debug("Called method login");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();
             return userDao.findByLoginAndPassword(login, password);
-        } catch (DaoException | SQLException e) {
-            throw new ServiceException((DaoException) e);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
     }
 

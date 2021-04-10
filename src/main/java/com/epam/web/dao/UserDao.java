@@ -12,15 +12,15 @@ import java.util.Optional;
 
 public class UserDao extends AbstractDao<User> implements Dao<User> {
 
-    private static final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT id, login, name, lastname, role FROM user WHERE login = ? AND password = ?";
+    private static final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT id, login, name, lastname, role, balance FROM user WHERE login = ? AND password = ?";
 
     public UserDao(Connection connection, RowMapper<User> mapper) {
         super(connection, mapper);
     }
 
 
-    public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException, SQLException {
-        return executeForSingleResult(FIND_BY_LOGIN_AND_PASSWORD, new UserRowMapper(), login, password);
+    public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
+        return executeForSingleResult(FIND_BY_LOGIN_AND_PASSWORD, login, password);
     }
 
     @Override

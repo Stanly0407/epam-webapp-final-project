@@ -7,13 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ShowSearchMusicResultCommand implements Command {
+public class SearchMusicResultCommand implements Command {
 
     private static final String SEARCH_MUSIC_COMMAND = "/controller?command=searchMusicResult";
     private static final String ATTRIBUTE_SEARCH_SUBJECT = "searchSubject";
     private static final String ATTRIBUTE_SEARCH_CONDITION = "searchCondition";
 
-    public ShowSearchMusicResultCommand() {
+    public SearchMusicResultCommand() {
     }
 
     @Override

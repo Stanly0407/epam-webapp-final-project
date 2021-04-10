@@ -1,6 +1,6 @@
 package com.epam.web.mapper;
 
-import com.epam.web.commands.trackCommands.ShowEditTrackFormCommand;
+import com.epam.web.commands.trackCommands.EditTrackFormCommand;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Artist;
 import com.epam.web.entities.Entity;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class TrackDtoRowMapper extends Entity implements RowMapper<TrackDto> {
-    private static final Logger LOGGER = LogManager.getLogger(ShowEditTrackFormCommand.class);
+    private static final Logger LOGGER = LogManager.getLogger(EditTrackFormCommand.class);
 
     @Override
     public TrackDto map(ResultSet resultSet) throws SQLException {

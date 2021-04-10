@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 
-public class ShowEditTrackFormCommand implements Command {
+public class EditTrackFormCommand implements Command {
 
     private static final String EDIT_TRACK_FORM_PAGE = "/WEB-INF/view/adminPages/adminEditTrackFormPage.jsp";
     private static final String PARAMETER_NAME_ID = "id";
@@ -19,7 +19,7 @@ public class ShowEditTrackFormCommand implements Command {
 
     private final TrackService trackService;
 
-    public ShowEditTrackFormCommand(TrackService trackService) {
+    public EditTrackFormCommand(TrackService trackService) {
         this.trackService = trackService;
     }
 

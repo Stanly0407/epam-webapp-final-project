@@ -13,7 +13,7 @@ public class TrackDto extends Dto {
     private String filename;
     private Long artistId;
     private String artistName;
-    private String artistLastname;
+
 
     public Long getId() {
         return id;
@@ -47,9 +47,6 @@ public class TrackDto extends Dto {
         return artistName;
     }
 
-    public String getArtistLastname() {
-        return artistLastname;
-    }
 
     public static class Builder {
         private TrackDto newTrack;
@@ -95,11 +92,6 @@ public class TrackDto extends Dto {
 
         public Builder artistName(String artistName) {
             newTrack.artistName = artistName;
-            return this;
-        }
-
-        public Builder artistLastname(String artistLastname) {
-            newTrack.artistLastname = artistLastname;
             return this;
         }
 

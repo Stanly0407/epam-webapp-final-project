@@ -1,7 +1,7 @@
 package com.epam.web.entities;
 
 public enum MusicCollectionType {
-    COLLECTION("COLLECTION"),
+    PLAYLIST("PLAYLIST"),
     ALBUM("ALBUM");
 
     private String value;

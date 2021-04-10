@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class ShowUserMainPageCommand implements Command {
+public class UserMainPageCommand implements Command {
 
     private static final String USER_TRACK_LIST_PAGE = "/WEB-INF/view/userPages/userMainPage.jsp";
     private static final String ATTRIBUTE_TRACK_LIST = "trackList";
@@ -23,12 +23,12 @@ public class ShowUserMainPageCommand implements Command {
     private static final String ATTRIBUTE_COLLECTION = "collection";
 
     private static final String ALBUM_TYPE = "ALBUM";
-    private static final String COLLECTION_TYPE = "COLLECTION";
+    private static final String COLLECTION_TYPE = "PLAYLIST";
 
     private final TrackService trackService;
     private final MusicCollectionService musicCollectionService;
 
-    public ShowUserMainPageCommand(TrackService trackService, MusicCollectionService musicCollectionService) {
+    public UserMainPageCommand(TrackService trackService, MusicCollectionService musicCollectionService) {
         this.trackService = trackService;
         this.musicCollectionService = musicCollectionService;
     }

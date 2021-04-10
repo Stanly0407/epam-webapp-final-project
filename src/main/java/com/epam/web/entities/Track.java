@@ -2,6 +2,7 @@ package com.epam.web.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Track extends Entity {
 
@@ -12,33 +13,29 @@ public class Track extends Entity {
     public static final String DESCRIPTION = "description";
     public static final String PRICE = "price";
     public static final String FILENAME = "filename";
-    public static final String ARTIST_ID = "artist_id";
+    public static final String ARTISTS = "name";
+    public static final String IS_PAID = "is_paid";
 
     private LocalDate releaseDate;
     private String title;
     private String description;
     private BigDecimal price;
     private String filename;
-    private Long artistId;
+    private List<Artist> artists;
+    private boolean isPaid;
 
-    public Track(Long id, LocalDate releaseDate, String title, String description, BigDecimal price, String filename, Long artistId) {
+    public Track(Long id, LocalDate releaseDate, String title, String description, BigDecimal price, String filename, List<Artist> artists, boolean isPaid) {
         super(id);
         this.releaseDate = releaseDate;
         this.title = title;
         this.description = description;
         this.price = price;
         this.filename = filename;
-        this.artistId = artistId;
+        this.artists = artists;
+        this.isPaid = isPaid;
     }
 
     public Track(String title, String description, BigDecimal price, String filename) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.filename = filename;
-    }
-
-    public Track() {
     }
 
     public LocalDate getReleaseDate() {
@@ -81,12 +78,19 @@ public class Track extends Entity {
         this.filename = filename;
     }
 
-    public Long getArtistId() {
-        return artistId;
+    public List<Artist> getArtists() {
+        return artists;
     }
 
-    public void setArtistId(Long artistId) {
-        this.artistId = artistId;
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
     }
 
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
 }

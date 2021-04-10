@@ -1,5 +1,7 @@
 package com.epam.web.entities;
 
+import java.math.BigDecimal;
+
 public class User extends Entity {
 
     public static final String TABLE = "user";
@@ -9,20 +11,23 @@ public class User extends Entity {
     public static final String NAME = "name";
     public static final String LASTNAME = "lastname";
     public static final String ROLE = "role";
+    public static final String BALANCE = "balance";
 
     private String login;
     private String password;
     private String name;
     private String lastname;
     private Role role;
+    private BigDecimal balance;
 
 
-    public User(Long id, String login, String name, String lastname, Role role) {
+    public User(Long id, String login, String name, String lastname, Role role, BigDecimal balance) {
         super(id);
         this.login = login;
         this.name = name;
         this.lastname = lastname;
         this.role = role;
+        this.balance = balance;
     }
 
     public String getLogin() {
@@ -65,4 +70,11 @@ public class User extends Entity {
         this.role = role;
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }

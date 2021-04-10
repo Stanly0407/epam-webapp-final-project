@@ -24,4 +24,6 @@ public interface RowMapper <T extends Entity> {
         }
     }
 
+
+
 }

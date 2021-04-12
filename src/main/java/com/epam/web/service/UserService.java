@@ -9,8 +9,7 @@ import com.epam.web.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.sql.SQLException;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public class UserService {
@@ -22,9 +21,6 @@ public class UserService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public UserService() {
-    }
-
     public Optional<User> login(String login, String password) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();
@@ -34,6 +30,30 @@ public class UserService {
         }
     }
 
+    public Optional<User> getUserInfo(Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            UserDao userDao = daoHelper.createUserDao();
+            return userDao.getById(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 
+    public void topUpUserBalance(String paymentAmountString, Long id) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            UserDao userDao = daoHelper.createUserDao();
+            //проверка данных карты, если не соответствует выводить ошибку платежа... pattern
+            //проверка соответствует ли paymentAmount формату BigDecimal
+
+            Optional<User> userOptional = userDao.getById(id);
+            User user = userOptional.get();
+            BigDecimal balance = user.getBalance();
+            BigDecimal paymentAmount = new BigDecimal(paymentAmountString);
+            BigDecimal updatedUserBalance = balance.add(paymentAmount) ;
+            userDao.updateUserBalance(updatedUserBalance, id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 
 }

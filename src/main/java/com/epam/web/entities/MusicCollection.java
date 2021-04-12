@@ -10,7 +10,7 @@ public class MusicCollection extends Entity {
     public static final String COLLECTION_TYPE = "type";
     public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
-    public static final String ARTIST = "name";
+
 
     private MusicCollectionType type;
     private LocalDate releaseDate;
@@ -23,6 +23,16 @@ public class MusicCollection extends Entity {
         this.releaseDate = releaseDate;
         this.title = title;
         this.artist = artist;
+    }
+
+    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title) {
+        super(id);
+        this.type = type;
+        this.releaseDate = releaseDate;
+        this.title = title;
+    }
+
+    public MusicCollection(){
     }
 
     public MusicCollectionType getType() {

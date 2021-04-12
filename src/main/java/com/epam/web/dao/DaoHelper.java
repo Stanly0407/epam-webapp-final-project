@@ -3,9 +3,7 @@ package com.epam.web.dao;
 import com.epam.web.connection.ConnectionPool;
 import com.epam.web.connection.ProxyConnection;
 import com.epam.web.exceptions.DaoException;
-import com.epam.web.mapper.MusicCollectionDtoRowMapper;
-import com.epam.web.mapper.TrackDtoRowMapper;
-import com.epam.web.mapper.UserRowMapper;
+import com.epam.web.mapper.*;
 
 import java.sql.SQLException;
 
@@ -23,13 +21,23 @@ public class DaoHelper implements AutoCloseable {
     }
 
     public TrackDao createTrackDao() {
-        TrackDtoRowMapper trackRowMapper = new TrackDtoRowMapper();
+        TrackRowMapper trackRowMapper = new TrackRowMapper();
         return new TrackDao(proxyConnection, trackRowMapper);
     }
 
     public MusicCollectionDao createMusicCollectionDao() {
-        MusicCollectionDtoRowMapper musicCollectionDtoRowMapper = new MusicCollectionDtoRowMapper();
+        MusicCollectionRowMapper musicCollectionDtoRowMapper = new MusicCollectionRowMapper();
         return new MusicCollectionDao(proxyConnection, musicCollectionDtoRowMapper);
+    }
+
+    public ArtistDao createArtistDao() {
+        ArtistRowMapper artistRowMapper = new ArtistRowMapper();
+        return new ArtistDao(proxyConnection, artistRowMapper);
+    }
+
+    public OrderDao createOrderDao() {
+        OrderRowMapper orderRowMapper = new OrderRowMapper();
+        return new OrderDao(proxyConnection, orderRowMapper);
     }
 
     @Override

@@ -18,8 +18,5 @@ public interface Dao <T extends Entity> {
 
     void removeById(Long id);
 
-    // someone else...
-    // tablename -> constructor -> getAll //
-
 
 }

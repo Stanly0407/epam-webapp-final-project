@@ -51,7 +51,7 @@ body {
 .common-input {
     border: none;
     width: 400px;
-    height: 60px;
+    height: 50px;
     padding: 8px;
     border-radius: 25px;
     background-color: #28336F;
@@ -98,11 +98,6 @@ body {
 
 .header__item {
     margin-right: 30px;
-    /*font-family: 'Roboto', sans-serif;*/
-    /*font-style: normal;*/
-    /*font-size: 18px;*/
-    /*line-height: 1.2;*/
-    /*font-weight: normal;*/
 }
 
 .header__link {
@@ -174,6 +169,15 @@ body {
 
 .search___block{
     display: inline-block;
+    margin-bottom: 10px;
+}
+
+.search___radio{
+    display: flex;
+    align-content: center;
+    padding-left: 470px;
+    padding-right: 620px;
+    justify-content: space-between;
 }
 
 table{
@@ -203,7 +207,7 @@ td, th {
     color: #1A214C;
     margin-top: 25px;
     width: 140px;
-    height: 55px;
+    height: 50px;
     border: none;
     border-radius: 20px 20px;
 }
@@ -230,6 +234,8 @@ td, th {
     line-height: 24px;
     color: white;
 }
+
+
 
 
 

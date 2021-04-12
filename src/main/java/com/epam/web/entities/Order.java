@@ -1,6 +1,9 @@
 package com.epam.web.entities;
 
+import com.epam.web.dto.TrackDto;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order extends Entity {
 
@@ -14,15 +17,10 @@ public class Order extends Entity {
     private boolean isPaid;
     private Long userId;
 
+
     public Order(Long id, LocalDateTime orderDate, boolean isPaid, Long userId) {
         super(id);
         this.orderDate = orderDate;
-        this.isPaid = isPaid;
-        this.userId = userId;
-    }
-
-    public Order(Long id, boolean isPaid, Long userId) {
-        super(id);
         this.isPaid = isPaid;
         this.userId = userId;
     }

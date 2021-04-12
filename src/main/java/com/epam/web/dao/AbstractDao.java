@@ -18,7 +18,8 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
     private static final Logger LOGGER = LogManager.getLogger(AbstractDao.class);
 
     private final Connection connection;
-    private RowMapper<T> mapper;
+    private final RowMapper<T> mapper;
+    //private final String tablename;
 
     public AbstractDao(Connection connection, RowMapper<T> mapper) {
         this.connection = connection;
@@ -35,7 +36,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             }
             return entities;
         } catch (SQLException e) {
-            LOGGER.debug(e.getMessage() + e);
+            LOGGER.debug(this.getClass() + "  " + e.getMessage() + e);
             throw new DaoException(e);
         }
     }

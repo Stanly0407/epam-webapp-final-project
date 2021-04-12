@@ -34,7 +34,10 @@
 
                     <c:if test="${not empty name}">
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=userMusic" class="header__link">My music</a>
+                            <a href="/musicwebapp/controller?command=userMainPage" class="header__link">Home</a>
+                        </li>
+                        <li class="header__item">
+                            <a href="/musicwebapp/controller?command=userMusic" class="header__link__button" >My music</a>
                         </li>
                         <li>
                             <a href="./musicwebapp/controller?command=cart">
@@ -42,7 +45,7 @@
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=userAccount" class="header__link__button">Account</a>
+                            <a href="/musicwebapp/controller?command=userAccount" class="header__link">Account</a>
                         </li>
                         <li class="header__item">
                             <a href="/musicwebapp/controller?command=logout" class="header__link">Log out</a>

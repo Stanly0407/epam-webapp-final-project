@@ -1,11 +1,15 @@
 package com.epam.web.commands;
 
+import com.epam.web.commands.orderCommands.AddTrackToCartCommand;
+import com.epam.web.commands.orderCommands.CartPageCommand;
+import com.epam.web.commands.orderCommands.DeleteTrackFromCartCommand;
 import com.epam.web.commands.trackCommands.*;
 import com.epam.web.commands.userCommands.TopUpBalanceCommand;
 import com.epam.web.commands.userCommands.UserAccountCommand;
 import com.epam.web.commands.userCommands.UserMainPageCommand;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.service.MusicCollectionService;
+import com.epam.web.service.OrderService;
 import com.epam.web.service.TrackService;
 import com.epam.web.service.UserService;
 
@@ -29,12 +33,14 @@ public class CommandFactory {
     private static final String SEARCH_MUSIC_COMMAND = "searchMusic";
     private static final String SHOW_SEARCH_MUSIC_RESULT_COMMAND = "searchMusicResult";
     //ORDER
-    private static final String SHOW_CART_PAGE_COMMAND = "cartPage";
+    private static final String SHOW_CART_PAGE_COMMAND = "cart";
+    private static final String ADD_TRACK_TO_CART_COMMAND = "addTrack";
+    private static final String DELETE_TRACK_FROM_CART_COMMAND = "deleteTrack";
 
     public Command create(String type) {
         switch (type) {
             case LOGIN_COMMAND:
-                return new LoginCommand(new UserService(new DaoHelperFactory()));
+                return new LoginCommand(new UserService(new DaoHelperFactory()), new OrderService(new DaoHelperFactory()));
             case LOGOUT_COMMAND:
                 return new LogoutCommand();
                 // USER
@@ -50,6 +56,14 @@ public class CommandFactory {
                 return new ShowPageCommand(TOP_UP_BALANCE_PAGE);
             case TOP_UP_BALANCE_COMMAND:
                 return new TopUpBalanceCommand(new UserService(new DaoHelperFactory()));
+
+            // ORDER
+            case SHOW_CART_PAGE_COMMAND:
+                return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
+            case ADD_TRACK_TO_CART_COMMAND:
+                return new AddTrackToCartCommand(new OrderService(new DaoHelperFactory()));
+            case DELETE_TRACK_FROM_CART_COMMAND:
+                return new DeleteTrackFromCartCommand(new OrderService(new DaoHelperFactory()));
 
             //ADMIN
             case SHOW_ADMIN_MAIN_PAGE_COMMAND:

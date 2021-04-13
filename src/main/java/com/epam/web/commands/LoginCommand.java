@@ -3,6 +3,7 @@ package com.epam.web.commands;
 
 import com.epam.web.entities.User;
 import com.epam.web.exceptions.ServiceException;
+import com.epam.web.service.OrderService;
 import com.epam.web.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,11 +24,14 @@ public class LoginCommand implements Command {
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
     private static final String ATTRIBUTE_NAME = "name";
     private static final String USER = "userId";
+    private static final String ATTRIBUTE_ORDER_ID = "orderId";
 
     private final UserService userService;
+    private final OrderService orderService;
 
-    public LoginCommand(UserService userService) {
+    public LoginCommand(UserService userService, OrderService orderService) {
         this.userService = userService;
+        this.orderService = orderService;
     }
 
     @Override
@@ -39,8 +43,12 @@ public class LoginCommand implements Command {
         String showPageCommandType = null;
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            session.setAttribute(USER, user.getId());
+            Long userId = user.getId();
+            session.setAttribute(USER, userId);
             session.setAttribute(ATTRIBUTE_NAME, user.getName());
+            Long orderId = orderService.getCurrentCartId(userId);
+            session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
+
             if (user.getRole().getValue().equals(ADMIN_ROLE)) {
                 showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
             } else {

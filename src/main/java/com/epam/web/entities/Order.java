@@ -1,9 +1,6 @@
 package com.epam.web.entities;
 
-import com.epam.web.dto.TrackDto;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Order extends Entity {
 

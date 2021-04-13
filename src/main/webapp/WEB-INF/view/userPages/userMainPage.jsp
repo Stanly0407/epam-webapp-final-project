@@ -66,9 +66,15 @@
 
                     <td>$ ${track.price} </td>
 
-                    <td><a class="header__link__button"
-                           href="<c:url value='controller?command=addTrackToCart&id=${track.id}'/>">ADD TO CART</a></td>
-
+                    <c:if test="${track.status == 'PURCHASED'}">
+                        <td> Purchased </td>
+                    </c:if>
+                    <c:if test="${track.status == 'AVAILABLE'}">
+                        <td><a class="header__link" href="<c:url value='controller?command=addTrack&id=${track.id}'/>">Add to Cart</a></td>
+                    </c:if>
+                    <c:if test="${track.status == 'ORDERED'}">
+                        <td><a class="header__link" href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">Delete from Cart</a></td>
+                    </c:if>
                     </td>
                 </tr>
             </c:forEach>

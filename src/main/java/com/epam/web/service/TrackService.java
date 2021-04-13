@@ -2,6 +2,7 @@ package com.epam.web.service;
 
 import com.epam.web.dao.*;
 import com.epam.web.dto.TrackDto;
+import com.epam.web.dto.TrackStatusEnum;
 import com.epam.web.entities.Artist;
 import com.epam.web.entities.Order;
 import com.epam.web.entities.Track;
@@ -38,11 +39,11 @@ public class TrackService {
         }
     }
 
-    public List<Track> getMusicByCondition(String searchSubject, String searchCondition) throws ServiceException {
+    public List<TrackDto> getMusicByCondition(String searchSubject, String searchCondition, Long userId) throws ServiceException {
         LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
             TrackDao trackDao = daoHelper.createTrackDao();
-            List<Track> searchedTracks = null;
+            List<Track> searchedTracks = new ArrayList<>();
             switch (searchCondition) {
                 case TRACK_SEARCH_CONDITION:
                     searchedTracks = trackDao.findMusicByTrack(searchSubject);
@@ -51,7 +52,11 @@ public class TrackService {
                     searchedTracks = trackDao.findMusicByArtist(searchSubject);
                     break;
             }
-            return searchedTracks;
+            if (searchedTracks != null) {
+                return createTrackDtoList(searchedTracks, daoHelper, userId);
+            } else {
+                return new ArrayList<>();
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -76,38 +81,64 @@ public class TrackService {
     }
 
     public List<TrackDto> getNewTracks(Long userId) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {  //todo part in common method
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
-            ArtistDao artistDao = daoHelper.createArtistDao();
-            OrderDao orderDao = daoHelper.createOrderDao();
             List<Track> tracks = trackDao.getNewTracks();
-            List<TrackDto> trackDtoList = new ArrayList<>();
-            for (Track track : tracks) {
-                Long trackId = track.getId();
-                List<Artist> trackArtists = artistDao.getByTrackId(trackId);
-                Optional<Order> optionalOrder = orderDao.isPaidTrackByCurrentUser(userId, trackId);
-                boolean isPaid;
-                if(optionalOrder.isPresent()){
-                Order order = optionalOrder.get();
-                    isPaid = order.isPaid();
-                } else {
-                    isPaid = false;
-                }
-                String title = track.getTitle();
-                BigDecimal price = track.getPrice();
-                TrackDto trackDto = new TrackDto.Builder()
-                        .id(trackId)
-                        .title(title)
-                        .price(price)
-                        .artists(trackArtists)
-                        .isPaid(isPaid)
-                        .build();
-                trackDtoList.add(trackDto);
-            }
-            return trackDtoList;
+            return createTrackDtoList(tracks, daoHelper, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
+
+    public List<TrackDto> getOrderedTracks(Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            List<Track> orderedTracks = trackDao.findOrderedTracks(userId);
+            if (orderedTracks != null) {
+                return createTrackDtoList(orderedTracks, daoHelper, userId);
+            } else {
+                return new ArrayList<>();
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+
+
+    private List<TrackDto> createTrackDtoList(List<Track> tracks, DaoHelper daoHelper, Long userId) throws DaoException {
+        ArtistDao artistDao = daoHelper.createArtistDao();
+        OrderDao orderDao = daoHelper.createOrderDao();
+        List<TrackDto> trackDtoList = new ArrayList<>();
+        for (Track track : tracks) {
+            Long trackId = track.getId();
+            List<Artist> trackArtists = artistDao.getByTrackId(trackId);
+            Optional<Order> optionalOrder = orderDao.getOrderStatusForTrack(userId, trackId);
+            TrackStatusEnum trackStatus;
+            if (optionalOrder.isPresent()) {
+                Order order = optionalOrder.get();
+                if(order.isPaid()){
+                    trackStatus = TrackStatusEnum.PURCHASED;
+                } else {
+                    trackStatus = TrackStatusEnum.ORDERED;
+                }
+            } else {
+                    trackStatus = TrackStatusEnum.AVAILABLE;
+            }
+            LOGGER.debug("trackStatus " + trackStatus);
+            String title = track.getTitle();
+            BigDecimal price = track.getPrice();
+            TrackDto trackDto = new TrackDto.Builder()
+                    .id(trackId)
+                    .title(title)
+                    .price(price)
+                    .artists(trackArtists)
+                    .status(trackStatus)
+                    .build();
+            trackDtoList.add(trackDto);
+        }
+        return trackDtoList;
+    }
+
 
 }

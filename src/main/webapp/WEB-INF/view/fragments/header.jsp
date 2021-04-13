@@ -40,7 +40,7 @@
                             <a href="/musicwebapp/controller?command=userMusic" class="header__link__button" >My music</a>
                         </li>
                         <li>
-                            <a href="./musicwebapp/controller?command=cart">
+                            <a href="/musicwebapp/controller?command=cart">
                                 <img src="img/svg/Cart_header.svg" alt="Cart" class="header__cart-pic">
                             </a>
                         </li>

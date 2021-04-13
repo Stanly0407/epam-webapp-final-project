@@ -28,6 +28,7 @@ public class SearchMusicCommand implements Command {
     private static final String ATTRIBUTE_TRACK = "track";
     private static final String ATTRIBUTE_COLLECTION_LIST = "collectionList";
     private static final String ATTRIBUTE_COLLECTION = "collection";
+    private static final String USER_ID = "userId";
 
     private final TrackService trackService;
     private final MusicCollectionService musicCollectionService;
@@ -40,11 +41,12 @@ public class SearchMusicCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute(USER_ID);
         String searchSubject = (String) session.getAttribute(ATTRIBUTE_SEARCH_SUBJECT);
         String searchCondition = (String) session.getAttribute(ATTRIBUTE_SEARCH_CONDITION);
         String page = null;
         if(searchCondition.equals(TRACK_SEARCH_CONDITION) || searchCondition.equals(ARTIST_SEARCH_CONDITION)){
-            List<Track> trackList = trackService.getMusicByCondition(searchSubject, searchCondition);
+            List<TrackDto> trackList = trackService.getMusicByCondition(searchSubject, searchCondition, userId);
             request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
             request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
             page = SHOW_USER_TRACK_LIST_PAGE_COMMAND;

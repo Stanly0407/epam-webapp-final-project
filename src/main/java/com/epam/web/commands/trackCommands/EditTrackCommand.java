@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class EditTrackCommand implements Command {
 
-    private static final String PARAMETER_ID = "id";
+    private static final String PARAMETER_TRACK_ID = "id";
     private static final String PARAMETER_RELEASE_DATE = "releaseDate";
     private static final String PARAMETER_TITLE = "title";
     private static final String PARAMETER_PRICE = "price";
@@ -24,7 +24,7 @@ public class EditTrackCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String id = request.getParameter(PARAMETER_ID);
+        String id = request.getParameter(PARAMETER_TRACK_ID);
         String releaseDate = request.getParameter(PARAMETER_RELEASE_DATE);
         String title = request.getParameter(PARAMETER_TITLE);
         String price = request.getParameter(PARAMETER_PRICE);

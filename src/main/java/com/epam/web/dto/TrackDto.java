@@ -12,8 +12,7 @@ public class TrackDto {
     private String title;
     private BigDecimal price;
     private List<Artist> artists;
-    private boolean isPaid;
-
+    private TrackStatusEnum status;
 
     public Long getId() {
         return id;
@@ -35,8 +34,8 @@ public class TrackDto {
         return artists;
     }
 
-    public boolean isPaid() {
-        return isPaid;
+    public TrackStatusEnum getStatus() {
+        return status;
     }
 
     public static class Builder {
@@ -72,8 +71,8 @@ public class TrackDto {
             return this;
         }
 
-        public Builder isPaid(boolean isPaid) {
-            newTrack.isPaid = isPaid;
+        public Builder status(TrackStatusEnum status) {
+            newTrack.status = status;
             return this;
         }
 

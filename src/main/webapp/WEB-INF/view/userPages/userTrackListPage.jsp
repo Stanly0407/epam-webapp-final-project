@@ -35,10 +35,11 @@
                     </c:forEach>
 
                     <td>${track.price} $</td>
-                    <c:if test="${track.isPaid == true}">
-                    <td> Purchased </td>
+
+                    <c:if test="${track.paid}">
+                        <td> Purchased </td>
                     </c:if>
-                    <c:if test="${track.isPaid == false}">
+                    <c:if test="${!track.paid}">
                         <td><a class="header__link" href="<c:url value='controller?command=editTrack&id=${track.id}'/>">ADD TO CART</a></td>
                     </c:if>
                 </tr>

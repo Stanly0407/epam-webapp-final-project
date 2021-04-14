@@ -46,4 +46,12 @@ public class Order extends Entity {
         this.userId = userId;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "orderDate=" + orderDate +
+                ", isPaid=" + isPaid +
+                ", userId=" + userId +
+                '}';
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class CartPageCommand implements Command {
 
     private static final String USER_CART_PAGE = "/WEB-INF/view/userPages/cartPage.jsp";
-    private static final String ATTRIBUTE_TRACK_LIST = "trackList";
+    private static final String ATTRIBUTE_TRACK_LIST = "orderedTracks";
     private static final String ATTRIBUTE_TRACK = "track";
     private static final String ATTRIBUTE_USER_ID = "userId";
     private static final String ATTRIBUTE_ORDER_ID = "orderId";
@@ -46,8 +46,6 @@ public class CartPageCommand implements Command {
         }
         request.setAttribute(ATTRIBUTE_TRACK_LIST, orderedTracks); // если пусто, то выводить сообщение (в jsp это )
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
-
-
         return CommandResult.forward(USER_CART_PAGE);
     }
 }

@@ -18,7 +18,7 @@ public class ConnectionFactory {
     private static final String PROPERTIES_USER = "USER";
     private static final String PROPERTIES_PASSWORD = "PASSWORD";
 
-    // todo read properties method
+    // todo read properties method // constr
 
     public static ProxyConnection create() throws DaoException, IOException {
 

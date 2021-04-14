@@ -45,6 +45,8 @@ public class ConnectionPool {
         return proxyConnection;
     }
 
+    // trans
+
     public void closeConnection(ProxyConnection connection) { // returnConnection
         BlockingQueue<ProxyConnection> pool = getInstance().proxyConnections;
         pool.offer(connection);

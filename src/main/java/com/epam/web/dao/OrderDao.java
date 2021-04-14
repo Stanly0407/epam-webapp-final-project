@@ -29,9 +29,10 @@ public class OrderDao extends AbstractDao<Order> implements Dao<Order> {
             "WHERE pod.user_id = ? AND t.id = ?";
     private static final String FIND_UNPAID_ORDER_BY_USER_ID = "SELECT id, order_date, is_paid, user_id " +
             "FROM purchase_order WHERE user_id = ? AND is_paid = false";
-    private static final String INSERT_TRACK_IN_UNPAID_ORDER = "SELECT id, order_date, is_paid, user_id " +
-            "FROM purchase_order WHERE user_id = ? AND is_paid = false";
+    private static final String INSERT_TRACK_IN_UNPAID_ORDER = "INSERT INTO purchase_order_track(order_id, track_id) value " +
+            "(?, ?)";
     private static final String DELETE_TRACK_FROM_ORDER = "DELETE FROM purchase_order_track WHERE order_id = ? AND track_id = ?";
+    private static final String UPDATE_ORDER_STATUS = "UPDATE purchase_order SET is_paid = true where user_id = ?";
 
     public OrderDao(Connection connection, RowMapper<Order> mapper) {
         super(connection, mapper);
@@ -41,8 +42,12 @@ public class OrderDao extends AbstractDao<Order> implements Dao<Order> {
         executeUpdate(INSERT_ORDER, userId);
     }
 
-    public void addTrackToOrder(Long userId, Long trackId, Long orderId) throws DaoException {
-        executeUpdate(INSERT_TRACK_IN_UNPAID_ORDER, userId, trackId, orderId);
+    public void addTrackToOrder(Long orderId, Long trackId) throws DaoException {
+        executeUpdate(INSERT_TRACK_IN_UNPAID_ORDER, orderId, trackId );
+    }
+
+    public void updateOrderStatus(Long orderId) throws DaoException {
+        executeUpdate(UPDATE_ORDER_STATUS, orderId);
     }
 
     public Optional<Order> getCurrentOrder(Long userId) throws DaoException {

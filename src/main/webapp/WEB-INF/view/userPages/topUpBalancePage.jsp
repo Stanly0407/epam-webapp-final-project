@@ -23,10 +23,10 @@
             </tr>
             <tr>
                 <td>Credit Card Number: </td>
-                <td>  <input class="common-input" type="tel" placeholder="xxxx" required></td>
-                <td>  <input class="common-input" type="tel" placeholder="xxxx" required></td>
-                <td>  <input class="common-input" type="tel" placeholder="xxxx" required></td>
-                <td>  <input class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
             </tr>
             <tr>
                 <td>Name on Card:</td>

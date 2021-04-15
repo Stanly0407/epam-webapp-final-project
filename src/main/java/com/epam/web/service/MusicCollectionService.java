@@ -3,9 +3,7 @@ package com.epam.web.service;
 import com.epam.web.dao.DaoHelper;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.dao.MusicCollectionDao;
-import com.epam.web.dao.TrackDao;
 import com.epam.web.entities.MusicCollection;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
 
@@ -14,8 +12,8 @@ import java.util.List;
 public class MusicCollectionService {
     private static final String ALBUM_LIST = "ALBUM";
     private static final String PLAYLIST_LIST = "PLAYLIST";
-    private static final String ALBUM_SEARCH_CONDITION = "ALBUM";
-    private static final String PLAYLIST_SEARCH_CONDITION = "PLAYLIST";
+    private static final String ALBUM_SEARCH_CONDITION = "Album";
+    private static final String PLAYLIST_SEARCH_CONDITION = "Playlist";
 
     private DaoHelperFactory daoHelperFactory;
 

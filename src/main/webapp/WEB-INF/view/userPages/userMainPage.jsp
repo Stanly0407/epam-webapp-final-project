@@ -14,36 +14,19 @@
 
     <b style="color: aliceblue">Hello, dear ${name}!</b><br>
     <br/>
-
-    <div class="common-label"><label for="searchMusic">Search music</label></div>
-
-
-    <form action="/musicwebapp/controller?command=searchMusic" method="post">
-        <div class="search___block">
-            <input class="common-input" type="text" id="searchMusic" placeholder="Track, artist, album or playlist..."
-                   name="searchSubject" required/>
-            <button class="button-main" type="submit">Search</button>
-        </div>
-        <br/>
-
-        <div class="search___radio">
-            <input type="radio" checked="checked" value="Track" name="searchCondition"> Track<br>
-            <input type="radio" value="Artist" name="searchCondition"> Artist<br>
-            <input type="radio" value="Album" name="searchCondition"> Album<br>
-            <input type="radio" value="Playlist" name="searchCondition"> Playlist<br>
-        </div>
-        <%--        <select class="select_search" name="searchCondition">--%>
-        <%--            <option selected value="Track">Track</option>--%>
-        <%--            <option value="Artist">Artist</option>--%>
-        <%--            <option value="Album">Album</option>--%>
-        <%--            <option value="Collection">Collection</option>--%>
-        <%--        </select>--%>
-    </form>
+    <jsp:include page="../fragments/search.jsp"/>
 
 
+
+    <%--        <select class="select_search" name="searchCondition">--%>
+    <%--            <option selected value="Track">Track</option>--%>
+    <%--            <option value="Artist">Artist</option>--%>
+    <%--            <option value="Album">Album</option>--%>
+    <%--            <option value="Collection">Collection</option>--%>
+    <%--        </select>--%>
     <br/><br/>
 
-    <div class="common-label"><label for="searchMusic">New Tracks</label></div>
+    <div class="common-label"><label>New Tracks</label></div>
     <div>
         <table style="color: #b3d4fc;">
             <tr>

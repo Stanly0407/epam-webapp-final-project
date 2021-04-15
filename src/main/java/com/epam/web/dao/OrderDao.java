@@ -32,7 +32,7 @@ public class OrderDao extends AbstractDao<Order> implements Dao<Order> {
     private static final String INSERT_TRACK_IN_UNPAID_ORDER = "INSERT INTO purchase_order_track(order_id, track_id) value " +
             "(?, ?)";
     private static final String DELETE_TRACK_FROM_ORDER = "DELETE FROM purchase_order_track WHERE order_id = ? AND track_id = ?";
-    private static final String UPDATE_ORDER_STATUS = "UPDATE purchase_order SET is_paid = true where user_id = ?";
+    private static final String UPDATE_ORDER_STATUS = "UPDATE purchase_order SET is_paid = true where id = ?";
 
     public OrderDao(Connection connection, RowMapper<Order> mapper) {
         super(connection, mapper);

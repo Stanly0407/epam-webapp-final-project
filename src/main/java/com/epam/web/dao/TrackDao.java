@@ -15,7 +15,7 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price FROM track t";
     private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t WHERE t.id=?";
     private static final String FIND_TRACKS_BY_TRACK = "SELECT t.id, t.release_date, t.title, t.price FROM track t WHERE t.title=?";
-    private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price a.id, a.name FROM track t " +
+    private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, a.id, a.name FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.name = ?";
     private static final String FIND_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
             "ORDER BY t.release_date DESC LIMIT 5";

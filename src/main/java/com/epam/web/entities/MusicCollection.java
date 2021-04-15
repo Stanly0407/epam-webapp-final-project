@@ -67,5 +67,13 @@ public class MusicCollection extends Entity {
         this.artist = artist;
     }
 
-
+    @Override
+    public String toString() {
+        return "MusicCollection{" +
+                "type=" + type +
+                ", releaseDate=" + releaseDate +
+                ", title='" + title + '\'' +
+                ", artist=" + artist +
+                '}';
+    }
 }

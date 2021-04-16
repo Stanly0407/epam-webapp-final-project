@@ -11,7 +11,6 @@ public class MusicCollection extends Entity {
     public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
 
-
     private MusicCollectionType type;
     private LocalDate releaseDate;
     private String title;
@@ -32,7 +31,7 @@ public class MusicCollection extends Entity {
         this.title = title;
     }
 
-    public MusicCollection(){
+    public MusicCollection() {
     }
 
     public MusicCollectionType getType() {
@@ -67,13 +66,4 @@ public class MusicCollection extends Entity {
         this.artist = artist;
     }
 
-    @Override
-    public String toString() {
-        return "MusicCollection{" +
-                "type=" + type +
-                ", releaseDate=" + releaseDate +
-                ", title='" + title + '\'' +
-                ", artist=" + artist +
-                '}';
-    }
 }

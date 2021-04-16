@@ -11,7 +11,6 @@ import java.util.Optional;
 public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
 
     private static final String UPDATE_TRACK = "UPDATE track SET t.release_date=?, title=?, price=? where id=?";
-  //  private static final String INSERT_TRACK = "INSERT INTO track (release_date, title, price) VALUE (?, ?, ?)";
     private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price FROM track t";
     private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t WHERE t.id=?";
     private static final String FIND_TRACKS_BY_TRACK = "SELECT t.id, t.release_date, t.title, t.price FROM track t WHERE t.title=?";
@@ -25,9 +24,12 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String FIND_TRACK_IN_UNPAID_ORDER = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.user_id = ? AND po.is_paid = false AND t.id = ?";
-    private static final String FIND_PAID_TRACKS = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+    private static final String FIND_ALL_PAID_TRACKS_BY_USER_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.user_id = ? AND po.is_paid = true";
+    private static final String FIND_PAID_TRACKS_BY_ORDER_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
+            "WHERE po.id = ?";
 
     public TrackDao(Connection connection, RowMapper<Track> mapper) {
         super(connection, mapper);
@@ -53,8 +55,12 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
         return executeForSingleResult(FIND_TRACK_IN_UNPAID_ORDER, userId, trackId);
     }
 
-    public List<Track> findPaidTracks(Long userId) throws DaoException {
-        return executeQuery(FIND_PAID_TRACKS, userId);
+    public List<Track> findAllPaidTracks(Long userId) throws DaoException {
+        return executeQuery(FIND_ALL_PAID_TRACKS_BY_USER_ID, userId);
+    }
+
+    public List<Track> findPaidTracksByOrderId(Long orderId) throws DaoException {
+        return executeQuery(FIND_PAID_TRACKS_BY_ORDER_ID, orderId);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     public void removeById(Long id) {
     }
 
-    @Override   // todo: remove
+    @Override
     protected String getTableName() {
         return Track.TABLE;
     }

@@ -13,7 +13,7 @@
     <div class="wrapper">
         <div class="header__wrapper">
 
-            <a href="../../../index.jsp">
+            <a href="/musicwebapp/controller?command=userMainPage">
                 <img src="img/svg/Logo_1-01.svg" alt="Music Wizard" class="header__logo-pic">
             </a>
 
@@ -27,17 +27,18 @@
                         </select>
                     </li>
                     <c:if test="${empty name}">
-                    <li class="header__item">
-                        <a href="/musicwebapp/controller?command=aboutUs" class="header__link">About us</a>
-                    </li>
+                        <li class="header__item">
+                            <a href="/musicwebapp/controller?command=aboutUs" class="header__link">About us</a>
+                        </li>
                     </c:if>
 
                     <c:if test="${not empty name}">
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=userMainPage" class="header__link">Home</a>
+                            <a href="/musicwebapp/controller?command=allMusic" class="header__link">All music</a>
                         </li>
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=userMusic" class="header__link__button" >My music</a>
+                            <a href="/musicwebapp/controller?command=userMusic" class="header__link__button">My
+                                music</a>
                         </li>
                         <li>
                             <a href="/musicwebapp/controller?command=cart">

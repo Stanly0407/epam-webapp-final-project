@@ -14,6 +14,8 @@ public class Order extends Entity {
     private boolean isPaid;
     private Long userId;
 
+    public Order() {
+    }
 
     public Order(Long id, LocalDateTime orderDate, boolean isPaid, Long userId) {
         super(id);
@@ -46,12 +48,4 @@ public class Order extends Entity {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderDate=" + orderDate +
-                ", isPaid=" + isPaid +
-                ", userId=" + userId +
-                '}';
-    }
 }

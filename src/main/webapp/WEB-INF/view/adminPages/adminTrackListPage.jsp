@@ -37,7 +37,8 @@
                     <td>${track.artistId}</td>
                     <td>${track.artistName}</td>
 
-                    <td><a class="header__link" href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
+                    <td><a class="header__link"
+                           href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
                     <td><a class="header__link" href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">Delete</a>
                     </td>
                 </tr>

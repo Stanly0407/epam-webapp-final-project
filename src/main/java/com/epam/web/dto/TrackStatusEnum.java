@@ -5,6 +5,4 @@ public enum TrackStatusEnum {
     PURCHASED,
     ORDERED,
     AVAILABLE
-
-
 }

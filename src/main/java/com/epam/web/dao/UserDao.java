@@ -3,11 +3,9 @@ package com.epam.web.dao;
 import com.epam.web.entities.User;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.mapper.RowMapper;
-import com.epam.web.mapper.UserRowMapper;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.Optional;
 
 
@@ -20,7 +18,6 @@ public class UserDao extends AbstractDao<User> implements Dao<User> {
     public UserDao(Connection connection, RowMapper<User> mapper) {
         super(connection, mapper);
     }
-
 
     public Optional<User> findByLoginAndPassword(String login, String password) throws DaoException {
         return executeForSingleResult(FIND_BY_LOGIN_AND_PASSWORD, login, password);
@@ -38,12 +35,10 @@ public class UserDao extends AbstractDao<User> implements Dao<User> {
 
     @Override
     public void save(User entity) {
-
     }
 
     @Override
     public void removeById(Long id) {
-
     }
 
     @Override

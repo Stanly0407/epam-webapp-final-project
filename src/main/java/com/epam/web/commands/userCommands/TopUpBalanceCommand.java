@@ -21,14 +21,11 @@ public class TopUpBalanceCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-
         String paymentAmount = request.getParameter("paymentAmount"); //todo pattern in jsp
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         userService.topUpUserBalance(paymentAmount, userId);
-
         return CommandResult.redirect(USER_ACCOUNT_PAGE_COMMAND);
     }
-
 
 }

@@ -49,7 +49,7 @@ public class UserService {
             User user = userOptional.get();
             BigDecimal balance = user.getBalance();
             BigDecimal paymentAmount = new BigDecimal(paymentAmountString);
-            BigDecimal updatedUserBalance = balance.add(paymentAmount) ;
+            BigDecimal updatedUserBalance = balance.add(paymentAmount);
             userDao.updateUserBalance(updatedUserBalance, id);
         } catch (DaoException e) {
             throw new ServiceException(e);

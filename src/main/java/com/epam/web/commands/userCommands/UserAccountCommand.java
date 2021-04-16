@@ -15,6 +15,7 @@ public class UserAccountCommand implements Command {
 
     private static final String USER_ACCOUNT_PAGE = "/WEB-INF/view/userPages/userAccountPage.jsp";
     private static final String USER = "user";
+    private static final String ATTRIBUTE_USER_ID = "userId";
 
     private final UserService userService;
 
@@ -25,7 +26,7 @@ public class UserAccountCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
+        Long userId = (Long) session.getAttribute(ATTRIBUTE_USER_ID);
         Optional<User> optionalUser = userService.getUserInfo(userId);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();

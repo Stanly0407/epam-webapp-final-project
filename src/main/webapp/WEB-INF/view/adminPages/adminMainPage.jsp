@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=utf-8"  %>
+<%@ page contentType="text/html;charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
@@ -12,10 +12,10 @@
 
 <div class="container" align="center">
 
-        <b style="color: aliceblue">Hello, ${name}!</b><br>
+    <b style="color: aliceblue">Hello, ${name}!</b><br>
 
-    <button class="button-main" type="submit"  >
-            <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button" >trackList</a>
+    <button class="button-main" type="submit">
+        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">trackList</a>
     </button>
 
 </div>

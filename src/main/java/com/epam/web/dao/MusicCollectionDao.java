@@ -1,11 +1,9 @@
 package com.epam.web.dao;
 
 import com.epam.web.entities.MusicCollection;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.mapper.MusicCollectionRowMapper;
 import com.epam.web.mapper.RowMapper;
-import com.epam.web.service.TrackService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,8 +13,9 @@ import java.util.Optional;
 
 public class MusicCollectionDao extends AbstractDao<MusicCollection> implements Dao<MusicCollection> {
     private static final Logger LOGGER = LogManager.getLogger(MusicCollectionDao.class);
-    private static final String FIND_COLLECTION_BY_ID = "";
 
+    private static final String FIND_COLLECTION_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, a.id, a.name FROM collection c " +
+            "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.id = ?";
     private static final String FIND_ALBUM = "SELECT c.id, c.type, c.release_date, c.title, a.id, a.name FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.title = ? AND c.type = 'ALBUM'";
     private static final String FIND_PLAYLIST = "SELECT c.id, c.type, c.release_date, c.title FROM collection c WHERE c.title = ? AND c.type = 'PLAYLIST'";
@@ -43,6 +42,14 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
         return executeQuery(FIND_PLAYLIST, searchSubject);
     }
 
+    public List<MusicCollection> getAllAlbums() throws DaoException {
+        return executeQuery(GET_ALBUMS);
+    }
+
+    public List<MusicCollection> getAllPlaylists() throws DaoException {
+        return executeQuery(GET_PLAYLISTS);
+    }
+
     public List<MusicCollection> findFiveNewAlbums() throws DaoException {
         return executeQuery(GET_ALBUMS + QUERY_PART_FIVE_NEW_MUSIC_COLLECTIONS);
     }
@@ -59,7 +66,7 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
     public void removeById(Long id) {
     }
 
-    @Override   // todo remove this method because all select queries are join queries
+    @Override
     protected String getTableName() {
         return MusicCollection.TABLE;
     }

@@ -2,14 +2,11 @@ package com.epam.web.commands.trackCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
-import com.epam.web.dto.TrackDto;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.TrackService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 public class AdminTrackListCommand implements Command {
 
@@ -25,9 +22,10 @@ public class AdminTrackListCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        List<Track> trackList = trackService.getAllTracks();
-        request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
-        request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
-        return CommandResult.forward(ADMIN_TRACK_LIST_PAGE);
+        throw new UnsupportedOperationException();
+//        List<Track> trackList = trackService.getAllTracks();
+//        request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
+//        request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
+//        return CommandResult.forward(ADMIN_TRACK_LIST_PAGE);
     }
 }

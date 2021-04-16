@@ -2,17 +2,17 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
-  <display-name>epam-final Maven Webapp</display-name>
+    <display-name>epam-final Maven Webapp</display-name>
 
-  <servlet>
-    <servlet-name>main</servlet-name>
-    <servlet-class>com.epam.web.Controller</servlet-class>
-  </servlet>
+    <servlet>
+        <servlet-name>main</servlet-name>
+        <servlet-class>com.epam.web.Controller</servlet-class>
+    </servlet>
 
-  <servlet-mapping>
-    <servlet-name>main</servlet-name>
-    <url-pattern>/controller</url-pattern>
-  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>main</servlet-name>
+        <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
 
 
 </web-app>

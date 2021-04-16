@@ -33,6 +33,7 @@
 html {
     background-color: #1A214C;
 }
+
 *,
 *::before,
 *::after {
@@ -74,10 +75,31 @@ body {
     background-color: #28336F;
 }
 
+footer {
+    height: 70px;
+    background-color: #28336F;
+}
+
+footer p {
+    font-size: 13px;
+    color: #CCC;
+    padding-bottom: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.footer___links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
 .header__logo-pic {
     height: 64px;
     padding: 3px;
 }
+
 .header__cart-pic {
     height: 45px;
     padding: 1px;
@@ -88,6 +110,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 35px;
 }
 
 .header__list {
@@ -107,10 +136,6 @@ body {
     text-decoration: none;
 }
 
-/*.button-main {*/
-/*    margin-top: 25px;*/
-/*    border: none;*/
-/*}*/
 .header__link__button {
     font-size: 18px;
     line-height: 24px;
@@ -134,9 +159,7 @@ body {
 }
 
 .select_header {
-/*.header__select {*/
     appearance: none;
-/*background-color: transparent;*/
     border: none;
     padding: 0 1em 0 0;
     margin: 0;
@@ -151,9 +174,7 @@ body {
 }
 
 .select_search {
-    /*.header__select {*/
     appearance: none;
-    /*background-color: transparent;*/
     border: none;
     padding: 0 1em 0 0;
     margin: 0;
@@ -167,12 +188,12 @@ body {
     color: white;
 }
 
-.search___block{
+.search___block {
     display: inline-block;
     margin-bottom: 10px;
 }
 
-.search___radio{
+.search___radio {
     display: flex;
     align-content: center;
     padding-left: 470px;
@@ -180,7 +201,7 @@ body {
     justify-content: space-between;
 }
 
-table{
+table {
     margin: auto;
 }
 
@@ -212,7 +233,7 @@ td, th {
     border-radius: 20px 20px;
 }
 
-.button__center{
+.button__center {
     text-align: center;
     background-color: #48D5CD;
     color: #1A214C;
@@ -235,11 +256,43 @@ td, th {
     color: white;
 }
 
+/*CARDS*/
+.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+    margin: 25px;
 
+}
 
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
 
+/* Add some padding inside the card container */
+.container_card {
+    padding: 2px 16px;
+}
 
+/* Add rounded corners to the top left and the top right corner of the image */
+.img_card {
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+}
 
+.card__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
 
 
 

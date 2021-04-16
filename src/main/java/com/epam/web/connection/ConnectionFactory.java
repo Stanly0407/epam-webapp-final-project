@@ -12,13 +12,13 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
-    private static final Logger LOGGER = LogManager.getLogger(ConnectionFactory.class);
+
     private static final String PROPERTIES_FILENAME = "database.properties";
     private static final String PROPERTY_URL = "CONNECTION_URL";
     private static final String PROPERTIES_USER = "USER";
     private static final String PROPERTIES_PASSWORD = "PASSWORD";
 
-    // todo read properties method // constr
+    // todo read properties method || constr
 
     public static ProxyConnection create() throws DaoException, IOException {
 

@@ -2,23 +2,21 @@
 <%@ page contentType="text/html;charset=utf-8" isELIgnored="false" %>
 
 <html>
-
 <body>
-
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
 <jsp:include page="../fragments/search.jsp"/>
 
-<c:if test="${empty trackList}">
-    <h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">Sorry, no results found...</h1>
-</c:if>
-
-<h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">Track List:</h1>
-
 <jsp:include page="../fragments/trackList.jsp"/>
 
+<jsp:include page="../fragments/albums.jsp"/>
+
+<jsp:include page="../fragments/playlists.jsp"/>
+
 <jsp:include page="../fragments/footer.jsp"/>
+
+
 </body>
 </html>

@@ -9,7 +9,7 @@
     <jsp:include page="WEB-INF/view/fragments/header.jsp"/>
 </div>
 
-<div style="color: red" >
+<div style="color: red">
     <c:out value="Error: ${errorMessage}"/>
 
 

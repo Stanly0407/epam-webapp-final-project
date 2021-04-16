@@ -13,21 +13,15 @@
 <c:if test="${not empty purchasedTracks}">
     <div>
         <table style="color: #b3d4fc;">
-            <tr>
-                <th width="4"></th>
-                <th width="200">TITLE</th>
-                <th width="120">ARTIST </th>
-                <th width="80"></th>
 
-            </tr>
             <c:forEach items="${purchasedTracks}" var="track">
                 <tr style="align-content: center">
-                    <td>   <input type="hidden" name="${track.id}"/></td>
+                    <td><input type="hidden" name="${track.id}"/></td>
+                    <td><img src="img/svg/Note_song icon.svg" alt="Cart" class="header__cart-pic"></td>
                     <td>${track.title}</td>
-
                     <c:forEach items="${track.artists}" var="artist">
-                        <td>   <input type="hidden" name="${artist.id}"/></td>
-                    <td>${artist.name}</td>
+                        <td><input type="hidden" name="${artist.id}"/></td>
+                        <td>${artist.name}</td>
                     </c:forEach>
 
                 </tr>

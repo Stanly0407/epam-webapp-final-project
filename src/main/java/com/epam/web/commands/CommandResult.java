@@ -10,15 +10,15 @@ public class CommandResult {
         this.isRedirect = isRedirect;
     }
 
-    public static  CommandResult forward(String page){
+    public static CommandResult forward(String page) {
         return new CommandResult(page, false);
     }
 
-    public static  CommandResult redirect(String page){
+    public static CommandResult redirect(String page) {
         return new CommandResult(page, true);
     }
 
-    public String getPage(){
+    public String getPage() {
         return page;
     }
 

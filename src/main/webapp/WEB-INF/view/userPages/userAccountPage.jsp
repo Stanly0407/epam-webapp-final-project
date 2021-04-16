@@ -17,10 +17,10 @@
     <b style="color: aliceblue">Login: ${user.login}</b>
     <br><br>
     <a href="/musicwebapp/controller?command=changeUserPassword" class="header__link__button"> Change password</a>
-    <br> <br>     <br> <br>
+    <br> <br> <br>
 
-    <b style="color: aliceblue">Current balance: ${user.balance}</b><br> <br>
-    <a href="/musicwebapp/controller?command=paidOrdersList" class="header__link__button"> Payment history </a>
+    <b style="color: aliceblue">Current balance: $ ${user.balance}</b><br> <br>
+    <a href="/musicwebapp/controller?command=paymentHistory" class="header__link__button"> Payment history </a>
     <br> <br>
     <a href="/musicwebapp/controller?command=topUpBalancePage" class="header__link__button"> Top up my balance</a>
 

@@ -1,6 +1,7 @@
 package com.epam.web.service;
 
 import com.epam.web.dao.*;
+import com.epam.web.dto.OrderDto;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Order;
 import com.epam.web.entities.Track;
@@ -11,12 +12,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
-
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -37,30 +39,25 @@ public class OrderService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             OrderDao orderDao = daoHelper.createOrderDao();
             TrackDao trackDao = daoHelper.createTrackDao();
-            LOGGER.debug("getCurrentOrder userId = " + userId);
             Optional<Order> optionalOrder = orderDao.getCurrentOrder(userId);
             Long orderId;
             if (optionalOrder.isPresent()) {
-                LOGGER.debug("optionalOrder.get() = " + optionalOrder.get());
                 Order order = optionalOrder.get();
                 orderId = order.getId();
             } else {
                 orderDao.createOrder(userId);
                 Optional<Order> optionalNewOrder = orderDao.getCurrentOrder(userId);
-                LOGGER.debug("optionalNewOrder.get() = " + optionalNewOrder.get());
                 Order order = optionalNewOrder.get();
                 orderId = order.getId();
             }
-            LOGGER.debug("orderId = " + orderId);
             // проверка добавлен ли трек уже в корзину, чтобы не было повтора. не удалять
             Optional<Track> optionalTrack = trackDao.getTrackFromCart(userId, trackId);
             if (!optionalTrack.isPresent()) {
-                LOGGER.debug("!optionalTrack.isPresent() = true");
                 orderDao.addTrackToOrder(orderId, trackId);
             }
         } catch (DaoException e) {
             LOGGER.debug(e + " ________ " + e.getMessage());
-            throw new ServiceException(e);
+            throw new ServiceException(e, e.getMessage());
         }
     }
 
@@ -93,6 +90,26 @@ public class OrderService {
         }
     }
 
+    public List<OrderDto> getPaidOrders(Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            OrderDao orderDao = daoHelper.createOrderDao();
+            TrackDao trackDao = daoHelper.createTrackDao();
+            List<Order> paidOrdersList = orderDao.findPaidOrders(userId);
+            List<OrderDto> paidOrders = new ArrayList<>();
+            for (Order order : paidOrdersList) {
+                Long orderId = order.getId();
+                List<Track> tracks = trackDao.findPaidTracksByOrderId(orderId);
+                BigDecimal totalSum = tracks.stream().map(Track::getPrice).reduce(BigDecimal::add).get();
+                int paidTracksAmount = tracks.size();
+                OrderDto orderDto = createOrderDto(order, totalSum, paidTracksAmount);
+                paidOrders.add(orderDto);
+            }
+            return paidOrders;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
     public Long getCurrentCartId(Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             OrderDao orderDao = daoHelper.createOrderDao();
@@ -116,5 +133,15 @@ public class OrderService {
                 .get();
     }
 
+    private OrderDto createOrderDto(Order order, BigDecimal totalSum, int paidTracksAmount) throws DaoException {
+        Long id = order.getId();
+        LocalDateTime orderDate = order.getOrderDate();
+        return new OrderDto.Builder()
+                .id(id)
+                .orderDate(orderDate)
+                .tracksAmount(paidTracksAmount)
+                .totalSum(totalSum)
+                .build();
+    }
 
 }

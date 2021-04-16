@@ -48,7 +48,6 @@ public class LoginCommand implements Command {
             session.setAttribute(ATTRIBUTE_NAME, user.getName());
             Long orderId = orderService.getCurrentCartId(userId);
             session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
-
             if (user.getRole().getValue().equals(ADMIN_ROLE)) {
                 showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
             } else {
@@ -57,7 +56,6 @@ public class LoginCommand implements Command {
         }
         LOGGER.debug("login session = " + session.getAttribute(ATTRIBUTE_NAME) + "||| session ID: " + session.getId());
         LOGGER.debug("login " + session.getAttribute(USER));
-
         return CommandResult.redirect(CONTROLLER_COMMAND + showPageCommandType);
     }
 

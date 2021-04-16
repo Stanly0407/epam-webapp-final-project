@@ -22,18 +22,18 @@
                 <br>
             </tr>
             <tr>
-                <td>Credit Card Number: </td>
-                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
-                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
-                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
-                <td>  <input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td>Credit Card Number:</td>
+                <td><input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td><input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td><input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
+                <td><input width="20px" class="common-input" type="tel" placeholder="xxxx" required></td>
             </tr>
             <tr>
                 <td>Name on Card:</td>
                 <td><input class="common-input" type="text" name="nameOnCard" required/></td>
             </tr>
             <tr>
-                <td>Exp Month/Year: </td>
+                <td>Exp Month/Year:</td>
                 <td><input class="common-input" type="text" name="month" required/> /</td>
                 <td><input class="common-input" type="text" name="year" required/></td>
             </tr>

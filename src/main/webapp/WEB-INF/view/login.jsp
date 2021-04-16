@@ -8,6 +8,7 @@
     <jsp:include page="fragments/header.jsp"/>
 </div>
 
+
 <div class="container-login">
     <form action="/musicwebapp/controller?command=login" method="post">
 
@@ -22,6 +23,8 @@
     </form>
 </div>
 
-
+<div class="footer">
+    <jsp:include page="fragments/footer.jsp"/>
+</div>
 </body>
 </html>

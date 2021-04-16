@@ -32,37 +32,27 @@ public class Controller extends HttpServlet {
 
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String commandType =  request.getParameter(PARAMETER_COMMAND);
+        String commandType = request.getParameter(PARAMETER_COMMAND);
         LOGGER.debug("PARAMETER_COMMAND = " + commandType);
 
         Command command = commandFactory.create(commandType);
         String page;
         boolean isRedirect = false;
-        try{
+        try {
             CommandResult result = command.execute(request, response);
             page = result.getPage();
             isRedirect = result.isRedirect();
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             request.setAttribute("errorMessage ----", e.getMessage());
             page = "/error.jsp";
         }
 
-        if(!isRedirect){
-            forward(request, response, page);
+        if (!isRedirect) {
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
+            requestDispatcher.forward(request, response);
         } else {
-            redirect(request, response, page);
+            response.sendRedirect(request.getContextPath() + page);
         }
-    }
-
-
-    public void forward(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {
-       RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
-        requestDispatcher.forward(request, response);
-    }
-
-    public void redirect(HttpServletRequest request, HttpServletResponse response, String page) throws IOException {
-        response.sendRedirect(request.getContextPath() + page);
-
     }
 
 }

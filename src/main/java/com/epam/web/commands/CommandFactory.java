@@ -1,9 +1,6 @@
 package com.epam.web.commands;
 
-import com.epam.web.commands.orderCommands.AddTrackToCartCommand;
-import com.epam.web.commands.orderCommands.CartPageCommand;
-import com.epam.web.commands.orderCommands.DeleteTrackFromCartCommand;
-import com.epam.web.commands.orderCommands.PayOrderCommand;
+import com.epam.web.commands.orderCommands.*;
 import com.epam.web.commands.trackCommands.*;
 import com.epam.web.commands.userCommands.TopUpBalanceCommand;
 import com.epam.web.commands.userCommands.UserAccountCommand;
@@ -40,6 +37,9 @@ public class CommandFactory {
     private static final String ADD_TRACK_TO_CART_COMMAND = "addTrack";
     private static final String DELETE_TRACK_FROM_CART_COMMAND = "deleteTrack";
     private static final String PAY_ORDER_COMMAND = "payOrder";
+    private static final String PAID_ORDERS_LIST_COMMAND = "paymentHistory";
+    private static final String PURCHASED_ORDER_TRACKS_LIST_COMMAND = "purchasedTracks";
+    private static final String SHOW_ALL_MUSIC_COMMAND = "allMusic";
 
     public Command create(String type) {
         switch (type) {
@@ -47,13 +47,15 @@ public class CommandFactory {
                 return new LoginCommand(new UserService(new DaoHelperFactory()), new OrderService(new DaoHelperFactory()));
             case LOGOUT_COMMAND:
                 return new LogoutCommand();
-                // USER
+            case SHOW_ALL_MUSIC_COMMAND:
+                return new AllMusicCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+            // USER
             case SHOW_USER_MAIN_PAGE_COMMAND:
                 return new UserMainPageCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case SEARCH_MUSIC_COMMAND:
-                return new SearchMusicResultCommand();
-            case SHOW_SEARCH_MUSIC_RESULT_COMMAND :
-                return new SearchMusicCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+                return new SearchMusicCommand();
+            case SHOW_SEARCH_MUSIC_RESULT_COMMAND:
+                return new SearchMusicResultCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case USER_ACCOUNT_COMMAND:
                 return new UserAccountCommand(new UserService(new DaoHelperFactory()));
             case TOP_UP_BALANCE_PAGE_COMMAND:
@@ -62,7 +64,6 @@ public class CommandFactory {
                 return new TopUpBalanceCommand(new UserService(new DaoHelperFactory()));
             case USER_MUSIC_LIST_COMMAND:
                 return new UserMusicCommand(new TrackService(new DaoHelperFactory()));
-
             // ORDER
             case SHOW_CART_PAGE_COMMAND:
                 return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
@@ -72,7 +73,10 @@ public class CommandFactory {
                 return new DeleteTrackFromCartCommand(new OrderService(new DaoHelperFactory()));
             case PAY_ORDER_COMMAND:
                 return new PayOrderCommand(new OrderService(new DaoHelperFactory()));
-
+            case PAID_ORDERS_LIST_COMMAND:
+                return new PaidOrderTracksCommand(new OrderService(new DaoHelperFactory()));
+            case PURCHASED_ORDER_TRACKS_LIST_COMMAND:
+                return new PaidMusicCommand(new TrackService(new DaoHelperFactory()));
             //ADMIN
             case SHOW_ADMIN_MAIN_PAGE_COMMAND:
                 return new ShowPageCommand(ADMIN_MAIN_PAGE);
@@ -82,8 +86,6 @@ public class CommandFactory {
                 return new EditTrackFormCommand(new TrackService(new DaoHelperFactory()));
             case SAVE_EDIT_TRACK_COMMAND:
                 return new EditTrackCommand(new TrackService(new DaoHelperFactory()));
-
-
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }

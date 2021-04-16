@@ -21,6 +21,23 @@ public class MusicCollectionService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
+    public List<MusicCollection> getAllAlbums() throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            return musicCollectionDao.getAllAlbums();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<MusicCollection> getAllPlaylists() throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            return musicCollectionDao.getAllPlaylists();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 
     public List<MusicCollection> getNewMusicCollections(String collectionType) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {

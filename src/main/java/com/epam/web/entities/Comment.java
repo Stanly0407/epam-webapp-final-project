@@ -1,22 +1,35 @@
 package com.epam.web.entities;
 
-public class Review extends Entity {
+import java.time.LocalDateTime;
 
-    public static final String TABLE = "review";
+public class Comment extends Entity {
+
+    public static final String TABLE = "track_comment";
     public static final String ID = "id";
+    public static final String COMMENT_DATE = "comment_date";
     public static final String CONTENT = "content";
     public static final String TRACK_ID = "track_id";
     public static final String USER_ID = "user_id";
 
+    private LocalDateTime commentDate;
     private String content;
     private Long trackId;
-    private  Long userId;
+    private Long userId;
 
-    public Review(Long id, String content, Long trackId, Long userId) {
+    public Comment(Long id, LocalDateTime commentDate, String content, Long trackId, Long userId) {
         super(id);
+        this.commentDate = commentDate;
         this.content = content;
         this.trackId = trackId;
         this.userId = userId;
+    }
+
+    public LocalDateTime getCommentDate() {
+        return commentDate;
+    }
+
+    public void setCommentDate(LocalDateTime commentDate) {
+        this.commentDate = commentDate;
     }
 
     public String getContent() {

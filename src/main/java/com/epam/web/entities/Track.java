@@ -15,6 +15,9 @@ public class Track extends Entity {
     private String title;
     private BigDecimal price;
 
+    public Track() {
+    }
+
     public Track(Long id, LocalDate releaseDate, String title, BigDecimal price) {
         super(id);
         this.releaseDate = releaseDate;

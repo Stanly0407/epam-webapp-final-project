@@ -16,7 +16,7 @@ public interface Dao <T extends Entity> {
 
     void save(T entity);
 
-    void removeById(Long id);
+    void removeById(Long id) throws DaoException;
 
 
 }

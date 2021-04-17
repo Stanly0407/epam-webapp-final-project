@@ -202,12 +202,14 @@ footer p {
 }
 
 table {
-    margin: auto;
+    margin: 50px auto;
 }
 
 td, th {
-    text-align: center;
-    padding: 15px;
+    text-align: left;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-right: 40px;
     border-bottom: 1px solid #ddd;
 }
 
@@ -294,5 +296,71 @@ td, th {
     justify-content: center;
 }
 
+.container-comments {
+    padding-left: 30%;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.2;
+    font-weight: normal;
+}
 
+.comments-textarea {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    resize: none;
+    width: 605px;
+    height: 70px;
+    border: none;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #383F6B;
+    color: lightblue;
+}
 
+.button-comment {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #48D5CD;
+    color: #1A214C;
+    margin-top: 8px;
+    margin-left: 455px;
+    width: 140px;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+}
+
+.container__comment {
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 60%);
+    background-color: #28336F;
+    border-radius: 20px;
+    padding: 10px;
+    width: 600px;
+    margin-bottom: 20px;
+}
+
+.p-comment-user {
+
+}
+
+.edit-delete-link {
+    margin-left: 470px;
+}
+
+.p-comment-date {
+    font-size: small;
+    color: blueviolet;
+    font-style: oblique;
+    margin-bottom: 10px;
+}
+
+.p-comment-content {
+    font-size: medium;
+}
+
+.comment-link {
+    line-height: 24px;
+    color: white;
+    text-decoration: none;
+    font-size: small;
+}

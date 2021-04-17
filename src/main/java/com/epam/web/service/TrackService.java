@@ -4,6 +4,7 @@ import com.epam.web.dao.*;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.dto.TrackStatusEnum;
 import com.epam.web.entities.Artist;
+import com.epam.web.entities.Comment;
 import com.epam.web.entities.Order;
 import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
@@ -12,6 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +40,7 @@ public class TrackService {
             throw new ServiceException(e);
         }
     }
+
 
     public List<TrackDto> getMusicByCondition(String searchSubject, String searchCondition, Long userId) throws ServiceException {
         LOGGER.debug("Called method getAllTracks");
@@ -75,6 +79,20 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             return trackDao.getById(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public TrackDto getTrackDtoById(Long trackId, Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            Optional<Track> optionalTrack = trackDao.getById(trackId);
+            Track track = new Track();
+            if (optionalTrack.isPresent()){
+                track = optionalTrack.get();
+            }
+            return createTrackDto(track, daoHelper, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -133,38 +151,47 @@ public class TrackService {
     }
 
     private List<TrackDto> createTrackDtoList(List<Track> tracks, DaoHelper daoHelper, Long userId) throws DaoException {
-        ArtistDao artistDao = daoHelper.createArtistDao();
-        OrderDao orderDao = daoHelper.createOrderDao();
         List<TrackDto> trackDtoList = new ArrayList<>();
         for (Track track : tracks) {
-            Long trackId = track.getId();
-            List<Artist> trackArtists = artistDao.getByTrackId(trackId);
-            Optional<Order> optionalOrder = orderDao.getOrderStatusForTrack(userId, trackId);
-            TrackStatusEnum trackStatus;
-            if (optionalOrder.isPresent()) {
-                Order order = optionalOrder.get();
-                if (order.isPaid()) {
-                    trackStatus = TrackStatusEnum.PURCHASED;
-                } else {
-                    trackStatus = TrackStatusEnum.ORDERED;
-                }
-            } else {
-                trackStatus = TrackStatusEnum.AVAILABLE;
-            }
-            LOGGER.debug("trackStatus " + trackStatus);
-            String title = track.getTitle();
-            BigDecimal price = track.getPrice();
-            TrackDto trackDto = new TrackDto.Builder()
-                    .id(trackId)
-                    .title(title)
-                    .price(price)
-                    .artists(trackArtists)
-                    .status(trackStatus)
-                    .build();
+            TrackDto trackDto = createTrackDto(track, daoHelper, userId);
             trackDtoList.add(trackDto);
         }
         return trackDtoList;
     }
 
-
+    private TrackDto createTrackDto(Track track, DaoHelper daoHelper, Long userId) throws DaoException {
+        ArtistDao artistDao = daoHelper.createArtistDao();
+        OrderDao orderDao = daoHelper.createOrderDao();
+        CommentDao commentDao = daoHelper.createCommentDao();
+        Long trackId = track.getId();
+        List<Artist> trackArtists = artistDao.getByTrackId(trackId);
+        Optional<Order> optionalOrder = orderDao.getOrderStatusForTrack(userId, trackId);
+        TrackStatusEnum trackStatus;
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            if (order.isPaid()) {
+                trackStatus = TrackStatusEnum.PURCHASED;
+            } else {
+                trackStatus = TrackStatusEnum.ORDERED;
+            }
+        } else {
+            trackStatus = TrackStatusEnum.AVAILABLE;
+        }
+        LOGGER.debug("trackStatus " + trackStatus);
+        LocalDate releaseDate = track.getReleaseDate();
+        String title = track.getTitle();
+        List<Comment> comments = commentDao.findCommentsByTrackId(trackId);
+        int commentsAmount = comments.size();
+        LOGGER.debug("commentsAmount " + commentsAmount);
+        BigDecimal price = track.getPrice();
+        return new TrackDto.Builder()
+                .id(trackId)
+                .releaseDate(releaseDate)
+                .title(title)
+                .commentsAmount(commentsAmount)
+                .price(price)
+                .artists(trackArtists)
+                .status(trackStatus)
+                .build();
+    }
 }

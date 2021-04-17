@@ -7,23 +7,17 @@ import com.epam.web.commands.userCommands.UserAccountCommand;
 import com.epam.web.commands.userCommands.UserMainPageCommand;
 import com.epam.web.commands.userCommands.UserMusicCommand;
 import com.epam.web.dao.DaoHelperFactory;
-import com.epam.web.service.MusicCollectionService;
-import com.epam.web.service.OrderService;
-import com.epam.web.service.TrackService;
-import com.epam.web.service.UserService;
+import com.epam.web.service.*;
 
 public class CommandFactory {
 
-    // COMMON
     private static final String LOGIN_COMMAND = "login";
     private static final String LOGOUT_COMMAND = "logout";
-    // ADMIN
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
     private static final String SHOW_ADMIN_TRACK_LIST_PAGE_COMMAND = "adminTrackList";
     private static final String SAVE_EDIT_TRACK_COMMAND = "editSaveTrack";
     private static final String EDIT_TRACK_FORM_PAGE_COMMAND = "editTrack";
     private static final String ADMIN_MAIN_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
-    // USER
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String USER_ACCOUNT_COMMAND = "userAccount";
     private static final String TOP_UP_BALANCE_PAGE_COMMAND = "topUpBalancePage";
@@ -32,7 +26,7 @@ public class CommandFactory {
     private static final String SEARCH_MUSIC_COMMAND = "searchMusic";
     private static final String SHOW_SEARCH_MUSIC_RESULT_COMMAND = "searchMusicResult";
     private static final String USER_MUSIC_LIST_COMMAND = "userMusic";
-    //ORDER
+    private static final String SHOW_TRACK_COMMENTS_PAGE_COMMAND = "commentsPage";
     private static final String SHOW_CART_PAGE_COMMAND = "cart";
     private static final String ADD_TRACK_TO_CART_COMMAND = "addTrack";
     private static final String DELETE_TRACK_FROM_CART_COMMAND = "deleteTrack";
@@ -40,6 +34,9 @@ public class CommandFactory {
     private static final String PAID_ORDERS_LIST_COMMAND = "paymentHistory";
     private static final String PURCHASED_ORDER_TRACKS_LIST_COMMAND = "purchasedTracks";
     private static final String SHOW_ALL_MUSIC_COMMAND = "allMusic";
+    private static final String ADD_COMMENT_TO_TRACK_COMMAND = "addComment";
+    private static final String EDIT_COMMENT_COMMAND = "editComment";
+    private static final String DELETE_COMMENT_COMMAND = "deleteComment";
 
     public Command create(String type) {
         switch (type) {
@@ -64,6 +61,14 @@ public class CommandFactory {
                 return new TopUpBalanceCommand(new UserService(new DaoHelperFactory()));
             case USER_MUSIC_LIST_COMMAND:
                 return new UserMusicCommand(new TrackService(new DaoHelperFactory()));
+            case SHOW_TRACK_COMMENTS_PAGE_COMMAND:
+                return new TrackCommentsCommand(new TrackService(new DaoHelperFactory()), new CommentService(new DaoHelperFactory()));
+            case ADD_COMMENT_TO_TRACK_COMMAND:
+                return new AddCommentToTrackCommand(new CommentService(new DaoHelperFactory()));
+            case EDIT_COMMENT_COMMAND:
+                return new EditCommentCommand(new TrackService(new DaoHelperFactory()), new CommentService(new DaoHelperFactory()));
+            case DELETE_COMMENT_COMMAND:
+                return new DeleteCommentCommand(new CommentService(new DaoHelperFactory()));
             // ORDER
             case SHOW_CART_PAGE_COMMAND:
                 return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));

@@ -1,9 +1,6 @@
 package com.epam.web.mapper;
 
-import com.epam.web.entities.Artist;
-import com.epam.web.entities.Entity;
-import com.epam.web.entities.Track;
-import com.epam.web.entities.User;
+import com.epam.web.entities.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +17,8 @@ public interface RowMapper<T extends Entity> {
                 return new TrackRowMapper();
             case Artist.TABLE:
                 return new ArtistRowMapper();
+            case Comment.TABLE:
+                return new CommentRowMapper();
             default:
                 throw new IllegalArgumentException("Unknown table => " + table);
         }

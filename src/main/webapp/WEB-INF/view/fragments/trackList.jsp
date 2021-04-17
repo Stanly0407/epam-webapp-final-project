@@ -17,6 +17,13 @@
 
                     <td>$ ${track.price} </td>
 
+                    <td>
+                        <a class="header__link" href="<c:url value='controller?command=commentsPage&id=${track.id}'/>">
+                            <img src="img/svg/comments.svg" alt="Comments" class="header__cart-pic">
+                                ${track.commentsAmount}
+                        </a>
+                    </td>
+
                     <c:if test="${track.status == 'PURCHASED'}">
                         <td> Purchased</td>
                     </c:if>

@@ -13,6 +13,7 @@ public class TrackDto {
     private BigDecimal price;
     private List<Artist> artists;
     private TrackStatusEnum status;
+    private int commentsAmount;
 
     public Long getId() {
         return id;
@@ -36,6 +37,10 @@ public class TrackDto {
 
     public TrackStatusEnum getStatus() {
         return status;
+    }
+
+    public int getCommentsAmount() {
+        return commentsAmount;
     }
 
     public static class Builder {
@@ -73,6 +78,11 @@ public class TrackDto {
 
         public Builder status(TrackStatusEnum status) {
             newTrack.status = status;
+            return this;
+        }
+
+        public Builder commentsAmount(int commentsAmount) {
+            newTrack.commentsAmount = commentsAmount;
             return this;
         }
 

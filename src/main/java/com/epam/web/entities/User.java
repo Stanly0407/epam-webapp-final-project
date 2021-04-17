@@ -20,6 +20,8 @@ public class User extends Entity {
     private Role role;
     private BigDecimal balance;
 
+    public User() {
+    }
 
     public User(Long id, String login, String name, String lastname, Role role, BigDecimal balance) {
         super(id);

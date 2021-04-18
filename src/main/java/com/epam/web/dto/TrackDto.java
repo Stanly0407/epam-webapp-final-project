@@ -7,10 +7,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TrackDto {
+
+    private static final String PATH_PREFIX = "/audio/";
+
     private Long id;
     private LocalDate releaseDate;
     private String title;
     private BigDecimal price;
+    private String filename;
     private List<Artist> artists;
     private TrackStatusEnum status;
     private int commentsAmount;
@@ -29,6 +33,10 @@ public class TrackDto {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    public String getFilename() {
+        return filename;
     }
 
     public List<Artist> getArtists() {
@@ -65,9 +73,13 @@ public class TrackDto {
             return this;
         }
 
-
         public Builder price(BigDecimal price) {
             newTrack.price = price;
+            return this;
+        }
+
+        public Builder filename(String filename) {
+            newTrack.filename = PATH_PREFIX + filename;
             return this;
         }
 

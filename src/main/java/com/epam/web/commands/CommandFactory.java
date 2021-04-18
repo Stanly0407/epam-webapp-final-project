@@ -35,8 +35,9 @@ public class CommandFactory {
     private static final String PURCHASED_ORDER_TRACKS_LIST_COMMAND = "purchasedTracks";
     private static final String SHOW_ALL_MUSIC_COMMAND = "allMusic";
     private static final String ADD_COMMENT_TO_TRACK_COMMAND = "addComment";
-    private static final String EDIT_COMMENT_COMMAND = "editComment";
+    private static final String EDIT_COMMENT_FORM_COMMAND = "editComment";
     private static final String DELETE_COMMENT_COMMAND = "deleteComment";
+    private static final String EDIT_COMMENT_COMMAND = "saveEditedComment";
 
     public Command create(String type) {
         switch (type) {
@@ -65,8 +66,10 @@ public class CommandFactory {
                 return new TrackCommentsCommand(new TrackService(new DaoHelperFactory()), new CommentService(new DaoHelperFactory()));
             case ADD_COMMENT_TO_TRACK_COMMAND:
                 return new AddCommentToTrackCommand(new CommentService(new DaoHelperFactory()));
+            case EDIT_COMMENT_FORM_COMMAND:
+                return new EditCommentFormCommand(new TrackService(new DaoHelperFactory()), new CommentService(new DaoHelperFactory()));
             case EDIT_COMMENT_COMMAND:
-                return new EditCommentCommand(new TrackService(new DaoHelperFactory()), new CommentService(new DaoHelperFactory()));
+                return new EditCommentCommand(new CommentService(new DaoHelperFactory()));
             case DELETE_COMMENT_COMMAND:
                 return new DeleteCommentCommand(new CommentService(new DaoHelperFactory()));
             // ORDER

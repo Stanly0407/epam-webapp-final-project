@@ -15,6 +15,7 @@ public class TrackRowMapper implements RowMapper<Track> {
         LocalDate releaseDate = resultSet.getObject(Track.RELEASE_DATE, LocalDate.class);
         String title = resultSet.getString(Track.TITLE);
         BigDecimal price = resultSet.getBigDecimal(Track.PRICE);
-        return new Track(id, releaseDate, title, price);
+        String filename = resultSet.getString(Track.FILENAME);
+        return new Track(id, releaseDate, title, price, filename);
     }
 }

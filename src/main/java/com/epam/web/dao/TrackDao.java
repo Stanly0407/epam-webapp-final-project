@@ -10,24 +10,24 @@ import java.util.Optional;
 
 public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
 
-    private static final String UPDATE_TRACK = "UPDATE track SET t.release_date=?, title=?, price=? where id=?";
-    private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price FROM track t";
-    private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t WHERE t.id=?";
-    private static final String FIND_TRACKS_BY_TRACK = "SELECT t.id, t.release_date, t.title, t.price FROM track t WHERE t.title=?";
-    private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, a.id, a.name FROM track t " +
+    private static final String UPDATE_TRACK = "UPDATE track SET t.release_date=?, title=?, price=?, filename=? where id=?";
+    private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t";
+    private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.id=?";
+    private static final String FIND_TRACKS_BY_TITLE = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.title=?";
+    private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, filename, a.id, a.name FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.name = ?";
-    private static final String FIND_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+    private static final String FIND_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
             "ORDER BY t.release_date DESC LIMIT 5";
-    private static final String FIND_ORDERED_TRACKS = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+    private static final String FIND_ORDERED_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.user_id = ? AND po.is_paid = false";
-    private static final String FIND_TRACK_IN_UNPAID_ORDER = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+    private static final String FIND_TRACK_IN_UNPAID_ORDER = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.user_id = ? AND po.is_paid = false AND t.id = ?";
-    private static final String FIND_ALL_PAID_TRACKS_BY_USER_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+    private static final String FIND_ALL_PAID_TRACKS_BY_USER_ID = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.user_id = ? AND po.is_paid = true";
-    private static final String FIND_PAID_TRACKS_BY_ORDER_ID = "SELECT t.id, t.release_date, t.title, t.price FROM track t " +
+    private static final String FIND_PAID_TRACKS_BY_ORDER_ID = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.id = ?";
 
@@ -40,7 +40,7 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     }
 
     public List<Track> findMusicByTrack(String searchSubject) throws DaoException {
-        return executeQuery(FIND_TRACKS_BY_TRACK, searchSubject);
+        return executeQuery(FIND_TRACKS_BY_TITLE, searchSubject);
     }
 
     public List<Track> findMusicByArtist(String searchSubject) throws DaoException {

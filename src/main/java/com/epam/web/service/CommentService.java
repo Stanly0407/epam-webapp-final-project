@@ -29,7 +29,7 @@ public class CommentService {
     public void editComment(String content, Long commentId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             CommentDao commentDao = daoHelper.createCommentDao();
-            commentDao.editComment(content, commentId);
+            commentDao.updateComment(content, commentId);
         } catch (DaoException e) {
             LOGGER.debug("editComment " + e);
             throw new ServiceException(e);
@@ -60,14 +60,14 @@ public class CommentService {
     public List<CommentDto> getCommentsByTrackIdExcludedChosen(Long trackId, Long currentUserId, Long commentId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             CommentDao commentDao = daoHelper.createCommentDao();
-            List<Comment> trackComments = commentDao.findCommentsByTrackIdExcludedOne(commentId, trackId);
+            List<Comment> trackComments = commentDao.findCommentsByTrackIdExcludedOne(trackId, commentId);
             return createCommentDtoList(trackComments, daoHelper, trackId, currentUserId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public String getCommentContent(Long commentId) throws ServiceException {
+    public String getEditableContent(Long commentId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             CommentDao commentDao = daoHelper.createCommentDao();
             Optional<Comment> commentOptional = commentDao.getById(commentId);
@@ -110,7 +110,7 @@ public class CommentService {
                 user = userOptional.get();
             }
             String name = user.getName();
-            LOGGER.debug("comment name " + name);
+            LOGGER.debug("comment user name = " + name);
             String lastname = user.getLastname();
             CommentDto commentDto = new CommentDto.Builder()
                     .id(id)

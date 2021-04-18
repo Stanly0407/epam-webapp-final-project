@@ -184,12 +184,14 @@ public class TrackService {
         int commentsAmount = comments.size();
         LOGGER.debug("commentsAmount " + commentsAmount);
         BigDecimal price = track.getPrice();
+        String filename = track.getFilename();
         return new TrackDto.Builder()
                 .id(trackId)
                 .releaseDate(releaseDate)
                 .title(title)
                 .commentsAmount(commentsAmount)
                 .price(price)
+                .filename(filename)
                 .artists(trackArtists)
                 .status(trackStatus)
                 .build();

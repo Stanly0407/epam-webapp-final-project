@@ -44,11 +44,24 @@
 <h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">Comments:</h1>
 
 <div class="container-comments">
-    <form action="/musicwebapp/controller?command=addComment&id=${track.id}" method="post">
-        <textarea class="comments-textarea" placeholder="Enter comment" name="commentContent" >${editableContent}</textarea>
+<c:choose>
+    <c:when test="${buttonEdit}">
+        <form action="/musicwebapp/controller?command=saveEditedComment&commentId=${commentId}" method="post">
+            <input type="hidden" name="${commentId}"/>
+            <textarea class="comments-textarea" placeholder="Enter comment" name="commentContent">${editableContent}</textarea>
         <br>
-        <button class="button-comment" type="submit">Submit</button>
-    </form>
+        <button class="button-comment" type="submit">Save</button>
+        </form>
+    </c:when>
+    <c:otherwise>
+        <form action="/musicwebapp/controller?command=addComment&id=${track.id}" method="post">
+            <textarea class="comments-textarea" placeholder="Enter comment" name="commentContent" ></textarea>
+            <br>
+            <button class="button-comment" type="submit">Submit</button>
+        </form>
+    </c:otherwise>
+</c:choose>
+
     <br>
     <c:choose>
         <c:when test="${not empty comments}">
@@ -72,7 +85,7 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p style="margin: auto">Пока нет комментариев</p>
+            <p style="margin: auto">There are no comments here yet</p>
         </c:otherwise>
     </c:choose>
 </div>

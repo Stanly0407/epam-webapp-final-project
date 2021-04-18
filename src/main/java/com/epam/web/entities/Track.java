@@ -10,19 +10,22 @@ public class Track extends Entity {
     public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
     public static final String PRICE = "price";
+    public static final String FILENAME = "filename";
 
     private LocalDate releaseDate;
     private String title;
     private BigDecimal price;
+    private String filename;
 
     public Track() {
     }
 
-    public Track(Long id, LocalDate releaseDate, String title, BigDecimal price) {
+    public Track(Long id, LocalDate releaseDate, String title, BigDecimal price, String filename) {
         super(id);
         this.releaseDate = releaseDate;
         this.title = title;
         this.price = price;
+        this.filename = filename;
     }
 
     public LocalDate getReleaseDate() {
@@ -49,4 +52,11 @@ public class Track extends Entity {
         this.price = price;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 }

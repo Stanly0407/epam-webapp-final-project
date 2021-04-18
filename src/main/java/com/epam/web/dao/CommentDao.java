@@ -26,8 +26,8 @@ public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
         return executeQuery(FIND_COMMENTS_BY_TRACK_ID, trackId);
     }
 
-    public List<Comment> findCommentsByTrackIdExcludedOne(Long commentId, Long trackId) throws DaoException {
-        return executeQuery(FIND_COMMENTS_BY_TRACK_ID_EXCLUDED_ONE, commentId, trackId);
+    public List<Comment> findCommentsByTrackIdExcludedOne(Long trackId, Long commentId) throws DaoException {
+        return executeQuery(FIND_COMMENTS_BY_TRACK_ID_EXCLUDED_ONE, trackId, commentId);
     }
 
     public Optional<Comment> getById(Long id) throws DaoException {
@@ -39,7 +39,7 @@ public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
         executeUpdate(INSERT_COMMENT_TO_TRACK, commentContent, trackId, userId);
     }
 
-    public void editComment(String commentContent, Long commentId) throws DaoException {
+    public void updateComment(String commentContent, Long commentId) throws DaoException {
         executeUpdate(UPDATE_COMMENT, commentContent, commentId);
     }
 

@@ -22,6 +22,12 @@
                     <c:forEach items="${track.artists}" var="artist">
                         <td><input type="hidden" name="${artist.id}"/></td>
                         <td>${artist.name}</td>
+                        <br>
+                        <td>
+                            <audio controls>
+                                <source src="${track.filename}" type="audio/mpeg">
+                            </audio>
+                        </td>
                     </c:forEach>
 
                 </tr>

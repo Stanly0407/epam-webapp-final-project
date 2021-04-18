@@ -12,9 +12,8 @@ import javax.servlet.http.HttpSession;
 public class DeleteCommentCommand implements Command {
     private static final String TRACK_COMMENTS_PAGE = "/controller?command=commentsPage&id=";
     private static final String COMMENT_ID = "id";
-    private static final String CURRENT_TRACK_ID = "id";
     private static final String ATTRIBUTE_COMMENTED_TRACK_ID = "currentCommentedTrackId";
-    private static final String TRACK_ID = "currentCommentedTrackId";
+
 
     private final CommentService commentService;
 

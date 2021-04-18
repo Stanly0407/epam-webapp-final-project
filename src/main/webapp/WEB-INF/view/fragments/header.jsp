@@ -34,6 +34,9 @@
 
                     <c:if test="${not empty name}">
                         <li class="header__item">
+                            <a href="/musicwebapp/controller?command=allArtists" class="header__link">Artists</a>
+                        </li>
+                        <li class="header__item">
                             <a href="/musicwebapp/controller?command=allMusic" class="header__link">All music</a>
                         </li>
                         <li class="header__item">

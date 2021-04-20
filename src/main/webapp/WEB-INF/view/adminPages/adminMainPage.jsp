@@ -12,10 +12,9 @@
 
 <div class="container" align="center">
 
-    <b style="color: aliceblue">Hello, ${name}!</b><br>
 
     <button class="button-main" type="submit">
-        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">trackList</a>
+        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">All tracks</a>
     </button>
 
 </div>

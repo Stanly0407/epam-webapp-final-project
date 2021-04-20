@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class TopUpBalanceCommand implements Command {
+public class RefillBalanceCommand implements Command {
 
     private static final String USER_ACCOUNT_PAGE_COMMAND = "/controller?command=userAccount";
 
     private final UserService userService;
 
-    public TopUpBalanceCommand(UserService userService) {
+    public RefillBalanceCommand(UserService userService) {
         this.userService = userService;
     }
 

@@ -14,6 +14,13 @@
         <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
-    
+    <filter>
+        <filter-name>Filter</filter-name>
+        <filter-class>com.epam.web.ContentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Filter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
 
 </web-app>

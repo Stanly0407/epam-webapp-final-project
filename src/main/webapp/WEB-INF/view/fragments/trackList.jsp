@@ -25,10 +25,10 @@
                     </td>
 
                     <c:if test="${track.status == 'PURCHASED'}">
-                        <td> Purchased</td>
+                        <td class="purchased"> Purchased</td>
                     </c:if>
                     <c:if test="${track.status == 'AVAILABLE'}">
-                        <td><a class="header__link" href="<c:url value='controller?command=addTrack&id=${track.id}'/>">Add
+                        <td><a class="header__link__button" href="<c:url value='controller?command=addTrack&id=${track.id}'/>">Add
                             to Cart</a></td>
                     </c:if>
                     <c:if test="${track.status == 'ORDERED'}">

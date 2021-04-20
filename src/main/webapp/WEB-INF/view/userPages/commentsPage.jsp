@@ -41,7 +41,7 @@
     </table>
 </div>
 
-<h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">Comments:</h1>
+<h1 class="headlines">Comments:</h1>
 
 <div class="container-comments">
 <c:choose>
@@ -85,7 +85,7 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p style="margin: auto">There are no comments here yet</p>
+            <p class="headlines">There are no comments here yet</p>
         </c:otherwise>
     </c:choose>
 </div>

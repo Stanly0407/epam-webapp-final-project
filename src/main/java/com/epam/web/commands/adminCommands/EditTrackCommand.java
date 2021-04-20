@@ -1,4 +1,4 @@
-package com.epam.web.commands.trackCommands;
+package com.epam.web.commands.adminCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;

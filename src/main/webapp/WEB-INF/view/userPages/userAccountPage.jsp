@@ -10,9 +10,9 @@
 </div>
 
 
-<div class="container" align="center">
+<div class="container-login">
 
-    <b style="color: aliceblue">${user.name} ${user.lastname} </b><br> <br>
+    <h1 class="user_headline">${user.name} ${user.lastname} </h1><br> <br>
 
     <b style="color: aliceblue">Login: ${user.login}</b>
     <br><br>
@@ -22,7 +22,7 @@
     <b style="color: aliceblue">Current balance: $ ${user.balance}</b><br> <br>
     <a href="/musicwebapp/controller?command=paymentHistory" class="header__link__button"> Payment history </a>
     <br> <br>
-    <a href="/musicwebapp/controller?command=topUpBalancePage" class="header__link__button"> Top up my balance</a>
+    <a href="/musicwebapp/controller?command=topUpBalancePage" class="header__link__button"> Refill account balance</a>
 
 
 </div>

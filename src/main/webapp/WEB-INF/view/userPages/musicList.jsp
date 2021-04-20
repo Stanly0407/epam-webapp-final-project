@@ -8,7 +8,7 @@
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
-<h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">Track List:</h1>
+<h1 class="headlines">Track List:</h1>
 
 <c:if test="${not empty purchasedTracks}">
     <div>

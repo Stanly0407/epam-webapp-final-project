@@ -1,8 +1,11 @@
 package com.epam.web.commands;
 
+import com.epam.web.commands.adminCommands.AdminTrackListCommand;
+import com.epam.web.commands.adminCommands.EditTrackCommand;
+import com.epam.web.commands.adminCommands.EditTrackFormCommand;
 import com.epam.web.commands.orderCommands.*;
 import com.epam.web.commands.trackCommands.*;
-import com.epam.web.commands.userCommands.TopUpBalanceCommand;
+import com.epam.web.commands.userCommands.RefillBalanceCommand;
 import com.epam.web.commands.userCommands.UserAccountCommand;
 import com.epam.web.commands.userCommands.UserMainPageCommand;
 import com.epam.web.commands.userCommands.UserMusicCommand;
@@ -21,7 +24,7 @@ public class CommandFactory {
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String USER_ACCOUNT_COMMAND = "userAccount";
     private static final String TOP_UP_BALANCE_PAGE_COMMAND = "topUpBalancePage";
-    private static final String TOP_UP_BALANCE_PAGE = "/WEB-INF/view/userPages/topUpBalancePage.jsp";
+    private static final String TOP_UP_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
     private static final String TOP_UP_BALANCE_COMMAND = "topUpBalance";
     private static final String SEARCH_MUSIC_COMMAND = "searchMusic";
     private static final String SHOW_SEARCH_MUSIC_RESULT_COMMAND = "searchMusicResult";
@@ -59,7 +62,7 @@ public class CommandFactory {
             case TOP_UP_BALANCE_PAGE_COMMAND:
                 return new ShowPageCommand(TOP_UP_BALANCE_PAGE);
             case TOP_UP_BALANCE_COMMAND:
-                return new TopUpBalanceCommand(new UserService(new DaoHelperFactory()));
+                return new RefillBalanceCommand(new UserService(new DaoHelperFactory()));
             case USER_MUSIC_LIST_COMMAND:
                 return new UserMusicCommand(new TrackService(new DaoHelperFactory()));
             case SHOW_TRACK_COMMENTS_PAGE_COMMAND:

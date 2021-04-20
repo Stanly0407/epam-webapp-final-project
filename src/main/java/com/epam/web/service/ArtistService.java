@@ -12,12 +12,12 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-public class UserService {
-    private static final Logger LOGGER = LogManager.getLogger(UserService.class);
+public class ArtistService {
+    private static final Logger LOGGER = LogManager.getLogger(ArtistService.class);
 
     private DaoHelperFactory daoHelperFactory;
 
-    public UserService(DaoHelperFactory daoHelperFactory) {
+    public ArtistService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
 

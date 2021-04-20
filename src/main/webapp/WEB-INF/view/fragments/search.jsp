@@ -8,14 +8,6 @@
                    name="searchSubject" required/>
             <button class="button-main" type="submit">Search</button>
 
-
-            <%--        <div class="search___radio">--%>
-            <%--            <input type="radio" checked="checked" value="Track" name="searchCondition">Track<br>--%>
-            <%--            <input type="radio" value="Artist" name="searchCondition">Artist<br>--%>
-            <%--            <input type="radio" value="Album" name="searchCondition">Album<br>--%>
-            <%--            <input type="radio" value="Playlist" name="searchCondition">Playlist<br>--%>
-            <%--        </div>--%>
-
             <div class="form_radio_group">
                 <div class="form_radio_group-item">
                     <input id="radio-1" type="radio" value="Track" name="searchCondition" checked>

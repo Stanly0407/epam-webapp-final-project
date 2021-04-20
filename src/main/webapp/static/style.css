@@ -204,7 +204,7 @@ footer p {
 
 table {
     margin: 50px auto;
-    border-bottom: 1.5px solid #080E31;
+    border-bottom: 2px solid #060A23;
 }
 
 td, th {
@@ -212,7 +212,7 @@ td, th {
     padding-top: 10px;
     padding-bottom: 15px;
     padding-right: 40px;
-    border-bottom: 1px solid #1A214C;
+    border-bottom: 2px solid #060A23;
 }
 
 
@@ -525,7 +525,7 @@ input::placeholder {
     margin: 50px auto;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 60%);
     width: 800px;
-    border-bottom: 1.5px solid #080E31;
+    border-bottom: 1.5px solid #060A23;
 }
 
 .purchased {
@@ -540,13 +540,13 @@ input::placeholder {
 
 .td-payment-table {
     text-align: left;
-    border-bottom: 1.5px solid #080E31;
+    border-bottom: 1.5px solid #060A23;
     padding: 10px 10px 15px 5px;
 }
 
 .td-payment-table-name {
     text-align: left;
-    border-bottom: 1.5px solid #080E31;
+    border-bottom: 1.5px solid #060A23;
     padding: 10px 10px 15px 5px;
 }
 

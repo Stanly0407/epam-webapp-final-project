@@ -5,10 +5,7 @@ import com.epam.web.commands.adminCommands.EditTrackCommand;
 import com.epam.web.commands.adminCommands.EditTrackFormCommand;
 import com.epam.web.commands.orderCommands.*;
 import com.epam.web.commands.trackCommands.*;
-import com.epam.web.commands.userCommands.RefillBalanceCommand;
-import com.epam.web.commands.userCommands.UserAccountCommand;
-import com.epam.web.commands.userCommands.UserMainPageCommand;
-import com.epam.web.commands.userCommands.UserMusicCommand;
+import com.epam.web.commands.userCommands.*;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.service.*;
 
@@ -41,6 +38,8 @@ public class CommandFactory {
     private static final String EDIT_COMMENT_FORM_COMMAND = "editComment";
     private static final String DELETE_COMMENT_COMMAND = "deleteComment";
     private static final String EDIT_COMMENT_COMMAND = "saveEditedComment";
+    private static final String CHANGE_PASSWORD_COMMAND = "changePassword";
+    private static final String SHOW_ALL_ARTISTS_COMMAND = "allArtists";
 
     public Command create(String type) {
         switch (type) {
@@ -75,6 +74,10 @@ public class CommandFactory {
                 return new EditCommentCommand(new CommentService(new DaoHelperFactory()));
             case DELETE_COMMENT_COMMAND:
                 return new DeleteCommentCommand(new CommentService(new DaoHelperFactory()));
+            case CHANGE_PASSWORD_COMMAND:
+                return new ChangePasswordCommand(new UserService(new DaoHelperFactory()));
+            case SHOW_ALL_ARTISTS_COMMAND:
+                return new ChangePasswordCommand(new UserService(new DaoHelperFactory()));
             // ORDER
             case SHOW_CART_PAGE_COMMAND:
                 return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));

@@ -4,7 +4,7 @@
 <c:if test="${not empty trackList}">
 
     <div>
-        <table style="color: #b3d4fc;">
+        <table>
             <c:forEach items="${trackList}" var="track">
                 <tr style="align-content: center">
                     <td><input type="hidden" name="${track.id}"/></td>

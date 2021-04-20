@@ -9,8 +9,6 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-
-
 <div>
     <table style="color: #b3d4fc;">
         <tr style="align-content: center">
@@ -24,12 +22,11 @@
 
             <td>$ ${track.price} </td>
 
-
             <c:if test="${track.status == 'PURCHASED'}">
-                <td> Purchased</td>
+                <td class="purchased"> Purchased</td>
             </c:if>
             <c:if test="${track.status == 'AVAILABLE'}">
-                <td><a class="header__link" href="<c:url value='controller?command=addTrack&id=${track.id}'/>">Add to
+                <td><a class="header__link__button" href="<c:url value='controller?command=addTrack&id=${track.id}'/>">Add to
                     Cart</a></td>
             </c:if>
             <c:if test="${track.status == 'ORDERED'}">
@@ -41,7 +38,7 @@
     </table>
 </div>
 
-<h1 class="headlines">Comments:</h1>
+
 
 <div class="container-comments">
 <c:choose>
@@ -62,7 +59,7 @@
     </c:otherwise>
 </c:choose>
 
-    <br>
+    <h1 class="headlines" style="font-size: smaller">Comments:</h1>
     <c:choose>
         <c:when test="${not empty comments}">
             <c:forEach items="${comments}" var="comment">
@@ -85,7 +82,7 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p class="headlines">There are no comments here yet</p>
+            <p class="refill_balance_headline">There are no comments here yet</p>
         </c:otherwise>
     </c:choose>
 </div>

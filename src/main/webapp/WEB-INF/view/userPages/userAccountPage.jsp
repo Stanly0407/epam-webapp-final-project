@@ -16,7 +16,12 @@
 
     <b style="color: aliceblue">Login: ${user.login}</b>
     <br><br>
-    <a href="/musicwebapp/controller?command=changeUserPassword" class="header__link__button"> Change password</a>
+    <form action="/musicwebapp/controller?command=changePassword" method="post">
+        <button  class="header__link__button" type="submit">Change password</button>
+        <input class="common-input" type="password" placeholder="new password..." name="password" required/>
+
+    </form>
+
     <br> <br> <br>
 
     <b style="color: aliceblue">Current balance: $ ${user.balance}</b><br> <br>

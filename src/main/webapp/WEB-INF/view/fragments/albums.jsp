@@ -4,7 +4,7 @@
 <div class="card__list">
     <c:forEach items="${albums}" var="album">
         <div class="card">
-            <a class="header__link" href="<c:url value='controller?command=see&id=${album.id}'/>">
+            <a class="header__link" href="<c:url value='controller?command=collectionMusic&id=${album.id}'/>">
                 <img class="img_card" src="img/svg/album.svg" alt="Album">
                 <div class="container_card">
                     <input type="hidden" name="${album.id}"/>

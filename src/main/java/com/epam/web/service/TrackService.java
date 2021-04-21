@@ -41,7 +41,6 @@ public class TrackService {
         }
     }
 
-
     public List<TrackDto> getMusicByCondition(String searchSubject, String searchCondition, Long userId) throws ServiceException {
         LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
@@ -60,6 +59,25 @@ public class TrackService {
             } else {
                 return new ArrayList<>();
             }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<TrackDto> getArtistTracks(Long artistId, Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            List<Track> artistTracks = trackDao.findArtistMusic(artistId);
+            return createTrackDtoList(artistTracks, daoHelper, userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+    public List<TrackDto> getCollectionTracks(Long collectionId, Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            List<Track> albumTracks = trackDao.findCollectionMusic(collectionId);
+            return createTrackDtoList(albumTracks, daoHelper, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -89,7 +107,7 @@ public class TrackService {
             TrackDao trackDao = daoHelper.createTrackDao();
             Optional<Track> optionalTrack = trackDao.getById(trackId);
             Track track = new Track();
-            if (optionalTrack.isPresent()){
+            if (optionalTrack.isPresent()) {
                 track = optionalTrack.get();
             }
             return createTrackDto(track, daoHelper, userId);

@@ -30,6 +30,11 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String FIND_PAID_TRACKS_BY_ORDER_ID = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.id = ?";
+    private static final String FIND_ALL_ARTIST_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename, a.id, a.name " +
+            "FROM track t INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.id = ?";
+    private static final String FIND_COLLECTION_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename, a.id, a.name FROM track t " +
+            "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) INNER JOIN track_collection tc " +
+            "ON (t.id=tc.track_id) INNER JOIN collection c ON (c.id=tc.collection_id) WHERE c.id = ?";
 
     public TrackDao(Connection connection, RowMapper<Track> mapper) {
         super(connection, mapper);
@@ -62,6 +67,14 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     public List<Track> findPaidTracksByOrderId(Long orderId) throws DaoException {
         return executeQuery(FIND_PAID_TRACKS_BY_ORDER_ID, orderId);
     }
+
+    public List<Track> findArtistMusic(Long artistId) throws DaoException {
+        return executeQuery(FIND_ALL_ARTIST_TRACKS, artistId);
+    }
+    public List<Track> findCollectionMusic(Long collectionId) throws DaoException {
+        return executeQuery(FIND_COLLECTION_TRACKS, collectionId);
+    }
+
 
     @Override
     public Optional<Track> getById(Long id) throws DaoException {

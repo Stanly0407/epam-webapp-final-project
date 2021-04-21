@@ -8,6 +8,9 @@ public class Artist extends Entity {
 
     private String name;
 
+    public Artist() {
+    }
+    
     public Artist(Long id, String name) {
         super(id);
         this.name = name;

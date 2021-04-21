@@ -569,3 +569,15 @@ input::placeholder {
     background-color: #28336F;
     color: lightblue;
 }
+
+.change_password_button{
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A214C;
+    text-decoration: none;
+    background-color: #48D5CD;
+    border-radius: 8px;
+    padding: 7px 15px;
+    width: 220px;
+    height: 50px;
+}

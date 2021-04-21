@@ -5,7 +5,6 @@ import com.epam.web.commands.CommandResult;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.ServiceException;
-import com.epam.web.mapper.MusicCollectionRowMapper;
 import com.epam.web.service.MusicCollectionService;
 import com.epam.web.service.TrackService;
 
@@ -44,10 +43,10 @@ public class UserMainPageCommand implements Command {
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
         List<MusicCollection> albums = musicCollectionService.getNewMusicCollections(ALBUM_TYPE);
         request.setAttribute(ATTRIBUTE_ALBUM_LIST, albums);
-        request.setAttribute(ATTRIBUTE_ALBUM, new MusicCollectionRowMapper());
+        request.setAttribute(ATTRIBUTE_ALBUM, new MusicCollection());
         List<MusicCollection> playlists = musicCollectionService.getNewMusicCollections(COLLECTION_TYPE);
         request.setAttribute(ATTRIBUTE_PLAYLIST_LIST, playlists);
-        request.setAttribute(ATTRIBUTE_PLAYLIST, new MusicCollectionRowMapper());
+        request.setAttribute(ATTRIBUTE_PLAYLIST, new MusicCollection());
         return CommandResult.forward(USER_TRACK_LIST_PAGE);
     }
 

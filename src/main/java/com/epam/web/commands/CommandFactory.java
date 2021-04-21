@@ -40,6 +40,9 @@ public class CommandFactory {
     private static final String EDIT_COMMENT_COMMAND = "saveEditedComment";
     private static final String CHANGE_PASSWORD_COMMAND = "changePassword";
     private static final String SHOW_ALL_ARTISTS_COMMAND = "allArtists";
+    private static final String SHOW_ALL_ARTIST_MUSIC_COMMAND = "artistMusic";
+    private static final String SHOW_COLLECTION_MUSIC_COMMAND = "collectionMusic";
+    private static final String CHANGE_LANGUAGE_COMMAND = "changeLanguage";
 
     public Command create(String type) {
         switch (type) {
@@ -49,6 +52,8 @@ public class CommandFactory {
                 return new LogoutCommand();
             case SHOW_ALL_MUSIC_COMMAND:
                 return new AllMusicCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+            case CHANGE_LANGUAGE_COMMAND:
+                return new ChangeLanguageCommand();
             // USER
             case SHOW_USER_MAIN_PAGE_COMMAND:
                 return new UserMainPageCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
@@ -77,7 +82,11 @@ public class CommandFactory {
             case CHANGE_PASSWORD_COMMAND:
                 return new ChangePasswordCommand(new UserService(new DaoHelperFactory()));
             case SHOW_ALL_ARTISTS_COMMAND:
-                return new ChangePasswordCommand(new UserService(new DaoHelperFactory()));
+                return new AllArtistsCommand(new ArtistService(new DaoHelperFactory()));
+            case SHOW_ALL_ARTIST_MUSIC_COMMAND:
+                return new ArtistMusicCommand(new TrackService(new DaoHelperFactory()));
+            case SHOW_COLLECTION_MUSIC_COMMAND:
+                return new CollectionMusicCommand(new TrackService(new DaoHelperFactory()));
             // ORDER
             case SHOW_CART_PAGE_COMMAND:
                 return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));

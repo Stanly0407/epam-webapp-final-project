@@ -14,6 +14,7 @@ public class AddCommentToTrackCommand implements Command {
     private static final String USER_ID = "userId";
     private static final String TRACK_ID = "id";
     private static final String PARAMETER_COMMENT = "commentContent";
+    private static final String ATTRIBUTE_COMMENTED_TRACK_ID = "currentCommentedTrackId";
 
     private final CommentService commentService;
 
@@ -25,10 +26,9 @@ public class AddCommentToTrackCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
-        String trackIdString = request.getParameter(TRACK_ID);
-        Long trackId = Long.valueOf(trackIdString);
+        Long trackId = (Long) session.getAttribute(ATTRIBUTE_COMMENTED_TRACK_ID);
         String commentContent = request.getParameter(PARAMETER_COMMENT);
         commentService.addNewCommentToTrack(commentContent, trackId, userId);
-        return CommandResult.forward(SHOW_COMMENTS_PAGE_COMMAND);
+        return CommandResult.redirect(SHOW_COMMENTS_PAGE_COMMAND);
     }
 }

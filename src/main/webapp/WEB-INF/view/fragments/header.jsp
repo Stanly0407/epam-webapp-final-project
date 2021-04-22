@@ -21,19 +21,21 @@
 <header class="header">
     <div class="wrapper">
         <div class="header__wrapper">
-
             <a href="/musicwebapp/controller?command=userMainPage">
                 <img src="img/svg/Logo_1-01.svg" alt="Music Wizard" class="header__logo-pic">
             </a>
-
             <nav class="header__nav">
                 <ul class="header__list">
                     <li class="header__item">
-                        <form action="/musicwebapp/controller?command=changeLanguage"  method="post">
-                            <input class="button-main" value="en" name="language" type="submit"/>
-                            <input class="button-main" value="de" name="language" type="submit"/>
-                            <input class="button-main" value="ru" name="language" type="submit"/>
-                        </form>
+                        <a style="text-decoration: none" href="/musicwebapp/controller?command=changeLanguage&language=ru">
+                            <img src="img/svg/russia-lang.svg" alt="Lang" class="img_lang">
+                        </a>
+                        <a style="text-decoration: none" href="/musicwebapp/controller?command=changeLanguage&language=en">
+                            <img src="img/svg/united_kingdom-lang.svg" alt="Lang" class="img_lang">
+                        </a>
+                        <a style="text-decoration: none" href="/musicwebapp/controller?command=changeLanguage&language=de">
+                            <img src="img/svg/germany-lang.svg" alt="Lang" class="img_lang">
+                        </a>
                     </li>
 
                     <c:if test="${empty name}">

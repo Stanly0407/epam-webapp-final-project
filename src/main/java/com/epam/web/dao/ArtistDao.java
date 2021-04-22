@@ -16,6 +16,7 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
             "ON (a.id=ta.artist_id) WHERE track_id = ?";
     private static final String FIND_ALL_ARTISTS = "SELECT id, name FROM artist";
     private static final String UPDATE_ARTIST = "UPDATE artist SET name = ? where id = ?";
+    private static final String INSERT_ARTIST_TO_TRACK = "INSERT into track_artist(track_id, artist_id) values (?, ?)";
 
     public ArtistDao(Connection connection, RowMapper<Artist> mapper) {
         super(connection, mapper);
@@ -31,6 +32,10 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
 
     public void updateName(String newName, Long id) throws DaoException {
         executeUpdate(UPDATE_ARTIST, newName, id);
+    }
+
+    public void insertArtistsToTrack(Long newTrackId, Long artistId) throws DaoException {
+        executeUpdate(INSERT_ARTIST_TO_TRACK, newTrackId, artistId);
     }
 
     @Override

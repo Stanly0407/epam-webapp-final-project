@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +32,32 @@ public class TrackService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public void editTrack(String releaseDate, String title, String price, String id) throws ServiceException {
+    //  public void addTrack(String releaseDate, String title, String price, String[] artistsIds, String filename) throws ServiceException {
+    public void addTrack(String releaseDate, String title, String price, String artistsIds, String filename) throws ServiceException {
+
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
-            trackDao.editTrack(releaseDate, title, price, id);
+            ArtistDao artistDao = daoHelper.createArtistDao();
+            daoHelper.startTransaction();
+            trackDao.insertTrack(releaseDate, title, price, filename);
+            Optional<Track> newTrackOptional = trackDao.getTrackByParameters(releaseDate, title, price, filename);
+            Long newTrackId = null;
+            if (newTrackOptional.isPresent()) {
+                Track track = newTrackOptional.get();
+                newTrackId = track.getId();
+            }
+            LOGGER.debug("newTrackId " + newTrackId);
+            LOGGER.debug("artistsIds " + artistsIds);
+//            LOGGER.debug("artistsIds " + Arrays.toString(artistsIds));
+//            int trackArtistsNumber = artistsIds.length;
+//            for (int i = 0; i <= trackArtistsNumber; i++) {
+//                String artistIdString = artistsIds[i];
+//                Long artistId = Long.valueOf(artistIdString);
+//                artistDao.insertArtistsToTrack(newTrackId, artistId);
+//            }
+            Long artistsId = Long.valueOf(artistsIds);
+            artistDao.insertArtistsToTrack(newTrackId, artistsId);
+            daoHelper.endTransaction();
         } catch (DaoException e) {
             LOGGER.debug("createTrack " + e);
             throw new ServiceException(e);
@@ -73,6 +96,7 @@ public class TrackService {
             throw new ServiceException(e);
         }
     }
+
     public List<TrackDto> getCollectionTracks(Long collectionId, Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();

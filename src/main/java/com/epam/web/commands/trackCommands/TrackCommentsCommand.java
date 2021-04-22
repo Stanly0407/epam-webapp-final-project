@@ -9,6 +9,8 @@ import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.CommentService;
 import com.epam.web.service.MusicCollectionService;
 import com.epam.web.service.TrackService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class TrackCommentsCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(TrackCommentsCommand.class);
     private static final String TRACK_COMMENTS_PAGE = "/WEB-INF/view/userPages/commentsPage.jsp";
     private static final String USER_ID = "userId";
     private static final String TRACK_ID = "id";
@@ -38,8 +41,15 @@ public class TrackCommentsCommand implements Command {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
         String trackIdString = request.getParameter(TRACK_ID);
-        Long trackId = Long.valueOf(trackIdString);
-        session.setAttribute(ATTRIBUTE_COMMENTED_TRACK_ID, trackId);
+        Long trackId;
+        if (trackIdString == null) {
+            trackId = (Long) session.getAttribute(ATTRIBUTE_COMMENTED_TRACK_ID);
+        } else {
+            trackId = Long.valueOf(trackIdString);
+            session.setAttribute(ATTRIBUTE_COMMENTED_TRACK_ID, trackId);
+        }
+
+        LOGGER.debug("trackId " + trackId);
         TrackDto trackDto = trackService.getTrackDtoById(trackId, userId);
         List<CommentDto> comments = commentService.getCommentsByTrackId(trackId, userId);
         request.setAttribute(ATTRIBUTE_TRACK, trackDto);

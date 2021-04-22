@@ -570,7 +570,7 @@ input::placeholder {
     color: lightblue;
 }
 
-.change_password_button{
+.change_password_button {
     font-size: 18px;
     line-height: 24px;
     color: #1A214C;
@@ -580,4 +580,40 @@ input::placeholder {
     padding: 7px 15px;
     width: 220px;
     height: 50px;
+}
+
+.img_lang {
+    height: 23px;
+    padding: 1px;
+    margin-right: 5px;
+}
+
+.select-artist {
+    width: 400px;
+    background-color: #1A214C;
+    color: lightblue;
+    height: 200px;
+    padding-left: 10px;
+    border-radius: 8px;
+}
+
+.edit-track-form {
+    padding: 50px;
+    margin: 3% 30%;
+    box-shadow: 0 20px 70px 0 rgb(0 0 0 / 60%);
+    border-radius: 8px;
+}
+
+/* Скрываем элемент <input type="file" /> */
+input[type="file"] {
+    /*opacity: 0;*/
+    /*display: none;*/
+}
+
+/* Собственно стилизируем кнопку в соответствии с нужным внешним видом */
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }

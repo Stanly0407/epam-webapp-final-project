@@ -1,5 +1,7 @@
 package com.epam.web.exceptions;
 
+import org.apache.commons.fileupload.FileUploadException;
+
 public class ServiceException extends Exception {
 
     public ServiceException() {
@@ -20,4 +22,9 @@ public class ServiceException extends Exception {
     public ServiceException(DaoException e, String message) {
     }
 
+    public ServiceException(FileUploadException e, String message) {
+    }
+
+    public ServiceException(Exception e, String message) {
+    }
 }

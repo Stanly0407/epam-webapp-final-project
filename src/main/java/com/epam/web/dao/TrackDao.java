@@ -9,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
-
+    private static final String INSERT_TRACK = "INSERT into track(id, release_date, title, price, filename) values (null, ?, ?, ?, ?)";
     private static final String UPDATE_TRACK = "UPDATE track SET t.release_date=?, title=?, price=?, filename=? where id=?";
     private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t";
     private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.id=?";
-    private static final String FIND_TRACKS_BY_TITLE = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.title=?";
+    private static final String FIND_TRACKS_BY_TITLE = "SELECT id, release_date, title, price, filename FROM track WHERE title = ?";
     private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, filename, a.id, a.name FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.name = ?";
     private static final String FIND_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
@@ -35,9 +35,19 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String FIND_COLLECTION_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename, a.id, a.name FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) INNER JOIN track_collection tc " +
             "ON (t.id=tc.track_id) INNER JOIN collection c ON (c.id=tc.collection_id) WHERE c.id = ?";
+    private static final String FIND_TRACK_BY_PARAMETERS = "SELECT id, release_date, title, price, filename FROM track " +
+            "WHERE release_date=? AND title=? AND price=? AND filename=?";
 
     public TrackDao(Connection connection, RowMapper<Track> mapper) {
         super(connection, mapper);
+    }
+
+    public void insertTrack(String releaseDate, String title, String price, String filename) throws DaoException {
+        executeUpdate(INSERT_TRACK, releaseDate, title, price, filename);
+    }
+
+    public Optional<Track> getTrackByParameters(String releaseDate, String title, String price, String filename) throws DaoException {
+        return executeForSingleResult(FIND_TRACK_BY_PARAMETERS, releaseDate, title, price, filename);
     }
 
     public void editTrack(String releaseDate, String title, String price, String id) throws DaoException {

@@ -31,18 +31,6 @@
             </c:forEach>
             <td>$ ${track.price} </td>
 
-<%--            <c:if test="${track.status == 'PURCHASED'}">--%>
-<%--                <td class="purchased"> Purchased</td>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${track.status == 'AVAILABLE'}">--%>
-<%--                <td><a class="header__link__button" href="<c:url value='controller?command=addTrack&id=${track.id}'/>">Add to--%>
-<%--                    Cart</a></td>--%>
-<%--            </c:if>--%>
-<%--            <c:if test="${track.status == 'ORDERED'}">--%>
-<%--                <td><a class="header__link" href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">Delete--%>
-<%--                    from Cart</a></td>--%>
-<%--            </c:if>--%>
-<%--            </td>--%>
             <c:if test="${track.status == 'PURCHASED'}">
                 <td class="purchased">${purhased}</td>
             </c:if>
@@ -69,11 +57,13 @@
         </form>
     </c:when>
     <c:otherwise>
+
         <form action="/musicwebapp/controller?command=addComment&id=${track.id}" method="post">
             <textarea class="comments-textarea" placeholder="${enterComment}" name="commentContent" ></textarea>
             <br>
             <button class="button-comment" type="submit">${submit}</button>
         </form>
+
     </c:otherwise>
 </c:choose>
 
@@ -90,7 +80,7 @@
                     <div class="edit-delete-link" >
                         <c:if test="${comment.currentUserAuthor}">
                             <p>
-                                <a class="comment-link" href="<c:url value='controller?command=editComment&id=${comment.id}&trackId=${track.id}'/>">${edit} </a>
+                                <a class="comment-link" href="<c:url value='controller?command=editComment&id=${comment.id}&trackId=${track.id}'/>">${edit}</a>
                             |
                             <a class="comment-link" href="<c:url value='controller?command=deleteComment&id=${comment.id}'/>">
                                 ${delete}</a></p>

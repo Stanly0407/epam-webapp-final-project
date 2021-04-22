@@ -1,7 +1,8 @@
 package com.epam.web.commands;
 
+import com.epam.web.commands.adminCommands.TrackFormPageCommand;
 import com.epam.web.commands.adminCommands.AdminTrackListCommand;
-import com.epam.web.commands.adminCommands.EditTrackCommand;
+import com.epam.web.commands.adminCommands.AddTrackCommand;
 import com.epam.web.commands.adminCommands.EditTrackFormCommand;
 import com.epam.web.commands.orderCommands.*;
 import com.epam.web.commands.trackCommands.*;
@@ -15,7 +16,7 @@ public class CommandFactory {
     private static final String LOGOUT_COMMAND = "logout";
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
     private static final String SHOW_ADMIN_TRACK_LIST_PAGE_COMMAND = "adminTrackList";
-    private static final String SAVE_EDIT_TRACK_COMMAND = "editSaveTrack";
+    private static final String ADD_TRACK_COMMAND = "addNewTrack";
     private static final String EDIT_TRACK_FORM_PAGE_COMMAND = "editTrack";
     private static final String ADMIN_MAIN_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
@@ -43,6 +44,8 @@ public class CommandFactory {
     private static final String SHOW_ALL_ARTIST_MUSIC_COMMAND = "artistMusic";
     private static final String SHOW_COLLECTION_MUSIC_COMMAND = "collectionMusic";
     private static final String CHANGE_LANGUAGE_COMMAND = "changeLanguage";
+    private static final String TRACK_FORM_PAGE_COMMAND = "trackForm";
+
 
     public Command create(String type) {
         switch (type) {
@@ -107,8 +110,11 @@ public class CommandFactory {
                 return new AdminTrackListCommand(new TrackService(new DaoHelperFactory()));
             case EDIT_TRACK_FORM_PAGE_COMMAND:
                 return new EditTrackFormCommand(new TrackService(new DaoHelperFactory()));
-            case SAVE_EDIT_TRACK_COMMAND:
-                return new EditTrackCommand(new TrackService(new DaoHelperFactory()));
+            case TRACK_FORM_PAGE_COMMAND:
+                return new TrackFormPageCommand(new ArtistService(new DaoHelperFactory()));
+            case ADD_TRACK_COMMAND:
+                return new AddTrackCommand(new TrackService(new DaoHelperFactory()));
+
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }

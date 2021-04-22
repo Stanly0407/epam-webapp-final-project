@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class Controller extends HttpServlet {
-    private static final Logger LOGGER = LogManager.getLogger(Controller.class);
+public class UploadController extends HttpServlet {
+    private static final Logger LOGGER = LogManager.getLogger(UploadController.class);
     private static final String PARAMETER_COMMAND = "command";
 
     private CommandFactory commandFactory = new CommandFactory();
@@ -29,7 +29,6 @@ public class Controller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         process(request, response);
     }
-
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String commandType = request.getParameter(PARAMETER_COMMAND);

@@ -9,9 +9,19 @@
         <servlet-class>com.epam.web.Controller</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>com.epam.web.UploadController</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>main</servlet-name>
         <url-pattern>/controller</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/uploadNew</url-pattern>
     </servlet-mapping>
 
     <filter>

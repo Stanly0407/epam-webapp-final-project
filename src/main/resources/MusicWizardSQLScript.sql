@@ -32,7 +32,6 @@ order_date datetime default CURRENT_TIMESTAMP,
 is_paid boolean default false,
 user_id BIGINT,
 constraint foreign key(user_id) references user(id));
-SELECT * FROM purchase_order;
 
 create table purchase_order_track (
 id bigint primary key auto_increment,
@@ -40,14 +39,14 @@ order_id BIGINT,
 constraint foreign key(order_id) references purchase_order(id),
 track_id BIGINT,
 constraint foreign key(track_id) references track(id));
-SELECT * FROM purchase_order_track;
 
 create table collection (
 id bigint primary key auto_increment,
 type enum ('PLAYLIST', 'ALBUM'),
 release_date date,
 title varchar(255),
-artist_id BIGINT, 
+filename varchar(255),
+artist_id BIGINT,
 constraint foreign key(artist_id) references artist(id));
 
 create table track_collection (

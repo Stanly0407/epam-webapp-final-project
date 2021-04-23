@@ -67,7 +67,7 @@
     </c:otherwise>
 </c:choose>
 
-    <h1 class="headlines">${commentsInfo}</h1>
+    <h1 class="headlines_type">${commentsInfo}</h1>
     <c:choose>
         <c:when test="${not empty comments}">
             <c:forEach items="${comments}" var="comment">

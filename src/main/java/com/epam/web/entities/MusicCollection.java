@@ -10,25 +10,29 @@ public class MusicCollection extends Entity {
     public static final String COLLECTION_TYPE = "type";
     public static final String RELEASE_DATE = "release_date";
     public static final String TITLE = "title";
+    public static final String FILENAME = "filename";
 
     private MusicCollectionType type;
     private LocalDate releaseDate;
     private String title;
     private Artist artist;
+    private String filename;
 
-    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, Artist artist) {
+    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, Artist artist, String filename) {
         super(id);
         this.type = type;
         this.releaseDate = releaseDate;
         this.title = title;
         this.artist = artist;
+        this.filename = filename;
     }
 
-    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title) {
+    public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, String filename) {
         super(id);
         this.type = type;
         this.releaseDate = releaseDate;
         this.title = title;
+        this.filename = filename;
     }
 
     public MusicCollection() {
@@ -66,4 +70,11 @@ public class MusicCollection extends Entity {
         this.artist = artist;
     }
 
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
 }

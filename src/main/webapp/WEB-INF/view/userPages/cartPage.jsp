@@ -13,17 +13,20 @@
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
-<h1 class="headlines">${oderedTracksSum}</h1>
+<div class="container-login">
+<h1 class="headlines--type">${oderedTracksSum}</h1>
 
 <c:if test="${ empty trackList}">
-    <h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">${emptyCartMessage}</h1>
+    <h1 style="margin-left: 45%; margin-top: 40px; margin-bottom: 50px">${emptyCartMessage}</h1>
 </c:if>
 
 <c:if test="${not empty trackList}">
     <jsp:include page="../fragments/trackList.jsp"/>
     <br/>
-    <div style="margin-left: 50%;" class="common-label">${totalAmountInfo} ${orderAmount}</div>
-    <a href="/musicwebapp/controller?command=payOrder" class="header__link__button" style="margin-left: 800px">${pay}</a>
+    <div style="margin-left: 46%; margin-bottom: 40px" class="common-label">${totalAmountInfo} ${orderAmount}</div>
+    <a href="/musicwebapp/controller?command=payOrder" class="header__link__button" style="margin-left: 45%">${pay}</a>
 </c:if>
+</div>
+<br>
 </body>
 </html>

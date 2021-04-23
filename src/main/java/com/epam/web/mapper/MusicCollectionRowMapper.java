@@ -18,14 +18,15 @@ public class MusicCollectionRowMapper implements RowMapper<MusicCollection> {
         MusicCollectionType type = MusicCollectionType.valueOf(typeString);
         LocalDate releaseDate = resultSet.getObject(MusicCollection.RELEASE_DATE, LocalDate.class);
         String title = resultSet.getString(MusicCollection.TITLE);
+        String filename = resultSet.getString(MusicCollection.FILENAME);
         MusicCollection musicCollection;
         if (typeString.equals(TYPE_ALBUM)) {
             Long artistId = resultSet.getLong(Artist.ID);
             String name = resultSet.getString(Artist.NAME);
             Artist artist = new Artist(artistId, name);
-            musicCollection = new MusicCollection(id, type, releaseDate, title, artist);
+            musicCollection = new MusicCollection(id, type, releaseDate, title, artist, filename);
         } else {
-            musicCollection = new MusicCollection(id, type, releaseDate, title);
+            musicCollection = new MusicCollection(id, type, releaseDate, title, filename);
         }
         return musicCollection;
     }

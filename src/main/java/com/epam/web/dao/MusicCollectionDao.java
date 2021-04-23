@@ -14,14 +14,14 @@ import java.util.Optional;
 public class MusicCollectionDao extends AbstractDao<MusicCollection> implements Dao<MusicCollection> {
     private static final Logger LOGGER = LogManager.getLogger(MusicCollectionDao.class);
 
-    private static final String FIND_COLLECTION_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, a.id, a.name FROM collection c " +
+    private static final String FIND_COLLECTION_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.id = ?";
-    private static final String FIND_ALBUM = "SELECT c.id, c.type, c.release_date, c.title, a.id, a.name FROM collection c " +
+    private static final String FIND_ALBUM = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.title = ? AND c.type = 'ALBUM'";
-    private static final String FIND_PLAYLIST = "SELECT c.id, c.type, c.release_date, c.title FROM collection c WHERE c.title = ? AND c.type = 'PLAYLIST'";
-    private static final String GET_ALBUMS = "SELECT c.id, c.release_date, c.title, c.type, a.id, a.name FROM collection c " +
+    private static final String FIND_PLAYLIST = "SELECT c.id, c.type, c.release_date, c.title, c.filename FROM collection c WHERE c.title = ? AND c.type = 'PLAYLIST'";
+    private static final String GET_ALBUMS = "SELECT c.id, c.release_date, c.title, c.filename, c.type, a.id, a.name FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.type = 'ALBUM'";
-    private static final String GET_PLAYLISTS = "SELECT c.id, c.release_date, c.title, c.type FROM collection c WHERE c.type = 'PLAYLIST'";
+    private static final String GET_PLAYLISTS = "SELECT c.id, c.release_date, c.title, c.filename, c.type FROM collection c WHERE c.type = 'PLAYLIST'";
     private static final String QUERY_PART_FIVE_NEW_MUSIC_COLLECTIONS = " ORDER BY c.release_date DESC LIMIT 5";
 
     public MusicCollectionDao(Connection connection, RowMapper<MusicCollection> mapper) {

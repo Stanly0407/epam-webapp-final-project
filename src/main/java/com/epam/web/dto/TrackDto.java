@@ -8,8 +8,7 @@ import java.util.List;
 
 public class TrackDto {
 
-    private static final String PATH_PREFIX = "/audio/";
-
+    private static final String PATH_PREFIX = "/musicwebapp/audio/";
     private Long id;
     private LocalDate releaseDate;
     private String title;

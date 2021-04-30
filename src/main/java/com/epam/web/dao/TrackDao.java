@@ -14,10 +14,9 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t";
     private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.id=?";
     private static final String FIND_TRACKS_BY_TITLE = "SELECT id, release_date, title, price, filename FROM track WHERE title = ?";
-    private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, filename, a.id, a.name FROM track t " +
+    private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.name = ?";
-    private static final String FIND_FIVE_NEW_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
-            "ORDER BY t.release_date DESC LIMIT 5";
+    private static final String FIND_FIVE_NEW_TRACKS = "SELECT id, release_date, title, price, filename  FROM track t ORDER BY t.release_date DESC LIMIT 5";
     private static final String FIND_ORDERED_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.user_id = ? AND po.is_paid = false";
@@ -30,9 +29,9 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String FIND_PAID_TRACKS_BY_ORDER_ID = "SELECT t.id, t.release_date, t.title, t.price, t.filename  FROM track t " +
             "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
             "WHERE po.id = ?";
-    private static final String FIND_ALL_ARTIST_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name " +
+    private static final String FIND_ALL_ARTIST_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename " +
             "FROM track t INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.id = ?";
-    private static final String FIND_COLLECTION_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name FROM track t " +
+    private static final String FIND_COLLECTION_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) INNER JOIN track_collection tc " +
             "ON (t.id=tc.track_id) INNER JOIN collection c ON (c.id=tc.collection_id) WHERE c.id = ?";
     private static final String FIND_TRACK_BY_PARAMETERS = "SELECT id, release_date, title, price, filename FROM track " +

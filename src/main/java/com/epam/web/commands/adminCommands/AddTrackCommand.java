@@ -22,7 +22,7 @@ public class AddTrackCommand implements Command {
     private static final String PARAMETER_TITLE = "title";
     private static final String PARAMETER_PRICE = "price";
     private static final String SHOW_TRACK_LIST_PAGE_COMMAND = "/controller?command=allMusic";
-    private static final String PARAMETER_ARTIST_IDS = "artistIds";
+    private static final String PARAMETER_ARTIST_ID = "artistId";
     private static final String MUSICS_DIRECTORY = "D:/EPAM-training/final_project/project_data/audio/";
 
     private final TrackService trackService;
@@ -55,7 +55,7 @@ public class AddTrackCommand implements Command {
                         case PARAMETER_PRICE:
                             price = value;
                             break;
-                        case PARAMETER_ARTIST_IDS:
+                        case PARAMETER_ARTIST_ID:
                             artistIds = value;
                             break;
                         default:

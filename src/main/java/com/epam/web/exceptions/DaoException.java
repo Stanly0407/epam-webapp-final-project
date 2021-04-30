@@ -12,5 +12,6 @@ public class DaoException extends Exception {
     }
 
     public DaoException(SQLException e) {
+        super();
     }
 }

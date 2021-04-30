@@ -23,7 +23,8 @@ public class MusicCollectionRowMapper implements RowMapper<MusicCollection> {
         if (typeString.equals(TYPE_ALBUM)) {
             Long artistId = resultSet.getLong(Artist.ID);
             String name = resultSet.getString(Artist.NAME);
-            Artist artist = new Artist(artistId, name);
+            String artistFilename = resultSet.getString(Artist.FILENAME);
+            Artist artist = new Artist(artistId, name, artistFilename);
             musicCollection = new MusicCollection(id, type, releaseDate, title, artist, filename);
         } else {
             musicCollection = new MusicCollection(id, type, releaseDate, title, filename);

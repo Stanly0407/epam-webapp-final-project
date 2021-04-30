@@ -1,9 +1,6 @@
 package com.epam.web.commands;
 
-import com.epam.web.commands.adminCommands.TrackFormPageCommand;
-import com.epam.web.commands.adminCommands.AdminTrackListCommand;
-import com.epam.web.commands.adminCommands.AddTrackCommand;
-import com.epam.web.commands.adminCommands.EditTrackFormCommand;
+import com.epam.web.commands.adminCommands.*;
 import com.epam.web.commands.orderCommands.*;
 import com.epam.web.commands.trackCommands.*;
 import com.epam.web.commands.userCommands.*;
@@ -16,14 +13,24 @@ public class CommandFactory {
     private static final String LOGOUT_COMMAND = "logout";
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
     private static final String SHOW_ADMIN_TRACK_LIST_PAGE_COMMAND = "adminTrackList";
-    private static final String ADD_TRACK_COMMAND = "addNewTrack";
     private static final String EDIT_TRACK_FORM_PAGE_COMMAND = "editTrack";
     private static final String ADMIN_MAIN_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
+    private static final String TRACK_FORM_PAGE_COMMAND = "trackForm";
+    private static final String ADD_TRACK_COMMAND = "addNewTrack";
+    private static final String SHOW_ADD_ARTIST_FORM_PAGE = "artistForm";
+    private static final String ARTIST_FORM_PAGE = "/WEB-INF/view/fragments/artistForm.jsp";
+    private static final String ADD_ARTIST_COMMAND = "addNewArtist";
+    private static final String ALBUM_FORM_PAGE_COMMAND = "albumForm";
+    private static final String ADD_ALBUM_COMMAND = "addNewAlbum";
+    private static final String SHOW_ADD_PLAYLIST_FORM_PAGE = "playlistForm";
+    private static final String ADD_PLAYLIST_COMMAND = "addNewPlaylist";
+    private static final String PLAYLIST_FORM_PAGE = "/WEB-INF/view/fragments/playlistForm.jsp";
+
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String USER_ACCOUNT_COMMAND = "userAccount";
-    private static final String TOP_UP_BALANCE_PAGE_COMMAND = "topUpBalancePage";
-    private static final String TOP_UP_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
-    private static final String TOP_UP_BALANCE_COMMAND = "topUpBalance";
+    private static final String REFILL_BALANCE_PAGE_COMMAND = "refillBalancePage";
+    private static final String REFILL_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
+    private static final String REFILL_BALANCE_COMMAND = "refillBalance";
     private static final String SEARCH_MUSIC_COMMAND = "searchMusic";
     private static final String SHOW_SEARCH_MUSIC_RESULT_COMMAND = "searchMusicResult";
     private static final String USER_MUSIC_LIST_COMMAND = "userMusic";
@@ -44,8 +51,6 @@ public class CommandFactory {
     private static final String SHOW_ALL_ARTIST_MUSIC_COMMAND = "artistMusic";
     private static final String SHOW_COLLECTION_MUSIC_COMMAND = "collectionMusic";
     private static final String CHANGE_LANGUAGE_COMMAND = "changeLanguage";
-    private static final String TRACK_FORM_PAGE_COMMAND = "trackForm";
-
 
     public Command create(String type) {
         switch (type) {
@@ -66,9 +71,9 @@ public class CommandFactory {
                 return new SearchMusicResultCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case USER_ACCOUNT_COMMAND:
                 return new UserAccountCommand(new UserService(new DaoHelperFactory()));
-            case TOP_UP_BALANCE_PAGE_COMMAND:
-                return new ShowPageCommand(TOP_UP_BALANCE_PAGE);
-            case TOP_UP_BALANCE_COMMAND:
+            case REFILL_BALANCE_PAGE_COMMAND:
+                return new ShowPageCommand(REFILL_BALANCE_PAGE);
+            case REFILL_BALANCE_COMMAND:
                 return new RefillBalanceCommand(new UserService(new DaoHelperFactory()));
             case USER_MUSIC_LIST_COMMAND:
                 return new UserMusicCommand(new TrackService(new DaoHelperFactory()));
@@ -114,7 +119,18 @@ public class CommandFactory {
                 return new TrackFormPageCommand(new ArtistService(new DaoHelperFactory()));
             case ADD_TRACK_COMMAND:
                 return new AddTrackCommand(new TrackService(new DaoHelperFactory()));
-
+            case SHOW_ADD_ARTIST_FORM_PAGE:
+                return new ShowPageCommand(ARTIST_FORM_PAGE);
+            case ADD_ARTIST_COMMAND:
+                return new AddArtistCommand(new ArtistService(new DaoHelperFactory()));
+            case ALBUM_FORM_PAGE_COMMAND:
+                return new AlbumFormPageCommand(new ArtistService(new DaoHelperFactory()));
+            case ADD_ALBUM_COMMAND:
+                return new AddAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case SHOW_ADD_PLAYLIST_FORM_PAGE:
+                return new ShowPageCommand(PLAYLIST_FORM_PAGE);
+            case ADD_PLAYLIST_COMMAND:
+                return new AddPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }

@@ -17,7 +17,7 @@
 <h1 class="headlines--type">${oderedTracksSum}</h1>
 
 <c:if test="${ empty trackList}">
-    <h1 style="margin-left: 45%; margin-top: 40px; margin-bottom: 50px">${emptyCartMessage}</h1>
+    <h1 class="message_h1">${emptyCartMessage}</h1>
 </c:if>
 
 <c:if test="${not empty trackList}">

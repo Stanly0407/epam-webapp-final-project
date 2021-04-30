@@ -11,13 +11,15 @@ balance decimal(10,2));
 
 create table artist (
 id bigint primary key auto_increment,
-name varchar(255));
+name varchar(255),
+filename varchar(255));
 
 create table track (
 id bigint primary key auto_increment,
 release_date date,
 title varchar(255),
-price decimal(10,2));
+price decimal(10,2),
+filename varchar(255));
 
 create table track_artist (
 id bigint primary key auto_increment,

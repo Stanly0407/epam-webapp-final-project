@@ -16,7 +16,9 @@
     <c:forEach items="${artists}" var="artist">
         <div class="card">
             <a class="header__link" href="<c:url value='controller?command=artistMusic&id=${artist.id}'/>">
-                <img class="img_card" src="img/svg/musician.svg" alt="artistPoster">
+                <figure class="artist-img">
+                <img class="img_card" src="${artist.filename}" alt="artistPoster">
+                </figure>
                 <div class="container_card">
                     <input type="hidden" name="${artist.id}"/>
                     <h4><b>${artist.name}</b></h4>

@@ -34,7 +34,6 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String commandType = request.getParameter(PARAMETER_COMMAND);
         LOGGER.debug("PARAMETER_COMMAND = " + commandType);
-
         Command command = commandFactory.create(commandType);
         String page = null;
         boolean isRedirect = false;

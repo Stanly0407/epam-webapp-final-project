@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="pagecontent" var="local" />
-
 <fmt:message bundle="${local}" key="local.button.addToCart" var="add" />
 <fmt:message bundle="${local}" key="local.purchased" var="purhased" />
 <fmt:message bundle="${local}" key="local.button.deleteFromCart" var="delete" />

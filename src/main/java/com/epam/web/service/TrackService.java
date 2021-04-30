@@ -2,7 +2,7 @@ package com.epam.web.service;
 
 import com.epam.web.dao.*;
 import com.epam.web.dto.TrackDto;
-import com.epam.web.dto.TrackStatusEnum;
+import com.epam.web.dto.TrackStatus;
 import com.epam.web.entities.Artist;
 import com.epam.web.entities.Comment;
 import com.epam.web.entities.Order;
@@ -14,9 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -208,16 +206,16 @@ public class TrackService {
         Long trackId = track.getId();
         List<Artist> trackArtists = artistDao.getByTrackId(trackId);
         Optional<Order> optionalOrder = orderDao.getOrderStatusForTrack(userId, trackId);
-        TrackStatusEnum trackStatus;
+        TrackStatus trackStatus;
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
             if (order.isPaid()) {
-                trackStatus = TrackStatusEnum.PURCHASED;
+                trackStatus = TrackStatus.PURCHASED;
             } else {
-                trackStatus = TrackStatusEnum.ORDERED;
+                trackStatus = TrackStatus.ORDERED;
             }
         } else {
-            trackStatus = TrackStatusEnum.AVAILABLE;
+            trackStatus = TrackStatus.AVAILABLE;
         }
         LOGGER.debug("trackStatus " + trackStatus);
         LocalDate releaseDate = track.getReleaseDate();

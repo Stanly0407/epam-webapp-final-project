@@ -75,6 +75,23 @@ public class MusicCollectionService {
         }
     }
 
+    public void addAlbum(String releaseDate, String albumTitle, String filename, String artistId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            musicCollectionDao.insertAlbum(releaseDate, albumTitle, filename, artistId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void addPlaylist(String releaseDate, String albumTitle, String filename) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            musicCollectionDao.insertPlaylist(releaseDate, albumTitle, filename);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 
 
 }

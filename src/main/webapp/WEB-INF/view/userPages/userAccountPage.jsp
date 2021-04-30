@@ -20,7 +20,7 @@
     <br>
     <br>
     <b style="color: aliceblue">${balanceInfo} ${user.balance}</b><br> <br>
-    <a href="/musicwebapp/controller?command=topUpBalancePage" class="header__link__button">${refill}</a>
+    <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>
     <br>
     <br>
     <a href="/musicwebapp/controller?command=paymentHistory" class="header__link__button">${paymenttHistory}</a>

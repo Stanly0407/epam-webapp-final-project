@@ -11,12 +11,13 @@ import java.util.Optional;
 
 public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
 
-    private static final String FIND_ARTIST_BY_ID = "SELECT id, name FROM artist WHERE id = ?";
-    private static final String FIND_ARTISTS_BY_TRACK_ID = "SELECT a.id, a.name FROM artist a INNER JOIN track_artist ta " +
+    private static final String FIND_ARTIST_BY_ID = "SELECT id, name, filename FROM artist WHERE id = ?";
+    private static final String FIND_ARTISTS_BY_TRACK_ID = "SELECT a.id, a.name, a.filename FROM artist a INNER JOIN track_artist ta " +
             "ON (a.id=ta.artist_id) WHERE track_id = ?";
-    private static final String FIND_ALL_ARTISTS = "SELECT id, name FROM artist";
-    private static final String UPDATE_ARTIST = "UPDATE artist SET name = ? where id = ?";
+    private static final String FIND_ALL_ARTISTS = "SELECT id, name, filename FROM artist";
+    private static final String UPDATE_ARTIST = "UPDATE artist SET name = ?, filename = ? where id = ?";
     private static final String INSERT_ARTIST_TO_TRACK = "INSERT into track_artist(track_id, artist_id) values (?, ?)";
+    private static final String INSERT_ARTIST = "INSERT into artist(name, filename) values (?, ?)";
 
     public ArtistDao(Connection connection, RowMapper<Artist> mapper) {
         super(connection, mapper);
@@ -36,6 +37,10 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
 
     public void insertArtistsToTrack(Long newTrackId, Long artistId) throws DaoException {
         executeUpdate(INSERT_ARTIST_TO_TRACK, newTrackId, artistId);
+    }
+
+    public void insertArtist(String artistName, String filename) throws DaoException {
+        executeUpdate(INSERT_ARTIST, artistName, filename);
     }
 
     @Override

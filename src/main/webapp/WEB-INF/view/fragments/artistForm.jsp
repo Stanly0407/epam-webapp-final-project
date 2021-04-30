@@ -16,7 +16,6 @@
     <%@include file="/WEB-INF/js/pageScripts.js"%>
 </script>
 
-
 <html>
 <body>
 
@@ -24,34 +23,17 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<h1 class="headlines">${addTrack}</h1>
+<h1 class="headlines">Add new Artist</h1>
 
 <div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewTrack" method="post">
+    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewArtist" method="post">
         <br/>
-        <div class="common-label"><label for="releaseDate">${release}</label></div>
-        <input class="common-input" type="date" id="releaseDate" name="releaseDate" required/>
+        <div class="common-label"><label for="artistName">Artist name</label></div>
+        <input class="common-input" type="text" id="artistName" name="artistName" required/>
         <br/> <br/>
-        <div class="common-label"><label for="title">${title}</label></div>
-        <input class="common-input" type="text" id="title" placeholder="${enterTitle}" name="title" required/>
-        <br/> <br/>
-        <div class="common-label"><label for="price">${price}</label></div>
-        <input class="common-input" type="text" id="price" placeholder="${enterPrice}" name="price" required/>
-        <br/>
-        <br/>
-        <br/>
-        <select class="select-artist" name="artistId" required>
-            <option selected disabled>${selectArtist}</option>
-            <c:forEach items="${artists}" var="artist">
-                <option value="${artist.id}">${artist.name}</option>
-            </c:forEach>
-        </select>
-        <br/>
-        <br/>
-        <br/>
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
-            <input name="filename" id="file" type="file" required accept=".mp3"/>
+            <input name="filename" id="file" type="file" required accept="jpg"/>
         </label>
         <br/>
         <br/>

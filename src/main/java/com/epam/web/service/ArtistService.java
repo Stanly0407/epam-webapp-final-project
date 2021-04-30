@@ -33,4 +33,13 @@ public class ArtistService {
         }
     }
 
+    public void addArtist(String artistName, String filename) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            ArtistDao artistDao = daoHelper.createArtistDao();
+             artistDao.insertArtist(artistName, filename);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
 }

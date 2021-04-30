@@ -90,7 +90,7 @@
             </c:forEach>
         </c:when>
         <c:otherwise>
-            <p class="refill_balance_headline">${noCommentsInfo}</p>
+            <p class="message_h1">${noCommentsInfo}...</p>
         </c:otherwise>
     </c:choose>
 </div>

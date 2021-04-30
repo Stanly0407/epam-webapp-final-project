@@ -16,7 +16,7 @@
 </div>
 <div class="container-payment-card">
     <h1 class="headlines">${refillInfo}</h1>
-    <form action="/musicwebapp/controller?command=topUpBalance" method="post">
+    <form action="/musicwebapp/controller?command=refillBalance" method="post">
         <table class="table-payment-card">
             <tr class="payment__td__th">
                 <td class="payment__td__th">${paymentAmount}</td>

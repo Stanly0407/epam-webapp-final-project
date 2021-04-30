@@ -1,8 +1,6 @@
 package com.epam.web.connection;
 
 import com.epam.web.exceptions.DaoException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;

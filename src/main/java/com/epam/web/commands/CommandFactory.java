@@ -44,6 +44,7 @@ public class CommandFactory {
     private static final String PAID_ORDERS_LIST_COMMAND = "paymentHistory";
     private static final String PURCHASED_ORDER_TRACKS_LIST_COMMAND = "purchasedTracks";
     private static final String SHOW_ALL_MUSIC_COMMAND = "allMusic";
+    private static final String NEXT_PAGE_COMMAND = "nextPage";
     private static final String ADD_COMMENT_TO_TRACK_COMMAND = "addComment";
     private static final String EDIT_COMMENT_FORM_COMMAND = "editComment";
     private static final String DELETE_COMMENT_COMMAND = "deleteComment";
@@ -60,6 +61,7 @@ public class CommandFactory {
             case LOGOUT_COMMAND:
                 return new LogoutCommand();
             case SHOW_ALL_MUSIC_COMMAND:
+            case NEXT_PAGE_COMMAND:
                 return new AllMusicCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case CHANGE_LANGUAGE_COMMAND:
                 return new ChangeLanguageCommand();

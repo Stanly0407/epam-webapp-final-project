@@ -12,6 +12,7 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     private static final String INSERT_TRACK = "INSERT into track(id, release_date, title, price, filename) values (null, ?, ?, ?, ?)";
     private static final String UPDATE_TRACK = "UPDATE track SET t.release_date=?, title=?, price=?, filename=? where id=?";
     private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t";
+    private static final String GET_TRACK_LIST_PAGE = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t LIMIT ? OFFSET ?";
     private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.id=?";
     private static final String FIND_TRACKS_BY_TITLE = "SELECT id, release_date, title, price, filename FROM track WHERE title = ?";
     private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename FROM track t " +
@@ -92,6 +93,10 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
 
     public List<Track> getAllTracks() throws DaoException {
         return executeQuery(GET_TRACK_LIST);
+    }
+
+    public List<Track> getTracksPage(int limit, int offset) throws DaoException {
+        return executeQuery(GET_TRACK_LIST_PAGE, limit, offset);
     }
 
     public List<Track> getNewTracks() throws DaoException {

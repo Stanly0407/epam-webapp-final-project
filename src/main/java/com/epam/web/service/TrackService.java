@@ -20,7 +20,8 @@ import java.util.Optional;
 
 public class TrackService {
     private static final Logger LOGGER = LogManager.getLogger(TrackService.class);
-
+    private static final int PAGE_LIMIT = 7;
+    private static final int LAST_PAGE = 1;
     private static final String TRACK_SEARCH_CONDITION = "Track";
     private static final String ARTIST_SEARCH_CONDITION = "Artist";
 
@@ -113,6 +114,7 @@ public class TrackService {
         }
     }
 
+
     public Optional<Track> getTrack(Long id) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
@@ -188,7 +190,58 @@ public class TrackService {
         }
     }
 
-    private List<TrackDto> createTrackDtoList(List<Track> tracks, DaoHelper daoHelper, Long userId) throws DaoException {
+    public boolean checkPaginationAction(int pageNumber, boolean direction) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            int totalRowsAmount = trackDao.getAllTracks().size();
+            int rowCount = ((pageNumber - LAST_PAGE) * PAGE_LIMIT);
+            LOGGER.debug("rowCount >= PAGE_LIMIT" + rowCount);
+            if (direction) {
+                int rowsRemainder = totalRowsAmount - rowCount;
+                return rowsRemainder > PAGE_LIMIT;
+            } else {
+                return rowCount >= PAGE_LIMIT;
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<TrackDto> getTracksPage(Long userId, int limit, int pageNumber) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            int offset = ((pageNumber - LAST_PAGE) * PAGE_LIMIT);
+            if (offset < 0) {
+                offset = 0;
+            }
+            List<Track> tracks = trackDao.getTracksPage(limit, offset);
+            return createTrackDtoList(tracks, daoHelper, userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<Integer> getPaginationList() throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            int totalRowsAmount = trackDao.getAllTracks().size();
+            int pagesAmount;
+            if (totalRowsAmount % PAGE_LIMIT > 0) {
+                pagesAmount = totalRowsAmount / PAGE_LIMIT + LAST_PAGE;
+            } else {
+                pagesAmount = totalRowsAmount / PAGE_LIMIT;
+            }
+            List<Integer> paginationList = new ArrayList<>();
+            for (int i = 1; i <= pagesAmount; i++) {
+                paginationList.add(i);
+            }
+            return paginationList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<TrackDto> createTrackDtoList(List<Track> tracks, DaoHelper daoHelper, Long userId) throws DaoException {
         List<TrackDto> trackDtoList = new ArrayList<>();
         for (Track track : tracks) {
             TrackDto trackDto = createTrackDto(track, daoHelper, userId);

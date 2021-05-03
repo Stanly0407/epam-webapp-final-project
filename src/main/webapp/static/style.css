@@ -649,6 +649,78 @@ input[type="file"] {
 }
 
 .audio {
-    width: 800px;
+    width: 750px;
+    height: 26px;
+    background-color: white;
+}
+
+
+
+/*MUSIC-CARD*/
+.music-card-list {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding-left: 27%;
+    padding-right: 20%;
+    padding-top: 20px;
+}
+
+.music-card {
+    box-shadow: 0 4px 70px 0 #00000038;
+    transition: 0.3s;
+    margin-top: 5px;
+    background-color: #323A6E;
+    width: 750px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+.music-cart-pic {
+    height: 38px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+.music-img {
+    margin-left: 49%;
+    margin-top: 30px;
+    height: 55px;
+}
+
+/* Pagination links */
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+/* Style the active/current link */
+.active-page-button {
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A214C;
+    text-decoration: none;
+    background-color: #48D5CD;
+    border-radius: 8px;
+    padding: 7px 15px;
+    width: 120px;
+    height: 30px;
+}
+.active-page-button {
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A214C;
+    text-decoration: none;
+    background-color: red;
+    border-radius: 8px;
+    padding: 7px 15px;
+    width: 120px;
     height: 30px;
 }

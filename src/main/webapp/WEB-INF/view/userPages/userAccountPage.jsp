@@ -25,11 +25,7 @@
     <br>
     <a href="/musicwebapp/controller?command=paymentHistory" class="header__link__button">${paymenttHistory}</a>
     <br>
-    <br>
-    <form action="/musicwebapp/controller?command=changePassword" method="post">
-        <button class="change_password_button" type="submit">${changePassword}</button>
-        <input class="common-input" type="password" placeholder="${newPassword}" name="password" required/>
-    </form>
+
 </div>
 </body>
 </html>

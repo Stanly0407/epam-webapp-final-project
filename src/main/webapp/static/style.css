@@ -32,6 +32,7 @@
 /* COMMON */
 html {
     background-color: #1A214C;
+    /*background: linear-gradient(to bottom right, #2A274D, #332D6B );*/
 }
 
 *,
@@ -73,6 +74,8 @@ body {
 .header {
     height: 70px;
     background-color: #28336F;
+    /*background: linear-gradient(to bottom right, #554E97, #1A214C );*/
+
 }
 
 footer {
@@ -173,21 +176,6 @@ footer p {
     color: white;
 }
 
-/*.select_search {*/
-/*    appearance: none;*/
-/*    border: none;*/
-/*    padding: 0 1em 0 0;*/
-/*    margin: 0;*/
-/*    width: 100px;*/
-/*    font-family: inherit;*/
-/*    font-size: inherit;*/
-/*    cursor: inherit;*/
-/*    line-height: inherit;*/
-/*    background-color: #28336F;*/
-/*    text-align: center;*/
-/*    color: white;*/
-/*}*/
-
 .search___block {
     display: inline-block;
     margin-bottom: 10px;
@@ -268,6 +256,8 @@ td, th {
     transition: 0.3s;
     border-radius: 5px;
     margin: 25px;
+    background-color: #323A6E;
+    width: 250px;
 }
 
 /* On mouse-over, add a deeper shadow */
@@ -277,7 +267,7 @@ td, th {
 
 /* Add some padding inside the card container */
 .container_card {
-    padding: 2px 16px;
+    padding: 4px 16px;
 }
 
 /* Add rounded corners to the top left and the top right corner of the image */
@@ -391,6 +381,7 @@ td, th {
     font-size: 43px;
     padding-left: 35%;
 }
+
 .headlines--type {
     font-size: 43px;
     padding-left: 35%;
@@ -598,6 +589,7 @@ input::placeholder {
     width: 220px;
     height: 50px;
 }
+
 .file_upload {
     font-size: 18px;
     line-height: 24px;
@@ -610,6 +602,7 @@ input::placeholder {
     height: 50px;
     box-shadow: 0 0 25px 5px #1a214c inset;
 }
+
 .img_lang {
     height: 23px;
     padding: 1px;
@@ -632,13 +625,11 @@ input::placeholder {
     border-radius: 8px;
 }
 
-/* Скрываем элемент <input type="file" /> */
 input[type="file"] {
     /*opacity: 0;*/
     /*display: none;*/
 }
 
-/* Собственно стилизируем кнопку в соответствии с нужным внешним видом */
 .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
@@ -653,5 +644,11 @@ input[type="file"] {
 }
 
 .artist-img {
+    height: 250px;
+    margin-bottom: 5px;
+}
 
+.audio {
+    width: 800px;
+    height: 30px;
 }

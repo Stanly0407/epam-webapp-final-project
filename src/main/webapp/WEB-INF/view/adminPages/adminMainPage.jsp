@@ -18,9 +18,9 @@
 </div>
 
 <div class="container-login">
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">User list</a>--%>
-<%--    </button>--%>
+    <button class="button-main" type="submit">
+        <a href="/musicwebapp/controller?command=userList" class="header__link__button">User list</a>
+    </button>
 <%--    <button class="button-main" type="submit">--%>
 <%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Track list</a>--%>
 <%--    </button>--%>

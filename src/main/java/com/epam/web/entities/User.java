@@ -12,6 +12,7 @@ public class User extends Entity {
     public static final String LASTNAME = "lastname";
     public static final String ROLE = "role";
     public static final String BALANCE = "balance";
+    public static final String STATUS = "status";
 
     private String login;
     private String password;
@@ -19,17 +20,19 @@ public class User extends Entity {
     private String lastname;
     private Role role;
     private BigDecimal balance;
+    private boolean status;
 
     public User() {
     }
 
-    public User(Long id, String login, String name, String lastname, Role role, BigDecimal balance) {
+    public User(Long id, String login, String name, String lastname, Role role, BigDecimal balance, boolean status) {
         super(id);
         this.login = login;
         this.name = name;
         this.lastname = lastname;
         this.role = role;
         this.balance = balance;
+        this.status = status;
     }
 
     public String getLogin() {
@@ -78,5 +81,13 @@ public class User extends Entity {
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

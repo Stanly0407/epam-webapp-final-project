@@ -44,8 +44,7 @@ public class TrackService {
                 Track track = newTrackOptional.get();
                 newTrackId = track.getId();
             }
-            LOGGER.debug("newTrackId " + newTrackId);
-            LOGGER.debug("artistsIds " + artistsIds);
+
 //            LOGGER.debug("artistsIds " + Arrays.toString(artistsIds));
 //            int trackArtistsNumber = artistsIds.length;
 //            for (int i = 0; i <= trackArtistsNumber; i++) {
@@ -63,7 +62,6 @@ public class TrackService {
     }
 
     public List<TrackDto> getMusicByCondition(String searchSubject, String searchCondition, Long userId) throws ServiceException {
-        LOGGER.debug("Called method getAllTracks");
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> searchedTracks = new ArrayList<>();
@@ -217,12 +215,10 @@ public class TrackService {
         } else {
             trackStatus = TrackStatus.AVAILABLE;
         }
-        LOGGER.debug("trackStatus " + trackStatus);
         LocalDate releaseDate = track.getReleaseDate();
         String title = track.getTitle();
         List<Comment> comments = commentDao.findCommentsByTrackId(trackId);
         int commentsAmount = comments.size();
-        LOGGER.debug("commentsAmount " + commentsAmount);
         BigDecimal price = track.getPrice();
         String filename = track.getFilename();
         return new TrackDto.Builder()

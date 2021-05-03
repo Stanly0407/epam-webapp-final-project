@@ -54,7 +54,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         for (int i = 0; i < params.length; ++i) {
             preparedStatement.setObject(i + 1, params[i]);
         }
-        LOGGER.debug("preparedStatement " + preparedStatement);
+    //    LOGGER.debug("preparedStatement " + preparedStatement);
         return preparedStatement;
     }
 

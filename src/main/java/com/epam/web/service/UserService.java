@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 public class UserService {
@@ -29,6 +30,16 @@ public class UserService {
             throw new ServiceException(e);
         }
     }
+
+    public List<User> getAllUsers() throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            UserDao userDao = daoHelper.createUserDao();
+            return userDao.getAllUsers();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
 
     public Optional<User> getUserInfo(Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
@@ -51,6 +62,15 @@ public class UserService {
             BigDecimal paymentAmount = new BigDecimal(paymentAmountString);
             BigDecimal updatedUserBalance = balance.add(paymentAmount);
             userDao.updateUserBalance(updatedUserBalance, id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void changeUserStatus(boolean status, Long id) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            UserDao userDao = daoHelper.createUserDao();
+            userDao.updateStatus(status, id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

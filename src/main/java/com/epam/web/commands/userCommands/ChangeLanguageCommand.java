@@ -21,15 +21,23 @@ public class ChangeLanguageCommand implements Command {
     private static final String GERMAN_LOCAL = "de_DE";
     private static final String RUSSIAN_LOCAL = "ru_RU";
     private static final String LOCAL = "local";
+    private static final String CURRENT_PAGE = "currentPage";
 
     public ChangeLanguageCommand() {
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String language = request.getParameter(LANGUAGE);
         HttpSession session = request.getSession();
-        LOGGER.debug("language ======== " + language);
+
+        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+        LOGGER.debug("currentPage ======== " + currentPage);
+
+
+
+        String language = request.getParameter(LANGUAGE);
+
+
         switch (language) {
             case GERMAN:
                 session.setAttribute(LOCAL, GERMAN_LOCAL);
@@ -40,8 +48,8 @@ public class ChangeLanguageCommand implements Command {
             default:
                 session.setAttribute(LOCAL, ENGLISH_LOCAL);
         }
-        LOGGER.debug("language ======== " +  session.getAttribute(LOCAL));
-        return CommandResult.forward(USER_MAIN_PAGE_COMMAND);
+
+        return CommandResult.forward(currentPage);
     }
 
 }

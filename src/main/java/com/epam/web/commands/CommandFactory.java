@@ -25,6 +25,8 @@ public class CommandFactory {
     private static final String SHOW_ADD_PLAYLIST_FORM_PAGE = "playlistForm";
     private static final String ADD_PLAYLIST_COMMAND = "addNewPlaylist";
     private static final String PLAYLIST_FORM_PAGE = "/WEB-INF/view/fragments/playlistForm.jsp";
+    private static final String USER_LIST_PAGE = "userList";
+    private static final String CHANGE_USER_STATUS_COMMAND = "changeUserStatus";
 
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String USER_ACCOUNT_COMMAND = "userAccount";
@@ -46,7 +48,6 @@ public class CommandFactory {
     private static final String EDIT_COMMENT_FORM_COMMAND = "editComment";
     private static final String DELETE_COMMENT_COMMAND = "deleteComment";
     private static final String EDIT_COMMENT_COMMAND = "saveEditedComment";
-    private static final String CHANGE_PASSWORD_COMMAND = "changePassword";
     private static final String SHOW_ALL_ARTISTS_COMMAND = "allArtists";
     private static final String SHOW_ALL_ARTIST_MUSIC_COMMAND = "artistMusic";
     private static final String SHOW_COLLECTION_MUSIC_COMMAND = "collectionMusic";
@@ -87,8 +88,6 @@ public class CommandFactory {
                 return new EditCommentCommand(new CommentService(new DaoHelperFactory()));
             case DELETE_COMMENT_COMMAND:
                 return new DeleteCommentCommand(new CommentService(new DaoHelperFactory()));
-            case CHANGE_PASSWORD_COMMAND:
-                return new ChangePasswordCommand(new UserService(new DaoHelperFactory()));
             case SHOW_ALL_ARTISTS_COMMAND:
                 return new AllArtistsCommand(new ArtistService(new DaoHelperFactory()));
             case SHOW_ALL_ARTIST_MUSIC_COMMAND:
@@ -131,6 +130,11 @@ public class CommandFactory {
                 return new ShowPageCommand(PLAYLIST_FORM_PAGE);
             case ADD_PLAYLIST_COMMAND:
                 return new AddPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case USER_LIST_PAGE:
+                return new UserListCommand(new UserService(new DaoHelperFactory()));
+            case CHANGE_USER_STATUS_COMMAND:
+                return new ChangeUserStatusCommand(new UserService(new DaoHelperFactory()));
+
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }

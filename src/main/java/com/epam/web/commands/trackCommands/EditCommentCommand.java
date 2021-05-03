@@ -2,18 +2,12 @@ package com.epam.web.commands.trackCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
-import com.epam.web.dto.CommentDto;
-import com.epam.web.dto.TrackDto;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.CommentService;
-import com.epam.web.service.TrackService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 public class EditCommentCommand implements Command {
     private static final String TRACK_COMMENTS_PAGE = "/controller?command=commentsPage&id=";

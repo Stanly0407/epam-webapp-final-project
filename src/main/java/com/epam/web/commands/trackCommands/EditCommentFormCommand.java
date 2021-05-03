@@ -21,6 +21,7 @@ public class EditCommentFormCommand implements Command {
     private static final String TRACK_COMMENTS_PAGE = "/WEB-INF/view/userPages/commentsPage.jsp";
     private static final String USER_ID = "userId";
     private static final String COMMENT_ID = "id";
+
     private static final String HIDDEN_INPUT_COMMENT_ID = "commentId";
     private static final String TRACK_ID = "trackId";
     private static final String ATTRIBUTE_TRACK = "track";
@@ -28,6 +29,9 @@ public class EditCommentFormCommand implements Command {
     private static final String ATTRIBUTE_COMMENT = "comment";
     private static final String ATTRIBUTE_COMMENT_CONTENT = "editableContent";
     private static final String ATTRIBUTE_BUTTON_EDIT = "buttonEdit";
+
+    private static final String ATTRIBUTE_COMMENTED_TRACK_ID = "currentCommentedTrackId";
+    private static final String ATTRIBUTE_COMMENT_ID = "currentEditableCommentId";
 
     private final TrackService trackService;
     private final CommentService commentService;
@@ -40,20 +44,33 @@ public class EditCommentFormCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute(USER_ID);
+
+        String trackIdString = request.getParameter(TRACK_ID);
+        Long trackId;
+
+        if (trackIdString == null) {
+            trackId = (Long) session.getAttribute(ATTRIBUTE_COMMENTED_TRACK_ID);
+        } else {
+            trackId = Long.valueOf(trackIdString);
+            session.setAttribute(ATTRIBUTE_COMMENTED_TRACK_ID, trackId);
+        }
 
         String commentIdString = request.getParameter(COMMENT_ID);
-        Long commentId = Long.valueOf(commentIdString);
+        Long commentId;
+        if (commentIdString == null) {
+            commentId = (Long) session.getAttribute(ATTRIBUTE_COMMENT_ID);
+        } else {
+            commentId = Long.valueOf(commentIdString);
+            session.setAttribute(ATTRIBUTE_COMMENT_ID, commentId);
+        }
 
         String editableContent = commentService.getEditableContent(commentId);
         request.setAttribute(ATTRIBUTE_COMMENT_CONTENT, editableContent);
 
-        Long userId = (Long) session.getAttribute(USER_ID);
-        String trackIdString = request.getParameter(TRACK_ID);
-        Long trackId = Long.valueOf(trackIdString);
         TrackDto trackDto = trackService.getTrackDtoById(trackId, userId);
 
         List<CommentDto> comments = commentService.getCommentsByTrackIdExcludedChosen(trackId, userId, commentId);
-
         request.setAttribute(ATTRIBUTE_TRACK, trackDto);
         request.setAttribute(ATTRIBUTE_COMMENTS, comments);
         request.setAttribute(ATTRIBUTE_COMMENT, new CommentDto());

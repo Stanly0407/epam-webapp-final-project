@@ -14,6 +14,7 @@ public class DeleteTrackFromCartCommand implements Command {
     private static final String USER_CART_PAGE = "/controller?command=cart";
     private static final String ATTRIBUTE_ORDER_ID = "orderId";
     private static final String PARAMETER_TRACK_ID = "id";
+    private static final String CURRENT_PAGE = "currentPage";
 
     private final OrderService orderService;
 
@@ -24,10 +25,11 @@ public class DeleteTrackFromCartCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
+        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
         Long orderId = (Long) session.getAttribute(ATTRIBUTE_ORDER_ID);
         String trackIdString = request.getParameter(PARAMETER_TRACK_ID);
         Long trackId = Long.valueOf(trackIdString);
         orderService.deleteTrackFromCart(orderId, trackId);
-        return CommandResult.redirect(USER_CART_PAGE);
+        return CommandResult.redirect(currentPage);
     }
 }

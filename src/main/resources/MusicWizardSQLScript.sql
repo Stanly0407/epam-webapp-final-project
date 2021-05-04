@@ -7,7 +7,8 @@ password varchar(255),
 name varchar(255),
 lastname varchar(255),
 role enum ('ADMIN', 'USER'),
-balance decimal(10,2));
+balance decimal(10,2),
+status boolean default false);
 
 create table artist (
 id bigint primary key auto_increment,

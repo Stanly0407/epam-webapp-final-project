@@ -7,7 +7,7 @@
 <fmt:message bundle="${local}" key="local.purchased" var="purhased"/>
 <fmt:message bundle="${local}" key="local.button.deleteFromCart" var="delete"/>
 
-<div>
+<div class="track-list">
     <c:if test="${not empty trackList}">
         <div>
             <table>
@@ -45,7 +45,8 @@
                 </c:forEach>
             </table>
         </div>
-
-
     </c:if>
+    <br>
+    <br>
+
 </div>

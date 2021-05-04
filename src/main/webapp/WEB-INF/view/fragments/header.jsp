@@ -2,15 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:setLocale value="${sessionScope.local}" />
-<fmt:setBundle basename="pagecontent" var="local" />
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="pagecontent" var="local"/>
 
-<fmt:message bundle="${local}" key="local.aboutUs" var="aboutUs" />
-<fmt:message bundle="${local}" key="local.allArtists" var="allArtistsLink" />
-<fmt:message bundle="${local}" key="local.allMusic" var="allMusicLink" />
-<fmt:message bundle="${local}" key="local.button.myMusic" var="myMusicButton" />
-<fmt:message bundle="${local}" key="local.account" var="accountLink" />
-<fmt:message bundle="${local}" key="local.logOut" var="logOut" />
+<fmt:message bundle="${local}" key="local.aboutUs" var="aboutUs"/>
+<fmt:message bundle="${local}" key="local.allArtists" var="allArtistsLink"/>
+<fmt:message bundle="${local}" key="local.allMusic" var="allMusicLink"/>
+<fmt:message bundle="${local}" key="local.button.myMusic" var="myMusicButton"/>
+<fmt:message bundle="${local}" key="local.account" var="accountLink"/>
+<fmt:message bundle="${local}" key="local.logOut" var="logOut"/>
 
 <head>
     <title>Music Wizard</title>
@@ -27,32 +27,37 @@
             <nav class="header__nav">
                 <ul class="header__list">
                     <li class="header__item">
-                        <a style="text-decoration: none" href="/musicwebapp/controller?command=changeLanguage&language=ru">
+                        <a style="text-decoration: none"
+                           href="/musicwebapp/controller?command=changeLanguage&language=ru">
                             <img src="img/svg/russia-lang.svg" alt="Lang" class="img_lang">
                         </a>
-                        <a style="text-decoration: none" href="/musicwebapp/controller?command=changeLanguage&language=en">
+                        <a style="text-decoration: none"
+                           href="/musicwebapp/controller?command=changeLanguage&language=en">
                             <img src="img/svg/united_kingdom-lang.svg" alt="Lang" class="img_lang">
                         </a>
-                        <a style="text-decoration: none" href="/musicwebapp/controller?command=changeLanguage&language=de">
+                        <a style="text-decoration: none"
+                           href="/musicwebapp/controller?command=changeLanguage&language=de">
                             <img src="img/svg/germany-lang.svg" alt="Lang" class="img_lang">
                         </a>
                     </li>
 
-                    <c:if test="${empty name}">
+                    <c:if test="${empty sessionScope.role}">
                         <li class="header__item">
                             <a href="/musicwebapp/controller?command=aboutUs" class="header__link">${aboutUs}</a>
                         </li>
                     </c:if>
 
-                    <c:if test="${not empty name}">
+                    <c:if test="${sessionScope.role eq 'USER'}">
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=allArtists" class="header__link">${allArtistsLink}</a>
+                            <a href="/musicwebapp/controller?command=allArtists"
+                               class="header__link">${allArtistsLink}</a>
                         </li>
                         <li class="header__item">
                             <a href="/musicwebapp/controller?command=allMusic" class="header__link">${allMusicLink}</a>
                         </li>
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=userMusic" class="header__link__button">${myMusicButton}</a>
+                            <a href="/musicwebapp/controller?command=userMusic"
+                               class="header__link__button">${myMusicButton}</a>
                         </li>
                         <li>
                             <a href="/musicwebapp/controller?command=cart">
@@ -60,8 +65,11 @@
                             </a>
                         </li>
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=userAccount" class="header__link">${accountLink}</a>
+                            <a href="/musicwebapp/controller?command=userAccount"
+                               class="header__link">${accountLink}</a>
                         </li>
+                    </c:if>
+                    <c:if test="${not empty sessionScope.role}">
                         <li class="header__item">
                             <a href="/musicwebapp/controller?command=logout" class="header__link">${logOut}</a>
                         </li>

@@ -7,7 +7,7 @@
 <fmt:message bundle="${local}" key="local.h1.addTrack" var="addTrack"/>
 <fmt:message bundle="${local}" key="local.h1.addAlbum" var="addAlbum"/>
 <fmt:message bundle="${local}" key="local.h1.addArtist" var="addArtist"/>
-
+<fmt:message bundle="${local}" key="local.h1.userList" var="userList"/>
 
 <html>
 
@@ -18,47 +18,25 @@
 </div>
 
 <div class="container-login">
-    <button class="button-main" type="submit">
-        <a href="/musicwebapp/controller?command=userList" class="header__link__button">User list</a>
+    <button class="button-admin" type="submit">
+        <a href="/musicwebapp/controller?command=userList" class="header__link__button">${userList}</a>
     </button>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Track list</a>--%>
-<%--    </button>--%>
-<%--    <br>--%>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Album list</a>--%>
-<%--    </button>--%>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Playlist list</a>--%>
-<%--    </button>--%>
     <br>
-    <button class="button-main" type="submit">
+    <button class="button-admin" type="submit">
         <a href="/musicwebapp/controller?command=trackForm" class="header__link__button">${addTrack}</a>
     </button>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=trackForm" class="header__link__button">Edit track</a>--%>
-<%--    </button>--%>
     <br>
-    <button class="button-main" type="submit">
+    <button class="button-admin" type="submit">
         <a href="/musicwebapp/controller?command=artistForm" class="header__link__button">${addArtist}</a>
     </button>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Edit artist</a>--%>
-<%--    </button>--%>
     <br>
-    <button class="button-main" type="submit">
+    <button class="button-admin" type="submit">
         <a href="/musicwebapp/controller?command=albumForm" class="header__link__button">${addAlbum}</a>
     </button>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Edit album</a>--%>
-<%--    </button>--%>
-<%--    <br>--%>
-    <button class="button-main" type="submit">
+    <br>
+    <button class="button-admin" type="submit">
         <a href="/musicwebapp/controller?command=playlistForm" class="header__link__button">${addPlaylist}</a>
     </button>
-<%--    <button class="button-main" type="submit">--%>
-<%--        <a href="/musicwebapp/controller?command=adminTrackList" class="header__link__button">Edit playlist</a>--%>
-<%--    </button>--%>
     <br>
 </div>
 

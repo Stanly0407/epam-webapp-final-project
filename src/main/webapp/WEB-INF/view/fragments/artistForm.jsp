@@ -12,6 +12,8 @@
 <fmt:message bundle="${local}" key="local.placeholder.enterTitle" var="enterTitle"/>
 <fmt:message bundle="${local}" key="local.placeholder.enterPrice" var="enterPrice"/>
 <fmt:message bundle="${local}" key="local.select.default.selectArtist" var="selectArtist"/>
+<fmt:message bundle="${local}" key="local.h1.addNewArtist" var="addNewArtistHeadline"/>
+<fmt:message bundle="${local}" key="local.label.artistNameLabel" var="artistNameLabel"/>
 <script type="text/javascript">
     <%@include file="/WEB-INF/js/pageScripts.js"%>
 </script>
@@ -23,12 +25,12 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<h1 class="headlines">Add new Artist</h1>
+<h1 class="headlines">${addNewArtistHeadline}</h1>
 
 <div class="edit-track-form">
     <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewArtist" method="post">
         <br/>
-        <div class="common-label"><label for="artistName">Artist name</label></div>
+        <div class="common-label"><label for="artistName">${artistNameLabel}</label></div>
         <input class="common-input" type="text" id="artistName" name="artistName" required/>
         <br/> <br/>
         <div class="common-label"><label for="file">${uploadInfo}</label></div>

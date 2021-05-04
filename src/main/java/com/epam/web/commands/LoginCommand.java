@@ -45,13 +45,13 @@ public class LoginCommand implements Command {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             Long userId = user.getId();
-            String userRole = user.getRole().getValue();
+            String userRole = user.getRole().toString();
             session.setAttribute(ATTRIBUTE_USER, userId);
             session.setAttribute(ATTRIBUTE_ROLE, userRole);
             session.setAttribute(ATTRIBUTE_NAME, user.getName());
             Long orderId = orderService.getCurrentCartId(userId);
             session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
-            if (user.getRole().getValue().equals(ADMIN_ROLE)) {
+            if (user.getRole().toString().equals(ADMIN_ROLE)) {
                 showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
             } else {
                 showPageCommandType = SHOW_USER_MAIN_PAGE_COMMAND;

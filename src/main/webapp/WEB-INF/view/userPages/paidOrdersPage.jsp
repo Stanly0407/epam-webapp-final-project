@@ -18,7 +18,7 @@
 <h1 class="headlines">${paymentHistory}</h1>
 
 <c:if test="${not empty orders}">
-    <div>
+    <div class="track-list">
         <table style="color: #b3d4fc;">
             <tr>
                 <th width="4"></th>

@@ -316,8 +316,8 @@ td, th {
     color: #1A214C;
     margin-top: 8px;
     margin-left: 455px;
-    width: 140px;
-    height: 40px;
+    width: 128px;
+    height: 38px;
     border: none;
     border-radius: 8px;
 }
@@ -725,4 +725,19 @@ input[type="file"] {
     border-radius: 8px;
     width: auto;
     height: 30px;
+}
+
+.track-list {
+    margin-top: 50px;
+    margin-bottom: 45px;
+}
+
+.button-admin {
+    background-color: #48D5CD;
+    color: #1A214C;
+    margin-top: 25px;
+    width: auto;
+    border: none;
+    border-radius: 8px;
+    height: 35px;
 }

@@ -23,7 +23,8 @@ public class LoginCommand implements Command {
     private static final String SHOW_USER_MAIN_PAGE_COMMAND = "userMainPage";
     private static final String SHOW_ADMIN_MAIN_PAGE_COMMAND = "adminMainPage";
     private static final String ATTRIBUTE_NAME = "name";
-    private static final String USER = "userId";
+    private static final String ATTRIBUTE_USER = "userId";
+    private static final String ATTRIBUTE_ROLE = "role";
     private static final String ATTRIBUTE_ORDER_ID = "orderId";
 
     private final UserService userService;
@@ -44,7 +45,9 @@ public class LoginCommand implements Command {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             Long userId = user.getId();
-            session.setAttribute(USER, userId);
+            String userRole = user.getRole().getValue();
+            session.setAttribute(ATTRIBUTE_USER, userId);
+            session.setAttribute(ATTRIBUTE_ROLE, userRole);
             session.setAttribute(ATTRIBUTE_NAME, user.getName());
             Long orderId = orderService.getCurrentCartId(userId);
             session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
@@ -55,7 +58,7 @@ public class LoginCommand implements Command {
             }
         }
         LOGGER.debug("login session = " + session.getAttribute(ATTRIBUTE_NAME) + "||| session ID: " + session.getId());
-        LOGGER.debug("login " + session.getAttribute(USER));
+        LOGGER.debug("login " + session.getAttribute(ATTRIBUTE_NAME));
         return CommandResult.redirect(CONTROLLER_COMMAND + showPageCommandType);
     }
 

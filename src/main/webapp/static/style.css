@@ -191,7 +191,7 @@ footer p {
 }
 
 table {
-    margin: 50px auto;
+    margin: auto;
     border-bottom: 1px solid #060A23;
     box-shadow: 0 4px 70px 0 rgba(0, 0, 0, 0.6);
 }
@@ -701,16 +701,19 @@ input[type="file"] {
     transition: background-color .3s;
 }
 
-/* Style the active/current link */
-.active-page-button {
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.page-button {
     font-size: 18px;
-    line-height: 24px;
     color: #1A214C;
     text-decoration: none;
-    background-color: #48D5CD;
+    background-color: #50A09A;
     border-radius: 8px;
-    padding: 7px 15px;
-    width: 120px;
+    width: auto;
     height: 30px;
 }
 .active-page-button {
@@ -718,9 +721,8 @@ input[type="file"] {
     line-height: 24px;
     color: #1A214C;
     text-decoration: none;
-    background-color: red;
+    background-color: #E774BC;
     border-radius: 8px;
-    padding: 7px 15px;
-    width: 120px;
+    width: auto;
     height: 30px;
 }

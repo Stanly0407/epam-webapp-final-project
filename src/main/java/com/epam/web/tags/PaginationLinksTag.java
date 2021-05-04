@@ -1,4 +1,4 @@
-package com.epam.web.commands.tags;
+package com.epam.web.tags;
 
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.JspWriter;

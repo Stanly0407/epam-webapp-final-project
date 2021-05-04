@@ -3,24 +3,25 @@
 
 
 <div>
-    <div>
+    <div class="pagination">
         <form action="controller?command=nextPage" method="post">
-            <input type="hidden" name="rowcount" value="${currentPaginationPage}">
+            <input type="hidden" name="currentPaginationPage" value="${currentPaginationPage}">
+
             <c:if test="${isPreviousPossible}">
-                <input type="submit" name="page" value="previous">
+                <input class="page-button" type="submit" name="pageAction" value="<<<">
             </c:if>
-            <div class="form_radio_group">
+
                 <c:forEach items="${paginationList}" var="pageNumber">
-                    <c:when test="${pageNumber == currentPaginationPage}">
-                        <input class="active-page-button" type="submit" name="page" value="${pageNumber}">
-                    </c:when>
-                    <c:otherwise>
-                        <input class="page-button" type="submit" name="page" value="${pageNumber}">
-                    </c:otherwise>
+                    <c:if test="${pageNumber == currentPaginationPage}">
+                        <input class="active-page-button" type="submit" name="pageAction" value="${pageNumber}">
+                    </c:if>
+                    <c:if test="${pageNumber != currentPaginationPage}">
+                        <input class="page-button" type="submit" name="pageAction" value="${pageNumber}">
+                    </c:if>
                 </c:forEach>
-            </div>
+
             <c:if test="${isNextPossible}">
-                <input type="submit" name="page" value="next">
+                <input class="page-button" type="submit" name="pageAction" value=">>>">
             </c:if>
         </form>
     </div>

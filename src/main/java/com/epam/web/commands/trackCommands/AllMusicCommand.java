@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllMusicCommand implements Command {
@@ -26,12 +27,12 @@ public class AllMusicCommand implements Command {
 //    private static final String ATTRIBUTE_PLAYLIST = "playlist";
     private static final String USER_ID = "userId";
 
-    private static final String ATTRIBUTE_ROW_COUNT = "rowCount";
-    private static final String PAGE_ACTION = "page";
+
+    private static final String PAGE_ACTION = "pageAction";
     private static final int PAGE = 1;
     private static final int PAGE_LIMIT = 7; //сделать изменяемым и задаваемым юзером
-    private static final String PAGE_NEXT = "next";
-    private static final String PAGE_PREVIOUS = "previous";
+    private static final String PAGE_NEXT = ">>>";
+    private static final String PAGE_PREVIOUS = "<<<";
     private static final String ATTRIBUTE_IS_NEXT_POSSIBLE = "isNextPossible";
     private static final String ATTRIBUTE_IS_PREVIOUS_POSSIBLE = "isPreviousPossible";
     private static final String ATTRIBUTE_CURRENT_PAGINATION_PAGE = "currentPaginationPage";
@@ -51,10 +52,12 @@ public class AllMusicCommand implements Command {
         Long userId = (Long) session.getAttribute(USER_ID);
 
         String pageAction = request.getParameter(PAGE_ACTION);
+        LOGGER.debug("pageAction 0 - " + pageAction);
+
         Integer currentPaginationPage = (Integer) session.getAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE);
+        LOGGER.debug("currentPaginationPage " + currentPaginationPage);
+
         int page;
-        LOGGER.debug("currentPage " + currentPaginationPage);
-        LOGGER.debug("pageAction " + pageAction);
         if (currentPaginationPage == null) {
             session.setAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE, 1);
             currentPaginationPage = 1;
@@ -69,21 +72,33 @@ public class AllMusicCommand implements Command {
         } else {
             page = Integer.parseInt(pageAction);
         }
+        LOGGER.debug("pageAction 1 - " + pageAction);
 
         session.setAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE, page);
 
         boolean isNextPossible = trackService.checkPaginationAction(page, true);
+        LOGGER.debug("isNextPossible - " + isNextPossible);
         session.setAttribute(ATTRIBUTE_IS_NEXT_POSSIBLE, isNextPossible);
+
         boolean isPreviousPossible = trackService.checkPaginationAction(page, false);
+        LOGGER.debug("isPreviousPossible - " + isPreviousPossible);
         session.setAttribute(ATTRIBUTE_IS_PREVIOUS_POSSIBLE, isPreviousPossible);
 
         List<TrackDto> trackList = trackService.getTracksPage(userId, PAGE_LIMIT, page);
-
-        List<Integer> paginationList = trackService.getPaginationList();
-        request.setAttribute(ATTRIBUTE_PAGINATION_LIST, paginationList);
-
         request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
+
+        List<Integer> paginationList = trackService.getPaginationList();
+        List<String> paginationListS = new ArrayList<>();
+        for(Integer i : paginationList){
+            String q = i.toString();
+            paginationListS.add(q);
+        }
+
+        request.setAttribute(ATTRIBUTE_PAGINATION_LIST, paginationListS);
+
+
+
 
 
 //        List<MusicCollection> albums = musicCollectionService.getAllAlbums();

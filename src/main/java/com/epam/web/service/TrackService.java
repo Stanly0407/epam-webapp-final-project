@@ -231,10 +231,14 @@ public class TrackService {
             } else {
                 pagesAmount = totalRowsAmount / PAGE_LIMIT;
             }
+            LOGGER.debug("totalRowsAmount = " + totalRowsAmount);
+            LOGGER.debug("pagesAmount = " + pagesAmount);
             List<Integer> paginationList = new ArrayList<>();
+
             for (int i = 1; i <= pagesAmount; i++) {
                 paginationList.add(i);
             }
+            LOGGER.debug("paginationList" + paginationList);
             return paginationList;
         } catch (DaoException e) {
             throw new ServiceException(e);

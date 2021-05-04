@@ -9,9 +9,10 @@
 
 <jsp:include page="../fragments/search.jsp"/>
 
+<jsp:include page="../fragments/pagination.jsp"/>
+
 <jsp:include page="../fragments/trackList.jsp"/>
 
-<jsp:include page="../fragments/pagination.jsp"/>
 
 <%--<jsp:include page="../fragments/albums.jsp"/>--%>
 

@@ -24,11 +24,20 @@
     </servlet-mapping>
 
     <filter>
-        <filter-name>Filter</filter-name>
+        <filter-name>ContentFilter</filter-name>
         <filter-class>com.epam.web.ContentFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>Filter</filter-name>
+        <filter-name>ContentFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>RoleFilter</filter-name>
+        <filter-class>com.epam.web.RoleFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RoleFilter</filter-name>
         <url-pattern>/controller</url-pattern>
     </filter-mapping>
 

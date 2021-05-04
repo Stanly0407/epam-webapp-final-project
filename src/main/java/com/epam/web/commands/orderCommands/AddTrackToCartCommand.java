@@ -29,6 +29,6 @@ public class AddTrackToCartCommand implements Command {
         String trackIdString = request.getParameter(PARAMETER_TRACK_ID);
         Long trackId = Long.valueOf(trackIdString);
         orderService.addTrackToCart(userId, trackId);
-        return CommandResult.redirect(USER_CART_PAGE);
+        return CommandResult.redirect(currentPage);
     }
 }

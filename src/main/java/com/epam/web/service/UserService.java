@@ -55,7 +55,6 @@ public class UserService {
             UserDao userDao = daoHelper.createUserDao();
             //проверка данных карты, если не соответствует выводить ошибку платежа... pattern
             //проверка соответствует ли paymentAmount формату BigDecimal
-
             Optional<User> userOptional = userDao.getById(id);
             User user = userOptional.get();
             BigDecimal balance = user.getBalance();

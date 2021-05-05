@@ -50,7 +50,7 @@ public class OrderService {
                 Order order = optionalNewOrder.get();
                 orderId = order.getId();
             }
-            // проверка добавлен ли трек уже в корзину, чтобы не было повтора. не удалять
+            // проверка добавлен ли трек уже в корзину, чтобы не было повтора. (не удалять)
             Optional<Track> optionalTrack = trackDao.getTrackFromCart(userId, trackId);
             if (!optionalTrack.isPresent()) {
                 orderDao.addTrackToOrder(orderId, trackId);

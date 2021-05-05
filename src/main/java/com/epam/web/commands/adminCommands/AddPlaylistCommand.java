@@ -3,7 +3,6 @@ package com.epam.web.commands.adminCommands;
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.exceptions.ServiceException;
-import com.epam.web.service.ArtistService;
 import com.epam.web.service.MusicCollectionService;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -63,4 +62,4 @@ public class AddPlaylistCommand implements Command {
         }
         return CommandResult.redirect(SHOW_TRACK_LIST_PAGE_COMMAND); //CHANGE
     }
-        }
+}

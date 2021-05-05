@@ -17,23 +17,13 @@ public class CommandFactory {
     private static final String ARTIST_FORM_PAGE = "/WEB-INF/view/fragments/artistForm.jsp";
     private static final String PLAYLIST_FORM_PAGE = "/WEB-INF/view/fragments/playlistForm.jsp";
     private static final String REFILL_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
+    private static final String SPLIT_CAMEL_CASE_PATTERN = "(?<=[a-z])(?=[A-Z])";
+    private static final String LOW_LINE = "_";
+    private static final int LAST_INDEX = 1;
 
     public Command create(String type) {
         LOGGER.debug("type " + type);
-        String[] commandsParts = type.split("(?<=[a-z])(?=[A-Z])");
-
-        StringBuilder commandTypeFinal = new StringBuilder();
-        String commandTTT;
-        for (String part : commandsParts) {
-            commandTypeFinal.append(part).append("_");
-        }
-        commandTypeFinal.deleteCharAt(commandTypeFinal.length() - 1);
-        String temporary = new String(commandTypeFinal);
-        commandTTT = temporary.toUpperCase();
-
-
-        CommandType commandType = CommandType.valueOf(commandTTT);
-        LOGGER.debug("commandType " + commandType);
+        CommandType commandType = getCommandType(type);
         switch (commandType) {
             case LOGIN:
                 return new LoginCommand(new UserService(new DaoHelperFactory()), new OrderService(new DaoHelperFactory()));
@@ -120,4 +110,19 @@ public class CommandFactory {
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }
     }
+
+    private CommandType getCommandType(String type){
+        String[] commandsParts = type.split(SPLIT_CAMEL_CASE_PATTERN);
+        StringBuilder commandTypeFinal = new StringBuilder();
+        String command;
+        for (String part : commandsParts) {
+            commandTypeFinal.append(part).append(LOW_LINE);
+        }
+        commandTypeFinal.deleteCharAt(commandTypeFinal.length() - LAST_INDEX);
+        String temporaryString = new String(commandTypeFinal);
+        command = temporaryString.toUpperCase();
+        return CommandType.valueOf(command);
+
+    }
+
 }

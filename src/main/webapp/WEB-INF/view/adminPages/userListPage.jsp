@@ -13,7 +13,7 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<div>
+<div class="track-list">
     <table>
         <c:forEach items="${userList}" var="user">
             <tr style="align-content: center">

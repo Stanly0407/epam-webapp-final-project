@@ -2,11 +2,8 @@ package com.epam.web.commands.trackCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
-import com.epam.web.dao.MusicCollectionDao;
 import com.epam.web.dto.TrackDto;
-import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.ServiceException;
-import com.epam.web.service.MusicCollectionService;
 import com.epam.web.service.TrackService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +20,7 @@ public class ArtistMusicCommand implements Command {
     private static final String ATTRIBUTE_TRACK = "track";
     private static final String USER_ID = "userId";
     private static final String ARTIST_ID = "id";
+    private static final String ATTRIBUTE_COMMENTED_ARTIST_ID = "currentArtistId";
 
     private final TrackService trackService;
 
@@ -35,7 +33,14 @@ public class ArtistMusicCommand implements Command {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
         String artistIdString = request.getParameter(ARTIST_ID);
-        Long artistId = Long.valueOf(artistIdString);
+
+        Long artistId;
+        if (artistIdString == null) {
+            artistId = (Long) session.getAttribute(ATTRIBUTE_COMMENTED_ARTIST_ID);
+        } else {
+            artistId = Long.valueOf(artistIdString);
+            session.setAttribute(ATTRIBUTE_COMMENTED_ARTIST_ID, artistId);
+        }
         List<TrackDto> trackList = trackService.getArtistTracks(artistId, userId);
         if (!trackList.isEmpty()) {
             request.setAttribute(ATTRIBUTE_ARTIST_TRACKS, trackList);

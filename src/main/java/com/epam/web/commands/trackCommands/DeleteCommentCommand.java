@@ -14,7 +14,6 @@ public class DeleteCommentCommand implements Command {
     private static final String COMMENT_ID = "id";
     private static final String ATTRIBUTE_COMMENTED_TRACK_ID = "currentCommentedTrackId";
 
-
     private final CommentService commentService;
 
     public DeleteCommentCommand(CommentService commentService) {

@@ -2,7 +2,6 @@ package com.epam.web.commands.trackCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
-import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Artist;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.ArtistService;

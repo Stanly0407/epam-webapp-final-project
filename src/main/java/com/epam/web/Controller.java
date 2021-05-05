@@ -39,7 +39,6 @@ public class Controller extends HttpServlet {
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        LOGGER.debug("session CURRENT_PAGE" + currentPage);
         if (currentPage == null) {
             session.setAttribute(CURRENT_PAGE, START_PAGE);
         }
@@ -51,7 +50,6 @@ public class Controller extends HttpServlet {
         try {
             CommandResult result = command.execute(request, response);
             page = result.getPage();
-            LOGGER.debug("commandType = " + commandType);
             isRedirect = result.isRedirect();
         } catch (ServiceException e) {
             request.setAttribute(ERROR_MESSAGE, e.getMessage());
@@ -66,11 +64,9 @@ public class Controller extends HttpServlet {
             if (!commandType.equals(CHANGE_LANGUAGE_COMMAND)) {
                 session.setAttribute(CURRENT_PAGE, ("/controller?command=" + commandType));
             }
-            LOGGER.debug("forward_ " + page);
         } else {
-            response.sendRedirect(request.getContextPath() + page);
             session.setAttribute(CURRENT_PAGE, page);
-            LOGGER.debug("redirect_" + page);
+            response.sendRedirect(request.getContextPath() + page);
         }
     }
 

@@ -19,7 +19,7 @@
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
-<div>
+<div class="track-list">
     <table style="color: #b3d4fc;">
         <tr style="align-content: center">
             <td><input type="hidden" name="${track.id}"/></td>

@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AdminTrackListCommand implements Command {
 
-    private static final String ADMIN_TRACK_LIST_PAGE = "/WEB-INF/view/adminPages/adminTrackListPage.jsp";
-    private static final String ATTRIBUTE_TRACK_LIST = "trackList";
-    private static final String ATTRIBUTE_TRACK = "track";
 
     private final TrackService trackService;
 
@@ -23,9 +20,5 @@ public class AdminTrackListCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         throw new UnsupportedOperationException();
-//        List<Track> trackList = trackService.getAllTracks();
-//        request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
-//        request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
-//        return CommandResult.forward(ADMIN_TRACK_LIST_PAGE);
     }
 }

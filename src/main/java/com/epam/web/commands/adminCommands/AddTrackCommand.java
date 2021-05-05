@@ -37,7 +37,7 @@ public class AddTrackCommand implements Command {
         String filename = null;
         String title = null;
         String price = null;
-       String artistIds = null;
+        String artistIds = null;
         //String[] artistIds = request.getParameterValues(PARAMETER_ARTIST_IDS);
         try {
             List<FileItem> data = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -61,12 +61,12 @@ public class AddTrackCommand implements Command {
                         default:
                             throw new ServiceException("Unknown parameter..." + parameterName);
                     }
-                    } else if (!item.isFormField()) {
-                        filename = item.getName();
-                        LOGGER.debug("filename " + filename);
-                        item.write(new File(MUSICS_DIRECTORY + filename));
-                    }
+                } else if (!item.isFormField()) {
+                    filename = item.getName();
+                    LOGGER.debug("filename " + filename);
+                    item.write(new File(MUSICS_DIRECTORY + filename));
                 }
+            }
             trackService.addTrack(releaseDate, title, price, artistIds, filename);
 
         } catch (Exception e) {

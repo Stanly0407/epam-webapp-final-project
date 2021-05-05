@@ -3,7 +3,6 @@ package com.epam.web.commands.userCommands;
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.exceptions.ServiceException;
-import com.epam.web.service.TrackService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 public class ChangeLanguageCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(ChangeLanguageCommand.class);
-    private static final String USER_MAIN_PAGE_COMMAND = "/controller?command=userMainPage";
     private static final String LANGUAGE = "language";
     private static final String GERMAN = "de";
     private static final String RUSSIAN = "ru";
@@ -31,12 +29,8 @@ public class ChangeLanguageCommand implements Command {
         HttpSession session = request.getSession();
 
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        LOGGER.debug("currentPage ======== " + currentPage);
-
-
 
         String language = request.getParameter(LANGUAGE);
-
 
         switch (language) {
             case GERMAN:

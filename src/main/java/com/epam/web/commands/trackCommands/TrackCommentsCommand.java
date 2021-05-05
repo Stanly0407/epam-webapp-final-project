@@ -4,10 +4,8 @@ import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.dto.CommentDto;
 import com.epam.web.dto.TrackDto;
-import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.CommentService;
-import com.epam.web.service.MusicCollectionService;
 import com.epam.web.service.TrackService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 public class TrackCommentsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(TrackCommentsCommand.class);
@@ -48,7 +45,6 @@ public class TrackCommentsCommand implements Command {
             trackId = Long.valueOf(trackIdString);
             session.setAttribute(ATTRIBUTE_COMMENTED_TRACK_ID, trackId);
         }
-
         LOGGER.debug("trackId " + trackId);
         TrackDto trackDto = trackService.getTrackDtoById(trackId, userId);
         List<CommentDto> comments = commentService.getCommentsByTrackId(trackId, userId);

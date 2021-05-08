@@ -14,7 +14,7 @@
                 <c:forEach items="${trackList}" var="track">
                     <tr style="align-content: center">
                         <td><input type="hidden" name="${track.id}"/></td>
-                        <td><img src="img/svg/Note_song icon.svg" alt="Cart" class="header__cart-pic"></td>
+                        <td><img src="img/svg/Note_song icon.svg" alt="Cart" class="note-pic"></td>
                         <td>${track.title}</td>
                         <c:forEach items="${track.artists}" var="artist">
                             <input type="hidden" name="${artist.id}"/>
@@ -24,7 +24,7 @@
                         <td>
                             <a class="header__link"
                                href="<c:url value='controller?command=commentsPage&id=${track.id}'/>">
-                                <img src="img/svg/comments.svg" alt="Comments" class="header__cart-pic">
+                                <img src="img/svg/comment_icon_2.svg" alt="Comments" class="header__cart-pic">
                                     ${track.commentsAmount}
                             </a>
                         </td>

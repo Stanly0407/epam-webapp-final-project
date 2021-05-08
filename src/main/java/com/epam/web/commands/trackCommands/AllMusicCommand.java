@@ -24,8 +24,8 @@ public class AllMusicCommand implements Command {
     private static final String PAGE_ACTION = "pageAction";
     private static final int PAGE = 1;
     private static final int PAGE_LIMIT = 7;
-    private static final String PAGE_NEXT = ">>>";
-    private static final String PAGE_PREVIOUS = "<<<";
+    private static final String PAGE_NEXT = ">";
+    private static final String PAGE_PREVIOUS = "<";
     private static final String ATTRIBUTE_IS_NEXT_POSSIBLE = "isNextPossible";
     private static final String ATTRIBUTE_IS_PREVIOUS_POSSIBLE = "isPreviousPossible";
     private static final String ATTRIBUTE_CURRENT_PAGINATION_PAGE = "currentPaginationPage";

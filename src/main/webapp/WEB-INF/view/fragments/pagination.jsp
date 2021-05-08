@@ -8,7 +8,7 @@
             <input type="hidden" name="currentPaginationPage" value="${currentPaginationPage}">
 
             <c:if test="${isPreviousPossible}">
-                <input class="page-button" type="submit" name="pageAction" value="<<<">
+                <input class="page-button" type="submit" name="pageAction" value="<">
             </c:if>
 
                 <c:forEach items="${paginationList}" var="pageNumber">
@@ -21,7 +21,7 @@
                 </c:forEach>
 
             <c:if test="${isNextPossible}">
-                <input class="page-button" type="submit" name="pageAction" value=">>>">
+                <input class="page-button" type="submit" name="pageAction" value=">">
             </c:if>
         </form>
     </div>

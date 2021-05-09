@@ -17,6 +17,7 @@ public class CommandFactory {
     private static final String ARTIST_FORM_PAGE = "/WEB-INF/view/fragments/artistForm.jsp";
     private static final String PLAYLIST_FORM_PAGE = "/WEB-INF/view/fragments/playlistForm.jsp";
     private static final String REFILL_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
+    private static final String LOGIN_MAIN_PAGE = "/WEB-INF/view/login.jsp";
     private static final String SPLIT_CAMEL_CASE_PATTERN = "(?<=[a-z])(?=[A-Z])";
     private static final String LOW_LINE = "_";
     private static final int LAST_INDEX = 1;
@@ -27,6 +28,8 @@ public class CommandFactory {
         switch (commandType) {
             case LOGIN:
                 return new LoginCommand(new UserService(new DaoHelperFactory()), new OrderService(new DaoHelperFactory()));
+            case LOGIN_PAGE:
+                return new ShowPageCommand(LOGIN_MAIN_PAGE);
             case LOGOUT:
                 return new LogoutCommand();
             case ALL_MUSIC:

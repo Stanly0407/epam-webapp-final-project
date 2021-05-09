@@ -21,7 +21,7 @@ public class Controller extends HttpServlet {
     private static final String CURRENT_PAGE = "currentPage";
     private static final String START_PAGE = "/";
     private static final String ERROR_MESSAGE = "errorMessage";
-    private static final String ERROR_PAGE = "/error.jsp";
+    private static final String ERROR_PAGE = "/WEB-INF/view/error.jsp";
     private static final String CHANGE_LANGUAGE_COMMAND = "changeLanguage";
 
     private CommandFactory commandFactory = new CommandFactory();
@@ -42,21 +42,21 @@ public class Controller extends HttpServlet {
         if (currentPage == null) {
             session.setAttribute(CURRENT_PAGE, START_PAGE);
         }
-
         String commandType = request.getParameter(PARAMETER_COMMAND);
         Command command = commandFactory.create(commandType);
-        String page = null;
+        String page;
         boolean isRedirect = false;
         try {
             CommandResult result = command.execute(request, response);
             page = result.getPage();
             isRedirect = result.isRedirect();
-        } catch (ServiceException e) {
+        } catch (Exception e) {
             request.setAttribute(ERROR_MESSAGE, e.getMessage());
             page = ERROR_PAGE;
-        } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("ERROR SE " + e + "// ERROR_MESSAGE: " + e.getMessage());
         }
+        LOGGER.debug("commandType " + commandType);
+        LOGGER.debug("command " + command);
 
         if (!isRedirect) {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);

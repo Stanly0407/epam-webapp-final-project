@@ -94,7 +94,5 @@
         </c:otherwise>
     </c:choose>
 </div>
-<br>
-<jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

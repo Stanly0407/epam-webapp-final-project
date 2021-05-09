@@ -19,6 +19,5 @@
 </c:if>
 <jsp:include page="../fragments/trackList.jsp"/>
 
-<jsp:include page="../fragments/footer.jsp"/>
 </body>
 </html>

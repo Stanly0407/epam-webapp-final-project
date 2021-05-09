@@ -83,7 +83,7 @@ public class User extends Entity {
         this.balance = balance;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 

@@ -28,7 +28,5 @@
     <jsp:include page="../fragments/playlists.jsp"/>
 </div>
 
-<jsp:include page="../fragments/footer.jsp"/>
-
 </body>
 </html>

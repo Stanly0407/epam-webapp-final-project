@@ -15,18 +15,20 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 <div class="container-login">
-    <h1 class="user_headline">${user.name} ${user.lastname} </h1><br> <br>
-    <b style="color: aliceblue">${loginName}: ${user.login}</b>
-    <br>
-    <br>
+    <h1 class="user_headline" style="margin-bottom: 30px">${user.name} ${user.lastname} </h1>
+    <div style="color: aliceblue; margin-bottom: 70px">
+    <b >${loginName}: ${user.login}</b>
+    </div>
     <div>
-        <b style="color: aliceblue">${balanceInfo} ${user.balance}</b><br> <br>
+        <b style="color: #CF469D;">${balanceInfo} ${user.balance}</b><br> <br>
 
-            <div style="margin-top: 50px;">
-                <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>
-            </div>
+        <div style="margin-bottom: 50px;">
+            <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>
+        </div>
+        <div style="margin-bottom: 50px;">
             <a href="/musicwebapp/controller?command=paymentHistory" class="header__link__button">${paymenttHistory}</a>
-        <br>
+        </div>
+
     </div>
 </div>
 </body>

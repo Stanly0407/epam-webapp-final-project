@@ -2,7 +2,9 @@ package com.epam.web.commands;
 
 public enum CommandType {
 
-    LOGIN("LOGIN"),
+    LOGIN("login"),
+    LOGIN_PAGE("loginPage"),
+
     LOGOUT("logout"),
     CHANGE_LANGUAGE("changeLanguage"),
 

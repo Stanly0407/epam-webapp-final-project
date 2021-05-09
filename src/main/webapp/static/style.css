@@ -117,10 +117,16 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin-right: 100px;
+}
+.header__list_lang {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .header__item {
-    margin-right: 30px;
+    margin-right: 25px;
 }
 
 .header__link {

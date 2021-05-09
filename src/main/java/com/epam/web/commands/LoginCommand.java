@@ -26,6 +26,9 @@ public class LoginCommand implements Command {
     private static final String ATTRIBUTE_USER = "userId";
     private static final String ATTRIBUTE_ROLE = "role";
     private static final String ATTRIBUTE_ORDER_ID = "orderId";
+    private static final String ERROR_UNKNOWN_USER = "unknownUser";
+    private static final String ERROR_BLOCKED_USER = "blockedUser";
+    private static final String LOGIN_PAGE = "loginPage";
 
     private final UserService userService;
     private final OrderService orderService;
@@ -39,26 +42,35 @@ public class LoginCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(PARAMETER_LOGIN);
         String password = request.getParameter(PARAMETER_PASSWORD);
+
         Optional<User> optionalUser = userService.login(login, password);
         HttpSession session = request.getSession(false);
-        String showPageCommandType = null;
+        String showPageCommandType;
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             Long userId = user.getId();
             String userRole = user.getRole().toString();
-            session.setAttribute(ATTRIBUTE_USER, userId);
-            session.setAttribute(ATTRIBUTE_ROLE, userRole);
-            session.setAttribute(ATTRIBUTE_NAME, user.getName());
-            Long orderId = orderService.getCurrentCartId(userId);
-            session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
-            if (user.getRole().toString().equals(ADMIN_ROLE)) {
-                showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
+            if (!user.getStatus()) {
+                session.setAttribute(ATTRIBUTE_USER, userId);
+                session.setAttribute(ATTRIBUTE_ROLE, userRole);
+                session.setAttribute(ATTRIBUTE_NAME, user.getName());
+                Long orderId = orderService.getCurrentCartId(userId);
+                session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
+                if (user.getRole().toString().equals(ADMIN_ROLE)) {
+                    showPageCommandType = SHOW_ADMIN_MAIN_PAGE_COMMAND;
+                } else {
+                    showPageCommandType = SHOW_USER_MAIN_PAGE_COMMAND;
+                }
             } else {
-                showPageCommandType = SHOW_USER_MAIN_PAGE_COMMAND;
+                LOGGER.debug("ERROR_BLOCKED_USER");
+                session.setAttribute(ERROR_BLOCKED_USER, true);
+                showPageCommandType = LOGIN_PAGE;
             }
+        } else {
+            LOGGER.debug("ERROR_UNKNOWN_USER");
+            session.setAttribute(ERROR_UNKNOWN_USER, true);
+            showPageCommandType = LOGIN_PAGE;
         }
-        LOGGER.debug("login session = " + session.getAttribute(ATTRIBUTE_NAME) + "||| session ID: " + session.getId());
-        LOGGER.debug("login " + session.getAttribute(ATTRIBUTE_NAME));
         return CommandResult.redirect(CONTROLLER_COMMAND + showPageCommandType);
     }
 

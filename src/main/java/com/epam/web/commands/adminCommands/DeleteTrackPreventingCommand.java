@@ -4,7 +4,6 @@ import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Artist;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.ArtistService;
 import com.epam.web.service.TrackService;
@@ -13,12 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 
-public class EditTrackFormCommand implements Command {
+public class DeleteTrackPreventingCommand implements Command {
 
-    private static final String EDIT_TRACK_FORM_PAGE = "/WEB-INF/view/fragments/trackForm.jsp";
+    private static final String DELETE_PREVENTING_PAGE = "/WEB-INF/view/adminPages/deletePreventingPage.jsp";
     private static final String ADMIN_MAIN_PAGE_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String PARAMETER_TRACK_ID = "id";
     private static final String PARAMETER_USER_ID = "userId";
@@ -30,7 +28,7 @@ public class EditTrackFormCommand implements Command {
     private final ArtistService artistService;
 
 
-    public EditTrackFormCommand(TrackService trackService, ArtistService artistService) {
+    public DeleteTrackPreventingCommand(TrackService trackService, ArtistService artistService) {
         this.trackService = trackService;
         this.artistService = artistService;
     }
@@ -43,7 +41,7 @@ public class EditTrackFormCommand implements Command {
         if (trackIdParameter == null) {
             page = ADMIN_MAIN_PAGE_PAGE;
         } else {
-            page = EDIT_TRACK_FORM_PAGE;
+            page = DELETE_PREVENTING_PAGE;
 
             Long trackId = Long.valueOf(trackIdParameter);
             Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);

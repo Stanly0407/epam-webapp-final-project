@@ -12,14 +12,16 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 <div class="container-login">
+
 <jsp:include page="../fragments/search.jsp"/>
-<h1 class="headlines">${collections}</h1>
+
+<h1 class="headlines-type">${collections}</h1>
 
 <c:if test="${ empty playlists && empty albums}">
     <h1 style="margin-left: 50%; margin-top: 40px; margin-bottom: 50px">${sorryInfo}</h1>
 </c:if>
 
-<c:if test="${not empty playlists}">
+    <c:if test="${not empty playlists}">
     <jsp:include page="../fragments/playlists.jsp"/>
 </c:if>
 <c:if test="${not empty albums}">

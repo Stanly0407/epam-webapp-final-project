@@ -23,6 +23,7 @@ public class AddTrackCommand implements Command {
     private static final String PARAMETER_PRICE = "price";
     private static final String SHOW_TRACK_LIST_PAGE_COMMAND = "/controller?command=allMusic";
     private static final String PARAMETER_ARTIST_ID = "artistId";
+    private static final String PARAMETER_TRACK_ID = "trackId";
     private static final String MUSICS_DIRECTORY = "D:/EPAM-training/final_project/project_data/audio/";
 
     private final TrackService trackService;
@@ -33,6 +34,7 @@ public class AddTrackCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String trackId = null;
         String releaseDate = null;
         String filename = null;
         String title = null;
@@ -46,6 +48,9 @@ public class AddTrackCommand implements Command {
                     String parameterName = item.getFieldName();
                     String value = item.getString(CONTENT_TYPE);
                     switch (parameterName) {
+                        case PARAMETER_TRACK_ID:
+                            trackId = value;
+                            break;
                         case PARAMETER_TITLE:
                             title = value;
                             break;
@@ -64,18 +69,22 @@ public class AddTrackCommand implements Command {
                 } else if (!item.isFormField()) {
                     filename = item.getName();
                     LOGGER.debug("filename " + filename);
-                    item.write(new File(MUSICS_DIRECTORY + filename));
+                    if(!filename.equals("")){
+                        item.write(new File(MUSICS_DIRECTORY + filename));
+                    } else {
+                        filename = null;
+                    }
                 }
             }
-            trackService.addTrack(releaseDate, title, price, artistIds, filename);
+            trackService.addEditTrack(trackId, releaseDate, title, price, artistIds, filename);
 
         } catch (Exception e) {
             LOGGER.error(e + " error message" + e.getMessage());
+            throw new ServiceException("wrong upload. error message: " + e.getMessage());
         }
         LOGGER.debug("PARAMETER_RELEASE_DATE " + releaseDate);
-
-
         LOGGER.debug("artistIds " + artistIds);
+
         return CommandResult.redirect(SHOW_TRACK_LIST_PAGE_COMMAND);
     }
 }

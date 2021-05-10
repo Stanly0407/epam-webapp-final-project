@@ -38,12 +38,17 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.CHANGE_LANGUAGE, Arrays.asList(Role.ADMIN, Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.ALL_MUSIC, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.NEXT_PAGE, Arrays.asList(Role.USER, Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ALL_ALBUMS, Arrays.asList(Role.USER, Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ALL_PLAYLISTS, Arrays.asList(Role.USER, Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ALL_ARTISTS, Arrays.asList(Role.USER, Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK_PREVENTING, Arrays.asList(Role.ADMIN));
 
             COMMANDS_PERMISSIONS.put(CommandType.ADMIN_MAIN_PAGE, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADMIN_TRACK_LIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.EDIT_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.TRACK_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ARTIST_FORM, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_ARTIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ALBUM_FORM, Arrays.asList(Role.ADMIN));
@@ -58,12 +63,12 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.REFILL_BALANCE_PAGE, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.REFILL_BALANCE, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.SEARCH_MUSIC, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.SEARCH_MUSIC_RESULT, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.SEARCH_MUSIC_RESULT, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.USER_MUSIC, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.COMMENTS_PAGE, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.COMMENTS_PAGE, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.CART, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_TRACK, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK_FROM_CART, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PAY_ORDER, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PAYMENT_HISTORY, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PURCHASED_TRACKS, Arrays.asList(Role.USER));
@@ -72,9 +77,10 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.EDIT_COMMENT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_COMMENT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.SAVE_EDITED_COMMENT, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.ALL_ARTISTS, Arrays.asList(Role.USER));
+
             COMMANDS_PERMISSIONS.put(CommandType.ARTIST_MUSIC, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.COLLECTION_MUSIC, Arrays.asList(Role.USER));
+
         }
     }
 
@@ -111,7 +117,7 @@ public class RoleFilter implements Filter {
                     if (permissions == null || !permissions.contains(currentRole)) {
                         errorForward(ERROR_NO_PAGE, ERROR_PAGE, servletRequest, servletResponse);
                     } else {
-                        if ("CHANGE_LANGUAGE_COMMAND".equals(command)) {
+                        if ("CHANGE_LANGUAGE".equals(command)) {
                             filterChain.doFilter(servletRequest, servletResponse);
                             return;
                         }

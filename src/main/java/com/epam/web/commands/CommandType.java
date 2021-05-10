@@ -12,7 +12,7 @@ public enum CommandType {
     ADMIN_TRACK_LIST("adminTrackList"),
     EDIT_TRACK("editTrack"),
     TRACK_FORM("trackForm"),
-    ADD_NEW_TRACK("addNewTrack"),
+    ADD_EDIT_TRACK("addEditTrack"),
     ARTIST_FORM("artistForm"),
     ADD_NEW_ARTIST("addNewArtist"),
     ALBUM_FORM("albumForm"),
@@ -21,6 +21,8 @@ public enum CommandType {
     ADD_NEW_PLAYLIST("addNewPlaylist"),
     USER_LIST("userList"),
     CHANGE_USER_STATUS("changeUserStatus"),
+    DELETE_TRACK("deleteTrack"),
+    DELETE_TRACK_PREVENTING("deleteTrackPreventing"),
 
     USER_MAIN_PAGE("userMainPage"),
     USER_ACCOUNT("userAccount"),
@@ -32,7 +34,7 @@ public enum CommandType {
     COMMENTS_PAGE("commentsPage"),
     CART("cart"),
     ADD_TRACK("addTrack"),
-    DELETE_TRACK("deleteTrack"),
+    DELETE_TRACK_FROM_CART("deleteTrackFromCart"),
     PAY_ORDER("payOrder"),
     PAYMENT_HISTORY("paymentHistory"),
     PURCHASED_TRACKS("purchasedTracks"),
@@ -44,7 +46,10 @@ public enum CommandType {
     SAVE_EDITED_COMMENT("saveEditedComment"),
     ALL_ARTISTS("allArtists"),
     ARTIST_MUSIC("artistMusic"),
-    COLLECTION_MUSIC("collectionMusic");
+    COLLECTION_MUSIC("collectionMusic"),
+    ALL_ALBUMS("allAlbums"),
+    ALL_PLAYLISTS("allPlaylists");
+
 
     private String value;
 

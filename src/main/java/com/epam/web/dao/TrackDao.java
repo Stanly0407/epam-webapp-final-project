@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
+    private static final String DELETE_TRACK = "DELETE FROM track WHERE id = ?";
     private static final String INSERT_TRACK = "INSERT into track(id, release_date, title, price, filename) values (null, ?, ?, ?, ?)";
-    private static final String UPDATE_TRACK = "UPDATE track SET t.release_date=?, title=?, price=?, filename=? where id=?";
-    private static final String GET_TRACK_LIST = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t";
-    private static final String GET_TRACK_LIST_PAGE = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t LIMIT ? OFFSET ?";
-    private static final String FIND_TRACK_BY_ID = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t WHERE t.id=?";
+    private static final String UPDATE_TRACK = "UPDATE track SET release_date=?, title=?, price=?, filename=? where id=?";
+    private static final String UPDATE_TRACK_INFO = "UPDATE track SET release_date=?, title=?, price=? where id=?";
+    private static final String GET_TRACK_LIST = "SELECT id, release_date, title, price, filename FROM track";
+    private static final String GET_TRACK_LIST_PAGE = "SELECT id, release_date, title, price, filename FROM track LIMIT ? OFFSET ?";
+    private static final String FIND_TRACK_BY_ID = "SELECT id, release_date, title, price, filename FROM track WHERE id=?";
     private static final String FIND_TRACKS_BY_TITLE = "SELECT id, release_date, title, price, filename FROM track WHERE title = ?";
     private static final String FIND_TRACKS_BY_ARTIST = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.name = ?";
@@ -50,8 +52,12 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
         return executeForSingleResult(FIND_TRACK_BY_PARAMETERS, releaseDate, title, price, filename);
     }
 
-    public void editTrack(String releaseDate, String title, String price, String id) throws DaoException {
-        executeUpdate(UPDATE_TRACK, releaseDate, title, price, id);
+    public void editTrack(String releaseDate, String title, String price, String filename, Long id) throws DaoException {
+        executeUpdate(UPDATE_TRACK, releaseDate, title, price, filename, id);
+    }
+
+    public void editTrackInfo(String releaseDate, String title, String price,  Long id) throws DaoException {
+        executeUpdate(UPDATE_TRACK_INFO, releaseDate, title, price, id);
     }
 
     public List<Track> findMusicByTrack(String searchSubject) throws DaoException {
@@ -104,11 +110,11 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     }
 
     @Override
-    public void save(Track entity) {
+    public void save(Track entity) throws DaoException{
     }
 
     @Override
-    public void removeById(Long id) {
+    public void removeById(Long id) throws DaoException{
     }
 
     @Override

@@ -57,7 +57,7 @@ public class Controller extends HttpServlet {
         }
         LOGGER.debug("commandType " + commandType);
         LOGGER.debug("command " + command);
-
+        LOGGER.debug("currentPage " + currentPage);
         if (!isRedirect) {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
             requestDispatcher.forward(request, response);

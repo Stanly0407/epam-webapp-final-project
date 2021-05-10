@@ -17,7 +17,7 @@ import java.util.List;
 
 public class AllMusicCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AllMusicCommand.class);
-    private static final String ALL_MUSIC_PAGE_COMMAND = "/WEB-INF/view/userPages/allMusicPage.jsp";
+    private static final String ALL_MUSIC_PAGE = "/WEB-INF/view/userPages/allMusicPage.jsp";
     private static final String ATTRIBUTE_TRACK_LIST = "trackList";
     private static final String ATTRIBUTE_TRACK = "track";
     private static final String USER_ID = "userId";
@@ -73,14 +73,13 @@ public class AllMusicCommand implements Command {
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
 
         List<Integer> paginationList = trackService.getPaginationList();
-        List<String> paginationListS = new ArrayList<>();
+        List<String> paginationListString = new ArrayList<>();
         for (Integer i : paginationList) {
             String q = i.toString();
-            paginationListS.add(q);
+            paginationListString.add(q);
         }
+        request.setAttribute(ATTRIBUTE_PAGINATION_LIST, paginationListString);
 
-        request.setAttribute(ATTRIBUTE_PAGINATION_LIST, paginationListS);
-
-        return CommandResult.forward(ALL_MUSIC_PAGE_COMMAND);
+        return CommandResult.forward(ALL_MUSIC_PAGE);
     }
 }

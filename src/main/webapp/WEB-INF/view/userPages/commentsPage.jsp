@@ -47,6 +47,7 @@
     </table>
 </div>
 <div class="container-comments">
+<c:if test="${sessionScope.role eq 'USER'}">
 <c:choose>
     <c:when test="${buttonEdit}">
         <form action="/musicwebapp/controller?command=saveEditedComment&commentId=${commentId}" method="post">
@@ -57,15 +58,14 @@
         </form>
     </c:when>
     <c:otherwise>
-
         <form action="/musicwebapp/controller?command=addComment&id=${track.id}" method="post">
             <textarea class="comments-textarea" placeholder="${enterComment}" name="commentContent" ></textarea>
             <br>
             <button class="button-comment" type="submit">${submit}</button>
         </form>
-
     </c:otherwise>
 </c:choose>
+</c:if>
 
     <h1 class="headlines_type">${commentsInfo}</h1>
     <c:choose>

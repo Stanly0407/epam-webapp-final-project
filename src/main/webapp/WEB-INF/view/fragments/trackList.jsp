@@ -28,18 +28,28 @@
                                     ${track.commentsAmount}
                             </a>
                         </td>
-                        <c:if test="${track.status == 'PURCHASED'}">
+
+                        <c:if test="${sessionScope.role eq 'USER'}">
+                        <c:if test="${track.status eq 'PURCHASED'}">
                             <td class="purchased">${purhased}</td>
                         </c:if>
-                        <c:if test="${track.status == 'AVAILABLE'}">
+                        <c:if test="${track.status eq 'AVAILABLE'}">
                             <td><a class="header__link__button"
                                    href="<c:url value='controller?command=addTrack&id=${track.id}'/>">${add}</a></td>
                         </c:if>
-                        <c:if test="${track.status == 'ORDERED'}">
+                        <c:if test="${track.status eq 'ORDERED'}">
                             <td><a class="header__link"
-                                   href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">${delete}</a>
+                                   href="<c:url value='controller?command=deleteTrackFromCart&id=${track.id}'/>">${delete}</a>
                             </td>
                         </c:if>
+                        </c:if>
+
+                        <c:if test="${sessionScope.role eq 'ADMIN'}">
+                                <td><a class="header__link__button"
+                                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
+                            </c:if>
+
+
                         </td>
                     </tr>
                 </c:forEach>

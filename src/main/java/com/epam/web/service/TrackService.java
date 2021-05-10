@@ -31,33 +31,39 @@ public class TrackService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    //  public void addTrack(String releaseDate, String title, String price, String[] artistsIds, String filename) throws ServiceException {
-    public void addTrack(String releaseDate, String title, String price, String artistsIds, String filename) throws ServiceException {
-
+    public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, String artistsIds, String filename) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             ArtistDao artistDao = daoHelper.createArtistDao();
-            daoHelper.startTransaction();
-            trackDao.insertTrack(releaseDate, title, price, filename);
-            Optional<Track> newTrackOptional = trackDao.getTrackByParameters(releaseDate, title, price, filename);
-            Long newTrackId = null;
-            if (newTrackOptional.isPresent()) {
-                Track track = newTrackOptional.get();
-                newTrackId = track.getId();
+            Long trackId;
+            Long artistsId = null;
+            if (artistsIds != null) {
+                artistsId = Long.valueOf(artistsIds);
             }
-
-//            LOGGER.debug("artistsIds " + Arrays.toString(artistsIds));
-//            int trackArtistsNumber = artistsIds.length;
-//            for (int i = 0; i <= trackArtistsNumber; i++) {
-//                String artistIdString = artistsIds[i];
-//                Long artistId = Long.valueOf(artistIdString);
-//                artistDao.insertArtistsToTrack(newTrackId, artistId);
-//            }
-            Long artistsId = Long.valueOf(artistsIds);
-            artistDao.insertArtistsToTrack(newTrackId, artistsId);
+            daoHelper.startTransaction();
+            if (trackIdParameter == null) {
+                trackId = null;
+                trackDao.insertTrack(releaseDate, title, price, filename);
+                Optional<Track> newTrackOptional = trackDao.getTrackByParameters(releaseDate, title, price, filename);
+                if (newTrackOptional.isPresent()) {
+                    Track track = newTrackOptional.get();
+                    trackId = track.getId();
+                }
+                artistDao.insertArtistsToTrack(trackId, artistsId);
+            } else {
+                trackId = Long.valueOf(trackIdParameter);
+                if (filename != null) {
+                    trackDao.editTrack(releaseDate, title, price, filename, trackId);
+                } else {
+                    trackDao.editTrackInfo(releaseDate, title, price, trackId);
+                }
+                if (artistsIds != null) {
+                    artistDao.updateArtistsToTrack(artistsId, trackId);
+                }
+            }
             daoHelper.endTransaction();
         } catch (DaoException e) {
-            LOGGER.debug("createTrack " + e);
+            LOGGER.error("create/update Track error " + e);
             throw new ServiceException(e);
         }
     }
@@ -231,15 +237,24 @@ public class TrackService {
             } else {
                 pagesAmount = totalRowsAmount / PAGE_LIMIT;
             }
-            LOGGER.debug("totalRowsAmount = " + totalRowsAmount);
-            LOGGER.debug("pagesAmount = " + pagesAmount);
             List<Integer> paginationList = new ArrayList<>();
-
             for (int i = 1; i <= pagesAmount; i++) {
                 paginationList.add(i);
             }
-            LOGGER.debug("paginationList" + paginationList);
             return paginationList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void deleteTrackById(String trackId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            Long id = null;
+            if(trackId != null){
+                id = Long.valueOf(trackId);
+            }
+            trackDao.removeById(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

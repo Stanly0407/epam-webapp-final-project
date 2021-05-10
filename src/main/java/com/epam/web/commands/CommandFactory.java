@@ -64,6 +64,10 @@ public class CommandFactory {
                 return new DeleteCommentCommand(new CommentService(new DaoHelperFactory()));
             case ALL_ARTISTS:
                 return new AllArtistsCommand(new ArtistService(new DaoHelperFactory()));
+            case ALL_ALBUMS:
+                return new AllAlbumsCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case ALL_PLAYLISTS:
+                return new AllPlaylistsCommand(new MusicCollectionService(new DaoHelperFactory()));
             case ARTIST_MUSIC:
                 return new ArtistMusicCommand(new TrackService(new DaoHelperFactory()));
             case COLLECTION_MUSIC:
@@ -73,7 +77,7 @@ public class CommandFactory {
                 return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
             case ADD_TRACK:
                 return new AddTrackToCartCommand(new OrderService(new DaoHelperFactory()));
-            case DELETE_TRACK:
+            case DELETE_TRACK_FROM_CART:
                 return new DeleteTrackFromCartCommand(new OrderService(new DaoHelperFactory()));
             case PAY_ORDER:
                 return new PayOrderCommand(new OrderService(new DaoHelperFactory()));
@@ -87,10 +91,10 @@ public class CommandFactory {
             case ADMIN_TRACK_LIST:
                 return new AdminTrackListCommand(new TrackService(new DaoHelperFactory()));
             case EDIT_TRACK:
-                return new EditTrackFormCommand(new TrackService(new DaoHelperFactory()));
+                return new EditTrackFormCommand(new TrackService(new DaoHelperFactory()), new ArtistService(new DaoHelperFactory()));
             case TRACK_FORM:
                 return new TrackFormPageCommand(new ArtistService(new DaoHelperFactory()));
-            case ADD_NEW_TRACK:
+            case ADD_EDIT_TRACK:
                 return new AddTrackCommand(new TrackService(new DaoHelperFactory()));
             case ARTIST_FORM:
                 return new ShowPageCommand(ARTIST_FORM_PAGE);
@@ -108,13 +112,17 @@ public class CommandFactory {
                 return new UserListCommand(new UserService(new DaoHelperFactory()));
             case CHANGE_USER_STATUS:
                 return new ChangeUserStatusCommand(new UserService(new DaoHelperFactory()));
+            case DELETE_TRACK_PREVENTING:
+                return new DeleteTrackPreventingCommand(new TrackService(new DaoHelperFactory()), new ArtistService(new DaoHelperFactory()));
+            case DELETE_TRACK:
+                return new DeleteTrackCommand(new TrackService(new DaoHelperFactory()));
 
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }
     }
 
-    private CommandType getCommandType(String type){
+    private CommandType getCommandType(String type) {
         String[] commandsParts = type.split(SPLIT_CAMEL_CASE_PATTERN);
         StringBuilder commandTypeFinal = new StringBuilder();
         String command;

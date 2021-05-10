@@ -14,7 +14,7 @@ public interface Dao <T extends Entity> {
 
     List<T> getAll() throws DaoException, SQLException;
 
-    void save(T entity);
+    void save(T entity) throws DaoException;
 
     void removeById(Long id) throws DaoException;
 

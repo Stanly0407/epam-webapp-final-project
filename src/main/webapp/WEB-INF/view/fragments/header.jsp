@@ -37,7 +37,7 @@
             </c:if>
 
             <nav class="header__nav">
-                <c:if test="${sessionScope.role eq 'USER'}">
+                <c:if test="${not empty sessionScope.role}">
                     <ul class="header__list_2">
                         <li class="header__item">
                             <a href="/musicwebapp/controller?command=allMusic"
@@ -52,7 +52,7 @@
                                class="header__link">${allAlbumsLink}</a>
                         </li>
                         <li class="header__item">
-                            <a href="/musicwebapp/controller?command=allPlaylist"
+                            <a href="/musicwebapp/controller?command=allPlaylists"
                                class="header__link">${allPlaylistsLink}</a>
                         </li>
                     </ul>
@@ -61,6 +61,7 @@
 
             <nav class="header__nav" style="margin-left: 250px;">
                 <ul class="header__list">
+                    <c:if test="${ sessionScope.role eq 'USER'}">
                     <li class="header__item">
                         <a href="/musicwebapp/controller?command=userMusic"
                            class="header__link__button">${myMusicButton}</a>
@@ -77,6 +78,7 @@
                         </a>
                     </li>
                     </c:if>
+
                     <c:if test="${not empty sessionScope.role}">
                         <li style="margin-right: 22px;">
                             <a href="/musicwebapp/controller?command=logout" class="header__link">${logOut}</a>

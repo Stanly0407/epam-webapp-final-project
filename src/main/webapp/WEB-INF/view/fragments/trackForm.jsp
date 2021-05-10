@@ -4,9 +4,9 @@
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
 <fmt:message bundle="${local}" key="local.h1.addTrack" var="addTrack"/>
-<fmt:message bundle="${local}" key="local.td.releaseDate" var="release"/>
-<fmt:message bundle="${local}" key="local.td.title" var="title"/>
-<fmt:message bundle="${local}" key="local.td.price" var="price"/>
+<fmt:message bundle="${local}" key="local.td.releaseDate" var="releaseLabel"/>
+<fmt:message bundle="${local}" key="local.td.title" var="titleLabel"/>
+<fmt:message bundle="${local}" key="local.td.price" var="priceLabel"/>
 <fmt:message bundle="${local}" key="local.upload" var="uploadInfo"/>
 <fmt:message bundle="${local}" key="local.button.save" var="save"/>
 <fmt:message bundle="${local}" key="local.placeholder.enterTitle" var="enterTitle"/>
@@ -24,23 +24,28 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<h1 class="headlines">${addTrack}</h1>
+<%--<h1 class="headlines">${addTrack}</h1>--%>
 
 <div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewTrack" method="post">
+    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditTrack" method="post">
         <br/>
-        <div class="common-label"><label for="releaseDate">${release}</label></div>
-        <input class="common-input" type="date" id="releaseDate" name="releaseDate" required/>
+        <input class="common-input" type="hidden" value="${track.id}" name="trackId" required/>
+
+        <div class="common-label"><label for="releaseDate">${releaseLabel}</label></div>
+        <input class="common-input" type="date" id="releaseDate" value="${track.releaseDate}" name="releaseDate"
+               required/>
         <br/> <br/>
-        <div class="common-label"><label for="title">${title}</label></div>
-        <input class="common-input" type="text" id="title" placeholder="${enterTitle}" name="title" required/>
+        <div class="common-label"><label for="title">${titleLabel}</label></div>
+        <input class="common-input" type="text" id="title" placeholder="${enterTitle}" value="${track.title}"
+               name="title" required/>
         <br/> <br/>
-        <div class="common-label"><label for="price">${price}</label></div>
-        <input class="common-input" type="text" id="price" placeholder="${enterPrice}" name="price" required/>
+        <div class="common-label"><label for="price">${priceLabel}</label></div>
+        <input class="common-input" type="text" id="price" placeholder="${enterPrice}" value="${track.price}"
+               name="price" required/>
         <br/>
         <br/>
         <br/>
-        <select class="select-artist" name="artistId" required>
+        <select class="select-artist" name="artistId">
             <option selected disabled>${selectArtist}</option>
             <c:forEach items="${artists}" var="artist">
                 <option value="${artist.id}">${artist.name}</option>
@@ -51,12 +56,16 @@
         <br/>
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
-            <input name="filename" id="file" type="file" required accept=".mp3"/>
+            <input name="filename" id="file" type="file" accept=".mp3"/>
         </label>
         <br/>
         <br/>
         <button class="button-main" type="submit">${save}</button>
     </form>
+    <br>
+    <c:if test="${not empty track.id}">
+            <a style="color: red" class="header__link" href="<c:url value='controller?command=deleteTrackPreventing&id=${track.id}'/>">Delete</a>
+    </c:if>
     <br/>
     <br/>
 </div>

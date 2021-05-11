@@ -279,7 +279,7 @@ public class TrackService {
         TrackStatus trackStatus;
         if (optionalOrder.isPresent()) {
             Order order = optionalOrder.get();
-            if (order.isPaid()) {
+            if (order.getPaid()) {
                 trackStatus = TrackStatus.PURCHASED;
             } else {
                 trackStatus = TrackStatus.ORDERED;

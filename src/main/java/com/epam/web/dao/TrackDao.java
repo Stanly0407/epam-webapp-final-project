@@ -87,9 +87,11 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     public List<Track> findArtistMusic(Long artistId) throws DaoException {
         return executeQuery(FIND_ALL_ARTIST_TRACKS, artistId);
     }
+
     public List<Track> findCollectionMusic(Long collectionId) throws DaoException {
         return executeQuery(FIND_COLLECTION_TRACKS, collectionId);
     }
+
 
 
     @Override

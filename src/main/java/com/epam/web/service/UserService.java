@@ -1,15 +1,17 @@
 package com.epam.web.service;
 
-import com.epam.web.dao.DaoHelper;
-import com.epam.web.dao.DaoHelperFactory;
-import com.epam.web.dao.UserDao;
-import com.epam.web.entities.User;
+import com.epam.web.dao.*;
+import com.epam.web.dto.OrderDto;
+import com.epam.web.dto.TrackDto;
+import com.epam.web.dto.UserDto;
+import com.epam.web.entities.*;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +36,7 @@ public class UserService {
     public List<User> getAllUsers() throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();
+
             return userDao.getAllUsers();
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -75,13 +78,49 @@ public class UserService {
         }
     }
 
-    public void changePassword(String newPassword, Long id) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            UserDao userDao = daoHelper.createUserDao();
-            userDao.updatePassword(newPassword, id);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+
+
+    private UserDto createUserDto(User user, DaoHelper daoHelper) throws DaoException {
+        Long userId = user.getId();
+        String login = user.getLogin();
+        String name = user.getName();
+        String lastname = user.getLastname();
+        BigDecimal balance = user.getBalance();
+        boolean status = user.getStatus();
+        CommentDao commentDao = daoHelper.createCommentDao();
+        List<Comment> allUserComments = commentDao.getUserComments(userId);
+        int commentsAmount = allUserComments.size();
+        TrackDao trackDao = daoHelper.createTrackDao();
+        List<Track> allUserPurchasedTracks = trackDao.findAllPaidTracks(userId);
+        int purchasedTracksAmount = allUserPurchasedTracks.size();
+        BonusDao bonusDao = daoHelper.createBonusDao();
+        List<Bonus> bonuses = bonusDao.getUnusedUserBonuses(userId);
+        Bonus bonusDiscount = null;
+        Bonus bonusFreeTracks = null;
+        if(!bonuses.isEmpty()){
+            for(Bonus bonus : bonuses){
+                BonusType type = bonus.getBonusType();
+                if(BonusType.DISCOUNT.equals(type)){
+                    bonusDiscount = bonus;
+                } else {
+                    bonusFreeTracks = bonus;
+                }
+            }
         }
+        return new UserDto.Builder()
+                .id(userId)
+                .login(login)
+                .name(name)
+                .lastname(lastname)
+                .balance(balance)
+                .commentsAmount(commentsAmount)
+                .purchasedTracksAmount(purchasedTracksAmount)
+                .bonusDiscount(bonusDiscount)
+                .bonusFreeTracks(bonusFreeTracks)
+                .status(status)
+                .build();
     }
+
+
 
 }

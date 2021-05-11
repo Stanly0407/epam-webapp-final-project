@@ -32,7 +32,7 @@ public class Order extends Entity {
         this.orderDate = orderDate;
     }
 
-    public boolean isPaid() {
+    public boolean getPaid() {
         return isPaid;
     }
 

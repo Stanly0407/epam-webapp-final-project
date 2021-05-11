@@ -23,6 +23,7 @@ public enum CommandType {
     CHANGE_USER_STATUS("changeUserStatus"),
     DELETE_TRACK("deleteTrack"),
     DELETE_TRACK_PREVENTING("deleteTrackPreventing"),
+    DELETE_USER_COMMENT("deleteUserComment"),
 
     USER_MAIN_PAGE("userMainPage"),
     USER_ACCOUNT("userAccount"),
@@ -48,8 +49,10 @@ public enum CommandType {
     ARTIST_MUSIC("artistMusic"),
     COLLECTION_MUSIC("collectionMusic"),
     ALL_ALBUMS("allAlbums"),
-    ALL_PLAYLISTS("allPlaylists");
+    ALL_PLAYLISTS("allPlaylists"),
 
+    USE_DISCOUNT("useDiscount"),
+    USE_BONUS_FREE_TRACKS("useBonusFreeTracks");
 
     private String value;
 

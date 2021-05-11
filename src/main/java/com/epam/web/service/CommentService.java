@@ -31,7 +31,6 @@ public class CommentService {
             CommentDao commentDao = daoHelper.createCommentDao();
             commentDao.updateComment(content, commentId);
         } catch (DaoException e) {
-            LOGGER.debug("editComment " + e);
             throw new ServiceException(e);
         }
     }
@@ -41,11 +40,9 @@ public class CommentService {
             CommentDao commentDao = daoHelper.createCommentDao();
             commentDao.removeById(commentId);
         } catch (DaoException e) {
-            LOGGER.debug("deleteComment " + e);
             throw new ServiceException(e);
         }
     }
-
 
     public List<CommentDto> getCommentsByTrackId(Long trackId, Long currentUserId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
@@ -87,7 +84,6 @@ public class CommentService {
             CommentDao commentDao = daoHelper.createCommentDao();
             commentDao.addNewCommentToTrack(commentContent, trackId, userId);
         } catch (DaoException e) {
-            LOGGER.debug("insertComment " + e);
             throw new ServiceException(e);
         }
     }

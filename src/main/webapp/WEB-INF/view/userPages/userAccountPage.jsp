@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=utf-8" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
@@ -21,6 +22,10 @@
     </div>
     <div>
         <b style="color: #CF469D;">${balanceInfo} ${user.balance}</b><br> <br>
+
+        <c:if test="${bonusMessage}">
+            <h1 class="message_h1">У вас есть бонусы, закажите треки, чтобы узнать подробнее.</h1>
+        </c:if>
 
         <div style="margin-bottom: 50px;">
             <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>

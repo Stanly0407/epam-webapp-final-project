@@ -43,6 +43,7 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.ALL_ARTISTS, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK_PREVENTING, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_USER_COMMENT, Arrays.asList(Role.ADMIN));
 
             COMMANDS_PERMISSIONS.put(CommandType.ADMIN_MAIN_PAGE, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADMIN_TRACK_LIST, Arrays.asList(Role.ADMIN));
@@ -75,12 +76,14 @@ public class RoleFilter implements Filter {
 
             COMMANDS_PERMISSIONS.put(CommandType.ADD_COMMENT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.EDIT_COMMENT, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.DELETE_COMMENT, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_COMMENT, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.SAVE_EDITED_COMMENT, Arrays.asList(Role.USER));
 
-            COMMANDS_PERMISSIONS.put(CommandType.ARTIST_MUSIC, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.COLLECTION_MUSIC, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.ARTIST_MUSIC, Arrays.asList(Role.USER, Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.COLLECTION_MUSIC, Arrays.asList(Role.USER, Role.ADMIN));
 
+            COMMANDS_PERMISSIONS.put(CommandType.USE_DISCOUNT, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.USE_BONUS_FREE_TRACKS, Arrays.asList(Role.USER));
         }
     }
 

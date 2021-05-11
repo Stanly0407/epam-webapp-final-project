@@ -61,6 +61,7 @@ public class CommandFactory {
             case SAVE_EDITED_COMMENT:
                 return new EditCommentCommand(new CommentService(new DaoHelperFactory()));
             case DELETE_COMMENT:
+            case DELETE_USER_COMMENT:
                 return new DeleteCommentCommand(new CommentService(new DaoHelperFactory()));
             case ALL_ARTISTS:
                 return new AllArtistsCommand(new ArtistService(new DaoHelperFactory()));
@@ -74,7 +75,7 @@ public class CommandFactory {
                 return new CollectionMusicCommand(new TrackService(new DaoHelperFactory()));
             // ORDER
             case CART:
-                return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
+                return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()), new BonusService(new DaoHelperFactory()));
             case ADD_TRACK:
                 return new AddTrackToCartCommand(new OrderService(new DaoHelperFactory()));
             case DELETE_TRACK_FROM_CART:

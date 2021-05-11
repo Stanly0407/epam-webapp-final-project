@@ -45,6 +45,11 @@ public class DaoHelper implements AutoCloseable {
         return new CommentDao(proxyConnection, commentRowMapper);
     }
 
+    public BonusDao createBonusDao() {
+        BonusRowMapper bonusRowMapper = new BonusRowMapper();
+        return new BonusDao(proxyConnection, bonusRowMapper);
+    }
+
     @Override
     public void close() {
         proxyConnection.close();

@@ -56,7 +56,7 @@ public class CartPageCommand implements Command {
         List<TrackDto> orderedTracks = trackService.getOrderedTracks(userId);
         if (!orderedTracks.isEmpty()) {
             BigDecimal orderAmount = orderService.sumOfOrderedTracks(orderedTracks);
-            request.setAttribute(ATTRIBUTE_ORDER_AMOUNT, orderAmount);
+            request.setAttribute(ATTRIBUTE_ORDER_AMOUNT, orderAmount); //хранить в сессии и удалять аттрибут после оплаты корзины
             request.setAttribute(ATTRIBUTE_TRACK_LIST, orderedTracks);
             request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
             if(!bonuses.isEmpty()){

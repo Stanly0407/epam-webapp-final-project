@@ -26,15 +26,19 @@
 <c:if test="${not empty trackList}">
     <jsp:include page="../fragments/trackList.jsp"/>
     <br/>
+
+
+<%--    форма далее с инпутами как чекбоксы --%>
+
     <div style="margin-left: 46%; margin-bottom: 40px" class="common-label">${totalAmountInfo} ${orderAmount}</div>
     <c:if test="${bonusDiscountExist}">
         <h1 class="message_h1">У вас есть скидка в размере ${bonusDiscount.amount}, нажмите "применить", чтобы применить скидку.</h1>
-        <a href="/musicwebapp/controller?command=useDiscount" class="header__link__button" style="margin-left: 45%">USE DISCOUNT</a>
+        <a href="/musicwebapp/controller?command=useDiscount&bonusDiscountId=${bonusDiscount.id}" class="header__link__button" style="margin-left: 45%">USE DISCOUNT</a>
     </c:if>
     <c:if test="${bonusFreeTracksExist}">
         <h1 class="message_h1">У вас есть возможность купить ${bonusFreeTracks.amount} треков с наименьшей стоимостью из заказа бесплатно,
             нажмите "применить", чтобы получить бесплатные треки в свою коллекцию музыки.</h1>
-        <a href="/musicwebapp/controller?command=useBonusFreeTracks" class="header__link__button" style="margin-left: 45%">${pay}</a>
+        <a href="/musicwebapp/controller?command=useBonusFreeTracks&bonusFreeTracksId=${bonusFreeTracks.id}" class="header__link__button" style="margin-left: 45%">${pay}</a>
     </c:if>
 
     <a href="/musicwebapp/controller?command=payOrder" class="header__link__button" style="margin-left: 45%">${pay}</a>

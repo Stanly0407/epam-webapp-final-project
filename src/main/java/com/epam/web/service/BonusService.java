@@ -36,21 +36,20 @@ public class BonusService {
         }
     }
 
-    public void deleteUserBonus(Long orderId, Long trackId) throws ServiceException {
+    public void deleteUserBonus(Long bonusId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            OrderDao orderDao = daoHelper.createOrderDao();
-            orderDao.deleteTrackFromOrder(orderId, trackId);
+            BonusDao bonusDao = daoHelper.createBonusDao();
+            bonusDao.deleteUserBonus(bonusId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public void addBonusToUser(Long userId, Long trackId) throws ServiceException {
+    public void addBonusToUser(Long userId, String type, String amount,  Long trackId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            OrderDao orderDao = daoHelper.createOrderDao();
-                orderDao.addTrackToOrder(orderId, trackId);
+            BonusDao bonusDao = daoHelper.createBonusDao();
+            bonusDao.addTrackToOrder(orderId, trackId);
         } catch (DaoException e) {
-            LOGGER.debug(e + " ________ " + e.getMessage());
             throw new ServiceException(e, e.getMessage());
         }
     }
@@ -61,7 +60,6 @@ public class BonusService {
             OrderDao orderDao = daoHelper.createOrderDao();
             orderDao.addTrackToOrder(orderId, trackId);
         } catch (DaoException e) {
-            LOGGER.debug(e + " ________ " + e.getMessage());
             throw new ServiceException(e, e.getMessage());
         }
     }

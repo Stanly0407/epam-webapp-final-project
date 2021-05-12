@@ -18,6 +18,8 @@ public class PayOrderCommand implements Command {
     private static final String USER_ACCOUNT_PAGE = "/controller?command=userAccount";
     private static final String ATTRIBUTE_USER_ID = "userId";
     private static final String ATTRIBUTE_ORDER_ID = "orderId";
+    private static final String PARAMETER_BONUS_DISCOUNT_ID = "bonusDiscount";
+    private static final String PARAMETER_BONUS_FREE_TRACKS_ID = "bonusFreeTracks";
 
     private final OrderService orderService;
 
@@ -30,7 +32,13 @@ public class PayOrderCommand implements Command {
         HttpSession session = request.getSession();
         Long orderId = (Long) session.getAttribute(ATTRIBUTE_ORDER_ID);
         Long userId = (Long) session.getAttribute(ATTRIBUTE_USER_ID);
-        boolean payResult = orderService.payOrder(orderId, userId);
+        String bonusIdParameter = request.getParameter(PARAMETER_BONUS_DISCOUNT_ID);
+        Long bonusId = Long.parseLong(bonusIdParameter);
+// далее получаем параметры этих бонусов. проверяем стринги на налл, если не налл то парсим в лонг, если налл,
+// то не парсим, а присваеваем переменной лонг налл и в метод отправляем либо налл либо айди соответственно
+        //в карт пэйдже сделать формочку с чекбаксами, т.е. будет запрос pay  как форма
+
+        boolean payResult = orderService.payOrder(orderId, userId, bonusId);
         LOGGER.debug("payResult " + payResult);
         if (payResult) {
             session.removeAttribute(ATTRIBUTE_ORDER_ID);

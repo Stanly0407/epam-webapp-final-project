@@ -3,6 +3,7 @@ package com.epam.web.service;
 import com.epam.web.dao.*;
 import com.epam.web.dto.OrderDto;
 import com.epam.web.dto.TrackDto;
+import com.epam.web.entities.Bonus;
 import com.epam.web.entities.Order;
 import com.epam.web.entities.Track;
 import com.epam.web.entities.User;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 public class OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
+    private static final int PERCENT = 100;
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -56,19 +58,29 @@ public class OrderService {
                 orderDao.addTrackToOrder(orderId, trackId);
             }
         } catch (DaoException e) {
-            LOGGER.debug(e + " ________ " + e.getMessage());
             throw new ServiceException(e, e.getMessage());
         }
     }
 
-    public boolean payOrder(Long orderId, Long userId) throws ServiceException {
+    public boolean payOrder(Long orderId, Long userId, Long bonusId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             OrderDao orderDao = daoHelper.createOrderDao();
             TrackDao trackDao = daoHelper.createTrackDao();
             UserDao userDao = daoHelper.createUserDao();
+            BonusDao bonusDao = daoHelper.createBonusDao();
             boolean payResult = false;
             List<Track> tracks = trackDao.findOrderedTracks(userId);
-            BigDecimal orderAmount = tracks.stream().map(Track::getPrice).reduce(BigDecimal::add).get();
+            BigDecimal cleanOrderAmount = tracks.stream().map(Track::getPrice).reduce(BigDecimal::add).get();
+            BigDecimal orderAmount = cleanOrderAmount;
+            BigDecimal discount;
+            if (bonusId != null) {
+                Optional<Bonus> bonusOptional = bonusDao.getById(bonusId);
+                if (bonusOptional.isPresent()) {
+                    Bonus bonus = bonusOptional.get();
+                    discount = new BigDecimal(bonus.getAmount() / PERCENT);
+                    orderAmount = cleanOrderAmount.multiply(discount);
+                }
+            }
             Optional<User> userOptional = userDao.getById(userId);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
@@ -84,6 +96,19 @@ public class OrderService {
                 }
             }
             LOGGER.debug("payResult === " + payResult);
+            return payResult;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public int applyFreeTracksBonus(Long orderId, Long userId, Long bonusId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            OrderDao orderDao = daoHelper.createOrderDao();
+            TrackDao trackDao = daoHelper.createTrackDao();
+            UserDao userDao = daoHelper.createUserDao();
+            BonusDao bonusDao = daoHelper.createBonusDao();
+
             return payResult;
         } catch (DaoException e) {
             throw new ServiceException(e);

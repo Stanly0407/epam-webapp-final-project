@@ -36,6 +36,24 @@ public class BonusService {
         }
     }
 
+    public Optional<Bonus> getUnusedUserDiscountBonus(Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            BonusDao bonusDao = daoHelper.createBonusDao();
+            return bonusDao.getUnusedDiscountBonus(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public Optional<Bonus> getUnusedFreeTracksBonus(Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            BonusDao bonusDao = daoHelper.createBonusDao();
+            return bonusDao.getUnusedFreeTracksBonus(userId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
     public void deleteUserBonus(Long bonusId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             BonusDao bonusDao = daoHelper.createBonusDao();

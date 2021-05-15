@@ -81,7 +81,7 @@ public class TrackService {
                     break;
             }
             if (searchedTracks != null) {
-                return createTrackDtoList(searchedTracks, daoHelper, userId);
+                return createTrackDtoList(searchedTracks, userId);
             } else {
                 return new ArrayList<>();
             }
@@ -94,7 +94,7 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> artistTracks = trackDao.findArtistMusic(artistId);
-            return createTrackDtoList(artistTracks, daoHelper, userId);
+            return createTrackDtoList(artistTracks, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -104,7 +104,7 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> albumTracks = trackDao.findCollectionMusic(collectionId);
-            return createTrackDtoList(albumTracks, daoHelper, userId);
+            return createTrackDtoList(albumTracks, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -114,7 +114,7 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> tracks = trackDao.getAllTracks();
-            return createTrackDtoList(tracks, daoHelper, userId);
+            return createTrackDtoList(tracks, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -148,7 +148,7 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> tracks = trackDao.getNewTracks();
-            return createTrackDtoList(tracks, daoHelper, userId);
+            return createTrackDtoList(tracks, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -159,10 +159,19 @@ public class TrackService {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> orderedTracks = trackDao.findOrderedTracks(userId);
             if (orderedTracks != null) {
-                return createTrackDtoList(orderedTracks, daoHelper, userId);
+                return createTrackDtoList(orderedTracks, userId);
             } else {
                 return new ArrayList<>();
             }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<Track> getOrderedTracksList(Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            return trackDao.findOrderedTracks(userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -173,7 +182,7 @@ public class TrackService {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> purchasedTracks = trackDao.findAllPaidTracks(userId);
             if (!purchasedTracks.isEmpty()) {
-                return createTrackDtoList(purchasedTracks, daoHelper, userId);
+                return createTrackDtoList(purchasedTracks, userId);
             } else {
                 return new ArrayList<>();
             }
@@ -187,7 +196,7 @@ public class TrackService {
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> purchasedTracks = trackDao.findPaidTracksByOrderId(orderId);
             if (!purchasedTracks.isEmpty()) {
-                return createTrackDtoList(purchasedTracks, daoHelper, userId);
+                return createTrackDtoList(purchasedTracks, userId);
             } else {
                 return new ArrayList<>();
             }
@@ -221,7 +230,7 @@ public class TrackService {
                 offset = 0;
             }
             List<Track> tracks = trackDao.getTracksPage(limit, offset);
-            return createTrackDtoList(tracks, daoHelper, userId);
+            return createTrackDtoList(tracks, userId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -260,13 +269,17 @@ public class TrackService {
         }
     }
 
-    public List<TrackDto> createTrackDtoList(List<Track> tracks, DaoHelper daoHelper, Long userId) throws DaoException {
-        List<TrackDto> trackDtoList = new ArrayList<>();
+    public List<TrackDto> createTrackDtoList(List<Track> tracks, Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            List<TrackDto> trackDtoList = new ArrayList<>();
         for (Track track : tracks) {
             TrackDto trackDto = createTrackDto(track, daoHelper, userId);
             trackDtoList.add(trackDto);
         }
         return trackDtoList;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     private TrackDto createTrackDto(Track track, DaoHelper daoHelper, Long userId) throws DaoException {

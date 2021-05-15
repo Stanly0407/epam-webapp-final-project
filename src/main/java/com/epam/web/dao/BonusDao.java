@@ -15,6 +15,10 @@ public class BonusDao extends AbstractDao<Bonus> implements Dao<Bonus> {
     private static final String INSERT_ORDER = "INSERT INTO purchase_order (user_id) VALUE (?)";
 
     private static final String FIND_UNUSED_USER_BONUSES = "SELECT id, bonus_type, amount, status_use, user_id WHERE status_use = false AND user_id = ?";
+    private static final String FIND_UNUSED_DISCOUNT_BONUS = "SELECT id, bonus_type, amount, status_use, user_id WHERE status_use = false AND user_id = ?" +
+            " AND bonus_type = 'DISCOUNT'";
+    private static final String FIND_UNUSED_FREE_TRACKS_BONUS = "SELECT id, bonus_type, amount, status_use, user_id WHERE status_use = false AND user_id = ?" +
+            " AND bonus_type = 'FREE_TRACKS'";
 
     public BonusDao(Connection connection, RowMapper<Bonus> mapper) {
         super(connection, mapper);
@@ -24,6 +28,15 @@ public class BonusDao extends AbstractDao<Bonus> implements Dao<Bonus> {
     public List<Bonus> getUnusedUserBonuses(Long userId) throws DaoException {
         return executeQuery(FIND_UNUSED_USER_BONUSES, userId);
     }
+
+    public Optional<Bonus> getUnusedDiscountBonus(Long userId) throws DaoException {
+        return executeForSingleResult(FIND_UNUSED_DISCOUNT_BONUS, userId);
+    }
+
+    public Optional<Bonus> getUnusedFreeTracksBonus(Long userId) throws DaoException {
+        return executeForSingleResult(FIND_UNUSED_FREE_TRACKS_BONUS, userId);
+    }
+
 
     @Override
     public Optional<Bonus> getById(Long id) throws DaoException {

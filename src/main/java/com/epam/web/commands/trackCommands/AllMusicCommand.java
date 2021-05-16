@@ -32,11 +32,9 @@ public class AllMusicCommand implements Command {
     private static final String ATTRIBUTE_PAGINATION_LIST = "paginationList";
 
     private final TrackService trackService;
-    private final MusicCollectionService musicCollectionService;
 
-    public AllMusicCommand(TrackService trackService, MusicCollectionService musicCollectionService) {
+    public AllMusicCommand(TrackService trackService) {
         this.trackService = trackService;
-        this.musicCollectionService = musicCollectionService;
     }
 
     @Override
@@ -45,6 +43,8 @@ public class AllMusicCommand implements Command {
         Long userId = (Long) session.getAttribute(USER_ID);
         String pageAction = request.getParameter(PAGE_ACTION);
         Integer currentPaginationPage = (Integer) session.getAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE);
+        LOGGER.debug("currentPaginationPage " + currentPaginationPage);
+        LOGGER.debug("pageAction  " + pageAction);
         int page;
         if (currentPaginationPage == null) {
             session.setAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE, 1);
@@ -52,7 +52,7 @@ public class AllMusicCommand implements Command {
         }
 
         if (pageAction == null) {
-            page = 1;
+            page = currentPaginationPage;
         } else if (PAGE_NEXT.equals(pageAction)) {
             page = currentPaginationPage + PAGE;
         } else if (PAGE_PREVIOUS.equals(pageAction)) {
@@ -60,8 +60,9 @@ public class AllMusicCommand implements Command {
         } else {
             page = Integer.parseInt(pageAction);
         }
-
+        LOGGER.debug("page " + page);
         session.setAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE, page);
+        //   session.setAttribute(ATTRIBUTE_CURRENT_PAGINATION_PAGE, currentPaginationPage);
 
         boolean isNextPossible = trackService.checkPaginationAction(page, true);
         session.setAttribute(ATTRIBUTE_IS_NEXT_POSSIBLE, isNextPossible);

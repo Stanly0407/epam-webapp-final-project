@@ -51,8 +51,16 @@ public enum CommandType {
     ALL_ALBUMS("allAlbums"),
     ALL_PLAYLISTS("allPlaylists"),
 
-    USE_DISCOUNT("useDiscount"),
-    USE_BONUS_FREE_TRACKS("useBonusFreeTracks");
+    ACTIVATE_DISCOUNT("activateDiscount"),
+    DEACTIVATE_DISCOUNT("deactivateDiscount"),
+    ACTIVATE_FREE_TRACKS("activateFreeTracks"),
+    DEACTIVATE_FREE_TRACKS("deactivateFreeTracks"),
+
+    ADD_DISCOUNT("addDiscount"),
+    DELETE_BONUS("deleteBonus"),
+    ADD_FREE_TRACKS("addFreeTracks");
+
+
 
     private String value;
 

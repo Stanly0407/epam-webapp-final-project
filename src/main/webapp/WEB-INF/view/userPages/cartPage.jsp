@@ -32,27 +32,29 @@
                 <br/>
                 <c:if test="${bonusDiscountExist}">
                 <label class="container" for="discount">У вас есть скидка в размере ${bonusDiscount.amount}%.
-                    <a class="comment-link" href="<c:url value='controller?command=countDiscount&discountId=${bonusDiscount.id}'/>">
-                    <c:if test="${sessionScope.activatedDiscountBonus}">
-                        <input type="submit" class="header__link__button" id="discount" style="margin-left: 45%" name="Применить">
-                    </c:if>
-                        <c:if test="${!sessionScope.activatedDiscountBonus}">
-                            <input type="submit" class="header__link__button" id="discount" style="margin-left: 45%" name="Отменить">
+                        <c:if test="${sessionScope.activatedDiscountBonus}">
+                            <a href="/musicwebapp/controller?command=deactivateDiscount" id="discount" class="header__link__button"
+                               style="margin-left: 45%">Отменить</a>
                         </c:if>
-                    </a> </label>
+                        <c:if test="${!sessionScope.activatedDiscountBonus || empty sessionScope.activatedDiscountBonus}">
+                            <a href="/musicwebapp/controller?command=activateDiscount" id="discount" class="header__link__button"
+                               style="margin-left: 45%">Применить</a>
+                        </c:if>
+                 </label>
                 </c:if>
                 <c:if test="${bonusFreeTracksExist}">
                     <label class="container" for="freeTracks">У вас есть возможность купить ${bonusFreeTracks.amount}
                         треков с наименьшей стоимостью из заказа бесплатно,
                         нажмите "применить", чтобы получить бесплатные треки в свою коллекцию музыки.
-                        <a class="comment-link" href="<c:url value='controller?command=countFreeTracks&bonusId=${bonusDiscount.id}'/>">
                             <c:if test="${sessionScope.activatedFreeTracksBonus}">
-                                <input type="submit" class="header__link__button" id="freeTracks" style="margin-left: 45%" name="Применить">
+                                <a href="/musicwebapp/controller?command=deactivateFreeTracks" id="freeTracks" class="header__link__button"
+                                   style="margin-left: 45%">Отменить</a>
                             </c:if>
-                            <c:if test="${!sessionScope.activatedFreeTracksBonus}">
-                                <input type="submit" class="header__link__button" id="freeTracks" style="margin-left: 45%" name="Отменить">
+                            <c:if test="${!sessionScope.activatedFreeTracksBonus || empty sessionScope.activatedFreeTracksBonus}">
+                                <a href="/musicwebapp/controller?command=activateFreeTracks" id="freeTracks" class="header__link__button"
+                                   style="margin-left: 45%">Применить</a>
                             </c:if>
-                        </a> </label>
+                        </label>
                 </c:if>
                 <c:if test="${checkMessage}">
                     <h1 class="message_h1">Для приобретения бесплатных треков необходимо, чтобы в корзине было столько

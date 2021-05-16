@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
 public class OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
     private static final int PERCENT = 100;
-    private static final int DEFAULT_DISCOUNT_VALUE = 1;
-    private static final int DEFAULT_FREE_TRACK_PRICE = 0;
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -66,64 +64,31 @@ public class OrderService {
         }
     }
 
-// перенести в бонус сервис
-    public List<Track> applyBonusDiscount(List<Track> tracks, Long userId) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            BonusDao bonusDao = daoHelper.createBonusDao();
-            Optional<Bonus> bonusOptional = bonusDao.getUnusedDiscountBonus(userId);
-            BigDecimal discount = new BigDecimal(DEFAULT_DISCOUNT_VALUE);
-            if (bonusOptional.isPresent()) {
-                Bonus bonus = bonusOptional.get();
-                discount = new BigDecimal(bonus.getAmount() / PERCENT);
-            }
-
-            List<Track> updatedTrackList = new ArrayList<>();
-            for(Track track : tracks){
-                BigDecimal oldPrice = track.getPrice();
-                BigDecimal newPrice = oldPrice.multiply(discount);
-                track.setPrice(newPrice);
-                updatedTrackList.add(track);
-            }
-            return updatedTrackList;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-
-    public List<Track> applyBonusFreeTracks(List<Track> tracks, Long userId) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            BonusDao bonusDao = daoHelper.createBonusDao();
-            Optional<Bonus> bonusOptional = bonusDao.getUnusedFreeTracksBonus(userId);
-            int freeTracksAmount = 0;
-            if (bonusOptional.isPresent()) {
-                Bonus bonus = bonusOptional.get();
-                freeTracksAmount = bonus.getAmount();
-            };
-            BigDecimal defaultFreeTrackPrice = new BigDecimal(DEFAULT_FREE_TRACK_PRICE);
-            for(int i = freeTracksAmount; i >= 0; i--){
-                Track track = tracks.get(i);
-                track.setPrice(defaultFreeTrackPrice);
-            }
-            return tracks;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-
-    public boolean payOrder(Long orderId, Long userId, Long bonusDiscountId, Long bonusFreeTracksId) throws ServiceException {
+    public boolean payOrder(Long orderId, Long userId, boolean activatedDiscountBonus, boolean activatedFreeTracksBonus) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             OrderDao orderDao = daoHelper.createOrderDao();
             UserDao userDao = daoHelper.createUserDao();
-
             BonusDao bonusDao = daoHelper.createBonusDao();
 
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> tracks = trackDao.findOrderedTracks(userId);
 
             boolean payResult = false;
-            BigDecimal orderAmount = countOrderTotalPrice(userId, bonusDiscountId, bonusFreeTracksId);
+            Bonus discount = null;
+            Bonus freeTracks = null;
+            // определение итоговой суммы платежа
+            if (activatedDiscountBonus) {
+                Optional<Bonus> discountOptional = bonusDao.getUnusedDiscountBonus(userId);
+                discount = discountOptional.get();
+            }
+            if (activatedFreeTracksBonus) {
+                Optional<Bonus> freeTracksOptional = bonusDao.getUnusedFreeTracksBonus(userId);
+                freeTracks = freeTracksOptional.get();
+            }
+
+            BigDecimal orderAmount = countOrderTotalSum(tracks, discount, freeTracks);
+
+            // оплата
             Optional<User> userOptional = userDao.getById(userId);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
@@ -134,6 +99,11 @@ public class OrderService {
                     daoHelper.startTransaction();
                     userDao.updateUserBalance(balanceAfterPay, userId);
                     orderDao.updateOrderStatus(orderId);
+                    if (discount != null) {
+                        bonusDao.changeUserBonusStatus(discount.getId());
+                    } else if (freeTracks != null) {
+                        bonusDao.changeUserBonusStatus(freeTracks.getId());
+                    }
                     daoHelper.endTransaction();
                     payResult = true;
                 } else {
@@ -201,7 +171,21 @@ public class OrderService {
         }
     }
 
+    public BigDecimal countOrderTotalSum(List<Track> tracks, Bonus discount, Bonus freeTracks) {
+        if (freeTracks != null) {
+            int freeTracksAmount = freeTracks.getAmount();
+            tracks.subList(0, freeTracksAmount).clear();
+        }
+        BigDecimal total = sumOfOrderedTracks(tracks);
+        if (discount != null) {
+            BigDecimal discountAmount = new BigDecimal(discount.getAmount() / PERCENT);
+            total = total.multiply(discountAmount);
+        }
+        return total;
+    }
+
     public BigDecimal sumOfOrderedTracks(List<Track> orderedTracks) {
+        LOGGER.debug("sumOfOrderedTracks ////// orderedTracks " + orderedTracks);
         return orderedTracks
                 .stream()
                 .map(Track::getPrice)

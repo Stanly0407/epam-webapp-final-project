@@ -59,4 +59,14 @@ public class Track extends Entity {
     public void setFilename(String filename) {
         this.filename = filename;
     }
+
+    @Override
+    public String toString() {
+        return "Track{" +
+                "releaseDate=" + releaseDate +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", filename='" + filename + '\'' +
+                '}';
+    }
 }

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,11 +34,11 @@ public class UserService {
         }
     }
 
-    public List<User> getAllUsers() throws ServiceException {
+    public List<UserDto> getAllUsers() throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();
-
-            return userDao.getAllUsers();
+            List<User> users = userDao.getAllUsers();
+            return createUserDtoList(users, daoHelper);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -79,6 +80,14 @@ public class UserService {
     }
 
 
+    public List<UserDto> createUserDtoList(List<User> users, DaoHelper daoHelper) throws DaoException {
+        List<UserDto> userDtoList = new ArrayList<>();
+        for (User user : users) {
+            UserDto userDto = createUserDto(user, daoHelper);
+            userDtoList.add(userDto);
+        }
+        return userDtoList;
+    }
 
     private UserDto createUserDto(User user, DaoHelper daoHelper) throws DaoException {
         Long userId = user.getId();
@@ -97,10 +106,10 @@ public class UserService {
         List<Bonus> bonuses = bonusDao.getUnusedUserBonuses(userId);
         Bonus bonusDiscount = null;
         Bonus bonusFreeTracks = null;
-        if(!bonuses.isEmpty()){
-            for(Bonus bonus : bonuses){
+        if (!bonuses.isEmpty()) {
+            for (Bonus bonus : bonuses) {
                 BonusType type = bonus.getBonusType();
-                if(BonusType.DISCOUNT.equals(type)){
+                if (BonusType.DISCOUNT.equals(type)) {
                     bonusDiscount = bonus;
                 } else {
                     bonusFreeTracks = bonus;
@@ -120,7 +129,6 @@ public class UserService {
                 .status(status)
                 .build();
     }
-
 
 
 }

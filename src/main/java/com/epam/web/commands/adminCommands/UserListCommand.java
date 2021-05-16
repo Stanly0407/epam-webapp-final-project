@@ -2,6 +2,7 @@ package com.epam.web.commands.adminCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
+import com.epam.web.dto.UserDto;
 import com.epam.web.entities.User;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.UserService;
@@ -23,9 +24,9 @@ public class UserListCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        List<User> userList = userService.getAllUsers();
+        List<UserDto> userList = userService.getAllUsers();
         request.setAttribute(ATTRIBUTE_USER_LIST, userList);
-        request.setAttribute(ATTRIBUTE_USER, new User());
+        request.setAttribute(ATTRIBUTE_USER, new UserDto());
         return CommandResult.forward(USER_LIST_PAGE_COMMAND);
     }
 }

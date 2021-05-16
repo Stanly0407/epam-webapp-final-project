@@ -9,7 +9,6 @@ import com.epam.web.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Arrays;
 
 public class CommandFactory {
     private static final Logger LOGGER = LogManager.getLogger(CommandFactory.class);
@@ -34,7 +33,7 @@ public class CommandFactory {
                 return new LogoutCommand();
             case ALL_MUSIC:
             case NEXT_PAGE:
-                return new AllMusicCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+                return new AllMusicCommand(new TrackService(new DaoHelperFactory()));
             case CHANGE_LANGUAGE:
                 return new ChangeLanguageCommand();
             // USER
@@ -45,7 +44,7 @@ public class CommandFactory {
             case SEARCH_MUSIC_RESULT:
                 return new SearchMusicResultCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case USER_ACCOUNT:
-                return new UserAccountCommand(new UserService(new DaoHelperFactory()));
+                return new UserAccountCommand(new UserService(new DaoHelperFactory()), new BonusService(new DaoHelperFactory()));
             case REFILL_BALANCE_PAGE:
                 return new ShowPageCommand(REFILL_BALANCE_PAGE);
             case REFILL_BALANCE:
@@ -82,6 +81,14 @@ public class CommandFactory {
                 return new DeleteTrackFromCartCommand(new OrderService(new DaoHelperFactory()));
             case PAY_ORDER:
                 return new PayOrderCommand(new OrderService(new DaoHelperFactory()));
+            case ACTIVATE_DISCOUNT:
+                return new ActivateDiscountCommand();
+            case DEACTIVATE_DISCOUNT:
+                return new DeactivateDiscountCommand();
+            case ACTIVATE_FREE_TRACKS:
+                return new ActivateFreeTracksCommand();
+            case DEACTIVATE_FREE_TRACKS:
+                return new DeactivateFreeTracksCommand();
             case PAYMENT_HISTORY:
                 return new PaidOrderTracksCommand(new OrderService(new DaoHelperFactory()));
             case PURCHASED_TRACKS:
@@ -117,6 +124,12 @@ public class CommandFactory {
                 return new DeleteTrackPreventingCommand(new TrackService(new DaoHelperFactory()), new ArtistService(new DaoHelperFactory()));
             case DELETE_TRACK:
                 return new DeleteTrackCommand(new TrackService(new DaoHelperFactory()));
+            case ADD_DISCOUNT:
+                return new AddDiscountCommand( new BonusService(new DaoHelperFactory()));
+            case ADD_FREE_TRACKS:
+                return new AddFreeTrackCommand(new BonusService(new DaoHelperFactory()));
+            case DELETE_BONUS:
+                return new DeleteBonusCommand(new BonusService(new DaoHelperFactory()));
 
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);

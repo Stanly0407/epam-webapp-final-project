@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Controller extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(Controller.class);
@@ -53,7 +54,7 @@ public class Controller extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute(ERROR_MESSAGE, e.getMessage());
             page = ERROR_PAGE;
-            LOGGER.error("ERROR SE " + e + "// ERROR_MESSAGE: " + e.getMessage());
+            LOGGER.error("ERROR SE " + e + "// ERROR_MESSAGE: " + e.getMessage() + Arrays.toString(e.getStackTrace()));
         }
         LOGGER.debug("commandType " + commandType);
         LOGGER.debug("command " + command);

@@ -5,6 +5,7 @@ import com.epam.web.commands.CommandResult;
 import com.epam.web.entities.Bonus;
 import com.epam.web.entities.User;
 import com.epam.web.exceptions.ServiceException;
+import com.epam.web.service.BonusService;
 import com.epam.web.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +22,11 @@ public class UserAccountCommand implements Command {
     private static final String BONUS_MESSAGE = "bonusMessage";
 
     private final UserService userService;
+    private final BonusService bonusService;
 
-    public UserAccountCommand(UserService userService) {
+    public UserAccountCommand(UserService userService, BonusService bonusService) {
         this.userService = userService;
+        this.bonusService = bonusService;
     }
 
     @Override

@@ -32,16 +32,22 @@
             </c:forEach>
             <td>$ ${track.price} </td>
 
-            <c:if test="${track.status == 'PURCHASED'}">
-                <td class="purchased">${purhased}</td>
+            <c:if test="${sessionScope.role eq 'USER'}">
+                <c:if test="${track.status eq 'PURCHASED'}">
+                    <td class="purchased">${purhased}</td>
+                </c:if>
+                <c:if test="${track.status eq 'AVAILABLE'}">
+                    <td><a class="header__link__button"
+                           href="<c:url value='controller?command=addTrack&id=${track.id}'/>">${add}</a></td>
+                </c:if>
+                <c:if test="${track.status eq 'ORDERED'}">
+                    <td><a class="header__link"
+                           href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">${delete}</a></td>
+                </c:if>
             </c:if>
-            <c:if test="${track.status == 'AVAILABLE'}">
+            <c:if test="${sessionScope.role eq 'ADMIN'}">
                 <td><a class="header__link__button"
-                       href="<c:url value='controller?command=addTrack&id=${track.id}'/>">${add}</a></td>
-            </c:if>
-            <c:if test="${track.status == 'ORDERED'}">
-                <td><a class="header__link"
-                       href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">${delete}</a></td>
+                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
             </c:if>
             </td>
         </tr>
@@ -77,11 +83,11 @@
                 <input type="hidden" name="${comment.userId}"/>
                 <div style="display: flex; align-items: center; justify-content: space-between;">
                     <div>
-                    <p class="p-comment-user"><b>${comment.name} ${comment.lastname}</b></p>
-                </div>
+                        <p class="p-comment-user"><b>${comment.name} ${comment.lastname}</b></p>
+                    </div>
                     <div>
-                    <ctg:dateTimeCustomTag dateTime="${comment.commentDate}"/>
-                </div>
+                        <ctg:dateTimeCustomTag dateTime="${comment.commentDate}"/>
+                    </div>
                 </div>
 
                 <p class="p-comment-content">${comment.content}</p>
@@ -102,7 +108,7 @@
         </c:forEach>
     </c:if>
     <c:if test="${empty comments && empty editableContent}">
-        <p class="message_h1">${noCommentsInfo}...</p>
+        <p class="message_h1" style="margin-left: 15%;">${noCommentsInfo}...</p>
     </c:if>
 
 </div>

@@ -88,9 +88,9 @@
             <button class="button-main" type="submit">${save}</button>
         </form>
 
-        <div class="delete_red_button">
+        <div style="margin-top: 20px;">
         <c:if test="${not empty track.id}">
-            <a class="header__link"
+            <a class="pink_button"
                href="<c:url value='controller?command=deleteTrackPreventing&id=${track.id}'/>">Delete</a>
         </c:if>
         </div>

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customTags" %>
 <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="pagecontent" var="local" />
 <fmt:message bundle="${local}" key="local.h1.paymentHistory" var="paymentHistory" />
@@ -27,10 +28,15 @@
                 <th width="120">${totalSum}</th>
                 <th width="80"></th>
             </tr>
+
             <c:forEach items="${orders}" var="order">
                 <tr style="align-content: center">
                     <td><input type="hidden" name="${order.id}"/></td>
-                    <td>${order.orderDate}</td>
+
+<%--                    <td>${order.orderDate}</td>--%>
+                    <td width="200"> <ctg:dateTimeCustomTag dateTime="${order.orderDate}"/> </td>
+
+
                     <td>${order.tracksAmount}</td>
                     <td>${order.totalSum}</td>
                     <td><a class="header__link__button" href="<c:url value='controller?command=purchasedTracks&id=${order.id}'/>">

@@ -60,7 +60,7 @@
                     <h1 class="message_h1">Для приобретения бесплатных треков необходимо, чтобы в корзине было столько
                         же или более треков.</h1>
                 </c:if>
-                <input type="submit" class="header__link__button" style="margin-left: 45%" name="Применить">
+<%--                <input type="submit" class="header__link__button" style="margin-left: 45%" name="Применить">--%>
         </div>
 
         <div style="margin-left: 46%; margin-bottom: 40px" class="common-label">${totalAmountInfo} ${orderAmount}</div>

@@ -882,3 +882,32 @@ input[type="file"] {
     filter: unset;
     text-align: center;
 }
+
+.user_bonus_input {
+    border: none;
+    width: 75px;
+    height: 10px;
+    padding: 15px;
+    margin-right: 10px;
+    border-radius: 8px;
+    background-color: #28336F;
+    color: #CF469D;
+}
+
+.pink_button {
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A214C;
+    text-decoration: none;
+    background-color: #CF469D;
+    border-radius: 8px;
+    padding: 7px 15px;
+    width: 120px;
+    height: 30px;
+}
+
+.inline_blocks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

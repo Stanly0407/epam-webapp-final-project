@@ -18,6 +18,12 @@
 
 
 <html>
+
+<head>
+    <script src="http://code.jquery.com/jquery-2.2.4.js"
+            type="text/javascript"></script>
+</head>
+
 <body>
 
 <div class="header">
@@ -26,48 +32,75 @@
 
 <%--<h1 class="headlines">${addTrack}</h1>--%>
 
-<div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditTrack" method="post">
-        <br/>
-        <input class="common-input" type="hidden" value="${track.id}" name="trackId" required/>
 
-        <div class="common-label"><label for="releaseDate">${releaseLabel}</label></div>
-        <input class="common-input" type="date" id="releaseDate" value="${track.releaseDate}" name="releaseDate"
-               required/>
-        <br/> <br/>
-        <div class="common-label"><label for="title">${titleLabel}</label></div>
-        <input class="common-input" type="text" id="title" placeholder="${enterTitle}" value="${track.title}"
-               name="title" required/>
-        <br/> <br/>
-        <div class="common-label"><label for="price">${priceLabel}</label></div>
-        <input class="common-input" type="text" id="price" placeholder="${enterPrice}" value="${track.price}"
-               name="price" required/>
-        <br/>
-        <br/>
-        <br/>
-        <select class="select-artist" name="artistId">
-            <option selected disabled>${selectArtist}</option>
-            <c:forEach items="${artists}" var="artist">
-                <option value="${artist.id}">${artist.name}</option>
-            </c:forEach>
-        </select>
-        <br/>
-        <br/>
-        <br/>
-        <div class="common-label"><label for="file">${uploadInfo}</label></div>
-        <label class="file_upload">
-            <input name="filename" id="file" type="file" accept=".mp3"/>
-        </label>
-        <br/>
-        <br/>
-        <button class="button-main" type="submit">${save}</button>
-    </form>
-    <br>
-    <c:if test="${not empty track.id}">
-            <a style="color: red" class="header__link" href="<c:url value='controller?command=deleteTrackPreventing&id=${track.id}'/>">Delete</a>
-    </c:if>
-    <br/>
-    <br/>
+<div class="edit-track-form">
+    <div>
+        <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditTrack" method="post">
+            <br/>
+            <input class="common-input" type="hidden" value="${track.id}" name="trackId" required/>
+
+            <div class="common-label"><label for="releaseDate">${releaseLabel}</label></div>
+            <input class="common-input" type="date" id="releaseDate" value="${track.releaseDate}" name="releaseDate"
+                   required/>
+            <br/> <br/>
+            <div class="common-label"><label for="title">${titleLabel}</label></div>
+            <input class="common-input" type="text" id="title" placeholder="${enterTitle}" value="${track.title}"
+                   name="title" required/>
+            <br/> <br/>
+            <div class="common-label"><label for="price">${priceLabel}</label></div>
+            <input class="common-input" type="text" id="price" placeholder="${enterPrice}" value="${track.price}"
+                   name="price" required/>
+            <br/>
+            <br/>
+            <br/>
+
+            <c:if test="${not empty track.id}">
+                <div class="common-label">
+                    <p>Current Artists:</p>
+                    <c:forEach items="${track.artists}" var="currentArtist">
+                        <p style="color: #CF469D">${currentArtist.name}</p>
+                    </c:forEach>
+                </div>
+            </c:if>
+
+            <ul id="authorSelector">
+                <li>
+                    <select class="select-artist" name="artistId">
+                        <option selected disabled>${selectArtist}</option>
+                        <c:forEach items="${artists}" var="artist">
+                            <option value="${artist.id}">${artist.name}</option>
+                        </c:forEach>
+                    </select>
+                </li>
+            </ul>
+            <ul id="additionalAuthorSelector">
+            </ul>
+
+            <br/>
+            <br/>
+            <br/>
+            <div class="common-label"><label for="file">${uploadInfo}</label></div>
+            <label class="file_upload">
+                <input name="filename" id="file" type="file" accept=".mp3"/>
+            </label>
+            <br/>
+            <br/>
+            <button class="button-main" type="submit">${save}</button>
+        </form>
+
+        <div class="delete_red_button">
+        <c:if test="${not empty track.id}">
+            <a class="header__link"
+               href="<c:url value='controller?command=deleteTrackPreventing&id=${track.id}'/>">Delete</a>
+        </c:if>
+        </div>
+
+    </div>
+    <div>
+        <button class="button-main" style="margin-top: 130px; margin-left: 18px" onclick="addArtist()">Add Artist</button>
+    </div>
 </div>
+
 </body>
 </html>
+

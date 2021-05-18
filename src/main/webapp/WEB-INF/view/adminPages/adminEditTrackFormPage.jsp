@@ -14,12 +14,7 @@
     <h1 align="center" style="margin-bottom: 35px">Edit track: </h1>
 
     <form action="/musicwebapp/controller?command=editSaveTrack" method="post">
-        <%--    <input type="hidden" name="command" value="editSaveTrack">--%>
         <table>
-<%--            <tr>--%>
-<%--                <td>ID:</td>--%>
-<%--                <td><input class="common-input" type="text" name="id" readonly value="${track.id}"/></td>--%>
-<%--            <tr>--%>
                 <td>Title:</td>
                 <td><input class="common-input" type="text" name="title" value="${track.title}"/></td>
             </tr>

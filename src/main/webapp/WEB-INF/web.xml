@@ -6,12 +6,12 @@
 
     <servlet>
         <servlet-name>main</servlet-name>
-        <servlet-class>com.epam.web.Controller</servlet-class>
+        <servlet-class>com.epam.web.controller.Controller</servlet-class>
     </servlet>
 
         <servlet>
             <servlet-name>upload</servlet-name>
-            <servlet-class>com.epam.web.Controller</servlet-class>
+            <servlet-class>com.epam.web.controller.Controller</servlet-class>
         </servlet>
     <servlet-mapping>
         <servlet-name>main</servlet-name>
@@ -25,7 +25,7 @@
 
     <filter>
         <filter-name>ContentFilter</filter-name>
-        <filter-class>com.epam.web.ContentFilter</filter-class>
+        <filter-class>com.epam.web.filters.ContentFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>ContentFilter</filter-name>
@@ -34,18 +34,18 @@
 
     <filter>
         <filter-name>RoleFilter</filter-name>
-        <filter-class>com.epam.web.RoleFilter</filter-class>
+        <filter-class>com.epam.web.filters.RoleFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>RoleFilter</filter-name>
         <url-pattern>/controller</url-pattern>
     </filter-mapping>
 
-<!--    <jsp-config>-->
-<!--        <taglib>-->
-<!--            <taglib-uri>customtags</taglib-uri>-->
-<!--            <taglib-location>/WEB-INF/tld/custom.tld</taglib-location>-->
-<!--        </taglib>-->
-<!--    </jsp-config>-->
+    <jsp-config>
+        <taglib>
+            <taglib-uri>customTags</taglib-uri>
+            <taglib-location>/WEB-INF/tld/custom.tld</taglib-location>
+        </taglib>
+    </jsp-config>
 
 </web-app>

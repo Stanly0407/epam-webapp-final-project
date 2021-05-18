@@ -339,7 +339,7 @@ td, th {
 
 .p-comment-date {
     font-size: small;
-    color: blueviolet;
+    color: #CF469D;
     font-style: oblique;
     margin-bottom: 10px;
 }
@@ -617,8 +617,11 @@ input::placeholder {
 }
 
 .edit-track-form {
-    padding: 50px;
-    margin: 3% 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 96px;
+    margin: 3% 28%;
     box-shadow: 0 20px 70px 0 rgb(0 0 0 / 60%);
     border-radius: 8px;
 }
@@ -865,4 +868,17 @@ input[type="file"] {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.delete_red_button {
+    margin-top: 15px;
+    background-color: #E9003A;
+    opacity: 80%;
+    padding: 6px;
+    width: 140px;
+    border: none;
+    border-radius: 8px;
+    height: 35px;
+    filter: unset;
+    text-align: center;
 }

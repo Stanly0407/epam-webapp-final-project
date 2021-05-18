@@ -17,6 +17,8 @@
 <div class="container-login">
 
     <b class="headlines-type">${userHello}, ${name}!</b><br>
+
+
     <br/>
     <jsp:include page="../fragments/search.jsp"/>
     <br/>

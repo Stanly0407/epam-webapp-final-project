@@ -25,20 +25,14 @@
                 <th width="4"></th>
                 <th width="200">${paymentDate}</th>
                 <th width="120">${tracksAmount}</th>
-                <th width="120">${totalSum}</th>
                 <th width="80"></th>
             </tr>
 
             <c:forEach items="${orders}" var="order">
                 <tr style="align-content: center">
                     <td><input type="hidden" name="${order.id}"/></td>
-
-<%--                    <td>${order.orderDate}</td>--%>
                     <td width="200"> <ctg:dateTimeCustomTag dateTime="${order.orderDate}"/> </td>
-
-
                     <td>${order.tracksAmount}</td>
-                    <td>${order.totalSum}</td>
                     <td><a class="header__link__button" href="<c:url value='controller?command=purchasedTracks&id=${order.id}'/>">
                             ${showPurchasedTracks}</a></td>
                 </tr>

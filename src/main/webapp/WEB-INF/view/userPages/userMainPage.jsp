@@ -15,18 +15,13 @@
 </div>
 
 <div class="container-login">
-
-    <b class="headlines-type">${userHello}, ${name}!</b><br>
-
-
-    <br/>
     <jsp:include page="../fragments/search.jsp"/>
     <br/>
-    <div class="new_releases_headline"><label>${newTracks}</label></div>
+    <div class="new_releases_headline" style="margin-left: 260px"><label>${newTracks}</label></div>
     <jsp:include page="../fragments/trackList.jsp"/>
-    <div class="new_releases_headline"><label>${newAlbums}</label></div>
+    <div class="new_releases_headline" style="margin-left: 260px"><label>${newAlbums}</label></div>
     <jsp:include page="../fragments/albums.jsp"/>
-    <div class="new_releases_headline"><label>${newPlaylists}</label></div>
+    <div class="new_releases_headline" style="margin-left: 250px"><label>${newPlaylists}</label></div>
     <jsp:include page="../fragments/playlists.jsp"/>
 </div>
 

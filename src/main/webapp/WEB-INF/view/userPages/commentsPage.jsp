@@ -47,7 +47,7 @@
             </c:if>
             <c:if test="${sessionScope.role eq 'ADMIN'}">
                 <td><a class="header__link__button"
-                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
+                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">${edit}</a></td>
             </c:if>
             </td>
         </tr>
@@ -81,7 +81,7 @@
             <div class="container__comment">
                 <input type="hidden" name="${comment.id}"/>
                 <input type="hidden" name="${comment.userId}"/>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
                     <div>
                         <p class="p-comment-user"><b>${comment.name} ${comment.lastname}</b></p>
                     </div>

@@ -31,4 +31,6 @@ public class DeleteTrackFromCartCommand implements Command {
         orderService.deleteTrackFromCart(orderId, trackId);
         return CommandResult.redirect(currentPage);
     }
+
+
 }

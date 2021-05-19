@@ -324,7 +324,7 @@ td, th {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 60%);
     background-color: #28336F;
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px;
     width: 600px;
     margin-bottom: 20px;
 }
@@ -334,7 +334,7 @@ td, th {
 }
 
 .edit-delete-link {
-    margin-left: 470px;
+    margin-left: 410px;
 }
 
 .p-comment-date {
@@ -808,12 +808,7 @@ input[type="file"] {
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
-    cursor: pointer;
     font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 /* Hide the browser's default checkbox */
@@ -911,3 +906,27 @@ input[type="file"] {
     align-items: center;
     justify-content: center;
 }
+
+.account_card{
+    box-shadow: 0 4px 70px 0 rgb(0 0 0 / 60%);
+    transition: 0.3s;
+    border-radius: 5px;
+    margin-bottom: 45px;
+    background-color: #1A214C;
+    width: 950px;
+    padding: 45px;
+    height: 550px;
+}
+
+.bonus_message {
+    margin-bottom: 75px;
+    color: white;
+}
+
+.bonus_label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #CF469D;
+}
+

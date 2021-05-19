@@ -7,6 +7,12 @@
 <fmt:message bundle="${local}" key="local.h1.emptyCart" var="emptyCartMessage"/>
 <fmt:message bundle="${local}" key="local.totalAmount" var="totalAmountInfo"/>
 <fmt:message bundle="${local}" key="local.button.pay" var="pay"/>
+<fmt:message bundle="${local}" key="bonus.common.info" var="bonusInfoMessage"/>
+<fmt:message bundle="${local}" key="bonus.discount.info" var="discountInfo"/>
+<fmt:message bundle="${local}" key="bonus.freeTrackInfo.info" var="bonusFreeTracksInfoFirst"/>
+<fmt:message bundle="${local}" key="bonus.button.activate" var="activateBonus"/>
+<fmt:message bundle="${local}" key="bonus.button.deactivate" var="deactivateBonus"/>
+<fmt:message bundle="${local}" key="bonus.freeTrackInfo.checkInfo" var="checkFreeTracksBonusInfo"/>
 
 <html>
 <body>
@@ -18,58 +24,69 @@
 
     <c:if test="${empty trackList}">
         <h1 class="message_h1">${emptyCartMessage}</h1>
-    <c:if test="${bonusMessage}">
-        <h1 class="message_h1">У вас есть бонусы, закажите треки, чтобы узнать подробнее.</h1>
+        <c:if test="${bonusMessage}">
+            <h1 class="message_h1">${bonusInfoMessage}</h1>
+        </c:if>
     </c:if>
-    </c:if>
-
 
     <c:if test="${not empty trackList}">
         <jsp:include page="../fragments/trackList.jsp"/>
-        <br/>
-
-        <div>
-                <br/>
-                <c:if test="${bonusDiscountExist}">
-                <label class="container" for="discount">У вас есть скидка в размере ${bonusDiscount.amount}%.
-                        <c:if test="${sessionScope.activatedDiscountBonus}">
-                            <a href="/musicwebapp/controller?command=deactivateDiscount" id="discount" class="header__link__button"
-                               style="margin-left: 45%">Отменить</a>
-                        </c:if>
-                        <c:if test="${!sessionScope.activatedDiscountBonus || empty sessionScope.activatedDiscountBonus}">
-                            <a href="/musicwebapp/controller?command=activateDiscount" id="discount" class="header__link__button"
-                               style="margin-left: 45%">Применить</a>
-                        </c:if>
-                 </label>
-                </c:if>
-                <c:if test="${bonusFreeTracksExist}">
-                    <label class="container" for="freeTracks">У вас есть возможность купить ${bonusFreeTracks.amount}
-                        треков с наименьшей стоимостью из заказа бесплатно,
-                        нажмите "применить", чтобы получить бесплатные треки в свою коллекцию музыки.
-                            <c:if test="${sessionScope.activatedFreeTracksBonus}">
-                                <a href="/musicwebapp/controller?command=deactivateFreeTracks" id="freeTracks" class="header__link__button"
-                                   style="margin-left: 45%">Отменить</a>
-                            </c:if>
-                            <c:if test="${!sessionScope.activatedFreeTracksBonus || empty sessionScope.activatedFreeTracksBonus}">
-                                <a href="/musicwebapp/controller?command=activateFreeTracks" id="freeTracks" class="header__link__button"
-                                   style="margin-left: 45%">Применить</a>
-                            </c:if>
-                        </label>
-                </c:if>
-                <c:if test="${checkMessage}">
-                    <h1 class="message_h1">Для приобретения бесплатных треков необходимо, чтобы в корзине было столько
-                        же или более треков.</h1>
-                </c:if>
-                <input type="submit" class="header__link__button" style="margin-left: 45%" name="Применить">
-        </div>
-
-        <div style="margin-left: 46%; margin-bottom: 40px" class="common-label">${totalAmountInfo} ${orderAmount}</div>
-
-
-        <a href="/musicwebapp/controller?command=payOrder" class="header__link__button" style="margin-left: 45%">${pay}</a>
-
     </c:if>
+
+    <c:if test="${bonusDiscountExist}">
+        <div style="display: flex;">
+            <div>
+                <label class="bonus_label" for="discount">
+                    <b>${discountInfo} ${bonusDiscount.amount}%.</b>
+                </label>
+            </div>
+            <div>
+                <c:if test="${sessionScope.activatedDiscountBonus}">
+                    <a href="/musicwebapp/controller?command=deactivateDiscount" id="discount"
+                       class="header__link__button"
+                       style="margin-left: 15px">${deactivateBonus}</a>
+                </c:if>
+                <c:if test="${!sessionScope.activatedDiscountBonus || empty sessionScope.activatedDiscountBonus}">
+                    <a href="/musicwebapp/controller?command=activateDiscount" id="discount"
+                       class="header__link__button"
+                       style="margin-left: 15px">${activateBonus}</a>
+                </c:if>
+            </div>
+        </div>
+    </c:if>
+
+    <c:if test="${bonusFreeTracksExist}">
+        <div style="display: flex;">
+            <div>
+                <label class="bonus_label" for="freeTracks">
+                    <b style="margin-right: 15px;">${bonusFreeTracksInfoFirst} ${bonusFreeTracks.amount}.</b>
+                </label>
+            </div>
+            <div>
+                <c:if test="${sessionScope.activatedFreeTracksBonus}">
+                    <a href="/musicwebapp/controller?command=deactivateFreeTracks" id="freeTracks"
+                       class="header__link__button">${deactivateBonus}</a>
+                </c:if>
+                <c:if test="${!sessionScope.activatedFreeTracksBonus || empty sessionScope.activatedFreeTracksBonus}">
+                    <a href="/musicwebapp/controller?command=activateFreeTracks" id="freeTracks"
+                       class="header__link__button">${activateBonus}</a>
+                </c:if>
+            </div>
+        </div>
+    </c:if>
+
+    <c:if test="${checkMessage}">
+        <h1 class="message_h1">${checkFreeTracksBonusInfo}.</h1>
+    </c:if>
+
+    <c:if test="${not empty trackList}">
+        <div style="margin-left: 45%; margin-bottom: 40px; margin-top: 40px" class="common-label">${totalAmountInfo} ${orderAmount}</div>
+        <div>
+            <a href="/musicwebapp/controller?command=payOrder" class="header__link__button"
+               style="margin-left: 45%">${pay}</a>
+        </div>
+    </c:if>
+
 </div>
-<br>
 </body>
 </html>

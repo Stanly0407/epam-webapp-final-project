@@ -20,7 +20,7 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
     private static final String UPDATE_ARTIST = "UPDATE artist SET name = ?, filename = ? where id = ?";
     private static final String INSERT_ARTIST_TO_TRACK = "INSERT into track_artist(track_id, artist_id) values (?, ?)";
     private static final String INSERT_ARTIST = "INSERT into artist(name, filename) values (?, ?)";
-    private static final String UPDATE_ARTIST_TO_TRACK = "UPDATE track_artist SET artist_id = ? WHERE track_id = ?";
+    private static final String DELETE_ARTISTS_TO_TRACK = "DELETE track_artist WHERE track_id = ?";
 
     public ArtistDao(Connection connection, RowMapper<Artist> mapper) {
         super(connection, mapper);
@@ -42,8 +42,8 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
         executeUpdate(INSERT_ARTIST_TO_TRACK, newTrackId, artistId);
     }
 
-    public void updateArtistsToTrack(Long artistId, Long trackId ) throws DaoException {
-        executeUpdate(UPDATE_ARTIST_TO_TRACK, artistId, trackId);
+    public void deleteArtistsToTrack(Long trackId ) throws DaoException {
+        executeUpdate(DELETE_ARTISTS_TO_TRACK, trackId);
     }
 
     public void insertArtist(String artistName, String filename) throws DaoException {

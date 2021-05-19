@@ -1,4 +1,4 @@
-package com.epam.web;
+package com.epam.web.filters;
 
 import javax.servlet.*;
 import java.io.IOException;

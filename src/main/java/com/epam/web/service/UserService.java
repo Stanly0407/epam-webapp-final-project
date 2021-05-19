@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
@@ -57,8 +59,6 @@ public class UserService {
     public void refillUserBalance(String paymentAmountString, Long id) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();
-            //проверка данных карты, если не соответствует выводить ошибку платежа... pattern
-            //проверка соответствует ли paymentAmount формату BigDecimal
             Optional<User> userOptional = userDao.getById(id);
             User user = userOptional.get();
             BigDecimal balance = user.getBalance();
@@ -130,5 +130,39 @@ public class UserService {
                 .build();
     }
 
+
+    private static final String PAYMENT_AMOUNT_PATTERN = "[0-9]{1,5}";
+    private static final String CARD_NUMBER_PATTERN = "[0-9]{16}";
+    private static final String NAME_PATTERN = "[A-Z]{1,30}";
+    private static final String CVV_PATTERN = "[0-9]{3}";
+
+    public String validatePaymentDetails(String paymentAmount, String cardNumber, String nameOnCard, String lastnameOnCard, String cvv) {
+
+        Pattern paymentAmountPattern = Pattern.compile(PAYMENT_AMOUNT_PATTERN);
+        Pattern cardNumberPattern = Pattern.compile(CARD_NUMBER_PATTERN);
+        Pattern namePattern = Pattern.compile(NAME_PATTERN);
+        Pattern cvvPattern = Pattern.compile(CVV_PATTERN);
+
+        Matcher paymentAmountMatcher = paymentAmountPattern.matcher(paymentAmount);
+        Matcher cardNumberMatcher = cardNumberPattern.matcher(cardNumber);
+        Matcher nameOnCardMatcher = namePattern.matcher(nameOnCard.toUpperCase());
+        Matcher lastnameOnCardMatcher = namePattern.matcher(lastnameOnCard.toUpperCase());
+        Matcher cvvOnCardMatcher = cvvPattern.matcher(cvv);
+
+        if (!paymentAmountMatcher.matches()) {
+            return "wrongPaymentAmount";
+        } else if (!cardNumberMatcher.matches()) {
+            return "wrongCardNumber";
+        } else if (!nameOnCardMatcher.matches()) {
+            return "wrongNameOnCard";
+        } else if (!lastnameOnCardMatcher.matches()) {
+            return "wrongLastnameOnCard";
+        } else if (!cvvOnCardMatcher.matches()) {
+            return "wrongCvvOnCard";
+        } else {
+            return "successful";
+        }
+
+    }
 
 }

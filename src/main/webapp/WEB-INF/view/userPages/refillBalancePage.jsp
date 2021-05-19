@@ -23,33 +23,53 @@
         <form action="/musicwebapp/controller?command=refillBalance" method="post">
             <div class="payment-card_list">
                 <div class="payment_label"><label for="paymentAmount">${paymentAmount}</label></div>
-                <input class="payment-card_sum_input" type="text" id="paymentAmount" placeholder="${paymentSum}"
-                       name="paymentAmount" required/>
+                <input class="payment-card_sum_input" type="number" min="1" max="10000" id="paymentAmount"
+                       placeholder="${paymentSum}" name="paymentAmount" required/>
             </div>
 
             <div class="payment-card_list">
                 <div class="payment_label"><label for="cardNumber-1">${cardNumber}</label></div>
-                <input class="payment-card_number" type="text" id="cardNumber-1" placeholder="XXXX" name="cardNumber">
-                <input class="payment-card_number" type="text" placeholder="XXXX" name="cardNumber" required/>
-                <input class="payment-card_number" type="text" placeholder="XXXX" name="cardNumber" required/>
-                <input class="payment-card_number" type="text" placeholder="XXXX" name="cardNumber" required/>
+                <input class="payment-card_number" type="number" min="0000" max="9999" size="4" pattern="[0-9]{4}"
+                       id="cardNumber-1" placeholder="XXXX" name="cardNumberPartOne" required>
+                <input class="payment-card_number" type="number" min="0000" max="9999" size="4" pattern="[0-9]{4}"
+                       placeholder="XXXX" name="cardNumberPartTwo" required/>
+                <input class="payment-card_number" type="number" min="0000" max="9999" size="4" pattern="[0-9]{4}"
+                       placeholder="XXXX" name="cardNumberPartThree" required/>
+                <input class="payment-card_number" type="number" min="0000" max="9999" size="4" pattern="[0-9]{4}"
+                       placeholder="XXXX" name="cardNumberPartFour" required/>
             </div>
 
+            <c:if test="${wrongCardNumber}">
+                <p style="color: red;">wrongCardNumber!</p>
+            </c:if>
 
             <div class="payment-card_list">
                 <div class="payment_label"><label for="nameOnCard">${cardName}</label></div>
-                <input class="payment-card_sum_input" type="text" id="nameOnCard" placeholder="name" name="nameOnCard"
+                <input class="payment-card_sum_input" type="text" pattern="[A-Z]{,30}" id="nameOnCard"
+                       placeholder="name" name="nameOnCard"
                        required/>
-                <input class="payment-card_sum_input" type="text" id="lastnameOnCard" placeholder="lastname"
+                <input class="payment-card_sum_input" type="text" pattern="[A-Z]{,30}" id="lastnameOnCard"
+                       placeholder="lastname"
                        name="lastnameOnCard"
                        required/>
             </div>
 
+
             <div class="payment-card_list">
                 <div class="payment_label"><label for="cvv">CVV:</label></div>
-                <input class="payment-card_number" type="text" id="cvv" placeholder="cvv" name="cvv"
+                <input class="payment-card_number" type="number" min="000" max="999" pattern="[0-9]{3}" id="cvv"
+                       placeholder="cvv" name="cvv"
                        required/>
             </div>
+            <c:if test="${wrongCvvOnCard}">
+                <p style="color: red;">wrongCvvOnCard!</p>
+            </c:if>
+            <c:if test="${wrongNameOnCard}">
+                <p style="color: red;">wrongNameOnCard!</p>
+            </c:if>
+            <c:if test="${wrongLastnameOnCard}">
+                <p style="color: red;">wrongLastnameOnCard!</p>
+            </c:if>
 
             <button style="margin-top: 50px;" class="button__center" type="submit">${refillBalance}</button>
         </form>

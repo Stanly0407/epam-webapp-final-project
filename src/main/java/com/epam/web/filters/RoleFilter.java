@@ -1,4 +1,4 @@
-package com.epam.web;
+package com.epam.web.filters;
 
 import com.epam.web.commands.CommandType;
 import com.epam.web.entities.Role;
@@ -66,7 +66,7 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.USER_ACCOUNT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.REFILL_BALANCE_PAGE, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.REFILL_BALANCE, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.SEARCH_MUSIC, Arrays.asList(Role.USER));
+            COMMANDS_PERMISSIONS.put(CommandType.SEARCH_MUSIC, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.SEARCH_MUSIC_RESULT, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.USER_MUSIC, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.COMMENTS_PAGE, Arrays.asList(Role.USER, Role.ADMIN));

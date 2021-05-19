@@ -1,9 +1,8 @@
-package com.epam.web;
+package com.epam.web.controller;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandFactory;
 import com.epam.web.commands.CommandResult;
-import com.epam.web.exceptions.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

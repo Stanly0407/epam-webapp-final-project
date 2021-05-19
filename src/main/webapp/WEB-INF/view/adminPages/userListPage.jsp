@@ -15,6 +15,19 @@
 
 <div class="track-list">
     <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Login</th>
+            <th>Name</th>
+            <th>Lastname</th>
+            <th>Balance</th>
+            <th>Comments</th>
+            <th>Tracks</th>
+            <th>Discount</th>
+            <th>Free Tracks</th>
+            <th></th>
+        </tr>
         <c:forEach items="${userList}" var="user">
             <tr style="align-content: center">
                 <td><input type="hidden" name="${user.id}"/></td>
@@ -30,18 +43,23 @@
                     <td>
                         <form action="/musicwebapp/controller?command=addDiscount" method="post">
                             <input type="hidden" name="userId" value="${user.id}"/>
-                            <div><label>Discount = </label></div>
-                            <input type="number" min="1" max="100"  name="discountAmount"/>
-                            <button class="button-main" type="submit">Add Discount</button>
+                            <input type="number" min="1" max="100" class="user_bonus_input" name="discountAmount"/>
+                            <button class="button-main" style="height: 36px" type="submit">Add Discount</button>
                         </form>
                     </td>
                 </c:if>
                 <c:if test="${not empty user.bonusDiscount}">
                     <td>
-                        <p>${user.bonusDiscount.amount}</p>
-                        <a class="header__link__button"
-                           href="<c:url value='controller?command=deleteBonus&id=${user.bonusDiscount.id}'/>">Delete
-                            Discount</a>
+                        <div class="inline_blocks">
+                            <div style="width: 40px; color: aquamarine">
+                                <p>${user.bonusDiscount.amount}</p>
+                            </div>
+                            <div>
+                                <a class="header__link__button"
+                                   href="<c:url value='controller?command=deleteBonus&id=${user.bonusDiscount.id}'/>">Delete
+                                    Discount</a>
+                            </div>
+                        </div>
                     </td>
                 </c:if>
 
@@ -49,18 +67,24 @@
                     <td>
                         <form action="/musicwebapp/controller?command=addFreeTracks" method="post">
                             <input type="hidden" name="userId" value="${user.id}"/>
-                            <div><label for="discount">Free Tracks = </label></div>
-                            <input type="number" min="1" max="99" id="discount" name="freeTracksAmount"/>
-                            <button class="button-main" type="submit">Add Discount</button>
+                            <input type="number" min="1" max="99" id="discount" class="user_bonus_input"
+                                   name="freeTracksAmount"/>
+                            <button class="button-main" style="height: 36px" type="submit">Add Free Tracks</button>
                         </form>
                     </td>
                 </c:if>
                 <c:if test="${not empty user.bonusFreeTracks}">
                     <td>
-                        <p>${user.bonusFreeTracks.amount}</p>
-                        <a class="header__link__button"
-                           href="<c:url value='controller?command=deleteBonus&id=${user.bonusFreeTracks.id}'/>">Delete
-                            Free Tracks</a>
+                        <div class="inline_blocks">
+                            <div style="width: 40px; color: aquamarine">
+                                <p>${user.bonusFreeTracks.amount}</p>
+                            </div>
+                            <div>
+                                <a class="header__link__button"
+                                   href="<c:url value='controller?command=deleteBonus&id=${user.bonusFreeTracks.id}'/>">Delete
+                                    Free Tracks</a>
+                            </div>
+                        </div>
                     </td>
                 </c:if>
 
@@ -70,7 +94,7 @@
                     </td>
                 </c:if>
                 <c:if test="${!user.status}">
-                    <td><a class="header__link__button" style="color: orangered"
+                    <td><a class="pink_button"
                            href="<c:url value='controller?command=changeUserStatus&id=${user.id}&status=${user.status}'/>">${block}</a>
                     </td>
                 </c:if>

@@ -30,15 +30,20 @@ public class TrackService {
     public TrackService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
-
-    public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, String artistsIds, String filename) throws ServiceException {
+    public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, List<String> artistArray, String filename) throws ServiceException {
+   // public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, String artistsIds, String filename) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             ArtistDao artistDao = daoHelper.createArtistDao();
             Long trackId;
             Long artistsId = null;
-            if (artistsIds != null) {
-                artistsId = Long.valueOf(artistsIds);
+            List<Long> artists = new ArrayList<>();
+            if (!artistArray.isEmpty()) {
+                for(String id : artistArray){
+                    artistsId = Long.valueOf(id);
+                    artists.add(artistsId);
+                }
+
             }
             daoHelper.startTransaction();
             if (trackIdParameter == null) {
@@ -49,19 +54,27 @@ public class TrackService {
                     Track track = newTrackOptional.get();
                     trackId = track.getId();
                 }
-                artistDao.insertArtistsToTrack(trackId, artistsId);
+                for(Long artistId : artists){
+                    artistDao.insertArtistsToTrack(trackId, artistId);
+                }
             } else {
                 trackId = Long.valueOf(trackIdParameter);
+
                 if (filename != null) {
                     trackDao.editTrack(releaseDate, title, price, filename, trackId);
                 } else {
                     trackDao.editTrackInfo(releaseDate, title, price, trackId);
                 }
-                if (artistsIds != null) {
-                    artistDao.updateArtistsToTrack(artistsId, trackId);
+                if (!artistArray.isEmpty()) {
+                    //очистка артистов и вставка нового/ых
+                    artistDao.deleteArtistsToTrack(trackId);
+                    for(Long artistId : artists){
+                        artistDao.insertArtistsToTrack(trackId, artistId);
+                    }
                 }
             }
             daoHelper.endTransaction();
+
         } catch (DaoException e) {
             LOGGER.error("create/update Track error " + e);
             throw new ServiceException(e);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 public class RefillBalanceCommand implements Command {
 
     private static final String USER_ACCOUNT_PAGE_COMMAND = "/controller?command=userAccount";
+    private static final String REFILL_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
 
     private final UserService userService;
 
@@ -21,11 +22,27 @@ public class RefillBalanceCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String paymentAmount = request.getParameter("paymentAmount"); //todo pattern in jsp
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-        userService.refillUserBalance(paymentAmount, userId);
-        return CommandResult.redirect(USER_ACCOUNT_PAGE_COMMAND);
+        String paymentAmount = request.getParameter("paymentAmount");
+        String cardNumberPartOne = request.getParameter("cardNumberPartOne");
+        String cardNumberPartTwo = request.getParameter("cardNumberPartTwo");
+        String cardNumberPartThree = request.getParameter("cardNumberPartThree");
+        String cardNumberPartFour = request.getParameter("cardNumberPartFour");
+        String cardNumber = cardNumberPartOne + cardNumberPartTwo + cardNumberPartThree + cardNumberPartFour;
+        String nameOnCard = request.getParameter("nameOnCard");
+        String lastnameOnCard = request.getParameter("lastnameOnCard");
+        String cvv = request.getParameter("cvv");
+        String validatePaymentDetailsMessage = userService.validatePaymentDetails(paymentAmount, cardNumber, nameOnCard, lastnameOnCard, cvv);
+
+        if ("successful".equals(validatePaymentDetailsMessage)){
+            HttpSession session = request.getSession();
+            Long userId = (Long) session.getAttribute("userId");
+            userService.refillUserBalance(paymentAmount, userId);
+            return CommandResult.redirect(USER_ACCOUNT_PAGE_COMMAND);
+        } else {
+            request.setAttribute(validatePaymentDetailsMessage, true);
+            return CommandResult.forward(REFILL_BALANCE_PAGE);
+        }
+
     }
 
 }

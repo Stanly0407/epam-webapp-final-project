@@ -9,6 +9,7 @@
 <fmt:message bundle="${local}" key="local.h1.paymentHistory" var="paymenttHistory"/>
 <fmt:message bundle="${local}" key="local.h1.changePassword" var="changePassword"/>
 <fmt:message bundle="${local}" key="local.placeholder.newPassword" var="newPassword"/>
+<fmt:message bundle="${local}" key="bonus.common.info" var="bonusInfoMessage"/>
 
 <html>
 <body>
@@ -16,24 +17,29 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 <div class="container-login">
-    <h1 class="user_headline" style="margin-bottom: 30px">${user.name} ${user.lastname} </h1>
-    <div style="color: aliceblue; margin-bottom: 70px">
-    <b >${loginName}: ${user.login}</b>
-    </div>
-    <div>
-        <b style="color: #CF469D;">${balanceInfo} ${user.balance}</b><br> <br>
-
-        <c:if test="${bonusMessage}">
-            <h1 class="message_h1">У вас есть бонусы, закажите треки, чтобы узнать подробнее.</h1>
-        </c:if>
-
-        <div style="margin-bottom: 50px;">
-            <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>
+    <div class="account_card">
+        <h1 class="user_headline" style="margin-bottom: 30px">${user.name} ${user.lastname} </h1>
+        <div style="color: aliceblue; margin-bottom: 30px">
+            <b>${loginName}: ${user.login}</b>
         </div>
-        <div style="margin-bottom: 50px;">
-            <a href="/musicwebapp/controller?command=paymentHistory" class="header__link__button">${paymenttHistory}</a>
-        </div>
+        <div>
+            <div class="bonus_message">
+                <c:if test="${bonusMessage}">
+                    <h1>${bonusInfoMessage}</h1>
+                </c:if>
+            </div>
+            <div style="color: #CF469D; margin-bottom: 40px">
+                <b>${balanceInfo} ${user.balance}</b>
+            </div>
 
+            <div style="margin-bottom: 50px;">
+                <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>
+            </div>
+            <div style="margin-bottom: 50px;">
+                <a href="/musicwebapp/controller?command=paymentHistory"
+                   class="header__link__button">${paymenttHistory}</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

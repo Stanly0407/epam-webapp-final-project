@@ -324,7 +324,7 @@ td, th {
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 60%);
     background-color: #28336F;
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px;
     width: 600px;
     margin-bottom: 20px;
 }
@@ -334,12 +334,12 @@ td, th {
 }
 
 .edit-delete-link {
-    margin-left: 470px;
+    margin-left: 410px;
 }
 
 .p-comment-date {
     font-size: small;
-    color: blueviolet;
+    color: #CF469D;
     font-style: oblique;
     margin-bottom: 10px;
 }
@@ -617,8 +617,11 @@ input::placeholder {
 }
 
 .edit-track-form {
-    padding: 50px;
-    margin: 3% 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 96px;
+    margin: 3% 28%;
     box-shadow: 0 20px 70px 0 rgb(0 0 0 / 60%);
     border-radius: 8px;
 }
@@ -805,12 +808,7 @@ input[type="file"] {
     position: relative;
     padding-left: 35px;
     margin-bottom: 12px;
-    cursor: pointer;
     font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 /* Hide the browser's default checkbox */
@@ -866,3 +864,69 @@ input[type="file"] {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.delete_red_button {
+    margin-top: 15px;
+    background-color: #E9003A;
+    opacity: 80%;
+    padding: 6px;
+    width: 140px;
+    border: none;
+    border-radius: 8px;
+    height: 35px;
+    filter: unset;
+    text-align: center;
+}
+
+.user_bonus_input {
+    border: none;
+    width: 75px;
+    height: 10px;
+    padding: 15px;
+    margin-right: 10px;
+    border-radius: 8px;
+    background-color: #28336F;
+    color: #CF469D;
+}
+
+.pink_button {
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A214C;
+    text-decoration: none;
+    background-color: #CF469D;
+    border-radius: 8px;
+    padding: 7px 15px;
+    width: 120px;
+    height: 30px;
+}
+
+.inline_blocks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.account_card{
+    box-shadow: 0 4px 70px 0 rgb(0 0 0 / 60%);
+    transition: 0.3s;
+    border-radius: 5px;
+    margin-bottom: 45px;
+    background-color: #1A214C;
+    width: 950px;
+    padding: 45px;
+    height: 550px;
+}
+
+.bonus_message {
+    margin-bottom: 75px;
+    color: white;
+}
+
+.bonus_label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #CF469D;
+}
+

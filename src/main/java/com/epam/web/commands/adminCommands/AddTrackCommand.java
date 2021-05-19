@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddTrackCommand implements Command {
@@ -39,8 +40,9 @@ public class AddTrackCommand implements Command {
         String filename = null;
         String title = null;
         String price = null;
-        String artistIds = null;
-        //String[] artistIds = request.getParameterValues(PARAMETER_ARTIST_IDS);
+       String artistIds = null;
+        List<String> artistArray = new ArrayList<>();
+        //  String[] artistIds = request.getParameterValues(PARAMETER_ARTIST_IDS);
         try {
             List<FileItem> data = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
             for (FileItem item : data) {
@@ -62,6 +64,7 @@ public class AddTrackCommand implements Command {
                             break;
                         case PARAMETER_ARTIST_ID:
                             artistIds = value;
+                            artistArray.add(artistIds);
                             break;
                         default:
                             throw new ServiceException("Unknown parameter..." + parameterName);
@@ -76,7 +79,7 @@ public class AddTrackCommand implements Command {
                     }
                 }
             }
-            trackService.addEditTrack(trackId, releaseDate, title, price, artistIds, filename);
+            trackService.addEditTrack(trackId, releaseDate, title, price, artistArray, filename);
 
         } catch (Exception e) {
             LOGGER.error(e + " error message" + e.getMessage());

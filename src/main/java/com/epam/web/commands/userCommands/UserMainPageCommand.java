@@ -2,11 +2,14 @@ package com.epam.web.commands.userCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
+import com.epam.web.commands.adminCommands.AddFreeTrackCommand;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.MusicCollectionService;
 import com.epam.web.service.TrackService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class UserMainPageCommand implements Command {
-
+    private static final Logger LOGGER = LogManager.getLogger(UserMainPageCommand.class);
     private static final String USER_TRACK_LIST_PAGE = "/WEB-INF/view/userPages/userMainPage.jsp";
     private static final String ATTRIBUTE_TRACK_LIST = "trackList";
     private static final String ATTRIBUTE_TRACK = "track";
@@ -38,6 +41,11 @@ public class UserMainPageCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
+
+        String currentPage = (String) session.getAttribute("currentPage");
+        LOGGER.debug("currentPage " + currentPage);
+        request.setAttribute("pageName", currentPage);
+
         List<TrackDto> trackList = trackService.getNewTracks(userId);
         request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());

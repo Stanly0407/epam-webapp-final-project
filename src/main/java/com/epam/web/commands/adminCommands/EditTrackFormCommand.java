@@ -44,7 +44,6 @@ public class EditTrackFormCommand implements Command {
             page = ADMIN_MAIN_PAGE_PAGE;
         } else {
             page = EDIT_TRACK_FORM_PAGE;
-
             Long trackId = Long.valueOf(trackIdParameter);
             Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);
             List<Artist> artists = artistService.getAllArtists();

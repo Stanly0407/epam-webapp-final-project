@@ -3,9 +3,6 @@ package com.epam.web.commands.orderCommands;
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.exceptions.ServiceException;
-import com.epam.web.service.BonusService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,4 +21,5 @@ public class ActivateFreeTracksCommand implements Command {
         session.setAttribute("activatedFreeTracksBonus", true);
         return CommandResult.redirect(USER_CART_COMMAND);
     }
+
 }

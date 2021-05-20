@@ -32,10 +32,10 @@
                 <b>${balanceInfo} ${user.balance}</b>
             </div>
 
-            <div style="margin-bottom: 50px;">
+            <div style="margin-bottom: 50px; width: 700px; margin-left: 300px;  margin-top: 40px;">
                 <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>
             </div>
-            <div style="margin-bottom: 50px;">
+            <div style="margin-bottom: 50px; width: 700px; margin-left: 300px;  margin-top: 40px;">
                 <a href="/musicwebapp/controller?command=paymentHistory"
                    class="header__link__button">${paymenttHistory}</a>
             </div>

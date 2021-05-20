@@ -18,9 +18,10 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
             "ON (a.id=ta.artist_id) WHERE track_id = ?";
     private static final String FIND_ALL_ARTISTS = "SELECT id, name, filename FROM artist";
     private static final String UPDATE_ARTIST = "UPDATE artist SET name = ?, filename = ? where id = ?";
-    private static final String INSERT_ARTIST_TO_TRACK = "INSERT into track_artist(track_id, artist_id) values (?, ?)";
+    private static final String UPDATE_ARTIST_NAME = "UPDATE artist SET name = ? where id = ?";
+    private static final String INSERT_ARTISTS_TO_TRACK = "INSERT into track_artist(track_id, artist_id) values (?, ?)";
     private static final String INSERT_ARTIST = "INSERT into artist(name, filename) values (?, ?)";
-    private static final String DELETE_ARTISTS_TO_TRACK = "DELETE track_artist WHERE track_id = ?";
+    private static final String DELETE_ARTISTS_TO_TRACK = "DELETE FROM track_artist WHERE track_id = ?";
 
     public ArtistDao(Connection connection, RowMapper<Artist> mapper) {
         super(connection, mapper);
@@ -34,15 +35,23 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
         return executeQuery(FIND_ARTISTS_BY_TRACK_ID, id);
     }
 
-    public void updateName(String newName, Long id) throws DaoException {
-        executeUpdate(UPDATE_ARTIST, newName, id);
+    public Optional<Artist> getArtistById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_ARTIST_BY_ID, id);
+    }
+
+    public void updateArtist(String newName, String filename, Long id) throws DaoException {
+        executeUpdate(UPDATE_ARTIST, newName, filename, id);
+    }
+
+    public void updateArtistName(String newName, Long id) throws DaoException {
+        executeUpdate(UPDATE_ARTIST_NAME, newName, id);
     }
 
     public void insertArtistsToTrack(Long newTrackId, Long artistId) throws DaoException {
-        executeUpdate(INSERT_ARTIST_TO_TRACK, newTrackId, artistId);
+        executeUpdate(INSERT_ARTISTS_TO_TRACK, newTrackId, artistId);
     }
 
-    public void deleteArtistsToTrack(Long trackId ) throws DaoException {
+    public void deleteArtistsToTrack(Long trackId) throws DaoException {
         executeUpdate(DELETE_ARTISTS_TO_TRACK, trackId);
     }
 
@@ -51,7 +60,7 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
     }
 
     public Optional<Artist> getArtistIdByTrack(String trackId) throws DaoException {
-       return executeForSingleResult(FIND_ARTIST_BY_TRACK_ID, trackId);
+        return executeForSingleResult(FIND_ARTIST_BY_TRACK_ID, trackId);
     }
 
     @Override

@@ -29,30 +29,23 @@
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
-
-<%--<h1 class="headlines">${addTrack}</h1>--%>
-
-
 <div class="edit-track-form">
     <div>
         <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditTrack" method="post">
-            <br/>
+
             <input class="common-input" type="hidden" value="${track.id}" name="trackId" required/>
 
             <div class="common-label"><label for="releaseDate">${releaseLabel}</label></div>
             <input class="common-input" type="date" id="releaseDate" value="${track.releaseDate}" name="releaseDate"
                    required/>
-            <br/> <br/>
+
             <div class="common-label"><label for="title">${titleLabel}</label></div>
             <input class="common-input" type="text" id="title" placeholder="${enterTitle}" value="${track.title}"
                    name="title" required/>
-            <br/> <br/>
+
             <div class="common-label"><label for="price">${priceLabel}</label></div>
             <input class="common-input" type="text" id="price" placeholder="${enterPrice}" value="${track.price}"
                    name="price" required/>
-            <br/>
-            <br/>
-            <br/>
 
             <c:if test="${not empty track.id}">
                 <div class="common-label">
@@ -76,15 +69,12 @@
             <ul id="additionalAuthorSelector">
             </ul>
 
-            <br/>
-            <br/>
-            <br/>
+
             <div class="common-label"><label for="file">${uploadInfo}</label></div>
             <label class="file_upload">
                 <input name="filename" id="file" type="file" accept=".mp3"/>
             </label>
-            <br/>
-            <br/>
+
             <button class="button-main" type="submit">${save}</button>
         </form>
 

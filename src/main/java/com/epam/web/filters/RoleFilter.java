@@ -46,21 +46,28 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_USER_COMMENT, Arrays.asList(Role.ADMIN));
 
             COMMANDS_PERMISSIONS.put(CommandType.ADMIN_MAIN_PAGE, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADMIN_TRACK_LIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.EDIT_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.TRACK_FORM, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ARTIST_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_ARTIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.EDIT_ARTIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_ARTIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ALBUM_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.EDIT_ALBUM, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.PLAYLIST_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.EDIT_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_BONUS, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.USER_LIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.CHANGE_USER_STATUS, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_DISCOUNT, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_FREE_TRACKS, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.DELETE_BONUS, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_COLLECTION_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_TO_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_TO_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.CHOOSE_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.CHOOSE_PLAYLIST, Arrays.asList(Role.ADMIN));
 
             COMMANDS_PERMISSIONS.put(CommandType.USER_MAIN_PAGE, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.USER_ACCOUNT, Arrays.asList(Role.USER));

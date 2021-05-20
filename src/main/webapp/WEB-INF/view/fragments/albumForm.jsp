@@ -24,34 +24,47 @@
 <h1 class="headlines">${addAlbum}</h1>
 
 <div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewAlbum" method="post">
-        <br/> <br/>
+    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditAlbum" method="post">
+        <input class="common-input" type="hidden" value="${album.id}" name="albumId" required/>
+
         <div class="common-label"><label for="releaseDate">${release}</label></div>
-        <input class="common-input" type="date" id="releaseDate" name="releaseDate" required/>
-        <br/> <br/>
+        <input class="common-input" type="date" id="releaseDate" name="releaseDate" value="${album.releaseDate}"
+               required/>
+
         <div class="common-label"><label for="albumTitle">${title}</label></div>
-        <input class="common-input" type="text" id="albumTitle" name="albumTitle" placeholder="${enterTitle}" required/>
-        <br/>
-        <br/>
-        <br/>
-        <select class="select-artist" name="artistId" required>
-            <option selected disabled>${selectArtist}</option>
-            <c:forEach items="${artists}" var="artist">
-                <option value="${artist.id}">${artist.name}</option>
-            </c:forEach>
-        </select>
-        <br/>
-        <br/><br/>
+        <input class="common-input" type="text" id="albumTitle" name="albumTitle" placeholder="${enterTitle}"
+               value="${album.title}" required/>
+
+        <c:if test="${not empty album.id}">
+            <div class="common-label">
+                <p style="color: #CF469D">${album.artist.name}</p>
+            </div>
+        </c:if>
+        <div>
+            <select class="select-artist" name="artistId" required>
+                <option selected disabled>${selectArtist}</option>
+                <c:forEach items="${artists}" var="artist">
+                    <option value="${artist.id}">${artist.name}</option>
+                </c:forEach>
+            </select>
+        </div>
+
+        <c:if test="${not empty album.id && not empty trackList}">
+            <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
+        </c:if>
+
+        <c:if test="${not empty album.id &&  empty trackList}">
+            <p>Album is empty</p>
+        </c:if>
+
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
             <input name="filename" id="file" type="file" required accept="jpg"/>
         </label>
-        <br/>
-        <br/>
+
         <button class="button-main" type="submit">${save}</button>
     </form>
-    <br/>
-    <br/>
+
 </div>
 </body>
 </html>

@@ -34,6 +34,7 @@ public class CartPageCommand implements Command {
     private static final String BONUS_DISCOUNT = "bonusDiscount";
     private static final String BONUS_FREE_TRACK_FIELD = "bonusFreeTracksExist";
     private static final String BONUS_FREE_TRACK = "bonusFreeTracks";
+    private static final String CHECK_ACTIVATION_FREE_TRACK_BONUS_POSSIBILITY = "checkMessage";
 
     private final OrderService orderService;
     private final TrackService trackService;
@@ -66,7 +67,7 @@ public class CartPageCommand implements Command {
 
         Optional<Bonus> userDiscountBonus = bonusService.getUnusedUserDiscountBonus(userId);
         Optional<Bonus> userFreeTracksBonus = bonusService.getUnusedFreeTracksBonus(userId);
-
+        Bonus bonusFreeTracks = null;
         if (!orderedTracksClear.isEmpty()) {
 //1 Активируем поля скидок если они вообще есть
             if (userDiscountBonus.isPresent()) {
@@ -75,7 +76,7 @@ public class CartPageCommand implements Command {
                 request.setAttribute(BONUS_DISCOUNT, bonusDiscount);
             }
             if (userFreeTracksBonus.isPresent()) {
-                Bonus bonusFreeTracks = userFreeTracksBonus.get();
+                bonusFreeTracks = userFreeTracksBonus.get();
                 request.setAttribute(BONUS_FREE_TRACK_FIELD, true);
                 request.setAttribute(BONUS_FREE_TRACK, bonusFreeTracks);
             }
@@ -94,6 +95,16 @@ public class CartPageCommand implements Command {
             session.setAttribute("activatedFreeTracksBonus", false);
             activatedFreeTracksBonus = false;
         }
+
+        //2.1 Проверка что количество в корзине треков больше либо равно количеству бесплатных треков
+        if(activatedFreeTracksBonus && bonusFreeTracks != null){
+            int orderedTracksAmount = orderedTracksClear.size();
+            int bonusFreeTracksAmount = bonusFreeTracks.getAmount();
+            session.setAttribute("activatedFreeTracksBonus", false);
+            request.setAttribute(CHECK_ACTIVATION_FREE_TRACK_BONUS_POSSIBILITY, true);
+            activatedFreeTracksBonus = false;
+        }
+        //
 
         if (activatedDiscountBonus && activatedFreeTracksBonus) {
             List<Track> temporary = bonusService.applyBonusFreeTracks(orderedTracksClear, userId);

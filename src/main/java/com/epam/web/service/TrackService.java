@@ -30,20 +30,20 @@ public class TrackService {
     public TrackService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
+
+
     public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, List<String> artistArray, String filename) throws ServiceException {
-   // public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, String artistsIds, String filename) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             ArtistDao artistDao = daoHelper.createArtistDao();
             Long trackId;
-            Long artistsId = null;
+            Long artistsId;
             List<Long> artists = new ArrayList<>();
             if (!artistArray.isEmpty()) {
-                for(String id : artistArray){
+                for (String id : artistArray) {
                     artistsId = Long.valueOf(id);
                     artists.add(artistsId);
                 }
-
             }
             daoHelper.startTransaction();
             if (trackIdParameter == null) {
@@ -54,29 +54,45 @@ public class TrackService {
                     Track track = newTrackOptional.get();
                     trackId = track.getId();
                 }
-                for(Long artistId : artists){
+                for (Long artistId : artists) {
                     artistDao.insertArtistsToTrack(trackId, artistId);
                 }
             } else {
                 trackId = Long.valueOf(trackIdParameter);
-
                 if (filename != null) {
                     trackDao.editTrack(releaseDate, title, price, filename, trackId);
                 } else {
                     trackDao.editTrackInfo(releaseDate, title, price, trackId);
                 }
                 if (!artistArray.isEmpty()) {
-                    //очистка артистов и вставка нового/ых
                     artistDao.deleteArtistsToTrack(trackId);
-                    for(Long artistId : artists){
+                    for (Long artistId : artists) {
                         artistDao.insertArtistsToTrack(trackId, artistId);
                     }
                 }
             }
             daoHelper.endTransaction();
-
         } catch (DaoException e) {
-            LOGGER.error("create/update Track error " + e);
+            throw new ServiceException("create/update Track error ", e);
+        }
+    }
+
+    public List<Long> getTrackArtistsIds(Long trackId, Long userId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            TrackDao trackDao = daoHelper.createTrackDao();
+            Optional<Track> trackOptional = trackDao.getById(trackId);
+            List<Long> artistsId = new ArrayList<>();;
+            if(trackOptional.isPresent()){
+                Track track = trackOptional.get();
+                TrackDto trackDto = createTrackDto(track, daoHelper, userId);
+                List<Artist> artists = trackDto.getArtists();
+                for(Artist artist : artists){
+                    Long artistId = artist.getId();
+                    artistsId.add(artistId);
+                }
+            }
+            return artistsId;
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -273,7 +289,7 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             Long id = null;
-            if(trackId != null){
+            if (trackId != null) {
                 id = Long.valueOf(trackId);
             }
             trackDao.removeById(id);
@@ -285,11 +301,11 @@ public class TrackService {
     public List<TrackDto> createTrackDtoList(List<Track> tracks, Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             List<TrackDto> trackDtoList = new ArrayList<>();
-        for (Track track : tracks) {
-            TrackDto trackDto = createTrackDto(track, daoHelper, userId);
-            trackDtoList.add(trackDto);
-        }
-        return trackDtoList;
+            for (Track track : tracks) {
+                TrackDto trackDto = createTrackDto(track, daoHelper, userId);
+                trackDtoList.add(trackDto);
+            }
+            return trackDtoList;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

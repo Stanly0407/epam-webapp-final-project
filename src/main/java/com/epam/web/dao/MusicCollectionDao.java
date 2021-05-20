@@ -30,7 +30,14 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
             "FROM collection c INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.type = 'ALBUM' LIMIT ? OFFSET ?";
     private static final String GET_PLAYLISTS_LIST_PAGE = "SELECT c.id, c.release_date, c.title, c.filename, c.type FROM collection c " +
             "WHERE c.type = 'PLAYLIST' LIMIT ? OFFSET ?";
-
+    private static final String DELETE_COLLECTION_TRACK = "DELETE FROM track_collection WHERE track_id = ? AND collection_id = ?";
+    private static final String UPDATE_ALBUM = "UPDATE collection SET release_date = ?, title = ?, filename = ?, artist_id = ? where id = ?";
+    private static final String UPDATE_ALBUM_INFO = "UPDATE collection SET release_date = ?, title = ?, artist_id = ? where id = ?";
+    private static final String UPDATE_PLAYLIST = "UPDATE collection SET release_date = ?, title = ?, filename = ? where id = ?";
+    private static final String UPDATE_PLAYLIST_INFO = "UPDATE collection SET release_date = ?, title = ? where id = ?";
+    private static final String INSERT_TRACK_TO_COLLECTION = "INSERT INTO track_collection (track_id, collection_id) value (?, ?)";
+    private static final String FIND_ALBUMS_BY_ARTISTS_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
+            "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.artist_id = ? AND c.type = 'ALBUM'";
 
     public MusicCollectionDao(Connection connection, RowMapper<MusicCollection> mapper) {
         super(connection, mapper);
@@ -38,7 +45,7 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
 
     @Override
     public Optional<MusicCollection> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_COLLECTION_BY_ID, new MusicCollectionRowMapper(), id);
+        return executeForSingleResult(FIND_COLLECTION_BY_ID, id);
     }
 
     public List<MusicCollection> findMusicByAlbumTitle(String searchSubject) throws DaoException {
@@ -66,12 +73,40 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
         return executeQuery(GET_PLAYLISTS + QUERY_PART_FIVE_NEW_MUSIC_COLLECTIONS);
     }
 
+    public List<MusicCollection> getArtistAlbums(Long artistId) throws DaoException {
+        return executeQuery(FIND_ALBUMS_BY_ARTISTS_ID, artistId);
+    }
+
     public void insertAlbum(String releaseDate, String title, String filename, String artistId) throws DaoException {
         executeUpdate(INSERT_ALBUM, releaseDate, title, filename, artistId);
     }
 
     public void insertPlaylist(String releaseDate, String title, String filename) throws DaoException {
         executeUpdate(INSERT_PLAYLIST, releaseDate, title, filename);
+    }
+
+    public void deleteTrackFromCollection(Long trackId, Long collectionId) throws DaoException {
+        executeUpdate(DELETE_COLLECTION_TRACK, trackId, collectionId);
+    }
+
+    public void updateAlbum(Long albumId, String releaseDate, String albumTitle, String filename, String artistId) throws DaoException {
+        executeUpdate(UPDATE_ALBUM, releaseDate, albumTitle, filename, artistId, albumId);
+    }
+
+    public void updateAlbumInfo(Long albumId, String releaseDate, String albumTitle, String artistId) throws DaoException {
+        executeUpdate(UPDATE_ALBUM_INFO, releaseDate, albumTitle, artistId, albumId);
+    }
+
+    public void updatePlaylist(Long playlistId, String releaseDate, String playlistTitle, String filename) throws DaoException {
+        executeUpdate(UPDATE_PLAYLIST, releaseDate, playlistTitle, filename, playlistId);
+    }
+
+    public void updatePlaylistInfo(Long playlistId, String releaseDate, String playlistTitle) throws DaoException {
+        executeUpdate(UPDATE_PLAYLIST_INFO, releaseDate, playlistTitle, playlistId);
+    }
+
+    public void insertTrackToCollection(Long trackId, Long albumId) throws DaoException {
+        executeUpdate(INSERT_TRACK_TO_COLLECTION, trackId, albumId);
     }
 
     public List<MusicCollection> getAlbumsPage(int limit, int offset) throws DaoException {

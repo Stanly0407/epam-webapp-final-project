@@ -33,10 +33,30 @@ public class ArtistService {
         }
     }
 
-    public void addArtist(String artistName, String filename) throws ServiceException {
+    public void addArtist(String artistId, String artistName, String filename) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             ArtistDao artistDao = daoHelper.createArtistDao();
-             artistDao.insertArtist(artistName, filename);
+            Long id;
+            if(artistId != null){
+                id = Long.valueOf(artistId);
+                if(filename ==null){
+                    artistDao.updateArtistName(artistName, id);
+                } else {
+                    artistDao.updateArtist(artistName, filename, id);
+                }
+            } else {
+                artistDao.insertArtist(artistName, filename);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public Artist getArtistById(Long artistId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+             ArtistDao artistDao = daoHelper.createArtistDao();
+             Optional<Artist> artist = artistDao.getArtistById(artistId);
+             return artist.get();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

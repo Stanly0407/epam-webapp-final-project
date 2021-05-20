@@ -16,8 +16,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddTrackCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(AddTrackCommand.class);
+public class AddEditTrackCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(AddEditTrackCommand.class);
     private static final String CONTENT_TYPE = "UTF-8";
     private static final String PARAMETER_RELEASE_DATE = "releaseDate";
     private static final String PARAMETER_TITLE = "title";
@@ -29,7 +29,7 @@ public class AddTrackCommand implements Command {
 
     private final TrackService trackService;
 
-    public AddTrackCommand(TrackService trackService) {
+    public AddEditTrackCommand(TrackService trackService) {
         this.trackService = trackService;
     }
 
@@ -40,9 +40,8 @@ public class AddTrackCommand implements Command {
         String filename = null;
         String title = null;
         String price = null;
-       String artistIds = null;
+        String artistIds = null;
         List<String> artistArray = new ArrayList<>();
-        //  String[] artistIds = request.getParameterValues(PARAMETER_ARTIST_IDS);
         try {
             List<FileItem> data = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
             for (FileItem item : data) {
@@ -67,7 +66,7 @@ public class AddTrackCommand implements Command {
                             artistArray.add(artistIds);
                             break;
                         default:
-                            throw new ServiceException("Unknown parameter..." + parameterName);
+                            throw new ServiceException("Unknown file upload parameter..." + parameterName);
                     }
                 } else if (!item.isFormField()) {
                     filename = item.getName();
@@ -85,7 +84,7 @@ public class AddTrackCommand implements Command {
             LOGGER.error(e + " error message" + e.getMessage());
             throw new ServiceException("wrong upload. error message: " + e.getMessage());
         }
-        LOGGER.debug("PARAMETER_RELEASE_DATE " + releaseDate);
+
         LOGGER.debug("artistIds " + artistIds);
 
         return CommandResult.redirect(SHOW_TRACK_LIST_PAGE_COMMAND);

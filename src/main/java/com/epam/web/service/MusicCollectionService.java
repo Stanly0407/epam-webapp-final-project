@@ -3,16 +3,14 @@ package com.epam.web.service;
 import com.epam.web.dao.DaoHelper;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.dao.MusicCollectionDao;
-import com.epam.web.dao.TrackDao;
-import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.MusicCollection;
 import com.epam.web.entities.MusicCollectionType;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class MusicCollectionService {
     private static final String ALBUM_LIST = "ALBUM";
@@ -26,6 +24,15 @@ public class MusicCollectionService {
 
     public MusicCollectionService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
+    }
+
+    public Optional<MusicCollection> getMusicCollectionById(Long id) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            return musicCollectionDao.getById(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     public List<MusicCollection> getAllAlbums() throws ServiceException {
@@ -82,84 +89,70 @@ public class MusicCollectionService {
         }
     }
 
-    public void addAlbum(String releaseDate, String albumTitle, String filename, String artistId) throws ServiceException {
+    public void addEditAlbum(String albumId, String releaseDate, String albumTitle, String filename, String artistId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
-            musicCollectionDao.insertAlbum(releaseDate, albumTitle, filename, artistId);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    public void addPlaylist(String releaseDate, String albumTitle, String filename) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
-            musicCollectionDao.insertPlaylist(releaseDate, albumTitle, filename);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    public boolean checkPaginationAction(int pageNumber, boolean direction, MusicCollectionType type) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
-            int totalRowsAmount;
-            if(type.equals(MusicCollectionType.ALBUM)){
-                totalRowsAmount = musicCollectionDao.getAllAlbums().size();
-            } else {
-                totalRowsAmount = musicCollectionDao.getAllPlaylists().size();
-            }
-            int rowCount = ((pageNumber - LAST_PAGE) * PAGE_LIMIT);
-            if (direction) {
-                int rowsRemainder = totalRowsAmount - rowCount;
-                return rowsRemainder > PAGE_LIMIT;
-            } else {
-                return rowCount >= PAGE_LIMIT;
+            if (albumId != null && artistId != null) {
+                Long id = Long.valueOf(albumId);
+                if (filename != null) {
+                    musicCollectionDao.updateAlbum(id, releaseDate, albumTitle, filename, artistId);
+                } else {
+                    musicCollectionDao.updateAlbumInfo(id, releaseDate, albumTitle, artistId);
+                }
+            } else if (artistId != null) {
+                musicCollectionDao.insertAlbum(releaseDate, albumTitle, filename, artistId);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public List<Integer> getPaginationList(MusicCollectionType collectionType) throws ServiceException {
+    public void deleteTrackFromCollection(Long trackId, Long collectionId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
-            int totalRowsAmount;
-            if(MusicCollectionType.ALBUM.equals(collectionType)){
-                totalRowsAmount = musicCollectionDao.getAllAlbums().size();
-            } else {
-                totalRowsAmount = musicCollectionDao.getAllPlaylists().size();
-            }
-            int pagesAmount;
-            if (totalRowsAmount % PAGE_LIMIT > 0) {
-                pagesAmount = totalRowsAmount / PAGE_LIMIT + LAST_PAGE;
-            } else {
-                pagesAmount = totalRowsAmount / PAGE_LIMIT;
-            }
-            List<Integer> paginationList = new ArrayList<>();
-            for (int i = 1; i <= pagesAmount; i++) {
-                paginationList.add(i);
-            }
-            return paginationList;
+            musicCollectionDao.deleteTrackFromCollection(trackId, collectionId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public List<MusicCollection> getAlbumsPage(int limit, int pageNumber, MusicCollectionType musicCollectionType) throws ServiceException {
+    public void addEditPlaylist(String playlistId, String releaseDate, String playlistTitle, String filename) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
-            int offset = ((pageNumber - LAST_PAGE) * PAGE_LIMIT);
-            if (offset < 0) {
-                offset = 0;
-            }
-            List<MusicCollection> musicCollectionList;
-            if(MusicCollectionType.ALBUM.equals(musicCollectionType)){
-                return musicCollectionList = musicCollectionDao.getAlbumsPage(limit, offset);
+            if (playlistId != null) {
+                Long id = Long.valueOf(playlistId);
+                if (filename != null) {
+                    musicCollectionDao.updatePlaylist(id, releaseDate, playlistTitle, filename);
+                } else {
+                    musicCollectionDao.updatePlaylistInfo(id, releaseDate, playlistTitle);
+                }
             } else {
-                return musicCollectionList = musicCollectionDao.getPlaylistsPage(limit, offset);
+                musicCollectionDao.insertPlaylist(releaseDate, playlistTitle, filename);
             }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 
+
+    public void addTrackToCollection(Long albumId, Long trackId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            musicCollectionDao.insertTrackToCollection(trackId, albumId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<MusicCollection> getAlbumsOfTrackArtists(List<Long> artists) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            List<MusicCollection> albums = new ArrayList<>();
+           for(Long artistId : artists){
+                List<MusicCollection> artistAlbums  = musicCollectionDao.getArtistAlbums(artistId);
+                albums.addAll(artistAlbums);
+            }
+            return albums;
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

@@ -68,7 +68,7 @@
                        class="header__link__button">${deactivateBonus}</a>
                 </c:if>
                 <c:if test="${!sessionScope.activatedFreeTracksBonus || empty sessionScope.activatedFreeTracksBonus}">
-                    <a href="/musicwebapp/controller?command=activateFreeTracks" id="freeTracks"
+                    <a href="/musicwebapp/controller?command=activateFreeTracks&amount=${bonusFreeTracks.amount}" id="freeTracks"
                        class="header__link__button">${activateBonus}</a>
                 </c:if>
             </div>

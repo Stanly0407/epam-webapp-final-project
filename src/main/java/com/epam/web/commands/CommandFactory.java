@@ -96,26 +96,43 @@ public class CommandFactory {
             //ADMIN
             case ADMIN_MAIN_PAGE:
                 return new ShowPageCommand(ADMIN_MAIN_PAGE);
-            case ADMIN_TRACK_LIST:
-                return new AdminTrackListCommand(new TrackService(new DaoHelperFactory()));
             case EDIT_TRACK:
                 return new EditTrackFormCommand(new TrackService(new DaoHelperFactory()), new ArtistService(new DaoHelperFactory()));
             case TRACK_FORM:
                 return new TrackFormPageCommand(new ArtistService(new DaoHelperFactory()));
             case ADD_EDIT_TRACK:
-                return new AddTrackCommand(new TrackService(new DaoHelperFactory()));
+                return new AddEditTrackCommand(new TrackService(new DaoHelperFactory()));
             case ARTIST_FORM:
                 return new ShowPageCommand(ARTIST_FORM_PAGE);
-            case ADD_NEW_ARTIST:
-                return new AddArtistCommand(new ArtistService(new DaoHelperFactory()));
+            case EDIT_ARTIST:
+                return new EditArtistFormCommand(new ArtistService(new DaoHelperFactory()));
+            case ADD_EDIT_ARTIST:
+                return new AddEditArtistCommand(new ArtistService(new DaoHelperFactory()));
             case ALBUM_FORM:
                 return new AlbumFormPageCommand(new ArtistService(new DaoHelperFactory()));
-            case ADD_NEW_ALBUM:
-                return new AddAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case EDIT_ALBUM:
+                return new EditAlbumFormCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+            case ADD_EDIT_ALBUM:
+                return new AddEditAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case DELETE_COLLECTION_TRACK:
+                return new DeleteTrackFromCollectionCommand(new MusicCollectionService(new DaoHelperFactory()));
             case PLAYLIST_FORM:
                 return new ShowPageCommand(PLAYLIST_FORM_PAGE);
-            case ADD_NEW_PLAYLIST:
-                return new AddPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case EDIT_PLAYLIST:
+                return new EditPlaylistFormCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
+            case ADD_EDIT_PLAYLIST:
+                return new AddEditPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
+
+            case CHOOSE_ALBUM:
+                return new ChooseAlbumFormCommand(new MusicCollectionService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
+            case CHOOSE_PLAYLIST:
+                return new ChoosePlaylistFormCommand(new MusicCollectionService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
+            case ADD_TO_ALBUM:
+            case ADD_TO_PLAYLIST:
+                return new AddTrackToCollectionCommand(new MusicCollectionService(new DaoHelperFactory()));
+
+
+
             case USER_LIST:
                 return new UserListCommand(new UserService(new DaoHelperFactory()));
             case CHANGE_USER_STATUS:

@@ -23,21 +23,35 @@
 <h1 class="headlines">${addPlaylist}</h1>
 
 <div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewPlaylist" method="post">
-        <br/> <br/>
+    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditPlaylist" method="post">
+        <input class="common-input" type="hidden" value="${playlist.id}" name="playlistId" required/>
+
+
         <div class="common-label"><label for="releaseDate">${release}</label></div>
         <input class="common-input" type="date" id="releaseDate" name="releaseDate" required/>
-        <br/> <br/>
+
+
         <div class="common-label"><label for="playlistTitle">${title}</label></div>
         <input class="common-input" type="text" id="playlistTitle" name="playlistTitle" placeholder="${enterTitle}" required/>
-        <br/>
-        <br/><br/>
+
+
+        <c:if test="${not empty playlist.id && not empty trackList}">
+            <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
+        </c:if>
+
+        <c:if test="${not empty playlist.id &&  empty trackList}">
+            <p>Playlist is empty</p>
+        </c:if>
+
+        <div>
+            <p>Add poster</p>
+        </div>
+
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
             <input name="filename" id="file" type="file" required accept="jpg"/>
         </label>
-        <br/>
-        <br/>
+
         <button class="button-main" type="submit">${save}</button>
     </form>
     <br/>

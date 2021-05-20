@@ -28,21 +28,21 @@
 <h1 class="headlines">${addNewArtistHeadline}</h1>
 
 <div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewArtist" method="post">
-        <br/>
+    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditArtist" method="post">
+
+        <input class="common-input" type="hidden" value="${artist.id}" name="artistId" required/>
+
         <div class="common-label"><label for="artistName">${artistNameLabel}</label></div>
-        <input class="common-input" type="text" id="artistName" name="artistName" required/>
-        <br/> <br/>
+        <input class="common-input" type="text" id="artistName" name="artistName" value="${artist.name}" required/>
+
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
             <input name="filename" id="file" type="file" required accept="jpg"/>
         </label>
-        <br/>
-        <br/>
+
         <button class="button-main" type="submit">${save}</button>
     </form>
-    <br/>
-    <br/>
+
 </div>
 </body>
 </html>

@@ -15,24 +15,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 
-public class AddAlbumCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(AddAlbumCommand.class);
+public class AddEditAlbumCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(AddEditAlbumCommand.class);
     private static final String CONTENT_TYPE = "UTF-8";
     private static final String PARAMETER_ARTIST_ID = "artistId";
+    private static final String PARAMETER_ALBUM_ID = "albumId";
     private static final String PARAMETER_ALBUM_TITLE = "albumTitle";
     private static final String PARAMETER_ALBUM_RELEASE_DATE = "releaseDate";
 
-    private static final String SHOW_TRACK_LIST_PAGE_COMMAND = "/controller?command=allMusic";
+    private static final String SHOW_ALBUMS_PAGE_COMMAND = "/controller?command=allAlbums";
     private static final String ALBUMS_DIRECTORY = "D:/EPAM-training/final_project/project_data/img/albums/";
 
     private final MusicCollectionService musicCollectionService;
 
-    public AddAlbumCommand(MusicCollectionService musicCollectionService) {
+    public AddEditAlbumCommand(MusicCollectionService musicCollectionService) {
         this.musicCollectionService = musicCollectionService;
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String albumId = null;
         String albumTitle = null;
         String filename = null;
         String artistId = null;
@@ -44,6 +46,9 @@ public class AddAlbumCommand implements Command {
                     String parameterName = item.getFieldName();
                     String value = item.getString(CONTENT_TYPE);
                     switch (parameterName) {
+                        case PARAMETER_ALBUM_ID:
+                            albumId = value;
+                            break;
                         case PARAMETER_ALBUM_TITLE:
                             albumTitle = value;
                             break;
@@ -62,10 +67,10 @@ public class AddAlbumCommand implements Command {
                     item.write(new File(ALBUMS_DIRECTORY + filename));
                 }
             }
-            musicCollectionService.addAlbum(releaseDate, albumTitle, filename, artistId);
+            musicCollectionService.addEditAlbum(albumId, releaseDate, albumTitle, filename, artistId);
         } catch (Exception e) {
             LOGGER.error(e + " error message" + e.getMessage());
         }
-        return CommandResult.redirect(SHOW_TRACK_LIST_PAGE_COMMAND); //CHANGE
+        return CommandResult.redirect(SHOW_ALBUMS_PAGE_COMMAND);
     }
 }

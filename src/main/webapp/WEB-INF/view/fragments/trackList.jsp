@@ -6,6 +6,7 @@
 <fmt:message bundle="${local}" key="local.button.addToCart" var="add"/>
 <fmt:message bundle="${local}" key="local.purchased" var="purhased"/>
 <fmt:message bundle="${local}" key="local.button.deleteFromCart" var="delete"/>
+<fmt:message bundle="${local}" key="local.a.edit" var="edit"/>
 
 <div class="track-list">
     <c:if test="${not empty trackList}">
@@ -46,17 +47,15 @@
 
                         <c:if test="${sessionScope.role eq 'ADMIN'}">
                                 <td><a class="header__link__button"
-                                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a></td>
-                            </c:if>
-
-
-                        </td>
+                                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">${edit}</a></td>
+                            <td><a class="header__link__button"
+                                   href="<c:url value='controller?command=chooseAlbum&id=${track.id}'/>">Add to Album</a></td>
+                            <td><a class="header__link__button"
+                                   href="<c:url value='controller?command=choosePlaylist&id=${track.id}'/>">Add to Playlist</a></td>
+                        </c:if>
                     </tr>
                 </c:forEach>
             </table>
         </div>
     </c:if>
-    <br>
-    <br>
-
 </div>

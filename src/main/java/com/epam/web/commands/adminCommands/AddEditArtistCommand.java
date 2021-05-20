@@ -15,16 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 
-public class AddArtistCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(AddArtistCommand.class);
+public class AddEditArtistCommand implements Command {
+    private static final Logger LOGGER = LogManager.getLogger(AddEditArtistCommand.class);
     private static final String CONTENT_TYPE = "UTF-8";
     private static final String PARAMETER_ARTIST_NAME = "artistName";
     private static final String SHOW_TRACK_LIST_PAGE_COMMAND = "/controller?command=allMusic";
     private static final String ARTIST_DIRECTORY = "D:/EPAM-training/final_project/project_data/img/artists/";
+    private static final String PARAMETER_ARTIST_ID = "artistId";
 
     private final ArtistService artistService;
 
-    public AddArtistCommand(ArtistService artistService) {
+    public AddEditArtistCommand(ArtistService artistService) {
         this.artistService = artistService;
     }
 
@@ -32,6 +33,7 @@ public class AddArtistCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String artistName = null;
         String filename = null;
+        String artistId = null;
         try {
             List<FileItem> data = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
             for (FileItem item : data) {
@@ -40,6 +42,8 @@ public class AddArtistCommand implements Command {
                     String value = item.getString(CONTENT_TYPE);
                     if (parameterName.equals(PARAMETER_ARTIST_NAME)) {
                         artistName = value;
+                    } else if (parameterName.equals(PARAMETER_ARTIST_ID)) {
+                        artistId = value;
                     }
                 } else if (!item.isFormField()) {
                     filename = item.getName();
@@ -47,7 +51,7 @@ public class AddArtistCommand implements Command {
                     item.write(new File(ARTIST_DIRECTORY + filename));
                 }
             }
-            artistService.addArtist(artistName, filename);
+            artistService.addArtist(artistId, artistName, filename);
         } catch (Exception e) {
             LOGGER.error(e + " error message" + e.getMessage());
         }

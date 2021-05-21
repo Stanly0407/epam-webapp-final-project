@@ -26,10 +26,19 @@ public class MusicCollectionService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public Optional<MusicCollection> getMusicCollectionById(Long id) throws ServiceException {
+    public Optional<MusicCollection> getAlbumById(Long id) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
-            return musicCollectionDao.getById(id);
+            return musicCollectionDao.getAlbumById(id);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public Optional<MusicCollection> getPlaylistById(Long id) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            return musicCollectionDao.getPlaylistById(id);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -135,10 +144,29 @@ public class MusicCollectionService {
     }
 
 
-    public void addTrackToCollection(Long albumId, Long trackId) throws ServiceException {
+    public void addTrackToCollection(Long trackId, Long albumId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
             musicCollectionDao.insertTrackToCollection(trackId, albumId);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public boolean checkTrackInAlbum(Long albumId, Long trackId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            Optional<MusicCollection> collection = musicCollectionDao.findAlbumTrack(albumId, trackId);
+            return collection.isPresent();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+    public boolean checkTrackInPlaylist(Long playlistId, Long trackId) throws ServiceException {
+        try (DaoHelper daoHelper = daoHelperFactory.create()) {
+            MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
+            Optional<MusicCollection> collection = musicCollectionDao.findPlaylistTrack(playlistId, trackId);
+            return collection.isPresent();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

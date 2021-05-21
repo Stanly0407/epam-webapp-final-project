@@ -13,11 +13,15 @@
                 <div class="container_card">
                     <input type="hidden" name="${playlist.id}"/>
                     <h4><b>${playlist.title}</b></h4>
-                    <c:if test="${sessionScope.role eq 'ADMIN'}">
-                        <div><a class="header__link__button"
-                                href="<c:url value='controller?command=editPlaylist&id=${playlist.id}'/>">${edit}</a>
-                        </div>
-                    </c:if>
+
+
+                    <div style="margin-top: 8px;">
+                        <c:if test="${sessionScope.role eq 'ADMIN'}">
+                            <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
+                                    href="<c:url value='controller?command=editPlaylist&id=${playlist.id}'/>">${edit}</a>
+                            </div>
+                        </c:if>
+                    </div>
                 </div>
             </a>
         </div>

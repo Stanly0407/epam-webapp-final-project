@@ -22,9 +22,9 @@ public class EditAlbumFormCommand implements Command {
     private static final String EDIT_ALBUM_FORM_PAGE = "/WEB-INF/view/fragments/albumForm.jsp";
     private static final String ADMIN_MAIN_PAGE_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String PARAMETER_USER_ID = "userId";
-    private static final String PARAMETER_ALBUM_ID = "albumId";
+    private static final String PARAMETER_ALBUM_ID = "id";
     private static final String ATTRIBUTE_TRACK = "track";
-    private static final String ATTRIBUTE_TRACKS = "tracksList";
+    private static final String ATTRIBUTE_TRACKS = "trackList";
     private static final String ATTRIBUTE_ALBUM = "album";
 
     private final TrackService trackService;
@@ -47,7 +47,7 @@ public class EditAlbumFormCommand implements Command {
         } else {
             Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);
             Long albumId = Long.valueOf(albumIdParameter);
-            Optional<MusicCollection> albumOptional = musicCollectionService.getMusicCollectionById(albumId);
+            Optional<MusicCollection> albumOptional = musicCollectionService.getAlbumById(albumId);
             MusicCollection album = albumOptional.get();
             request.setAttribute(ATTRIBUTE_ALBUM, album);
             List<TrackDto> albumTracks = trackService.getCollectionTracks(albumId, userId);

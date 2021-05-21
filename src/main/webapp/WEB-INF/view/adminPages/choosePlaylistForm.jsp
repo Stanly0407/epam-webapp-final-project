@@ -14,7 +14,7 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<div>
+<div class="headlines-type">
     <p>Choose playlist for track:</p>
 </div>
 

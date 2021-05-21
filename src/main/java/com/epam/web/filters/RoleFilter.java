@@ -63,7 +63,8 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.CHANGE_USER_STATUS, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_DISCOUNT, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_FREE_TRACKS, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.DELETE_COLLECTION_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_ALBUM_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_PLAYLIST_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_TO_ALBUM, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_TO_PLAYLIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.CHOOSE_ALBUM, Arrays.asList(Role.ADMIN));

@@ -1,9 +1,7 @@
 package com.epam.web.dao;
 
 import com.epam.web.entities.MusicCollection;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
-import com.epam.web.mapper.MusicCollectionRowMapper;
 import com.epam.web.mapper.RowMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,8 +13,10 @@ import java.util.Optional;
 public class MusicCollectionDao extends AbstractDao<MusicCollection> implements Dao<MusicCollection> {
     private static final Logger LOGGER = LogManager.getLogger(MusicCollectionDao.class);
 
-    private static final String FIND_COLLECTION_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
+    private static final String FIND_ALBUM_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.id = ?";
+    private static final String FIND_PLAYLIST_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename FROM collection c " +
+            " WHERE c.id = ?";
     private static final String FIND_ALBUM = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.title = ? AND c.type = 'ALBUM'";
     private static final String FIND_PLAYLIST = "SELECT c.id, c.type, c.release_date, c.title, c.filename FROM collection c WHERE c.title = ? AND c.type = 'PLAYLIST'";
@@ -38,19 +38,39 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
     private static final String INSERT_TRACK_TO_COLLECTION = "INSERT INTO track_collection (track_id, collection_id) value (?, ?)";
     private static final String FIND_ALBUMS_BY_ARTISTS_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.artist_id = ? AND c.type = 'ALBUM'";
+    private static final String FIND_ALBUM_TRACK_COLLECTION = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
+            "INNER JOIN artist a ON (a.id = c.artist_id) INNER JOIN track_collection tc ON (c.id = tc.collection_id) " +
+            "WHERE tc.collection_id = ? AND tc.track_id = ?";
+    private static final String FIND_PLAYLIST_TRACK_COLLECTION = "SELECT c.id, c.type, c.release_date, c.title, c.filename from collection c " +
+            "INNER JOIN track_collection tc ON (c.id = tc.collection_id) WHERE tc.collection_id = ? AND tc.track_id = ?";
 
     public MusicCollectionDao(Connection connection, RowMapper<MusicCollection> mapper) {
         super(connection, mapper);
     }
 
+    public Optional<MusicCollection> getAlbumById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_ALBUM_BY_ID, id);
+    }
+
+    public Optional<MusicCollection> getPlaylistById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_PLAYLIST_BY_ID, id);
+    }
+
     @Override
     public Optional<MusicCollection> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_COLLECTION_BY_ID, id);
+        return executeForSingleResult(FIND_ALBUM_BY_ID, id);
     }
 
     public List<MusicCollection> findMusicByAlbumTitle(String searchSubject) throws DaoException {
         LOGGER.debug("findMusicByAlbumTitle = " + FIND_ALBUM);
         return executeQuery(FIND_ALBUM, searchSubject);
+    }
+
+    public Optional<MusicCollection> findAlbumTrack(Long albumId, Long trackId) throws DaoException {
+        return executeForSingleResult(FIND_ALBUM_TRACK_COLLECTION, albumId, trackId);
+    }
+    public Optional<MusicCollection> findPlaylistTrack(Long playlistId, Long trackId) throws DaoException {
+        return executeForSingleResult(FIND_PLAYLIST_TRACK_COLLECTION, playlistId, trackId);
     }
 
     public List<MusicCollection> findMusicByPlaylistTitle(String searchSubject) throws DaoException {

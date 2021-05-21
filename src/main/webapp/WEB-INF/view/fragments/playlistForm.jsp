@@ -20,7 +20,15 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<h1 class="headlines">${addPlaylist}</h1>
+<h1 class="headlines-type">Edit Playlist</h1>
+
+<c:if test="${not empty playlist.id && not empty trackList}">
+    <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
+</c:if>
+
+<c:if test="${not empty playlist.id &&  empty trackList}">
+    <p>Playlist is empty</p>
+</c:if>
 
 <div class="edit-track-form">
     <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditPlaylist" method="post">
@@ -33,15 +41,6 @@
 
         <div class="common-label"><label for="playlistTitle">${title}</label></div>
         <input class="common-input" type="text" id="playlistTitle" name="playlistTitle" placeholder="${enterTitle}" required/>
-
-
-        <c:if test="${not empty playlist.id && not empty trackList}">
-            <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
-        </c:if>
-
-        <c:if test="${not empty playlist.id &&  empty trackList}">
-            <p>Playlist is empty</p>
-        </c:if>
 
         <div>
             <p>Add poster</p>

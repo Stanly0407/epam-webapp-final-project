@@ -31,16 +31,18 @@
                     <a class="header__link__button"
                        href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a>
                 </td>
+
                 <c:if test="${not empty album.id}">
                 <td>
                     <a class="header__link__button"
-                       href="<c:url value='controller?command=deleteCollectionTrack&id=${album.id}trackId=${track.id}'/>">Delete from album</a>
+                       href="<c:url value='controller?command=deleteAlbumTrack&id=${album.id}&trackId=${track.id}'/>">Delete from album</a>
                 </td>
                 </c:if>
+
                 <c:if test="${not empty playlist.id}">
                     <td>
                         <a class="header__link__button"
-                           href="<c:url value='controller?command=deleteCollectionTrack&id=${playlist.id}trackId=${track.id}'/>">Delete from playlist</a>
+                           href="<c:url value='controller?command=deletePlaylistTrack&id=${playlist.id}&trackId=${track.id}'/>">Delete from playlist</a>
                     </td>
                 </c:if>
 

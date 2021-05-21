@@ -48,10 +48,28 @@
                         <c:if test="${sessionScope.role eq 'ADMIN'}">
                                 <td><a class="header__link__button"
                                        href="<c:url value='controller?command=editTrack&id=${track.id}'/>">${edit}</a></td>
+                        <c:if test="${empty album.id}">
                             <td><a class="header__link__button"
                                    href="<c:url value='controller?command=chooseAlbum&id=${track.id}'/>">Add to Album</a></td>
+                        </c:if>
+                            <c:if test="${ empty playlist.id}">
                             <td><a class="header__link__button"
                                    href="<c:url value='controller?command=choosePlaylist&id=${track.id}'/>">Add to Playlist</a></td>
+                        </c:if>
+
+                            <c:if test="${not empty album.id}">
+                                <td>
+                                    <a class="header__link__button"
+                                       href="<c:url value='controller?command=deleteCollectionTrack&id=${album.id}trackId=${track.id}'/>">Delete from album</a>
+                                </td>
+                            </c:if>
+                            <c:if test="${not empty playlist.id}">
+                                <td>
+                                    <a class="header__link__button"
+                                       href="<c:url value='controller?command=deleteCollectionTrack&id=${playlist.id}trackId=${track.id}'/>">Delete from playlist</a>
+                                </td>
+                            </c:if>
+
                         </c:if>
                     </tr>
                 </c:forEach>

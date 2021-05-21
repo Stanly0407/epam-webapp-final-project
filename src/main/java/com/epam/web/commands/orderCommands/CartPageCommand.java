@@ -4,13 +4,11 @@ import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Bonus;
-import com.epam.web.entities.BonusType;
 import com.epam.web.entities.Track;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.BonusService;
 import com.epam.web.service.OrderService;
 import com.epam.web.service.TrackService;
-import com.epam.web.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,19 +83,19 @@ public class CartPageCommand implements Command {
             request.setAttribute(BONUS_MESSAGE, true);
         }
 //2 Проерка активации скидок и применение если есть к списку
-        if(activatedDiscountBonus == null  ){
+        if (activatedDiscountBonus == null) {
             LOGGER.debug("activatedDiscountBonus == null");
             session.setAttribute("activatedDiscountBonus", false);
             activatedDiscountBonus = false;
         }
-        if(activatedFreeTracksBonus == null){
+        if (activatedFreeTracksBonus == null) {
             LOGGER.debug("activatedFreeTracksBonus == null");
             session.setAttribute("activatedFreeTracksBonus", false);
             activatedFreeTracksBonus = false;
         }
 
         //2.1 Проверка что количество в корзине треков больше либо равно количеству бесплатных треков
-        if(activatedFreeTracksBonus && bonusFreeTracks != null){
+        if (activatedFreeTracksBonus && bonusFreeTracks != null) {
             int orderedTracksAmount = orderedTracksClear.size();
             int bonusFreeTracksAmount = bonusFreeTracks.getAmount();
             session.setAttribute("activatedFreeTracksBonus", false);
@@ -125,7 +123,7 @@ public class CartPageCommand implements Command {
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
 
         //4 считаем сумму корзины для юзера
-        if(!orderedTracksDto.isEmpty()){
+        if (!orderedTracksDto.isEmpty()) {
             BigDecimal orderSum = orderService.sumOfOrderedTracks(orderedTracks);
             request.setAttribute(ORDER_AMOUNT, orderSum);
         }

@@ -114,8 +114,10 @@ public class CommandFactory {
                 return new EditAlbumFormCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case ADD_EDIT_ALBUM:
                 return new AddEditAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
-            case DELETE_COLLECTION_TRACK:
-                return new DeleteTrackFromCollectionCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case DELETE_ALBUM_TRACK:
+                return new DeleteTrackFromAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
+            case DELETE_PLAYLIST_TRACK:
+                return new DeleteTrackFromPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
             case PLAYLIST_FORM:
                 return new ShowPageCommand(PLAYLIST_FORM_PAGE);
             case EDIT_PLAYLIST:
@@ -128,10 +130,9 @@ public class CommandFactory {
             case CHOOSE_PLAYLIST:
                 return new ChoosePlaylistFormCommand(new MusicCollectionService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
             case ADD_TO_ALBUM:
+                return new AddTrackToAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
             case ADD_TO_PLAYLIST:
-                return new AddTrackToCollectionCommand(new MusicCollectionService(new DaoHelperFactory()));
-
-
+                return new AddTrackToPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
 
             case USER_LIST:
                 return new UserListCommand(new UserService(new DaoHelperFactory()));

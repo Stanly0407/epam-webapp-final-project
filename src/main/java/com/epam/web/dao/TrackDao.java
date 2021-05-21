@@ -92,8 +92,6 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
         return executeQuery(FIND_COLLECTION_TRACKS, collectionId);
     }
 
-
-
     @Override
     public Optional<Track> getById(Long id) throws DaoException {
         return executeForSingleResult(FIND_TRACK_BY_ID, id);
@@ -117,6 +115,8 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
 
     @Override
     public void removeById(Long id) throws DaoException{
+        executeUpdate(DELETE_TRACK,  id);
+
     }
 
     @Override

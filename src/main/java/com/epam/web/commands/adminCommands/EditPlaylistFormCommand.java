@@ -7,6 +7,8 @@ import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.MusicCollectionService;
 import com.epam.web.service.TrackService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,13 +18,13 @@ import java.util.Optional;
 
 
 public class EditPlaylistFormCommand implements Command {
-
+    private static final Logger LOGGER = LogManager.getLogger(EditPlaylistFormCommand.class);
     private static final String EDIT_PLAYLIST_FORM_PAGE = "/WEB-INF/view/fragments/playlistForm.jsp";
     private static final String ADMIN_MAIN_PAGE_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String PARAMETER_USER_ID = "userId";
-    private static final String PARAMETER_PLAYLIST_ID = "playlistId";
+    private static final String PARAMETER_PLAYLIST_ID = "id";
     private static final String ATTRIBUTE_TRACK = "track";
-    private static final String ATTRIBUTE_TRACKS = "tracksList";
+    private static final String ATTRIBUTE_TRACKS = "trackList";
     private static final String ATTRIBUTE_PLAYLIST = "playlist";
 
     private final TrackService trackService;
@@ -44,7 +46,8 @@ public class EditPlaylistFormCommand implements Command {
         } else {
             Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);
             Long playlistId = Long.valueOf(playlistIdParameter);
-            Optional<MusicCollection> playlistOptional = musicCollectionService.getMusicCollectionById(playlistId);
+            LOGGER.debug("playlistId " + playlistId);
+            Optional<MusicCollection> playlistOptional = musicCollectionService.getPlaylistById(playlistId);
             MusicCollection playlist = playlistOptional.get();
             request.setAttribute(ATTRIBUTE_PLAYLIST, playlist);
             List<TrackDto> playlistTracks = trackService.getCollectionTracks(playlistId, userId);

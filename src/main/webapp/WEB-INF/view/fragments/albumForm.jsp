@@ -10,6 +10,8 @@
 <fmt:message bundle="${local}" key="local.button.save" var="save"/>
 <fmt:message bundle="${local}" key="local.placeholder.enterTitle" var="enterTitle"/>
 <fmt:message bundle="${local}" key="local.select.default.selectArtist" var="selectArtist"/>
+<fmt:message bundle="${local}" key="local.a.delete" var="delete"/>
+
 <script type="text/javascript">
     <%@include file="/WEB-INF/js/pageScripts.js"%>
 </script>
@@ -21,9 +23,19 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<h1 class="headlines">${addAlbum}</h1>
+<h1 class="headlines-type">Edit Album</h1>
+
+<c:if test="${not empty album.id && not empty trackList}">
+    <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
+</c:if>
+
+<c:if test="${not empty album.id &&  empty trackList}">
+    <p>Album is empty</p>
+</c:if>
 
 <div class="edit-track-form">
+
+
     <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditAlbum" method="post">
         <input class="common-input" type="hidden" value="${album.id}" name="albumId" required/>
 
@@ -40,6 +52,7 @@
                 <p style="color: #CF469D">${album.artist.name}</p>
             </div>
         </c:if>
+
         <div>
             <select class="select-artist" name="artistId" required>
                 <option selected disabled>${selectArtist}</option>
@@ -49,13 +62,9 @@
             </select>
         </div>
 
-        <c:if test="${not empty album.id && not empty trackList}">
-            <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
-        </c:if>
-
-        <c:if test="${not empty album.id &&  empty trackList}">
-            <p>Album is empty</p>
-        </c:if>
+        <div>
+            <p>Add poster</p>
+        </div>
 
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">

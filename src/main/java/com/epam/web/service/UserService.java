@@ -1,8 +1,6 @@
 package com.epam.web.service;
 
 import com.epam.web.dao.*;
-import com.epam.web.dto.OrderDto;
-import com.epam.web.dto.TrackDto;
 import com.epam.web.dto.UserDto;
 import com.epam.web.entities.*;
 import com.epam.web.exceptions.DaoException;
@@ -11,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

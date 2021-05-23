@@ -4,6 +4,7 @@
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
 <fmt:message bundle="${local}" key="local.a.edit" var="edit"/>
+<fmt:message bundle="${local}" key="local.a.delete" var="delete"/>
 
 <div class="card__list">
     <c:forEach items="${albums}" var="album">
@@ -20,6 +21,9 @@
                         <c:if test="${sessionScope.role eq 'ADMIN'}">
                             <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
                                     href="<c:url value='controller?command=editAlbum&id=${album.id}'/>">${edit}</a>
+                            </div>
+                            <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
+                                    href="<c:url value='controller?command=deleteAlbum&id=${album.id}'/>">${delete}</a>
                             </div>
                         </c:if>
                     </div>

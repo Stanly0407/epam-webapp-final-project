@@ -53,22 +53,14 @@ public class BonusDao extends AbstractDao<Bonus> implements Dao<Bonus> {
         executeUpdate(UPDATE_BONUS_STATUS, bonusId);
     }
 
-    public void deleteBonus(Long bonusId) throws DaoException {
-        executeUpdate(DELETE_BONUS, bonusId);
-    }
-
-
     @Override
     public Optional<Bonus> getById(Long id) throws DaoException {
-        return executeForSingleResult(UPDATE_BONUS_STATUS, id); //change
+        return executeForSingleResult(UPDATE_BONUS_STATUS, id);
     }
 
     @Override
-    public void save(Bonus entity) {
-    }
-
-    @Override
-    public void removeById(Long id) {
+    public void removeById(Long id) throws DaoException {
+        executeUpdate(DELETE_BONUS, id);
     }
 
     @Override

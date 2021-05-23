@@ -25,6 +25,11 @@
 
 <h1 class="headlines-type">Edit Album</h1>
 
+
+<c:if test="${alreadyExist}">
+    <p style="color: red; margin-left: 20%;">Ошибка. Данный трек уже добавлен в альбом. Error. This track has already been added to the album.</p>
+</c:if>
+
 <c:if test="${not empty album.id && not empty trackList}">
     <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
 </c:if>

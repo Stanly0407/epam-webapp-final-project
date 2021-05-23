@@ -20,7 +20,7 @@ public class ConnectionPool {
                 ProxyConnection connection = ConnectionFactory.create();
                 proxyConnections.offer(connection);
             }
-        } catch (IOException | DaoException e) {
+        } catch (DaoException e) {
             LOGGER.error(e.getMessage());
         }
     }

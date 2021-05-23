@@ -24,8 +24,8 @@
             <th>Balance</th>
             <th>Comments</th>
             <th>Tracks</th>
-            <th>Discount</th>
-            <th>Free Tracks</th>
+            <th><p style="text-align: center;">Discount</p></th>
+            <th><p style="text-align: center;">Free Tracks</p></th>
             <th></th>
         </tr>
         <c:forEach items="${userList}" var="user">
@@ -36,8 +36,8 @@
                 <td>${user.name} </td>
                 <td>${user.lastname}</td>
                 <td>$ ${user.balance}</td>
-                <td>${user.commentsAmount}</td>
-                <td>${user.purchasedTracksAmount}</td>
+                <td><p style="text-align: center;"> ${user.commentsAmount}</p></td>
+                <td><p style="text-align: center;">${user.purchasedTracksAmount}</p></td>
 
                 <c:if test="${empty user.bonusDiscount}">
                     <td>

@@ -65,7 +65,7 @@ public class TrackService {
                     trackDao.editTrackInfo(releaseDate, title, price, trackId);
                 }
                 if (!artistArray.isEmpty()) {
-                    artistDao.deleteArtistsToTrack(trackId);
+                    artistDao.deleteArtistToTrack(trackId);
                     for (Long artistId : artists) {
                         artistDao.insertArtistsToTrack(trackId, artistId);
                     }

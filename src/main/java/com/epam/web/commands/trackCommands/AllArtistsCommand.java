@@ -16,7 +16,7 @@ import java.util.List;
 public class AllArtistsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AllArtistsCommand.class);
 
-    private static final String SHOW_ARTISTS_PAGE_COMMAND = "/WEB-INF/view/userPages/artists.jsp";
+    private static final String SHOW_ARTISTS_PAGE_COMMAND = "/WEB-INF/view/fragments/artists.jsp";
     private static final String ATTRIBUTE_ARTISTS = "artists";
     private static final String ATTRIBUTE_ARTIST = "artist";
 

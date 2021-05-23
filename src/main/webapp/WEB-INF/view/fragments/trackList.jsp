@@ -16,7 +16,7 @@
                     <tr style="align-content: center">
                         <td><input type="hidden" name="${track.id}"/></td>
                         <td><img src="img/svg/Note_song icon.svg" alt="Cart" class="note-pic"></td>
-                        <td>${track.title}</td>
+                        <td><p>${track.title}</p></td>
                         <c:forEach items="${track.artists}" var="artist">
                             <input type="hidden" name="${artist.id}"/>
                             <td>${artist.name}</td>

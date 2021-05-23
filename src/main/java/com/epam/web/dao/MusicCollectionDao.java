@@ -3,15 +3,12 @@ package com.epam.web.dao;
 import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.mapper.RowMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.util.List;
 import java.util.Optional;
 
 public class MusicCollectionDao extends AbstractDao<MusicCollection> implements Dao<MusicCollection> {
-    private static final Logger LOGGER = LogManager.getLogger(MusicCollectionDao.class);
 
     private static final String FIND_ALBUM_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.id = ?";
@@ -43,6 +40,7 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
             "WHERE tc.collection_id = ? AND tc.track_id = ?";
     private static final String FIND_PLAYLIST_TRACK_COLLECTION = "SELECT c.id, c.type, c.release_date, c.title, c.filename from collection c " +
             "INNER JOIN track_collection tc ON (c.id = tc.collection_id) WHERE tc.collection_id = ? AND tc.track_id = ?";
+    private static final String DELETE_COLLECTION_BY_ID = "DELETE FROM collection WHERE id = ?";
 
     public MusicCollectionDao(Connection connection, RowMapper<MusicCollection> mapper) {
         super(connection, mapper);
@@ -56,19 +54,14 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
         return executeForSingleResult(FIND_PLAYLIST_BY_ID, id);
     }
 
-    @Override
-    public Optional<MusicCollection> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_ALBUM_BY_ID, id);
-    }
-
     public List<MusicCollection> findMusicByAlbumTitle(String searchSubject) throws DaoException {
-        LOGGER.debug("findMusicByAlbumTitle = " + FIND_ALBUM);
         return executeQuery(FIND_ALBUM, searchSubject);
     }
 
     public Optional<MusicCollection> findAlbumTrack(Long albumId, Long trackId) throws DaoException {
         return executeForSingleResult(FIND_ALBUM_TRACK_COLLECTION, albumId, trackId);
     }
+
     public Optional<MusicCollection> findPlaylistTrack(Long playlistId, Long trackId) throws DaoException {
         return executeForSingleResult(FIND_PLAYLIST_TRACK_COLLECTION, playlistId, trackId);
     }
@@ -129,20 +122,14 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
         executeUpdate(INSERT_TRACK_TO_COLLECTION, trackId, albumId);
     }
 
-    public List<MusicCollection> getAlbumsPage(int limit, int offset) throws DaoException {
-        return executeQuery(GET_ALBUMS_LIST_PAGE, limit, offset);
-    }
-
-    public List<MusicCollection> getPlaylistsPage(int limit, int offset) throws DaoException {
-        return executeQuery(GET_PLAYLISTS_LIST_PAGE, limit, offset);
+    @Override
+    public Optional<MusicCollection> getById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_ALBUM_BY_ID, id);
     }
 
     @Override
-    public void save(MusicCollection entity) {
-    }
-
-    @Override
-    public void removeById(Long id) {
+    public void removeById(Long id) throws DaoException {
+        executeUpdate(DELETE_COLLECTION_BY_ID, id);
     }
 
     @Override

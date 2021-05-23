@@ -33,7 +33,9 @@
         <input class="common-input" type="hidden" value="${artist.id}" name="artistId" required/>
 
         <div class="common-label"><label for="artistName">${artistNameLabel}</label></div>
+
         <input class="common-input" type="text" id="artistName" name="artistName" value="${artist.name}" required/>
+
 
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">

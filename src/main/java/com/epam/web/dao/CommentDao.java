@@ -35,11 +35,6 @@ public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
         return executeQuery(FIND_COMMENTS_BY_TRACK_ID_EXCLUDED_EDITABLE, trackId, commentId);
     }
 
-    public Optional<Comment> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_COMMENT_BY_ID, id);
-    }
-
-
     public void addNewCommentToTrack(String commentContent, Long trackId, Long userId) throws DaoException {
         executeUpdate(INSERT_COMMENT_TO_TRACK, commentContent, trackId, userId);
     }
@@ -49,7 +44,8 @@ public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
     }
 
     @Override
-    public void save(Comment entity) {
+    public Optional<Comment> getById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_COMMENT_BY_ID, id);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.epam.web.entities;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class User extends Entity {
 
@@ -90,4 +91,24 @@ public class User extends Entity {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        User user = (User) o;
+        return status == user.status &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(lastname, user.lastname) &&
+                role == user.role &&
+                Objects.equals(balance, user.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login, password, name, lastname, role, balance, status);
+    }
+
 }

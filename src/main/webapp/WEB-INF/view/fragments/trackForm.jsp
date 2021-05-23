@@ -69,7 +69,6 @@
             <ul id="additionalAuthorSelector">
             </ul>
 
-
             <div class="common-label"><label for="file">${uploadInfo}</label></div>
             <label class="file_upload">
                 <input name="filename" id="file" type="file" accept=".mp3"/>

@@ -1,5 +1,7 @@
 package com.epam.web.entities;
 
+import java.util.Objects;
+
 public class Bonus extends Entity {
 
     public static final String TABLE = "bonus";
@@ -55,5 +57,21 @@ public class Bonus extends Entity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) return false;
+        Bonus bonus = (Bonus) o;
+        return amount == bonus.amount &&
+                statusUse == bonus.statusUse &&
+                bonusType == bonus.bonusType &&
+                Objects.equals(userId, bonus.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bonusType, amount, statusUse, userId);
     }
 }

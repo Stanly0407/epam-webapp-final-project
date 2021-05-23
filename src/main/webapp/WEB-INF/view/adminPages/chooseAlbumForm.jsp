@@ -19,6 +19,10 @@
 </div>
 
 
+<c:if test="${alreadyExist}">
+    <p style="color: red; margin-left: 20%;">Ошибка. Данный трек уже добавлен в альбом. Error. This track has already been added to the album.</p>
+</c:if>
+
 
 <div class="edit-track-form">
     <div>

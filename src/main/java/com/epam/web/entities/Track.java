@@ -2,6 +2,7 @@ package com.epam.web.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Track extends Entity {
 
@@ -58,6 +59,22 @@ public class Track extends Entity {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        Track track = (Track) o;
+        return Objects.equals(releaseDate, track.releaseDate) &&
+                Objects.equals(title, track.title) &&
+                Objects.equals(price, track.price) &&
+                Objects.equals(filename, track.filename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(releaseDate, title, price, filename);
     }
 
     @Override

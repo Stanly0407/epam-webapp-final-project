@@ -1,5 +1,7 @@
 package com.epam.web.entities;
 
+import java.util.Objects;
+
 public class Artist extends Entity {
 
     public static final String TABLE = "artist";
@@ -34,4 +36,19 @@ public class Artist extends Entity {
     public void setFilename(String filename) {
         this.filename = filename;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) return false;
+        Artist artist = (Artist) o;
+        return Objects.equals(filename, artist.filename) &&
+                Objects.equals(name, artist.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(filename, name);
+    }
+
 }

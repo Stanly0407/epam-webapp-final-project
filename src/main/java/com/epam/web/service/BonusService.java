@@ -58,7 +58,7 @@ public class BonusService {
     public void deleteUserBonus(Long bonusId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             BonusDao bonusDao = daoHelper.createBonusDao();
-            bonusDao.deleteBonus(bonusId);
+            bonusDao.removeById(bonusId);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

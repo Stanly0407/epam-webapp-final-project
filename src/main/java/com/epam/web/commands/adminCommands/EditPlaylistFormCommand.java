@@ -41,6 +41,7 @@ public class EditPlaylistFormCommand implements Command {
         HttpSession session = request.getSession();
         String page;
         String playlistIdParameter = request.getParameter(PARAMETER_PLAYLIST_ID);
+        String alreadyExistFlag = request.getParameter("alreadyExist");
         if (playlistIdParameter == null) {
             page = ADMIN_MAIN_PAGE_PAGE;
         } else {
@@ -53,6 +54,9 @@ public class EditPlaylistFormCommand implements Command {
             List<TrackDto> playlistTracks = trackService.getCollectionTracks(playlistId, userId);
             request.setAttribute(ATTRIBUTE_TRACKS, playlistTracks);
             request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
+            if(alreadyExistFlag!=null){
+                request.setAttribute("alreadyExist", true);
+            }
             page = EDIT_PLAYLIST_FORM_PAGE;
         }
         return CommandResult.forward(page);

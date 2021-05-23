@@ -22,6 +22,10 @@
 
 <h1 class="headlines-type">Edit Playlist</h1>
 
+<c:if test="${alreadyExist}">
+    <p style="color: red; margin-left: 20%;">Ошибка. Данный трек уже добавлен в плейлист. Error. This track has already been added to the playlist.</p>
+</c:if>
+
 <c:if test="${not empty playlist.id && not empty trackList}">
     <jsp:include page="../fragments/adminFormsTrackList.jsp"/>
 </c:if>

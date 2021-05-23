@@ -41,6 +41,7 @@ public class EditAlbumFormCommand implements Command {
         HttpSession session = request.getSession();
         String page;
         String albumIdParameter = request.getParameter(PARAMETER_ALBUM_ID);
+        String alreadyExistFlag = request.getParameter("alreadyExist");
 
         if (albumIdParameter == null) {
             page = ADMIN_MAIN_PAGE_PAGE;
@@ -53,6 +54,9 @@ public class EditAlbumFormCommand implements Command {
             List<TrackDto> albumTracks = trackService.getCollectionTracks(albumId, userId);
             request.setAttribute(ATTRIBUTE_TRACKS, albumTracks);
             request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
+            if(alreadyExistFlag!=null){
+                request.setAttribute("alreadyExist", true);
+            }
             page = EDIT_ALBUM_FORM_PAGE;
         }
         return CommandResult.forward(page);

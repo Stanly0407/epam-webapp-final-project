@@ -21,24 +21,19 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.name = ?";
     private static final String FIND_FIVE_NEW_TRACKS = "SELECT id, release_date, title, price, filename  FROM track t ORDER BY t.release_date DESC LIMIT 5";
     private static final String FIND_ORDERED_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, filename FROM track t " +
-            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
-            "WHERE po.user_id = ? AND po.is_paid = false";
+            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) WHERE po.user_id = ? AND po.is_paid = false";
     private static final String FIND_TRACK_IN_UNPAID_ORDER = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
-            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
-            "WHERE po.user_id = ? AND po.is_paid = false AND t.id = ?";
+            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) WHERE po.user_id = ? AND po.is_paid = false AND t.id = ?";
     private static final String FIND_ALL_PAID_TRACKS_BY_USER_ID = "SELECT t.id, t.release_date, t.title, t.price, filename  FROM track t " +
-            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
-            "WHERE po.user_id = ? AND po.is_paid = true";
+            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) WHERE po.user_id = ? AND po.is_paid = true";
     private static final String FIND_PAID_TRACKS_BY_ORDER_ID = "SELECT t.id, t.release_date, t.title, t.price, t.filename  FROM track t " +
-            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) " +
-            "WHERE po.id = ?";
+            "INNER JOIN purchase_order_track p ON (p.track_id=t.id) INNER JOIN purchase_order po ON (po.id=p.order_id) WHERE po.id = ?";
     private static final String FIND_ALL_ARTIST_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename " +
             "FROM track t INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) WHERE a.id = ?";
     private static final String FIND_COLLECTION_TRACKS = "SELECT t.id, t.release_date, t.title, t.price, t.filename, a.id, a.name, a.filename FROM track t " +
             "INNER JOIN track_artist ta ON (t.id = ta.track_id) INNER JOIN artist a ON (ta.artist_id=a.id) INNER JOIN track_collection tc " +
             "ON (t.id=tc.track_id) INNER JOIN collection c ON (c.id=tc.collection_id) WHERE c.id = ?";
-    private static final String FIND_TRACK_BY_PARAMETERS = "SELECT id, release_date, title, price, filename FROM track " +
-            "WHERE release_date=? AND title=? AND price=? AND filename=?";
+    private static final String FIND_TRACK_BY_PARAMETERS = "SELECT id, release_date, title, price, filename FROM track WHERE release_date=? AND title=? AND price=? AND filename=?";
 
     public TrackDao(Connection connection, RowMapper<Track> mapper) {
         super(connection, mapper);
@@ -56,7 +51,7 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
         executeUpdate(UPDATE_TRACK, releaseDate, title, price, filename, id);
     }
 
-    public void editTrackInfo(String releaseDate, String title, String price,  Long id) throws DaoException {
+    public void editTrackInfo(String releaseDate, String title, String price, Long id) throws DaoException {
         executeUpdate(UPDATE_TRACK_INFO, releaseDate, title, price, id);
     }
 
@@ -92,11 +87,6 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
         return executeQuery(FIND_COLLECTION_TRACKS, collectionId);
     }
 
-    @Override
-    public Optional<Track> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_TRACK_BY_ID, id);
-    }
-
     public List<Track> getAllTracks() throws DaoException {
         return executeQuery(GET_TRACK_LIST);
     }
@@ -110,13 +100,13 @@ public class TrackDao extends AbstractDao<Track> implements Dao<Track> {
     }
 
     @Override
-    public void save(Track entity) throws DaoException{
+    public Optional<Track> getById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_TRACK_BY_ID, id);
     }
 
     @Override
-    public void removeById(Long id) throws DaoException{
-        executeUpdate(DELETE_TRACK,  id);
-
+    public void removeById(Long id) throws DaoException {
+        executeUpdate(DELETE_TRACK, id);
     }
 
     @Override

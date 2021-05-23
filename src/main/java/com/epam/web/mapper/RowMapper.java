@@ -5,6 +5,8 @@ import com.epam.web.entities.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
+//RowMapper interface allows to map a row of the relations with the instance of entity class. It iterates the ResultSet internally and adds it into the collection.
 public interface RowMapper<T extends Entity> {
 
     T map(ResultSet resultSet) throws SQLException;

@@ -1,6 +1,7 @@
 package com.epam.web.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Comment extends Entity {
 
@@ -54,5 +55,21 @@ public class Comment extends Entity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(commentDate, comment.commentDate) &&
+                Objects.equals(content, comment.content) &&
+                Objects.equals(trackId, comment.trackId) &&
+                Objects.equals(userId, comment.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(commentDate, content, trackId, userId);
     }
 }

@@ -39,7 +39,7 @@ public class ChooseAlbumFormCommand implements Command {
         String trackIdParameter = request.getParameter(PARAMETER_TRACK_ID);
         Long trackId;
         if(trackIdParameter !=null){
-             trackId = Long.valueOf(trackIdParameter);
+            trackId = Long.valueOf(trackIdParameter);
             TrackDto track = trackService.getTrackDtoById(trackId, userId);
             request.setAttribute(ATTRIBUTE_TRACK, track);
             List<Long> artists = trackService.getTrackArtistsIds(trackId, userId);

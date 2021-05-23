@@ -32,7 +32,7 @@ public class AddTrackToAlbumCommand implements Command {
         if (trackIdParameter != null && albumIdParameter != null) {
             Long trackId = Long.valueOf(trackIdParameter);
             Long albumId = Long.valueOf(albumIdParameter);
-            if (musicCollectionService.checkTrackInAlbum(trackId, albumId)) {
+            if (musicCollectionService.checkTrackInAlbum(albumId, trackId)) {
                 LOGGER.debug("add to collection FALSE");
                 return CommandResult.redirect(PAGE + albumId);
             }

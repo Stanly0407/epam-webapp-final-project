@@ -34,9 +34,6 @@
                     <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
                             href="<c:url value='controller?command=editArtist&id=${artist.id}'/>">${edit}</a>
                     </div>
-                    <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
-                            href="<c:url value='controller?command=deleteArtist&id=${artist.id}'/>">${delete}</a>
-                    </div>
                 </c:if>
             </div>
         </div>

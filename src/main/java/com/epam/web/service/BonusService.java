@@ -1,23 +1,22 @@
 package com.epam.web.service;
 
-import com.epam.web.dao.*;
-import com.epam.web.dto.OrderDto;
-import com.epam.web.dto.TrackDto;
-import com.epam.web.entities.*;
+import com.epam.web.dao.BonusDao;
+import com.epam.web.dao.DaoHelper;
+import com.epam.web.dao.DaoHelperFactory;
+import com.epam.web.entities.Bonus;
+import com.epam.web.entities.BonusType;
+import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class BonusService {
-    private static final Logger LOGGER = LogManager.getLogger(BonusService.class);
+
     private static final int PERCENT = 100;
     private static final int DEFAULT_DISCOUNT_VALUE = 1;
     private static final int DEFAULT_FREE_TRACK_PRICE = 0;
@@ -92,7 +91,7 @@ public class BonusService {
             List<Track> updatedTrackList = new ArrayList<>();
             for (Track track : tracks) {
                 BigDecimal oldPrice = track.getPrice();
-                BigDecimal newPrice = discount.multiply(oldPrice).setScale(2, RoundingMode.HALF_UP );
+                BigDecimal newPrice = discount.multiply(oldPrice).setScale(2, RoundingMode.HALF_UP);
                 track.setPrice(newPrice);
                 updatedTrackList.add(track);
             }
@@ -113,7 +112,7 @@ public class BonusService {
                 freeTracksAmount = bonus.getAmount();
             }
             BigDecimal defaultFreeTrackPrice = new BigDecimal(DEFAULT_FREE_TRACK_PRICE);
-            for (int i = freeTracksAmount-1; i >= 0; i--) {
+            for (int i = freeTracksAmount - 1; i >= 0; i--) {
                 Track track = tracks.get(i);
                 track.setPrice(defaultFreeTrackPrice);
             }

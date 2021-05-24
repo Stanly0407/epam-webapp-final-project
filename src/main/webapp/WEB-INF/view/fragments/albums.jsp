@@ -22,9 +22,6 @@
                             <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
                                     href="<c:url value='controller?command=editAlbum&id=${album.id}'/>">${edit}</a>
                             </div>
-                            <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"
-                                    href="<c:url value='controller?command=deleteAlbum&id=${album.id}'/>">${delete}</a>
-                            </div>
                         </c:if>
                     </div>
 

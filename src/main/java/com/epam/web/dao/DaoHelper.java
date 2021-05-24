@@ -7,6 +7,7 @@ import com.epam.web.mapper.*;
 
 import java.sql.SQLException;
 
+
 public class DaoHelper implements AutoCloseable {
 
     private ProxyConnection proxyConnection;

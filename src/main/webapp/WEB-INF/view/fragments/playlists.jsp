@@ -13,8 +13,6 @@
                 <div class="container_card">
                     <input type="hidden" name="${playlist.id}"/>
                     <h4><b>${playlist.title}</b></h4>
-
-
                     <div style="margin-top: 8px;">
                         <c:if test="${sessionScope.role eq 'ADMIN'}">
                             <div><a style="font-size: 14px; line-height: 24px;color:  #48D5CB; text-decoration: none;"

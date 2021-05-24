@@ -11,10 +11,12 @@
 <fmt:message bundle="${local}" key="local.placeholder.enterTitle" var="enterTitle"/>
 <fmt:message bundle="${local}" key="local.select.default.selectArtist" var="selectArtist"/>
 <fmt:message bundle="${local}" key="local.a.delete" var="delete"/>
+<fmt:message bundle="${local}" key="local.messageError.album.alreadyExistMessage" var="alreadyExistInAlbum"/>
+<fmt:message bundle="${local}" key="album.message.empty" var="emptyAlbum"/>
+<fmt:message bundle="${local}" key="album.headline.editAlbum" var="editAlbum"/>
+<fmt:message bundle="${local}" key="local.p.poster" var="addPoster"/>
+<fmt:message bundle="${local}" key="album.p.currentArtist" var="currentArtist"/>
 
-<script type="text/javascript">
-    <%@include file="/WEB-INF/js/pageScripts.js"%>
-</script>
 
 <html>
 <body>
@@ -23,11 +25,11 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
-<h1 class="headlines-type">Edit Album</h1>
+<h1 class="headlines-type" style="font-size: 22px">${editAlbum}</h1>
 
 
 <c:if test="${alreadyExist}">
-    <p style="color: red; margin-left: 20%;">Ошибка. Данный трек уже добавлен в альбом. Error. This track has already been added to the album.</p>
+    <p style="color: red; margin-left: 20%; margin-top: 20px">${alreadyExistInAlbum}</p>
 </c:if>
 
 <c:if test="${not empty album.id && not empty trackList}">
@@ -35,7 +37,7 @@
 </c:if>
 
 <c:if test="${not empty album.id &&  empty trackList}">
-    <p>Album is empty</p>
+    <p style="margin-top: 20px; margin-left: 35%; font-size: 20px;">${emptyAlbum}...</p>
 </c:if>
 
 <div class="edit-track-form">
@@ -44,22 +46,22 @@
     <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditAlbum" method="post">
         <input class="common-input" type="hidden" value="${album.id}" name="albumId" required/>
 
-        <div class="common-label"><label for="releaseDate">${release}</label></div>
+        <div class="common-label" style="margin-top: 20px"><label for="releaseDate">${release}</label></div>
         <input class="common-input" type="date" id="releaseDate" name="releaseDate" value="${album.releaseDate}"
                required/>
 
-        <div class="common-label"><label for="albumTitle">${title}</label></div>
+        <div class="common-label" style="margin-top: 20px"><label for="albumTitle">${title}</label></div>
         <input class="common-input" type="text" id="albumTitle" name="albumTitle" placeholder="${enterTitle}"
                value="${album.title}" required/>
 
         <c:if test="${not empty album.id}">
-            <div class="common-label">
-                <p style="color: #CF469D">${album.artist.name}</p>
+            <div class="common-label" style="margin-top: 20px">
+                <p style="color: #CF469D; margin-top: 15px">${currentArtist}: ${album.artist.name}</p>
             </div>
         </c:if>
 
         <div>
-            <select class="select-artist" name="artistId" required>
+            <select class="select-artist" style="margin-top: 20px" name="artistId" required>
                 <option selected disabled>${selectArtist}</option>
                 <c:forEach items="${artists}" var="artist">
                     <option value="${artist.id}">${artist.name}</option>
@@ -67,8 +69,8 @@
             </select>
         </div>
 
-        <div>
-            <p>Add poster</p>
+        <div style="margin-top: 20px; margin-bottom: 10px; margin-left: 7px; color: aquamarine;">
+            <p>${addPoster}:</p>
         </div>
 
         <div class="common-label"><label for="file">${uploadInfo}</label></div>

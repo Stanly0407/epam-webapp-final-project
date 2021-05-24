@@ -13,6 +13,8 @@ public class RefillBalanceCommand implements Command {
 
     private static final String USER_ACCOUNT_PAGE_COMMAND = "/controller?command=userAccount";
     private static final String REFILL_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
+    private static final String SUCCESSFUL_VALIDATION = "successful";
+    private static final String PARAMETER_USER_ID = "userId";
 
     private final UserService userService;
 
@@ -33,9 +35,9 @@ public class RefillBalanceCommand implements Command {
         String cvv = request.getParameter("cvv");
         String validatePaymentDetailsMessage = userService.validatePaymentDetails(paymentAmount, cardNumber, nameOnCard, lastnameOnCard, cvv);
 
-        if ("successful".equals(validatePaymentDetailsMessage)){
+        if (SUCCESSFUL_VALIDATION.equals(validatePaymentDetailsMessage)) {
             HttpSession session = request.getSession();
-            Long userId = (Long) session.getAttribute("userId");
+            Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);
             userService.refillUserBalance(paymentAmount, userId);
             return CommandResult.redirect(USER_ACCOUNT_PAGE_COMMAND);
         } else {

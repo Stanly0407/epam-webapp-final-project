@@ -82,7 +82,6 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.ADD_TRACK, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK_FROM_CART, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PAY_ORDER, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.PAYMENT_HISTORY, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PURCHASED_TRACKS, Arrays.asList(Role.USER));
 
             COMMANDS_PERMISSIONS.put(CommandType.ADD_COMMENT, Arrays.asList(Role.USER));
@@ -101,7 +100,7 @@ public class RoleFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
         filterConfig = config;
     }
 

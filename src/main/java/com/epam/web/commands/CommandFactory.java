@@ -9,7 +9,6 @@ import com.epam.web.service.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 public class CommandFactory {
     private static final Logger LOGGER = LogManager.getLogger(CommandFactory.class);
     private static final String ADMIN_MAIN_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
@@ -36,7 +35,6 @@ public class CommandFactory {
                 return new AllMusicCommand(new TrackService(new DaoHelperFactory()));
             case CHANGE_LANGUAGE:
                 return new ChangeLanguageCommand();
-            // USER
             case USER_MAIN_PAGE:
                 return new UserMainPageCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case SEARCH_MUSIC:
@@ -72,7 +70,6 @@ public class CommandFactory {
                 return new ArtistMusicCommand(new TrackService(new DaoHelperFactory()));
             case COLLECTION_MUSIC:
                 return new CollectionMusicCommand(new TrackService(new DaoHelperFactory()));
-            // ORDER
             case CART:
                 return new CartPageCommand(new OrderService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()), new BonusService(new DaoHelperFactory()));
             case ADD_TRACK:
@@ -89,11 +86,8 @@ public class CommandFactory {
                 return new ActivateFreeTracksCommand();
             case DEACTIVATE_FREE_TRACKS:
                 return new DeactivateFreeTracksCommand();
-            case PAYMENT_HISTORY:
-                return new PaidOrderTracksCommand(new OrderService(new DaoHelperFactory()));
             case PURCHASED_TRACKS:
                 return new PaidMusicCommand(new TrackService(new DaoHelperFactory()));
-            //ADMIN
             case ADMIN_MAIN_PAGE:
                 return new ShowPageCommand(ADMIN_MAIN_PAGE);
             case EDIT_TRACK:
@@ -124,7 +118,6 @@ public class CommandFactory {
                 return new EditPlaylistFormCommand(new TrackService(new DaoHelperFactory()), new MusicCollectionService(new DaoHelperFactory()));
             case ADD_EDIT_PLAYLIST:
                 return new AddEditPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
-
             case CHOOSE_ALBUM:
                 return new ChooseAlbumFormCommand(new MusicCollectionService(new DaoHelperFactory()), new TrackService(new DaoHelperFactory()));
             case CHOOSE_PLAYLIST:
@@ -133,7 +126,6 @@ public class CommandFactory {
                 return new AddTrackToAlbumCommand(new MusicCollectionService(new DaoHelperFactory()));
             case ADD_TO_PLAYLIST:
                 return new AddTrackToPlaylistCommand(new MusicCollectionService(new DaoHelperFactory()));
-
             case USER_LIST:
                 return new UserListCommand(new UserService(new DaoHelperFactory()));
             case CHANGE_USER_STATUS:
@@ -148,24 +140,29 @@ public class CommandFactory {
                 return new AddFreeTrackCommand(new BonusService(new DaoHelperFactory()));
             case DELETE_BONUS:
                 return new DeleteBonusCommand(new BonusService(new DaoHelperFactory()));
-
             default:
                 throw new IllegalArgumentException("Unknown command type = " + type);
         }
     }
 
-    private CommandType getCommandType(String type) {
-        String[] commandsParts = type.split(SPLIT_CAMEL_CASE_PATTERN);
-        StringBuilder commandTypeFinal = new StringBuilder();
-        String command;
-        for (String part : commandsParts) {
-            commandTypeFinal.append(part).append(LOW_LINE);
-        }
-        commandTypeFinal.deleteCharAt(commandTypeFinal.length() - LAST_INDEX);
-        String temporaryString = new String(commandTypeFinal);
-        command = temporaryString.toUpperCase();
-        return CommandType.valueOf(command);
+    public CommandType getCommandType(String type) {
+        String command = null;
+        try{
+            String[] commandsParts = type.split(SPLIT_CAMEL_CASE_PATTERN);
+            StringBuilder commandTypeFinal = new StringBuilder();
 
+            for (String part : commandsParts) {
+                commandTypeFinal.append(part).append(LOW_LINE);
+            }
+            commandTypeFinal.deleteCharAt(commandTypeFinal.length() - LAST_INDEX);
+            String temporaryString = new String(commandTypeFinal);
+            command = temporaryString.toUpperCase();
+
+        } catch (IllegalArgumentException e){
+            LOGGER.error("ERROR" + e + "/// MESSAGE" + e.getMessage());
+        }
+        return CommandType.valueOf(command);
     }
+
 
 }

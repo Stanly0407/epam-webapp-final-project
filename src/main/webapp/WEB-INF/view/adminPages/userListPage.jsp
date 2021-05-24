@@ -5,7 +5,18 @@
 <fmt:setBundle basename="pagecontent" var="local"/>
 <fmt:message bundle="${local}" key="local.button.block" var="block"/>
 <fmt:message bundle="${local}" key="local.button.unblock" var="unblock"/>
-
+<fmt:message bundle="${local}" key="admin.userList.login" var="login"/>
+<fmt:message bundle="${local}" key="admin.userList.name" var="name"/>
+<fmt:message bundle="${local}" key="admin.userList.lastname" var="lastname"/>
+<fmt:message bundle="${local}" key="admin.userList.balance" var="balance"/>
+<fmt:message bundle="${local}" key="admin.userList.comments" var="comments"/>
+<fmt:message bundle="${local}" key="admin.userList.purchasedTracks" var="purchasedTracks"/>
+<fmt:message bundle="${local}" key="admin.userList.discount" var="discount"/>
+<fmt:message bundle="${local}" key="admin.userList.freeTracks" var="freeTracks"/>
+<fmt:message bundle="${local}" key="admin.userList.addDiscount" var="addDiscount"/>
+<fmt:message bundle="${local}" key="admin.userList.deleteDiscount" var="deleteDiscount"/>
+<fmt:message bundle="${local}" key="admin.userList.addFreeTracks" var="addFreeTracks"/>
+<fmt:message bundle="${local}" key="admin.userList.deleteFreeTracks" var="deleteFreeTracks"/>
 
 <html>
 <body>
@@ -18,14 +29,14 @@
         <tr>
             <th></th>
             <th></th>
-            <th>Login</th>
-            <th>Name</th>
-            <th>Lastname</th>
-            <th>Balance</th>
-            <th>Comments</th>
-            <th>Tracks</th>
-            <th><p style="text-align: center;">Discount</p></th>
-            <th><p style="text-align: center;">Free Tracks</p></th>
+            <th>${login}</th>
+            <th>${name}</th>
+            <th>${lastname}</th>
+            <th>${balance}</th>
+            <th>${comments}</th>
+            <th>${purchasedTracks}</th>
+            <th><p style="text-align: center;">${discount}</p></th>
+            <th><p style="text-align: center;">${freeTracks}</p></th>
             <th></th>
         </tr>
         <c:forEach items="${userList}" var="user">
@@ -44,7 +55,7 @@
                         <form action="/musicwebapp/controller?command=addDiscount" method="post">
                             <input type="hidden" name="userId" value="${user.id}"/>
                             <input type="number" min="1" max="100" class="user_bonus_input" name="discountAmount"/>
-                            <button class="button-main" style="height: 36px" type="submit">Add Discount</button>
+                            <button class="button-main" style="height: 40px; font-size: 15px" type="submit">${addDiscount}</button>
                         </form>
                     </td>
                 </c:if>
@@ -55,9 +66,8 @@
                                 <p>${user.bonusDiscount.amount}</p>
                             </div>
                             <div>
-                                <a class="header__link__button"
-                                   href="<c:url value='controller?command=deleteBonus&id=${user.bonusDiscount.id}'/>">Delete
-                                    Discount</a>
+                                <a class="header__link__button" style="font-size: 15px"
+                                   href="<c:url value='controller?command=deleteBonus&id=${user.bonusDiscount.id}'/>">${deleteDiscount}</a>
                             </div>
                         </div>
                     </td>
@@ -69,7 +79,7 @@
                             <input type="hidden" name="userId" value="${user.id}"/>
                             <input type="number" min="1" max="99" id="discount" class="user_bonus_input"
                                    name="freeTracksAmount"/>
-                            <button class="button-main" style="height: 36px" type="submit">Add Free Tracks</button>
+                            <button class="button-main" style="height: 40px; font-size: 15px" type="submit">${addFreeTracks}</button>
                         </form>
                     </td>
                 </c:if>
@@ -80,21 +90,20 @@
                                 <p>${user.bonusFreeTracks.amount}</p>
                             </div>
                             <div>
-                                <a class="header__link__button"
-                                   href="<c:url value='controller?command=deleteBonus&id=${user.bonusFreeTracks.id}'/>">Delete
-                                    Free Tracks</a>
+                                <a class="header__link__button" style="font-size: 15px"
+                                   href="<c:url value='controller?command=deleteBonus&id=${user.bonusFreeTracks.id}'/>">${deleteFreeTracks}</a>
                             </div>
                         </div>
                     </td>
                 </c:if>
 
                 <c:if test="${user.status}">
-                    <td><a class="header__link__button"
+                    <td><a class="header__link__button" style="font-size: 15px"
                            href="<c:url value='controller?command=changeUserStatus&id=${user.id}&status=${user.status}'/>">${unblock}</a>
                     </td>
                 </c:if>
                 <c:if test="${!user.status}">
-                    <td><a class="pink_button"
+                    <td><a class="pink_button" style="font-size: 15px"
                            href="<c:url value='controller?command=changeUserStatus&id=${user.id}&status=${user.status}'/>">${block}</a>
                     </td>
                 </c:if>

@@ -47,7 +47,6 @@ public enum CommandType {
     ADD_TRACK("addTrack"),
     DELETE_TRACK_FROM_CART("deleteTrackFromCart"),
     PAY_ORDER("payOrder"),
-    PAYMENT_HISTORY("paymentHistory"),
     PURCHASED_TRACKS("purchasedTracks"),
     ALL_MUSIC("allMusic"),
     NEXT_PAGE("nextPage"),

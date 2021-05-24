@@ -136,26 +136,6 @@ public class OrderService {
     }
 
 
-    public List<OrderDto> getPaidOrders(Long userId) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            OrderDao orderDao = daoHelper.createOrderDao();
-            TrackDao trackDao = daoHelper.createTrackDao();
-            List<Order> paidOrdersList = orderDao.findPaidOrders(userId);
-            List<OrderDto> paidOrders = new ArrayList<>();
-            for (Order order : paidOrdersList) {
-                Long orderId = order.getId();
-                List<Track> tracks = trackDao.findPaidTracksByOrderId(orderId);
-                BigDecimal totalSum = tracks.stream().map(Track::getPrice).reduce(BigDecimal::add).get();
-                int paidTracksAmount = tracks.size();
-                OrderDto orderDto = createOrderDto(order, totalSum, paidTracksAmount);
-                paidOrders.add(orderDto);
-            }
-            return paidOrders;
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
     public Long getCurrentCartId(Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             OrderDao orderDao = daoHelper.createOrderDao();

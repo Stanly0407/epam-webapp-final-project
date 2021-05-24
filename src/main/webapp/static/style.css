@@ -756,7 +756,7 @@ input[type="file"] {
     background-color: #1A214C;
     width: 650px;
     padding: 45px;
-    height: 450px;
+    height: 470px;
 }
 
 .payment-card_sum_input {
@@ -772,7 +772,7 @@ input[type="file"] {
 
 .payment-card_number {
     border: none;
-    width: 100px;
+    width: 110px;
     height: 50px;
     padding: 25px;
     margin-right: 10px;

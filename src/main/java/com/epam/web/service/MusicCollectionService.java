@@ -4,7 +4,6 @@ import com.epam.web.dao.DaoHelper;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.dao.MusicCollectionDao;
 import com.epam.web.entities.MusicCollection;
-import com.epam.web.entities.MusicCollectionType;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
 
@@ -13,12 +12,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class MusicCollectionService {
+
     private static final String ALBUM_LIST = "ALBUM";
     private static final String PLAYLIST_LIST = "PLAYLIST";
     private static final String ALBUM_SEARCH_CONDITION = "Album";
     private static final String PLAYLIST_SEARCH_CONDITION = "Playlist";
-    private static final int PAGE_LIMIT = 7;
-    private static final int LAST_PAGE = 1;
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -162,6 +160,7 @@ public class MusicCollectionService {
             throw new ServiceException(e);
         }
     }
+
     public boolean checkTrackInPlaylist(Long playlistId, Long trackId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
@@ -176,8 +175,8 @@ public class MusicCollectionService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             MusicCollectionDao musicCollectionDao = daoHelper.createMusicCollectionDao();
             List<MusicCollection> albums = new ArrayList<>();
-           for(Long artistId : artists){
-                List<MusicCollection> artistAlbums  = musicCollectionDao.getArtistAlbums(artistId);
+            for (Long artistId : artists) {
+                List<MusicCollection> artistAlbums = musicCollectionDao.getArtistAlbums(artistId);
                 albums.addAll(artistAlbums);
             }
             return albums;
@@ -185,6 +184,5 @@ public class MusicCollectionService {
             throw new ServiceException(e);
         }
     }
-
 
 }

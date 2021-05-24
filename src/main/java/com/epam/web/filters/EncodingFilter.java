@@ -3,9 +3,9 @@ package com.epam.web.filters;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class ContentFilter implements Filter {
+public class EncodingFilter implements Filter {
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
     }
 
     @Override

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Order extends Entity {
-
     public static final String TABLE = "purchase_order";
     public static final String ID = "id";
     public static final String ORDER_DATE = "order_date";
@@ -51,8 +50,12 @@ public class Order extends Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Order order = (Order) o;
         return isPaid == order.isPaid &&
                 Objects.equals(orderDate, order.orderDate) &&
@@ -64,12 +67,4 @@ public class Order extends Entity {
         return Objects.hash(orderDate, isPaid, userId);
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "orderDate=" + orderDate +
-                ", isPaid=" + isPaid +
-                ", userId=" + userId +
-                '}';
-    }
 }

@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Track extends Entity {
-
     public static final String TABLE = "track";
     public static final String ID = "id";
     public static final String RELEASE_DATE = "release_date";
@@ -63,8 +62,12 @@ public class Track extends Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Track track = (Track) o;
         return Objects.equals(releaseDate, track.releaseDate) &&
                 Objects.equals(title, track.title) &&
@@ -77,13 +80,4 @@ public class Track extends Entity {
         return Objects.hash(releaseDate, title, price, filename);
     }
 
-    @Override
-    public String toString() {
-        return "Track{" +
-                "releaseDate=" + releaseDate +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", filename='" + filename + '\'' +
-                '}';
-    }
 }

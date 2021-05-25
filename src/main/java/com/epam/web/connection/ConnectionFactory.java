@@ -17,13 +17,13 @@ public class ConnectionFactory {
     private static final String PROPERTY_URL = "CONNECTION_URL";
     private static final String PROPERTIES_USER = "USER";
     private static final String PROPERTIES_PASSWORD = "PASSWORD";
-
     private static String[] PROPERTIES = new String[0];
+
     static {
         try {
             PROPERTIES = getConnectionProperties();
         } catch (IOException e) {
-            LOGGER.error("ERROR - read properties : " + e + " ||| MESSAGE: " + e.getMessage());
+            LOGGER.error("ERROR (read properties): " + e + " | MESSAGE: " + e.getMessage());
         }
     }
 
@@ -36,7 +36,6 @@ public class ConnectionFactory {
             throw new DaoException(e);
         }
     }
-
 
     private static String[] getConnectionProperties() throws IOException {
         try (InputStream input = ConnectionFactory.class.getClassLoader().getResourceAsStream(PROPERTIES_FILENAME)) {

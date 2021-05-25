@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * An interface {@code Command} defines a processing request method for from the client and returns concrete processing result for response to the client
+ * An interface {@code Command} defines a processing request method for from the client
+ * and returns concrete processing result for response to the client
  *
  * @author Sviatlana Shelestava
  * @see com.epam.web.commands.CommandFactory

@@ -4,7 +4,6 @@ import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Artist;
-import com.epam.web.entities.Track;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.ArtistService;
 import com.epam.web.service.TrackService;
@@ -13,11 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 
 public class EditTrackFormCommand implements Command {
-
     private static final String EDIT_TRACK_FORM_PAGE = "/WEB-INF/view/fragments/trackForm.jsp";
     private static final String ADMIN_MAIN_PAGE_PAGE = "/WEB-INF/view/adminPages/adminMainPage.jsp";
     private static final String PARAMETER_TRACK_ID = "id";
@@ -28,7 +25,6 @@ public class EditTrackFormCommand implements Command {
 
     private final TrackService trackService;
     private final ArtistService artistService;
-
 
     public EditTrackFormCommand(TrackService trackService, ArtistService artistService) {
         this.trackService = trackService;

@@ -10,7 +10,6 @@ import java.util.Optional;
 
 
 public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
-
     private static final String FIND_ARTIST_BY_ID = "SELECT id, name, filename FROM artist WHERE id = ?";
     private static final String FIND_ARTIST_BY_NAME = "SELECT id, name, filename FROM artist WHERE name = ?";
     private static final String FIND_ARTISTS_BY_TRACK_ID = "SELECT a.id, a.name, a.filename FROM artist a INNER JOIN track_artist ta " +
@@ -35,10 +34,6 @@ public class ArtistDao extends AbstractDao<Artist> implements Dao<Artist> {
     public List<Artist> getByTrackId(Long id) throws DaoException {
         return executeQuery(FIND_ARTISTS_BY_TRACK_ID, id);
     }
-
-//    public Optional<Artist> getArtistById(Long id) throws DaoException {
-//        return executeForSingleResult(FIND_ARTIST_BY_ID, id);
-//    }
 
     public void updateArtist(String newName, String filename, Long id) throws DaoException {
         executeUpdate(UPDATE_ARTIST, newName, filename, id);

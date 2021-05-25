@@ -3,7 +3,6 @@ package com.epam.web.entities;
 import java.util.Objects;
 
 public class Artist extends Entity {
-
     public static final String TABLE = "artist";
     public static final String ID = "id";
     public static final String NAME = "name";
@@ -14,7 +13,7 @@ public class Artist extends Entity {
 
     public Artist() {
     }
-    
+
     public Artist(Long id, String name, String filename) {
         super(id);
         this.name = name;
@@ -39,8 +38,12 @@ public class Artist extends Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Artist artist = (Artist) o;
         return Objects.equals(filename, artist.filename) &&
                 Objects.equals(name, artist.name);

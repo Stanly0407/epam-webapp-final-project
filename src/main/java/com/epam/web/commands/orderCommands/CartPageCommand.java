@@ -33,6 +33,8 @@ public class CartPageCommand implements Command {
     private static final String BONUS_FREE_TRACK_FIELD = "bonusFreeTracksExist";
     private static final String BONUS_FREE_TRACK = "bonusFreeTracks";
     private static final String CHECK_ACTIVATION_FREE_TRACK_BONUS_POSSIBILITY = "checkMessage";
+    private static final String ACTIVATED_DISCOUNT = "activatedDiscountBonus";
+    private static final String ACTIVATED_FREE_TRACKS = "activatedFreeTracksBonus";
 
     private final OrderService orderService;
     private final TrackService trackService;
@@ -53,21 +55,16 @@ public class CartPageCommand implements Command {
             orderId = orderService.getCurrentCartId(userId);
             session.setAttribute(ATTRIBUTE_ORDER_ID, orderId);
         }
-
         List<Track> orderedTracksClear = trackService.getOrderedTracksList(userId);
-        LOGGER.debug("orderedTracksClear " + orderedTracksClear);
         List<Track> orderedTracks = orderedTracksClear;
-
-        Boolean activatedDiscountBonus = (Boolean) session.getAttribute("activatedDiscountBonus");
+        Boolean activatedDiscountBonus = (Boolean) session.getAttribute(ACTIVATED_DISCOUNT);
         LOGGER.debug("activatedDiscountBonus " + activatedDiscountBonus);
-        Boolean activatedFreeTracksBonus = (Boolean) session.getAttribute("activatedFreeTracksBonus");
+        Boolean activatedFreeTracksBonus = (Boolean) session.getAttribute(ACTIVATED_FREE_TRACKS);
         LOGGER.debug("activatedFreeTracksBonus " + activatedFreeTracksBonus);
-
         Optional<Bonus> userDiscountBonus = bonusService.getUnusedUserDiscountBonus(userId);
         Optional<Bonus> userFreeTracksBonus = bonusService.getUnusedFreeTracksBonus(userId);
         Bonus bonusFreeTracks = null;
         if (!orderedTracksClear.isEmpty()) {
-//1 Активируем поля скидок если они вообще есть
             if (userDiscountBonus.isPresent()) {
                 Bonus bonusDiscount = userDiscountBonus.get();
                 request.setAttribute(BONUS_DISCOUNT_FIELD, true);
@@ -79,50 +76,40 @@ public class CartPageCommand implements Command {
                 request.setAttribute(BONUS_FREE_TRACK, bonusFreeTracks);
             }
         } else if (userDiscountBonus.isPresent() || userFreeTracksBonus.isPresent()) {
-            //  помимо сообщения что корзина пустая + сообщение в корзине - у вас есть бонусы
             request.setAttribute(BONUS_MESSAGE, true);
         }
-//2 Проерка активации скидок и применение если есть к списку
+
         if (activatedDiscountBonus == null) {
-            LOGGER.debug("activatedDiscountBonus == null");
-            session.setAttribute("activatedDiscountBonus", false);
+            session.setAttribute(ACTIVATED_DISCOUNT, false);
             activatedDiscountBonus = false;
         }
         if (activatedFreeTracksBonus == null) {
-            LOGGER.debug("activatedFreeTracksBonus == null");
-            session.setAttribute("activatedFreeTracksBonus", false);
+            session.setAttribute(ACTIVATED_FREE_TRACKS, false);
             activatedFreeTracksBonus = false;
         }
 
-        //2.1 Проверка что количество в корзине треков больше либо равно количеству бесплатных треков
         if (activatedFreeTracksBonus && bonusFreeTracks != null) {
             int orderedTracksAmount = orderedTracksClear.size();
             int bonusFreeTracksAmount = bonusFreeTracks.getAmount();
-            session.setAttribute("activatedFreeTracksBonus", false);
-            request.setAttribute(CHECK_ACTIVATION_FREE_TRACK_BONUS_POSSIBILITY, true);
-            activatedFreeTracksBonus = false;
+            if (orderedTracksAmount < bonusFreeTracksAmount) {
+                session.setAttribute(ACTIVATED_FREE_TRACKS, false);
+                request.setAttribute(CHECK_ACTIVATION_FREE_TRACK_BONUS_POSSIBILITY, true);
+                activatedFreeTracksBonus = false;
+            }
         }
-        //
 
         if (activatedDiscountBonus && activatedFreeTracksBonus) {
             List<Track> temporary = bonusService.applyBonusFreeTracks(orderedTracksClear, userId);
             orderedTracks = bonusService.applyBonusDiscount(temporary, userId);
-            LOGGER.debug("1+2 orderedTracks " + orderedTracks);
         } else if (activatedDiscountBonus) {
-            LOGGER.debug("1 before orderedTracks " + orderedTracks);
             orderedTracks = bonusService.applyBonusDiscount(orderedTracksClear, userId);
-            LOGGER.debug("1 after orderedTracks " + orderedTracks);
         } else if (activatedFreeTracksBonus) {
             orderedTracks = bonusService.applyBonusFreeTracks(orderedTracksClear, userId);
-            LOGGER.debug("2 orderedTracks " + orderedTracks);
         }
 
-        //3 устанавливаем обновленный список треков с новыми ценами если есть скидки
         List<TrackDto> orderedTracksDto = trackService.createTrackDtoList(orderedTracks, userId);
         request.setAttribute(ATTRIBUTE_ORDERED_TRACK_LIST, orderedTracksDto);
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());
-
-        //4 считаем сумму корзины для юзера
         if (!orderedTracksDto.isEmpty()) {
             BigDecimal orderSum = orderService.sumOfOrderedTracks(orderedTracks);
             request.setAttribute(ORDER_AMOUNT, orderSum);

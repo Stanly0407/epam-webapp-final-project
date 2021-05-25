@@ -2,13 +2,13 @@ package com.epam.web.entities;
 
 import java.io.Serializable;
 
-/**This abstract Class {@code Entity} is the root of all entities of this application
+/**
+ * This abstract Class {@code Entity} is the root of all entities of this application
  * and defines id field as mandatory field of every subclass.
  *
  * @author Sviatlana Shelestava
  * @since 1.0
  */
-
 public abstract class Entity implements Cloneable, Serializable {
 
     /**
@@ -31,6 +31,7 @@ public abstract class Entity implements Cloneable, Serializable {
 
     /**
      * public method to access the value of a private variable.
+     *
      * @return a unique entity identifier;
      */
     public Long getId() {

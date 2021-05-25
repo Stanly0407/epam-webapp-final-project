@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class UserMusicCommand implements Command {
-
     private static final String USER_MUSIC_PAGE = "/WEB-INF/view/userPages/musicList.jsp";
     private static final String ATTRIBUTE_TRACK_LIST = "purchasedTracks";
     private static final String ATTRIBUTE_TRACK = "track";

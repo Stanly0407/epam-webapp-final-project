@@ -56,13 +56,13 @@ public class OrderDaoTest {
     }
 
     @Test
-    public void addToOrderDeleteTrackTest() throws DaoException {
+    public void addDeleteTrackFromOrderTest() throws DaoException {
         orderDao.addTrackToOrder(TEST_ID, TEST_ID);
         Optional<Order> actualOrder = orderDao.getCurrentOrder(TEST_ID);
         Order actual = actualOrder.get();
         Long actualId = actual.getId();
         Assert.assertEquals(actual, testOrder);
-        orderDao.removeById(actualId);
+        orderDao.deleteTrackFromOrder(actualId, TEST_ID);
     }
 
 }

@@ -4,9 +4,7 @@
 <%@ taglib prefix="ctg" uri="customTags" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
-
 <fmt:message bundle="${local}" key="local.a.edit" var="edit"/>
-
 
 <html>
 <body>
@@ -17,12 +15,6 @@
 <div class="headlines-type">
     <p>Choose album for track:</p>
 </div>
-
-
-<c:if test="${alreadyExist}">
-    <p style="color: red; margin-left: 20%;">Ошибка. Данный трек уже добавлен в альбом. Error. This track has already been added to the album.</p>
-</c:if>
-
 
 <div class="edit-track-form">
     <div>

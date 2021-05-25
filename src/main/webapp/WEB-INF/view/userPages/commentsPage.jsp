@@ -4,9 +4,9 @@
 <%@ taglib prefix="ctg" uri="customTags" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
-<fmt:message bundle="${local}" key="local.button.addToCart" var="add"/>
-<fmt:message bundle="${local}" key="local.purchased" var="purhased"/>
-<fmt:message bundle="${local}" key="local.button.deleteFromCart" var="delete"/>
+<fmt:message bundle="${local}" key="cart.button.addToCart" var="add"/>
+<fmt:message bundle="${local}" key="cart.purchased" var="purhased"/>
+<fmt:message bundle="${local}" key="cart.button.deleteFromCart" var="delete"/>
 <fmt:message bundle="${local}" key="local.placeholder.enterComment" var="enterComment"/>
 <fmt:message bundle="${local}" key="local.button.save" var="save"/>
 <fmt:message bundle="${local}" key="local.commentsInfo" var="commentsInfo"/>

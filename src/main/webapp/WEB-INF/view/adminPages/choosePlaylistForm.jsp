@@ -4,9 +4,7 @@
 <%@ taglib prefix="ctg" uri="customTags" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
-
 <fmt:message bundle="${local}" key="local.a.edit" var="edit"/>
-
 
 <html>
 <body>
@@ -50,7 +48,8 @@
                 </select>
             </div>
             <div>
-                <button class="button-main" style="margin-top: 130px; margin-left: 18px" type="submit">Add Track</button>
+                <button class="button-main" style="margin-top: 130px; margin-left: 18px" type="submit">Add Track
+                </button>
             </div>
         </form>
     </div>

@@ -53,7 +53,7 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
      * @param query  an SQL statement to be sent to the database, typically an SQL <code>SELECT</code> statement
      * @param params any number of parameters for setting the designated to the given query for execute
      * @return a collection <code>List</code> contains the entities produced by the given query or
-     *         empty collection <code>List</code>;
+     * empty collection <code>List</code>;
      * @throws DaoException if a database access error occurs,
      *                      this method is called on a closed <code>PreparedStatement</code> and throw new DaoException.
      */
@@ -67,7 +67,6 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
             }
             return entities;
         } catch (SQLException e) {
-            LOGGER.debug(this.getClass() + "  " + e.getMessage() + e);
             throw new DaoException(e);
         }
     }
@@ -116,9 +115,9 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
      * @param params any number of parameters for setting the designated to the given
      *               query for execute
      * @return an <code>Optional</code> contains the entity produced by the given query
-     *         or <code>Optional</code> contain a null value;
+     * or <code>Optional</code> contain a null value;
      * @throws DaoException if a database access error occurs,
-     *         this method is called on a closed <code>PreparedStatement</code> and throw new DaoException.
+     *                      this method is called on a closed <code>PreparedStatement</code> and throw new DaoException.
      */
     protected Optional<T> executeForSingleResult(String query, Object... params) throws DaoException {
         List<T> items = executeQuery(query, params);

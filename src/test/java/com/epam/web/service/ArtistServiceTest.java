@@ -14,8 +14,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 public class ArtistServiceTest {
     private static DaoHelperFactory mockDaoHelperFactory;
@@ -23,7 +22,7 @@ public class ArtistServiceTest {
     private static ArtistDao mockArtistDao;
     private static ArtistService artistService;
     private static Artist mockArtist;
-    private final static Long MOCK_ID = (long) 1;
+    private final static Long MOCK_ID = 1L;
 
     @BeforeClass
     public static void init() {
@@ -36,13 +35,11 @@ public class ArtistServiceTest {
         mockArtist = Mockito.mock(Artist.class);
     }
 
-
     @Test
     public void testGetArtistById() throws DaoException, ServiceException {
         when(mockArtistDao.getById(anyLong())).thenReturn(Optional.of(mockArtist));
         Artist artist = artistService.getArtistById(MOCK_ID);
         Assert.assertNotNull(artist);
     }
-
 
 }

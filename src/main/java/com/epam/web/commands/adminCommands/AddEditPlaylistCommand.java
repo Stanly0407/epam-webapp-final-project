@@ -23,6 +23,7 @@ public class AddEditPlaylistCommand implements Command {
     private static final String SHOW_PLAYLISTS_PAGE_COMMAND = "/controller?command=allPlaylists";
     private static final String PLAYLIST_DIRECTORY = "D:/EPAM-training/final_project/project_data/img/playlists/";
     private static final String PARAMETER_PLAYLIST_RELEASE_DATE = "releaseDate";
+    private static final String EMPTY_FIELD = "";
 
     private final MusicCollectionService musicCollectionService;
 
@@ -44,7 +45,11 @@ public class AddEditPlaylistCommand implements Command {
                     String value = item.getString(CONTENT_TYPE);
                     switch (parameterName) {
                         case PARAMETER_PLAYLIST_ID:
-                            playlistId = value;
+                            if (!EMPTY_FIELD.equals(value)) {
+                                playlistId = value;
+                            } else {
+                                playlistId = null;
+                            }
                             break;
                         case PARAMETER_PLAYLIST_TITLE:
                             playlistTitle = value;
@@ -58,12 +63,16 @@ public class AddEditPlaylistCommand implements Command {
                 } else if (!item.isFormField()) {
                     filename = item.getName();
                     LOGGER.debug("filename " + filename);
-                    item.write(new File(PLAYLIST_DIRECTORY + filename));
+                    if (!EMPTY_FIELD.equals(filename)) {
+                        item.write(new File(PLAYLIST_DIRECTORY + filename));
+                    } else {
+                        filename = null;
+                    }
                 }
             }
             musicCollectionService.addEditPlaylist(playlistId, releaseDate, playlistTitle, filename);
         } catch (Exception e) {
-            LOGGER.error(e + " error message" + e.getMessage());
+            throw new ServiceException("ERROR: " + e + "wrong upload. error message: " + e.getMessage());
         }
         return CommandResult.redirect(SHOW_PLAYLISTS_PAGE_COMMAND);
     }

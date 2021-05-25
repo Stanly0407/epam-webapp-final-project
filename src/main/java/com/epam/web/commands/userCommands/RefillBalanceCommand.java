@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class RefillBalanceCommand implements Command {
-
     private static final String USER_ACCOUNT_PAGE_COMMAND = "/controller?command=userAccount";
     private static final String REFILL_BALANCE_PAGE = "/WEB-INF/view/userPages/refillBalancePage.jsp";
     private static final String SUCCESSFUL_VALIDATION = "successful";
@@ -34,7 +33,6 @@ public class RefillBalanceCommand implements Command {
         String lastnameOnCard = request.getParameter("lastnameOnCard");
         String cvv = request.getParameter("cvv");
         String validatePaymentDetailsMessage = userService.validatePaymentDetails(paymentAmount, cardNumber, nameOnCard, lastnameOnCard, cvv);
-
         if (SUCCESSFUL_VALIDATION.equals(validatePaymentDetailsMessage)) {
             HttpSession session = request.getSession();
             Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);
@@ -44,7 +42,6 @@ public class RefillBalanceCommand implements Command {
             request.setAttribute(validatePaymentDetailsMessage, true);
             return CommandResult.forward(REFILL_BALANCE_PAGE);
         }
-
     }
 
 }

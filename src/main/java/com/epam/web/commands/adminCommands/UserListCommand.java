@@ -3,7 +3,6 @@ package com.epam.web.commands.adminCommands;
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
 import com.epam.web.dto.UserDto;
-import com.epam.web.entities.User;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.UserService;
 

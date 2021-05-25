@@ -4,7 +4,6 @@ import com.epam.web.exceptions.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -32,7 +31,6 @@ public class ConnectionPool {
     public static ConnectionPool getInstance() {
         return ConnectionPoolHolder.CONNECTION_POOL;
     }
-
 
     public ProxyConnection getConnection() {
         ProxyConnection proxyConnection = null;

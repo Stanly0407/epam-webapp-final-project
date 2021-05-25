@@ -5,7 +5,6 @@ import com.epam.web.commands.CommandResult;
 import com.epam.web.entities.BonusType;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.BonusService;
-import com.epam.web.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +26,7 @@ public class AddDiscountCommand implements Command {
         String idString = request.getParameter(USER_ID);
         Long userId = Long.valueOf(idString);
         String discountAmountString = request.getParameter(DISCOUNT_AMOUNT);
-        if(discountAmountString != null){
+        if (discountAmountString != null) {
             int discountAmount = Integer.parseInt(discountAmountString);
             bonusService.addBonus(userId, discountAmount, BonusType.DISCOUNT);
         } else {

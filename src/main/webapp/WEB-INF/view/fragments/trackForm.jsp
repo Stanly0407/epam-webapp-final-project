@@ -49,7 +49,7 @@
                 <div class="common-label" style="margin-top: 25px">
                     <p style="margin-top: 20px; margin-bottom: 7px;">${currentArtists}</p>
                     <c:forEach items="${track.artists}" var="currentArtist">
-                        <p style="color: #CF469D">${currentArtist.name}</p>
+                        <p style="color: #CF469D">${currentArtist.name}</p> <br>
                     </c:forEach>
                 </div>
             </c:if>

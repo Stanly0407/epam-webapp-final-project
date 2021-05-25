@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderDao extends AbstractDao<Order> implements Dao<Order> {
-
     private static final String INSERT_ORDER = "INSERT INTO purchase_order (user_id) VALUE (?)";
     private static final String FIND_PAID_ORDERS = "SELECT id, order_date, is_paid, user_id FROM purchase_order WHERE user_id = ? AND is_paid = true";
     private static final String FIND_ORDER_BY_ID = "SELECT id, order_date, is_paid, user_id FROM purchase_order WHERE id = ?";

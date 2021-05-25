@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class BonusService {
-
     private static final int PERCENT = 100;
     private static final int DEFAULT_DISCOUNT_VALUE = 1;
     private static final int DEFAULT_FREE_TRACK_PRICE = 0;
@@ -86,7 +85,6 @@ public class BonusService {
                 int bonusAmount = PERCENT - bonus.getAmount();
                 double discountDouble = ((double) bonusAmount / PERCENT);
                 discount = new BigDecimal(discountDouble);
-
             }
             List<Track> updatedTrackList = new ArrayList<>();
             for (Track track : tracks) {
@@ -100,7 +98,6 @@ public class BonusService {
             throw new ServiceException(e);
         }
     }
-
 
     public List<Track> applyBonusFreeTracks(List<Track> tracks, Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {

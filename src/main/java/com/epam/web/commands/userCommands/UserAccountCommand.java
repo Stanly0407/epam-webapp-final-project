@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserAccountCommand implements Command {
-
     private static final String USER_ACCOUNT_PAGE = "/WEB-INF/view/userPages/userAccountPage.jsp";
     private static final String USER = "user";
     private static final String ATTRIBUTE_USER_ID = "userId";
@@ -35,7 +34,7 @@ public class UserAccountCommand implements Command {
         Long userId = (Long) session.getAttribute(ATTRIBUTE_USER_ID);
         Optional<User> optionalUser = userService.getUserInfo(userId);
         List<Bonus> bonuses = bonusService.getUnusedUserBonuses(userId);
-        if(!bonuses.isEmpty()){
+        if (!bonuses.isEmpty()) {
             request.setAttribute(BONUS_MESSAGE, true);
         }
         if (optionalUser.isPresent()) {

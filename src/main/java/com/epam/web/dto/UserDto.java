@@ -1,10 +1,8 @@
 package com.epam.web.dto;
 
 import com.epam.web.entities.Bonus;
-import com.epam.web.entities.Role;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 public class UserDto {
     private Long id;
@@ -79,6 +77,7 @@ public class UserDto {
             newUser.name = name;
             return this;
         }
+
         public Builder lastname(String lastname) {
             newUser.lastname = lastname;
             return this;

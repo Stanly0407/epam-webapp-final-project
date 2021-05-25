@@ -1,8 +1,6 @@
 package com.epam.web.service;
 
 import com.epam.web.dao.*;
-import com.epam.web.dto.OrderDto;
-import com.epam.web.dto.TrackDto;
 import com.epam.web.entities.Bonus;
 import com.epam.web.entities.Order;
 import com.epam.web.entities.Track;
@@ -13,12 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class OrderService {
     private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
@@ -54,7 +48,6 @@ public class OrderService {
                 Order order = optionalNewOrder.get();
                 orderId = order.getId();
             }
-            // проверка добавлен ли трек уже в корзину, чтобы не было повтора. (не удалять)
             Optional<Track> optionalTrack = trackDao.getTrackFromCart(userId, trackId);
             if (!optionalTrack.isPresent()) {
                 orderDao.addTrackToOrder(orderId, trackId);
@@ -69,14 +62,11 @@ public class OrderService {
             OrderDao orderDao = daoHelper.createOrderDao();
             UserDao userDao = daoHelper.createUserDao();
             BonusDao bonusDao = daoHelper.createBonusDao();
-
             TrackDao trackDao = daoHelper.createTrackDao();
             List<Track> tracks = trackDao.findOrderedTracks(userId);
-
             boolean payResult = false;
             Bonus discount = null;
             Bonus freeTracks = null;
-            // определение итоговой суммы платежа
             if (activatedDiscountBonus) {
                 Optional<Bonus> discountOptional = bonusDao.getUnusedDiscountBonus(userId);
                 discount = discountOptional.get();
@@ -85,10 +75,7 @@ public class OrderService {
                 Optional<Bonus> freeTracksOptional = bonusDao.getUnusedFreeTracksBonus(userId);
                 freeTracks = freeTracksOptional.get();
             }
-
             BigDecimal orderAmount = countOrderTotalSum(tracks, discount, freeTracks);
-
-            // оплата
             Optional<User> userOptional = userDao.getById(userId);
             if (userOptional.isPresent()) {
                 User user = userOptional.get();
@@ -101,7 +88,8 @@ public class OrderService {
                     orderDao.updateOrderStatus(orderId);
                     if (discount != null) {
                         bonusDao.changeUserBonusStatus(discount.getId());
-                    } else if (freeTracks != null) {
+                    }
+                    if (freeTracks != null) {
                         bonusDao.changeUserBonusStatus(freeTracks.getId());
                     }
                     daoHelper.endTransaction();
@@ -116,25 +104,6 @@ public class OrderService {
             throw new ServiceException(e);
         }
     }
-
-
-    public boolean checkFreeTracksBonus(Long userId, Long bonusFreeTracksId) throws ServiceException {
-        try (DaoHelper daoHelper = daoHelperFactory.create()) {
-            TrackDao trackDao = daoHelper.createTrackDao();
-            BonusDao bonusDao = daoHelper.createBonusDao();
-            List<Track> tracks = trackDao.findOrderedTracks(userId);
-            int freeTracksAmount = 0;
-            Optional<Bonus> bonusOptional = bonusDao.getById(bonusFreeTracksId);
-            if (bonusOptional.isPresent()) {
-                Bonus bonus = bonusOptional.get();
-                freeTracksAmount = bonus.getAmount();
-            }
-            return freeTracksAmount >= tracks.size();
-        } catch (DaoException e) {
-            throw new ServiceException(e);
-        }
-    }
-
 
     public Long getCurrentCartId(Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
@@ -165,23 +134,11 @@ public class OrderService {
     }
 
     public BigDecimal sumOfOrderedTracks(List<Track> orderedTracks) {
-        LOGGER.debug("sumOfOrderedTracks ////// orderedTracks " + orderedTracks);
         return orderedTracks
                 .stream()
                 .map(Track::getPrice)
                 .reduce(BigDecimal::add)
                 .get();
-    }
-
-    private OrderDto createOrderDto(Order order, BigDecimal totalSum, int paidTracksAmount) throws DaoException {
-        Long id = order.getId();
-        LocalDateTime orderDate = order.getOrderDate();
-        return new OrderDto.Builder()
-                .id(id)
-                .orderDate(orderDate)
-                .tracksAmount(paidTracksAmount)
-                .totalSum(totalSum)
-                .build();
     }
 
 }

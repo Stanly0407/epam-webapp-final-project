@@ -44,7 +44,7 @@
 
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
-            <input name="filename" id="file" type="file" required accept="jpg"/>
+            <input name="filename" id="file" type="file"  accept="jpg"/>
         </label>
 
         <button class="button-main" type="submit">${save}</button>

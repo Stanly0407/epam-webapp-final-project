@@ -26,9 +26,9 @@ public class DeleteTrackFromAlbumCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String trackIdString = request.getParameter(PARAMETER_TRACK_ID);
         String albumIdString = request.getParameter(PARAMETER_COLLECTION_ID);
-        LOGGER.debug("trackId    =   " + trackIdString + "   albumIdString  =  " + albumIdString);
+        LOGGER.debug("trackId  = " + trackIdString + "   albumIdString  =  " + albumIdString);
         Long albumId = null;
-        Long trackId = null;
+        Long trackId;
         if (trackIdString != null && albumIdString != null) {
             trackId = Long.valueOf(trackIdString);
             albumId = Long.valueOf(albumIdString);

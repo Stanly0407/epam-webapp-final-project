@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class User extends Entity {
-
     public static final String TABLE = "user";
     public static final String ID = "id";
     public static final String LOGIN = "login";
@@ -94,8 +93,12 @@ public class User extends Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) {return false;}
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
         return status == user.status &&
                 Objects.equals(login, user.login) &&

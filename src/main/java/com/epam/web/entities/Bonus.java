@@ -3,7 +3,6 @@ package com.epam.web.entities;
 import java.util.Objects;
 
 public class Bonus extends Entity {
-
     public static final String TABLE = "bonus";
     public static final String ID = "id";
     public static final String BONUS_TYPE = "bonus_type";
@@ -61,8 +60,12 @@ public class Bonus extends Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Bonus bonus = (Bonus) o;
         return amount == bonus.amount &&
                 statusUse == bonus.statusUse &&

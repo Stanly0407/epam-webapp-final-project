@@ -42,7 +42,6 @@ public class LoginCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String login = request.getParameter(PARAMETER_LOGIN);
         String password = request.getParameter(PARAMETER_PASSWORD);
-
         Optional<User> optionalUser = userService.login(login, password);
         HttpSession session = request.getSession(false);
         String showPageCommandType;
@@ -62,12 +61,12 @@ public class LoginCommand implements Command {
                     showPageCommandType = SHOW_USER_MAIN_PAGE_COMMAND;
                 }
             } else {
-                LOGGER.debug("ERROR_BLOCKED_USER");
+                LOGGER.debug("MESSAGE_BLOCKED_USER");
                 session.setAttribute(ERROR_BLOCKED_USER, true);
                 showPageCommandType = LOGIN_PAGE;
             }
         } else {
-            LOGGER.debug("ERROR_UNKNOWN_USER");
+            LOGGER.debug("MESSAGE_UNKNOWN_USER");
             session.setAttribute(ERROR_UNKNOWN_USER, true);
             showPageCommandType = LOGIN_PAGE;
         }

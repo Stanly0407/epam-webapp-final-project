@@ -16,7 +16,6 @@ public class ServiceException extends Exception {
     }
 
     public ServiceException(DaoException e) {
-
     }
 
     public ServiceException(DaoException e, String message) {

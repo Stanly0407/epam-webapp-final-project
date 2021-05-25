@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class DeactivateDiscountCommand implements Command {
-
     private static final String USER_CART_COMMAND = "/controller?command=cart";
-
+    private static final String ACTIVATE_BONUS = "activatedDiscountBonus";
 
     public DeactivateDiscountCommand() {
     }
@@ -19,7 +18,7 @@ public class DeactivateDiscountCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
-        session.setAttribute("activatedDiscountBonus", false);
+        session.setAttribute(ACTIVATE_BONUS, false);
         return CommandResult.redirect(USER_CART_COMMAND);
     }
 }

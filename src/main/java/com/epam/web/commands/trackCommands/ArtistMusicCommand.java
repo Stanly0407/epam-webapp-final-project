@@ -33,7 +33,6 @@ public class ArtistMusicCommand implements Command {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
         String artistIdString = request.getParameter(ARTIST_ID);
-
         Long artistId;
         if (artistIdString == null) {
             artistId = (Long) session.getAttribute(ATTRIBUTE_COMMENTED_ARTIST_ID);

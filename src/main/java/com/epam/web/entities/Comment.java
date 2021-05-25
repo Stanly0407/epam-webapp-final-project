@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Comment extends Entity {
-
     public static final String TABLE = "track_comment";
     public static final String ID = "id";
     public static final String COMMENT_DATE = "comment_date";
@@ -59,8 +58,12 @@ public class Comment extends Entity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Comment comment = (Comment) o;
         return Objects.equals(commentDate, comment.commentDate) &&
                 Objects.equals(content, comment.content) &&

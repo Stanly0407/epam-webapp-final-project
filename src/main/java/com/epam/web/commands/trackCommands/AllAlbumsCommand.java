@@ -5,8 +5,6 @@ import com.epam.web.commands.CommandResult;
 import com.epam.web.entities.MusicCollection;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.MusicCollectionService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

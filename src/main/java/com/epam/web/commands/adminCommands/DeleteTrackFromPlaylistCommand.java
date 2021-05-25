@@ -34,6 +34,6 @@ public class DeleteTrackFromPlaylistCommand implements Command {
             playlistId = Long.valueOf(playlistIdString);
             musicCollectionService.deleteTrackFromCollection(trackId, playlistId);
         }
-        return CommandResult.redirect(PAGE + playlistId );
+        return CommandResult.redirect(PAGE + playlistId);
     }
 }

@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
 public class DeleteTrackPreventingCommand implements Command {
 
     private static final String DELETE_PREVENTING_PAGE = "/WEB-INF/view/adminPages/deletePreventingPage.jsp";
@@ -26,7 +25,6 @@ public class DeleteTrackPreventingCommand implements Command {
 
     private final TrackService trackService;
     private final ArtistService artistService;
-
 
     public DeleteTrackPreventingCommand(TrackService trackService, ArtistService artistService) {
         this.trackService = trackService;
@@ -42,7 +40,6 @@ public class DeleteTrackPreventingCommand implements Command {
             page = ADMIN_MAIN_PAGE_PAGE;
         } else {
             page = DELETE_PREVENTING_PAGE;
-
             Long trackId = Long.valueOf(trackIdParameter);
             Long userId = (Long) session.getAttribute(PARAMETER_USER_ID);
             List<Artist> artists = artistService.getAllArtists();

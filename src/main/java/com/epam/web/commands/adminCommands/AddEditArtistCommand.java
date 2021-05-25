@@ -19,9 +19,10 @@ public class AddEditArtistCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger(AddEditArtistCommand.class);
     private static final String CONTENT_TYPE = "UTF-8";
     private static final String PARAMETER_ARTIST_NAME = "artistName";
-    private static final String SHOW_TRACK_LIST_PAGE_COMMAND = "/controller?command=allMusic";
+    private static final String SHOW_ARTIST_LIST_PAGE_COMMAND = "/controller?command=allArtists";
     private static final String ARTIST_DIRECTORY = "D:/EPAM-training/final_project/project_data/img/artists/";
     private static final String PARAMETER_ARTIST_ID = "artistId";
+    private static final String EMPTY_FIELD = "";
 
     private final ArtistService artistService;
 
@@ -40,21 +41,34 @@ public class AddEditArtistCommand implements Command {
                 if (item.isFormField()) {
                     String parameterName = item.getFieldName();
                     String value = item.getString(CONTENT_TYPE);
-                    if (parameterName.equals(PARAMETER_ARTIST_NAME)) {
-                        artistName = value;
-                    } else if (parameterName.equals(PARAMETER_ARTIST_ID)) {
-                        artistId = value;
+                    switch (parameterName) {
+                        case PARAMETER_ARTIST_ID:
+                            if (!EMPTY_FIELD.equals(value)) {
+                                artistId = value;
+                            } else {
+                                artistId = null;
+                            }
+                            break;
+                        case PARAMETER_ARTIST_NAME:
+                            artistName = value;
+                            break;
+                        default:
+                            throw new ServiceException("Unknown parameter..." + parameterName);
                     }
                 } else if (!item.isFormField()) {
                     filename = item.getName();
                     LOGGER.debug("filename " + filename);
-                    item.write(new File(ARTIST_DIRECTORY + filename));
+                    if (!EMPTY_FIELD.equals(filename)) {
+                        item.write(new File(ARTIST_DIRECTORY + filename));
+                    } else {
+                        filename = null;
+                    }
                 }
             }
             artistService.addArtist(artistId, artistName, filename);
         } catch (Exception e) {
-            LOGGER.error(e + " error message" + e.getMessage());
+            throw new ServiceException("ERROR: " + e + "wrong upload. error message: " + e.getMessage());
         }
-        return CommandResult.redirect(SHOW_TRACK_LIST_PAGE_COMMAND);
+        return CommandResult.redirect(SHOW_ARTIST_LIST_PAGE_COMMAND);
     }
 }

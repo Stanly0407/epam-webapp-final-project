@@ -48,7 +48,6 @@ public class UserService {
         }
     }
 
-
     public Optional<User> getUserInfo(Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             UserDao userDao = daoHelper.createUserDao();

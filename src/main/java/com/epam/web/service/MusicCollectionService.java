@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class MusicCollectionService {
-
     private static final String ALBUM_LIST = "ALBUM";
     private static final String PLAYLIST_LIST = "PLAYLIST";
     private static final String ALBUM_SEARCH_CONDITION = "Album";
@@ -140,7 +139,6 @@ public class MusicCollectionService {
             throw new ServiceException(e);
         }
     }
-
 
     public void addTrackToCollection(Long trackId, Long albumId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {

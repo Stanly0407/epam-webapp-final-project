@@ -14,16 +14,16 @@ import java.util.Optional;
  * @see com.epam.web.dao.AbstractDao
  * @since 1.0
  */
-public interface Dao <T extends Entity> {
+public interface Dao<T extends Entity> {
 
     /**
      * Executes an SQL <code>SELECT</code> statement, which searches for an entity by id.
      *
      * @param id is a unique field of an entity in database
      * @return an <code>Optional</code> contains the entity entity with matching id
-     *         or <code>Optional</code> contain a null value;
+     * or <code>Optional</code> contain a null value;
      * @throws DaoException if a database access error occurs,
-     *         this method is called on a closed <code>PreparedStatement</code> and throw new DaoException.
+     *                      this method is called on a closed <code>PreparedStatement</code> and throw new DaoException.
      */
     Optional<T> getById(Long id) throws DaoException;
 

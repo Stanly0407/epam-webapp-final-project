@@ -22,9 +22,9 @@ public class AddEditAlbumCommand implements Command {
     private static final String PARAMETER_ALBUM_ID = "albumId";
     private static final String PARAMETER_ALBUM_TITLE = "albumTitle";
     private static final String PARAMETER_ALBUM_RELEASE_DATE = "releaseDate";
-
     private static final String SHOW_ALBUMS_PAGE_COMMAND = "/controller?command=allAlbums";
     private static final String ALBUMS_DIRECTORY = "D:/EPAM-training/final_project/project_data/img/albums/";
+    private static final String EMPTY_FIELD = "";
 
     private final MusicCollectionService musicCollectionService;
 
@@ -47,7 +47,11 @@ public class AddEditAlbumCommand implements Command {
                     String value = item.getString(CONTENT_TYPE);
                     switch (parameterName) {
                         case PARAMETER_ALBUM_ID:
-                            albumId = value;
+                            if (!EMPTY_FIELD.equals(value)) {
+                                albumId = value;
+                            } else {
+                                albumId = null;
+                            }
                             break;
                         case PARAMETER_ALBUM_TITLE:
                             albumTitle = value;
@@ -64,12 +68,16 @@ public class AddEditAlbumCommand implements Command {
                 } else if (!item.isFormField()) {
                     filename = item.getName();
                     LOGGER.debug("filename " + filename);
-                    item.write(new File(ALBUMS_DIRECTORY + filename));
+                    if (!EMPTY_FIELD.equals(filename)) {
+                        item.write(new File(ALBUMS_DIRECTORY + filename));
+                    } else {
+                        filename = null;
+                    }
                 }
             }
             musicCollectionService.addEditAlbum(albumId, releaseDate, albumTitle, filename, artistId);
         } catch (Exception e) {
-            LOGGER.error(e + " error message" + e.getMessage());
+            throw new ServiceException("ERROR: " + e + "wrong upload. error message: " + e.getMessage());
         }
         return CommandResult.redirect(SHOW_ALBUMS_PAGE_COMMAND);
     }

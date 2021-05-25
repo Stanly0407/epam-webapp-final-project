@@ -1,7 +1,6 @@
 package com.epam.web.mapper;
 
 import com.epam.web.entities.Entity;
-import com.epam.web.exceptions.DaoException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

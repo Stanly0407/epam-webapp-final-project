@@ -27,6 +27,8 @@ public class UserMainPageCommand implements Command {
     private static final String ALBUM_TYPE = "ALBUM";
     private static final String COLLECTION_TYPE = "PLAYLIST";
     private static final String USER_ID = "userId";
+    private static final String CURRENT_PAGE = "currentPage";
+    private static final String PAGE_NAME = "pageName";
 
     private final TrackService trackService;
     private final MusicCollectionService musicCollectionService;
@@ -40,11 +42,9 @@ public class UserMainPageCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute(USER_ID);
-
-        String currentPage = (String) session.getAttribute("currentPage");
+        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
         LOGGER.debug("currentPage " + currentPage);
-        request.setAttribute("pageName", currentPage);
-
+        request.setAttribute(PAGE_NAME, currentPage);
         List<TrackDto> trackList = trackService.getNewTracks(userId);
         request.setAttribute(ATTRIBUTE_TRACK_LIST, trackList);
         request.setAttribute(ATTRIBUTE_TRACK, new TrackDto());

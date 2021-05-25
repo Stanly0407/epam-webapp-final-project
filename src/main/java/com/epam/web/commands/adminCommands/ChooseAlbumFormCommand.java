@@ -14,15 +14,12 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ChooseAlbumFormCommand implements Command {
-
     private static final String CHOOSE_ALBUM_FOR_TRACK_PAGE = "/WEB-INF/view/adminPages/chooseAlbumForm.jsp";
     private static final String USER_ID = "userId";
     private static final String ATTRIBUTE_TRACK = "track";
     private static final String PARAMETER_TRACK_ID = "id";
     private static final String ATTRIBUTE_ALBUM_LIST = "albums";
     private static final String ATTRIBUTE_ALBUM = "album";
-
-
 
     private final MusicCollectionService musicCollectionService;
     private final TrackService trackService;
@@ -38,7 +35,7 @@ public class ChooseAlbumFormCommand implements Command {
         Long userId = (Long) session.getAttribute(USER_ID);
         String trackIdParameter = request.getParameter(PARAMETER_TRACK_ID);
         Long trackId;
-        if(trackIdParameter !=null){
+        if (trackIdParameter != null) {
             trackId = Long.valueOf(trackIdParameter);
             TrackDto track = trackService.getTrackDtoById(trackId, userId);
             request.setAttribute(ATTRIBUTE_TRACK, track);

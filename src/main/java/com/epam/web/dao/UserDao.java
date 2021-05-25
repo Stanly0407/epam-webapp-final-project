@@ -11,7 +11,6 @@ import java.util.Optional;
 
 
 public class UserDao extends AbstractDao<User> implements Dao<User> {
-
     private static final String FIND_BY_LOGIN_AND_PASSWORD = "SELECT id, login, name, lastname, role, balance, status FROM user WHERE login = ? AND password = ?";
     private static final String FIND_USER_BY_ID = "SELECT id, login, name, lastname, role, balance, status FROM user WHERE id = ?";
     private static final String UPDATE_BALANCE = "UPDATE user SET balance = ? where id = ?";
@@ -30,7 +29,6 @@ public class UserDao extends AbstractDao<User> implements Dao<User> {
     public List<User> getAllUsers() throws DaoException {
         return executeQuery(GET_USER_LIST);
     }
-
 
     public void updateUserBalance(BigDecimal paymentAmount, Long id) throws DaoException {
         executeUpdate(UPDATE_BALANCE, paymentAmount, id);

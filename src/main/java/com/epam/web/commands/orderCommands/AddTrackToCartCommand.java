@@ -2,7 +2,6 @@ package com.epam.web.commands.orderCommands;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;
-import com.epam.web.commands.trackCommands.AllMusicCommand;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.OrderService;
 import org.apache.logging.log4j.LogManager;
@@ -32,9 +31,7 @@ public class AddTrackToCartCommand implements Command {
         String trackIdString = request.getParameter(PARAMETER_TRACK_ID);
         Long trackId = Long.valueOf(trackIdString);
         orderService.addTrackToCart(userId, trackId);
-
-
-        LOGGER.debug("-----------------currentPage " + currentPage);
+        LOGGER.debug("currentPage " + currentPage);
         return CommandResult.redirect(currentPage);
     }
 }

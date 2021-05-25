@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class CollectionMusicCommand implements Command {
-
     private static final String ARTIST_TRACKS_PAGE_COMMAND = "/WEB-INF/view/userPages/userTrackListPage.jsp";
     private static final String ATTRIBUTE_TRACKS = "trackList";
     private static final String ATTRIBUTE_TRACK = "track";

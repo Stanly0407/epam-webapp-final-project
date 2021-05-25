@@ -113,12 +113,14 @@ body {
     flex-wrap: wrap;
     align-items: center;
 }
+
 .header__list_2 {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin-right: 100px;
 }
+
 .header__list_lang {
     display: flex;
     flex-wrap: wrap;
@@ -198,7 +200,7 @@ td, th {
     text-align: left;
     padding-top: 10px;
     padding-bottom: 15px;
-    padding-right: 23px;
+    padding-right: 28px;
     border-bottom: 2px solid #060A23;
 }
 
@@ -657,7 +659,6 @@ input[type="file"] {
 }
 
 
-
 /*MUSIC-CARD*/
 .music-card-list {
     flex-wrap: wrap;
@@ -720,6 +721,7 @@ input[type="file"] {
     height: 30px;
     border: none;
 }
+
 .active-page-button {
     font-size: 18px;
     line-height: 24px;
@@ -747,8 +749,7 @@ input[type="file"] {
     height: 35px;
 }
 
-
-.payment-card{
+.payment-card {
     box-shadow: 0 4px 70px 0 rgb(0 0 0 / 60%);
     transition: 0.3s;
     border-radius: 5px;
@@ -800,7 +801,6 @@ input[type="file"] {
     align-items: center;
     margin-bottom: 20px;
 }
-
 
 
 /* Customize the label (the container) */
@@ -908,7 +908,7 @@ input[type="file"] {
     justify-content: center;
 }
 
-.account_card{
+.account_card {
     box-shadow: 0 4px 70px 0 rgb(0 0 0 / 60%);
     transition: 0.3s;
     border-radius: 5px;

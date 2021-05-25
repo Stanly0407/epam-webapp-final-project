@@ -36,7 +36,7 @@ public class ChoosePlaylistFormCommand implements Command {
         Long userId = (Long) session.getAttribute(USER_ID);
         String trackIdParameter = request.getParameter(PARAMETER_TRACK_ID);
         Long trackId;
-        if(trackIdParameter !=null){
+        if (trackIdParameter != null) {
             trackId = Long.valueOf(trackIdParameter);
             TrackDto track = trackService.getTrackDtoById(trackId, userId);
             request.setAttribute(ATTRIBUTE_TRACK, track);

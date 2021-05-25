@@ -26,7 +26,6 @@ public class ChangeUserStatusCommand implements Command {
         boolean status = Boolean.parseBoolean(statusString);
         Long userId = Long.valueOf(idString);
         userService.changeUserStatus(!status, userId);
-
         return CommandResult.forward(USER_LIST_COMMAND);
     }
 }

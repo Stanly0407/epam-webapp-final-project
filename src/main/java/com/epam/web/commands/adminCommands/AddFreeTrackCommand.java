@@ -5,14 +5,12 @@ import com.epam.web.commands.CommandResult;
 import com.epam.web.entities.BonusType;
 import com.epam.web.exceptions.ServiceException;
 import com.epam.web.service.BonusService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddFreeTrackCommand implements Command {
-    private static final Logger LOGGER = LogManager.getLogger(AddFreeTrackCommand.class);
+
     private static final String USER_LIST_COMMAND = "/controller?command=userList";
     private static final String WRONG_BONUS_MESSAGE = "wrongFreeTrackMessage";
     private static final String USER_ID = "userId";
@@ -30,7 +28,7 @@ public class AddFreeTrackCommand implements Command {
         String idString = request.getParameter(USER_ID);
         Long userId = Long.valueOf(idString);
         String freeTracksAmountString = request.getParameter(FREE_TRACKS_AMOUNT);
-        if(freeTracksAmountString != null){
+        if (freeTracksAmountString != null) {
             int freeTracksAmount = Integer.parseInt(freeTracksAmountString);
             bonusService.addBonus(userId, freeTracksAmount, BonusType.FREE_TRACK);
         } else {

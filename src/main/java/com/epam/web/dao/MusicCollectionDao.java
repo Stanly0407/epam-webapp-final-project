@@ -9,11 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class MusicCollectionDao extends AbstractDao<MusicCollection> implements Dao<MusicCollection> {
-
     private static final String FIND_ALBUM_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.id = ?";
-    private static final String FIND_PLAYLIST_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename FROM collection c " +
-            " WHERE c.id = ?";
+    private static final String FIND_PLAYLIST_BY_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename FROM collection c WHERE c.id = ?";
     private static final String FIND_ALBUM = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.title = ? AND c.type = 'ALBUM'";
     private static final String FIND_PLAYLIST = "SELECT c.id, c.type, c.release_date, c.title, c.filename FROM collection c WHERE c.title = ? AND c.type = 'PLAYLIST'";
@@ -23,10 +21,6 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
     private static final String QUERY_PART_FIVE_NEW_MUSIC_COLLECTIONS = " ORDER BY c.release_date DESC LIMIT 5";
     private static final String INSERT_PLAYLIST = "INSERT INTO collection (release_date, title, filename, type) value (?, ?, ?, 'PLAYLIST')";
     private static final String INSERT_ALBUM = "INSERT INTO collection (release_date, title, filename, artist_id, type) value (?, ?, ?, ?, 'ALBUM')";
-    private static final String GET_ALBUMS_LIST_PAGE = "SELECT c.id, c.release_date, c.title, c.filename, c.type, a.id, a.name, a.filename " +
-            "FROM collection c INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.type = 'ALBUM' LIMIT ? OFFSET ?";
-    private static final String GET_PLAYLISTS_LIST_PAGE = "SELECT c.id, c.release_date, c.title, c.filename, c.type FROM collection c " +
-            "WHERE c.type = 'PLAYLIST' LIMIT ? OFFSET ?";
     private static final String DELETE_COLLECTION_TRACK = "DELETE FROM track_collection WHERE track_id = ? AND collection_id = ?";
     private static final String UPDATE_ALBUM = "UPDATE collection SET release_date = ?, title = ?, filename = ?, artist_id = ? where id = ?";
     private static final String UPDATE_ALBUM_INFO = "UPDATE collection SET release_date = ?, title = ?, artist_id = ? where id = ?";
@@ -36,8 +30,7 @@ public class MusicCollectionDao extends AbstractDao<MusicCollection> implements 
     private static final String FIND_ALBUMS_BY_ARTISTS_ID = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
             "INNER JOIN artist a ON (a.id = c.artist_id) WHERE c.artist_id = ? AND c.type = 'ALBUM'";
     private static final String FIND_ALBUM_TRACK_COLLECTION = "SELECT c.id, c.type, c.release_date, c.title, c.filename, a.id, a.name, a.filename FROM collection c " +
-            "INNER JOIN artist a ON (a.id = c.artist_id) INNER JOIN track_collection tc ON (c.id = tc.collection_id) " +
-            "WHERE tc.collection_id = ? AND tc.track_id = ?";
+            "INNER JOIN artist a ON (a.id = c.artist_id) INNER JOIN track_collection tc ON (c.id = tc.collection_id) WHERE tc.collection_id = ? AND tc.track_id = ?";
     private static final String FIND_PLAYLIST_TRACK_COLLECTION = "SELECT c.id, c.type, c.release_date, c.title, c.filename from collection c " +
             "INNER JOIN track_collection tc ON (c.id = tc.collection_id) WHERE tc.collection_id = ? AND tc.track_id = ?";
     private static final String DELETE_COLLECTION_BY_ID = "DELETE FROM collection WHERE id = ?";

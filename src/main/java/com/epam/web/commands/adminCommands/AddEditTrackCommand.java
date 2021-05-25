@@ -26,6 +26,7 @@ public class AddEditTrackCommand implements Command {
     private static final String PARAMETER_ARTIST_ID = "artistId";
     private static final String PARAMETER_TRACK_ID = "trackId";
     private static final String MUSICS_DIRECTORY = "D:/EPAM-training/final_project/project_data/audio/";
+    private static final String EMPTY_FIELD = "";
 
     private final TrackService trackService;
 
@@ -40,7 +41,7 @@ public class AddEditTrackCommand implements Command {
         String filename = null;
         String title = null;
         String price = null;
-        String artistIds = null;
+        String artistId;
         List<String> artistArray = new ArrayList<>();
         try {
             List<FileItem> data = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -50,7 +51,12 @@ public class AddEditTrackCommand implements Command {
                     String value = item.getString(CONTENT_TYPE);
                     switch (parameterName) {
                         case PARAMETER_TRACK_ID:
-                            trackId = value;
+                            if (!EMPTY_FIELD.equals(value)) {
+                                trackId = value;
+                            } else {
+                                trackId = null;
+                            }
+                            LOGGER.debug("trackId " + trackId);
                             break;
                         case PARAMETER_TITLE:
                             title = value;
@@ -62,8 +68,8 @@ public class AddEditTrackCommand implements Command {
                             price = value;
                             break;
                         case PARAMETER_ARTIST_ID:
-                            artistIds = value;
-                            artistArray.add(artistIds);
+                            artistId = value;
+                            artistArray.add(artistId);
                             break;
                         default:
                             throw new ServiceException("Unknown file upload parameter..." + parameterName);
@@ -71,22 +77,18 @@ public class AddEditTrackCommand implements Command {
                 } else if (!item.isFormField()) {
                     filename = item.getName();
                     LOGGER.debug("filename " + filename);
-                    if(!filename.equals("")){
+                    if (!EMPTY_FIELD.equals(filename)) {
                         item.write(new File(MUSICS_DIRECTORY + filename));
                     } else {
                         filename = null;
                     }
                 }
             }
+            LOGGER.debug("artistArray " + artistArray);
             trackService.addEditTrack(trackId, releaseDate, title, price, artistArray, filename);
-
         } catch (Exception e) {
-            LOGGER.error(e + " error message" + e.getMessage());
-            throw new ServiceException("wrong upload. error message: " + e.getMessage());
+            throw new ServiceException("ERROR: " + e + "wrong upload. error message: " + e.getMessage());
         }
-
-        LOGGER.debug("artistIds " + artistIds);
-
         return CommandResult.redirect(SHOW_TRACK_LIST_PAGE_COMMAND);
     }
 }

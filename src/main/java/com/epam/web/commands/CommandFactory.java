@@ -135,7 +135,7 @@ public class CommandFactory {
             case DELETE_TRACK:
                 return new DeleteTrackCommand(new TrackService(new DaoHelperFactory()));
             case ADD_DISCOUNT:
-                return new AddDiscountCommand( new BonusService(new DaoHelperFactory()));
+                return new AddDiscountCommand(new BonusService(new DaoHelperFactory()));
             case ADD_FREE_TRACKS:
                 return new AddFreeTrackCommand(new BonusService(new DaoHelperFactory()));
             case DELETE_BONUS:
@@ -147,19 +147,17 @@ public class CommandFactory {
 
     public CommandType getCommandType(String type) {
         String command = null;
-        try{
+        try {
             String[] commandsParts = type.split(SPLIT_CAMEL_CASE_PATTERN);
             StringBuilder commandTypeFinal = new StringBuilder();
-
             for (String part : commandsParts) {
                 commandTypeFinal.append(part).append(LOW_LINE);
             }
             commandTypeFinal.deleteCharAt(commandTypeFinal.length() - LAST_INDEX);
             String temporaryString = new String(commandTypeFinal);
             command = temporaryString.toUpperCase();
-
-        } catch (IllegalArgumentException e){
-            LOGGER.error("ERROR" + e + "/// MESSAGE" + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            LOGGER.error("ERROR" + e + " | MESSAGE" + e.getMessage());
         }
         return CommandType.valueOf(command);
     }

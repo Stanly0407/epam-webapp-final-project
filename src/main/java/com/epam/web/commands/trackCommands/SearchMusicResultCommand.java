@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class SearchMusicResultCommand implements Command {
-
     private static final String SHOW_USER_TRACK_LIST_PAGE_COMMAND = "/WEB-INF/view/userPages/userTrackListPage.jsp";
     private static final String SHOW_USER_COLLECTION_LIST_PAGE_COMMAND = "/WEB-INF/view/userPages/userCollectionListPage.jsp";
     private static final String ATTRIBUTE_SEARCH_SUBJECT = "searchSubject";

@@ -23,15 +23,15 @@
                         <td><p>${track.title}</p></td>
                         <td><c:forEach items="${track.artists}" var="artist">
                             <input type="hidden" name="${artist.id}"/>
-                            ${artist.name}
+                           <p>  ${artist.name}</p> <br>
                         </c:forEach></td>
                         <td>$ ${track.price} </td>
-                        <td>
+                        <td style="margin-right: 35px">
                             <a class="header__link"
                                href="<c:url value='controller?command=commentsPage&id=${track.id}'/>">
-                                <img src="img/svg/comment_icon_2.svg" alt="Comments" class="header__cart-pic">
-                                    ${track.commentsAmount}
-                            </a>
+                               <div style="display: flex"> <img src="img/svg/comment_icon_2.svg" alt="Comments" class="header__cart-pic">
+                                   ${track.commentsAmount}
+                            </a></div>
                         </td>
 
                         <c:if test="${sessionScope.role eq 'USER'}">
@@ -54,18 +54,18 @@
                             <td><a class="header__link__button"
                                    href="<c:url value='controller?command=editTrack&id=${track.id}'/>">${edit}</a></td>
                             <c:if test="${empty album.id}">
-                                <td><a class="header__link__button"
+                                <td style="margin-right: 20px"><a class="header__link__button"
                                        href="<c:url value='controller?command=chooseAlbum&id=${track.id}'/>">${addToAlbum}</a>
                                 </td>
                             </c:if>
                             <c:if test="${ empty playlist.id}">
-                                <td><a class="header__link__button"
+                                <td  style="margin-right: 20px"><a class="header__link__button"
                                        href="<c:url value='controller?command=choosePlaylist&id=${track.id}'/>">${addToPlaylist}</a>
                                 </td>
                             </c:if>
 
                             <c:if test="${not empty album.id}">
-                                <td>
+                                <td  style="margin-right: 20px">
                                     <a class="header__link__button"
                                        href="<c:url value='controller?command=deleteCollectionTrack&id=${album.id}trackId=${track.id}'/>">${deleteFromAlbum}</a>
                                 </td>

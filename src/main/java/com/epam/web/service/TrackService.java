@@ -31,7 +31,6 @@ public class TrackService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-
     public void addEditTrack(String trackIdParameter, String releaseDate, String title, String price, List<String> artistArray, String filename) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
@@ -81,12 +80,13 @@ public class TrackService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             TrackDao trackDao = daoHelper.createTrackDao();
             Optional<Track> trackOptional = trackDao.getById(trackId);
-            List<Long> artistsId = new ArrayList<>();;
-            if(trackOptional.isPresent()){
+            List<Long> artistsId = new ArrayList<>();
+            ;
+            if (trackOptional.isPresent()) {
                 Track track = trackOptional.get();
                 TrackDto trackDto = createTrackDto(track, daoHelper, userId);
                 List<Artist> artists = trackDto.getArtists();
-                for(Artist artist : artists){
+                for (Artist artist : artists) {
                     Long artistId = artist.getId();
                     artistsId.add(artistId);
                 }

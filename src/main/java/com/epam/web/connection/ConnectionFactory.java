@@ -17,38 +17,30 @@ public class ConnectionFactory {
     private static final String PROPERTY_URL = "CONNECTION_URL";
     private static final String PROPERTIES_USER = "USER";
     private static final String PROPERTIES_PASSWORD = "PASSWORD";
-    private static String[] PROPERTIES = new String[0];
+    private static String url;
+    private static String user;
+    private static String password;
 
-    static {
-        try {
-            PROPERTIES = getConnectionProperties();
+    public ConnectionFactory() {
+        try (InputStream input = ConnectionFactory.class.getClassLoader().getResourceAsStream(PROPERTIES_FILENAME)) {
+            Properties properties = new Properties();
+            properties.load(input);
+            url = properties.getProperty(PROPERTY_URL);
+            user = properties.getProperty(PROPERTIES_USER);
+            password = properties.getProperty(PROPERTIES_PASSWORD);
         } catch (IOException e) {
             LOGGER.error("ERROR (read properties): " + e + " | MESSAGE: " + e.getMessage());
         }
     }
 
-    public static ProxyConnection create() throws DaoException {
+    public ProxyConnection create() throws DaoException {
         try {
             DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            Connection connection = DriverManager.getConnection(PROPERTIES[0], PROPERTIES[1], PROPERTIES[2]);
+            Connection connection = DriverManager.getConnection(url, user, password);
             return new ProxyConnection(connection);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-    }
-
-    private static String[] getConnectionProperties() throws IOException {
-        try (InputStream input = ConnectionFactory.class.getClassLoader().getResourceAsStream(PROPERTIES_FILENAME)) {
-            Properties properties = new Properties();
-            properties.load(input);
-            String url = properties.getProperty(PROPERTY_URL);
-            String user = properties.getProperty(PROPERTIES_USER);
-            String password = properties.getProperty(PROPERTIES_PASSWORD);
-            return new String[]{url, user, password};
-        } catch (IOException e) {
-            throw new IOException(e.getMessage(), e);
-        }
-
     }
 
 

@@ -1,9 +1,9 @@
 package com.epam.web.commands;
 
-import com.epam.web.commands.adminCommands.*;
-import com.epam.web.commands.orderCommands.*;
-import com.epam.web.commands.trackCommands.*;
-import com.epam.web.commands.userCommands.*;
+import com.epam.web.commands.admin.*;
+import com.epam.web.commands.order.*;
+import com.epam.web.commands.track.*;
+import com.epam.web.commands.user.*;
 import com.epam.web.dao.DaoHelperFactory;
 import com.epam.web.service.*;
 import org.apache.logging.log4j.LogManager;

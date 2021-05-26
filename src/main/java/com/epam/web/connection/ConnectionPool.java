@@ -9,14 +9,16 @@ import java.util.concurrent.BlockingQueue;
 
 public class ConnectionPool {
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
-    private static final int POOL_SIZE = 3;
+    private static final int POOL_SIZE = 5;
+    private ConnectionFactory factory;
     private BlockingQueue<ProxyConnection> proxyConnections;
 
     private ConnectionPool(final int size) {
         try {
+            factory = new ConnectionFactory();
             proxyConnections = new ArrayBlockingQueue<>(size);
             for (int i = 0; i < size; i++) {
-                ProxyConnection connection = ConnectionFactory.create();
+                ProxyConnection connection = factory.create();
                 proxyConnections.offer(connection);
             }
         } catch (DaoException e) {
@@ -43,7 +45,7 @@ public class ConnectionPool {
         return proxyConnection;
     }
 
-    public void closeConnection(ProxyConnection connection) { // returnConnection
+    public void closeConnection(ProxyConnection connection) {
         BlockingQueue<ProxyConnection> pool = getInstance().proxyConnections;
         pool.offer(connection);
     }

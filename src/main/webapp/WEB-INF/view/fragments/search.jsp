@@ -12,16 +12,6 @@
 
 
 <div>
-<%--    <div class="form_radio_group">--%>
-<%--        <div class="form_radio_group-item">--%>
-<%--            <input id="link-1" type="radio" value="Track" name="searchCondition" checked>--%>
-<%--            <label for="link-1">${Track}</label>--%>
-<%--        </div>--%>
-<%--        <div class="form_radio_group-item">--%>
-<%--            <input id="link-2" type="radio" value="Artist" name="searchCondition">--%>
-<%--            <label for="link-2">${Artist}</label>--%>
-<%--        </div>--%>
-
     <form action="/musicwebapp/controller?command=searchMusic" method="post">
         <div class="search___block">
             <input class="search-input" type="text" id="searchMusic"

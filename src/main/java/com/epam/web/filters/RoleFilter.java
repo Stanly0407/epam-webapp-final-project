@@ -44,24 +44,30 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK_PREVENTING, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_USER_COMMENT, Arrays.asList(Role.ADMIN));
-
             COMMANDS_PERMISSIONS.put(CommandType.ADMIN_MAIN_PAGE, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADMIN_TRACK_LIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.EDIT_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.TRACK_FORM, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_TRACK, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ARTIST_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_ARTIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.EDIT_ARTIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_ARTIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ALBUM_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.EDIT_ALBUM, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.PLAYLIST_FORM, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.ADD_NEW_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_EDIT_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.EDIT_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_BONUS, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.USER_LIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.CHANGE_USER_STATUS, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_DISCOUNT, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.ADD_FREE_TRACKS, Arrays.asList(Role.ADMIN));
-            COMMANDS_PERMISSIONS.put(CommandType.DELETE_BONUS, Arrays.asList(Role.ADMIN));
-
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_ALBUM_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.DELETE_PLAYLIST_TRACK, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_TO_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.ADD_TO_PLAYLIST, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.CHOOSE_ALBUM, Arrays.asList(Role.ADMIN));
+            COMMANDS_PERMISSIONS.put(CommandType.CHOOSE_PLAYLIST, Arrays.asList(Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.USER_MAIN_PAGE, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.USER_ACCOUNT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.REFILL_BALANCE_PAGE, Arrays.asList(Role.USER));
@@ -74,17 +80,13 @@ public class RoleFilter implements Filter {
             COMMANDS_PERMISSIONS.put(CommandType.ADD_TRACK, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_TRACK_FROM_CART, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PAY_ORDER, Arrays.asList(Role.USER));
-            COMMANDS_PERMISSIONS.put(CommandType.PAYMENT_HISTORY, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.PURCHASED_TRACKS, Arrays.asList(Role.USER));
-
             COMMANDS_PERMISSIONS.put(CommandType.ADD_COMMENT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.EDIT_COMMENT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.DELETE_COMMENT, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.SAVE_EDITED_COMMENT, Arrays.asList(Role.USER));
-
             COMMANDS_PERMISSIONS.put(CommandType.ARTIST_MUSIC, Arrays.asList(Role.USER, Role.ADMIN));
             COMMANDS_PERMISSIONS.put(CommandType.COLLECTION_MUSIC, Arrays.asList(Role.USER, Role.ADMIN));
-
             COMMANDS_PERMISSIONS.put(CommandType.ACTIVATE_DISCOUNT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.DEACTIVATE_DISCOUNT, Arrays.asList(Role.USER));
             COMMANDS_PERMISSIONS.put(CommandType.ACTIVATE_FREE_TRACKS, Arrays.asList(Role.USER));
@@ -93,14 +95,12 @@ public class RoleFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig config) throws ServletException {
+    public void init(FilterConfig config) {
         filterConfig = config;
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
-
         if (servletRequest instanceof HttpServletRequest && servletResponse instanceof HttpServletResponse) {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpSession session = request.getSession();
@@ -108,11 +108,8 @@ public class RoleFilter implements Filter {
             String command = clearCommand(commandRequest);
             try {
                 CommandType commandType = CommandType.valueOf(command);
-                LOGGER.debug("commandType " + commandType);
                 String currentRoleInSession = (String) session.getAttribute(PARAMETER_ROLE);
-                LOGGER.debug("currentRole " + currentRoleInSession);
                 Role currentRole;
-
                 if (currentRoleInSession == null) {
                     if ("LOGIN".equals(command) || "CHANGE_LANGUAGE".equals(command) || "LOGIN_PAGE".equals(command)) {
                         filterChain.doFilter(servletRequest, servletResponse);

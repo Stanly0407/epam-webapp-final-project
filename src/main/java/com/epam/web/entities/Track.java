@@ -2,9 +2,9 @@ package com.epam.web.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Track extends Entity {
-
     public static final String TABLE = "track";
     public static final String ID = "id";
     public static final String RELEASE_DATE = "release_date";
@@ -61,12 +61,23 @@ public class Track extends Entity {
     }
 
     @Override
-    public String toString() {
-        return "Track{" +
-                "releaseDate=" + releaseDate +
-                ", title='" + title + '\'' +
-                ", price=" + price +
-                ", filename='" + filename + '\'' +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Track track = (Track) o;
+        return Objects.equals(releaseDate, track.releaseDate) &&
+                Objects.equals(title, track.title) &&
+                Objects.equals(price, track.price) &&
+                Objects.equals(filename, track.filename);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(releaseDate, title, price, filename);
+    }
+
 }

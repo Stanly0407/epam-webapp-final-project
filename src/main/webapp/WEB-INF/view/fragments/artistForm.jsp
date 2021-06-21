@@ -14,6 +14,8 @@
 <fmt:message bundle="${local}" key="local.select.default.selectArtist" var="selectArtist"/>
 <fmt:message bundle="${local}" key="local.h1.addNewArtist" var="addNewArtistHeadline"/>
 <fmt:message bundle="${local}" key="local.label.artistNameLabel" var="artistNameLabel"/>
+<fmt:message bundle="${local}" key="local.p.poster" var="addPoster"/>
+
 <script type="text/javascript">
     <%@include file="/WEB-INF/js/pageScripts.js"%>
 </script>
@@ -28,21 +30,26 @@
 <h1 class="headlines">${addNewArtistHeadline}</h1>
 
 <div class="edit-track-form">
-    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addNewArtist" method="post">
-        <br/>
+    <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditArtist" method="post">
+
+        <input class="common-input" type="hidden" value="${artist.id}" name="artistId" required/>
+
         <div class="common-label"><label for="artistName">${artistNameLabel}</label></div>
-        <input class="common-input" type="text" id="artistName" name="artistName" required/>
-        <br/> <br/>
+
+        <input class="common-input" type="text" id="artistName" name="artistName" value="${artist.name}" required/>
+
+        <div style="margin-top: 20px; margin-bottom: 10px; margin-left: 7px; color: aquamarine;">
+            <p>${addPoster}:</p>
+        </div>
+
         <div class="common-label"><label for="file">${uploadInfo}</label></div>
         <label class="file_upload">
-            <input name="filename" id="file" type="file" required accept="jpg"/>
+            <input name="filename" id="file" type="file"  accept="jpg"/>
         </label>
-        <br/>
-        <br/>
+
         <button class="button-main" type="submit">${save}</button>
     </form>
-    <br/>
-    <br/>
+
 </div>
 </body>
 </html>

@@ -12,58 +12,49 @@
 <fmt:message bundle="${local}" key="local.placeholder.enterTitle" var="enterTitle"/>
 <fmt:message bundle="${local}" key="local.placeholder.enterPrice" var="enterPrice"/>
 <fmt:message bundle="${local}" key="local.select.default.selectArtist" var="selectArtist"/>
+<fmt:message bundle="${local}" key="track.select.addAnotherArtist" var="addAnotherArtist"/>
+<fmt:message bundle="${local}" key="local.a.delete" var="delete"/>
+<fmt:message bundle="${local}" key="track.p.currentArtists" var="currentArtists"/>
 <script type="text/javascript">
     <%@include file="/WEB-INF/js/pageScripts.js"%>
 </script>
-
-
 <html>
-
 <head>
     <script src="http://code.jquery.com/jquery-2.2.4.js"
             type="text/javascript"></script>
 </head>
-
 <body>
-
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
-
-<%--<h1 class="headlines">${addTrack}</h1>--%>
-
-
 <div class="edit-track-form">
     <div>
         <form enctype='multipart/form-data' action="/musicwebapp/uploadNew?command=addEditTrack" method="post">
-            <br/>
+
             <input class="common-input" type="hidden" value="${track.id}" name="trackId" required/>
 
             <div class="common-label"><label for="releaseDate">${releaseLabel}</label></div>
             <input class="common-input" type="date" id="releaseDate" value="${track.releaseDate}" name="releaseDate"
                    required/>
-            <br/> <br/>
-            <div class="common-label"><label for="title">${titleLabel}</label></div>
+
+            <div class="common-label" style="margin-top: 25px"><label for="title">${titleLabel}</label></div>
             <input class="common-input" type="text" id="title" placeholder="${enterTitle}" value="${track.title}"
                    name="title" required/>
-            <br/> <br/>
-            <div class="common-label"><label for="price">${priceLabel}</label></div>
+
+            <div class="common-label" style="margin-top: 25px"><label for="price">${priceLabel}</label></div>
             <input class="common-input" type="text" id="price" placeholder="${enterPrice}" value="${track.price}"
                    name="price" required/>
-            <br/>
-            <br/>
-            <br/>
 
             <c:if test="${not empty track.id}">
-                <div class="common-label">
-                    <p>Current Artists:</p>
+                <div class="common-label" style="margin-top: 25px">
+                    <p style="margin-top: 20px; margin-bottom: 7px;">${currentArtists}</p>
                     <c:forEach items="${track.artists}" var="currentArtist">
-                        <p style="color: #CF469D">${currentArtist.name}</p>
+                        <p style="color: #CF469D">${currentArtist.name}</p> <br>
                     </c:forEach>
                 </div>
             </c:if>
 
-            <ul id="authorSelector">
+            <ul id="authorSelector" style="margin-top: 25px">
                 <li>
                     <select class="select-artist" name="artistId">
                         <option selected disabled>${selectArtist}</option>
@@ -76,28 +67,24 @@
             <ul id="additionalAuthorSelector">
             </ul>
 
-            <br/>
-            <br/>
-            <br/>
-            <div class="common-label"><label for="file">${uploadInfo}</label></div>
+            <div class="common-label" style="margin-top: 20px"><label for="file">${uploadInfo}</label></div>
             <label class="file_upload">
                 <input name="filename" id="file" type="file" accept=".mp3"/>
             </label>
-            <br/>
-            <br/>
+
             <button class="button-main" type="submit">${save}</button>
         </form>
 
         <div style="margin-top: 20px;">
         <c:if test="${not empty track.id}">
             <a class="pink_button"
-               href="<c:url value='controller?command=deleteTrackPreventing&id=${track.id}'/>">Delete</a>
+               href="<c:url value='controller?command=deleteTrackPreventing&id=${track.id}'/>">${delete}</a>
         </c:if>
         </div>
 
     </div>
     <div>
-        <button class="button-main" style="margin-top: 130px; margin-left: 18px" onclick="addArtist()">Add Artist</button>
+        <button class="button-main" style="margin-top: 130px; margin-left: 18px" onclick="addArtist()">${addAnotherArtist}</button>
     </div>
 </div>
 

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class DateTimeFormatTag extends TagSupport {
     private static final Logger LOGGER = LogManager.getLogger(DateTimeFormatTag.class);
+
     private String dateTime;
 
     public void setDateTime(String dateTime) {

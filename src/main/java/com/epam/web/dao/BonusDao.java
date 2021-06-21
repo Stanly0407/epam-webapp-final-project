@@ -1,7 +1,6 @@
 package com.epam.web.dao;
 
 import com.epam.web.entities.Bonus;
-import com.epam.web.entities.Order;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.mapper.RowMapper;
 
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class BonusDao extends AbstractDao<Bonus> implements Dao<Bonus> {
-
     private static final String UPDATE_BONUS_STATUS = "UPDATE bonus SET status_use = true where id=?";
     private static final String INSERT_DISCOUNT_BONUS = "INSERT INTO bonus (bonus_type, amount, status_use, user_id) " +
             "VALUE ('DISCOUNT', ?, default, ?)";
@@ -27,7 +25,6 @@ public class BonusDao extends AbstractDao<Bonus> implements Dao<Bonus> {
     public BonusDao(Connection connection, RowMapper<Bonus> mapper) {
         super(connection, mapper);
     }
-
 
     public List<Bonus> getUnusedUserBonuses(Long userId) throws DaoException {
         return executeQuery(FIND_UNUSED_USER_BONUSES, userId);
@@ -53,26 +50,19 @@ public class BonusDao extends AbstractDao<Bonus> implements Dao<Bonus> {
         executeUpdate(UPDATE_BONUS_STATUS, bonusId);
     }
 
-    public void deleteBonus(Long bonusId) throws DaoException {
-        executeUpdate(DELETE_BONUS, bonusId);
-    }
-
-
     @Override
     public Optional<Bonus> getById(Long id) throws DaoException {
-        return executeForSingleResult(UPDATE_BONUS_STATUS, id); //change
+        return executeForSingleResult(UPDATE_BONUS_STATUS, id);
     }
 
     @Override
-    public void save(Bonus entity) {
-    }
-
-    @Override
-    public void removeById(Long id) {
+    public void removeById(Long id) throws DaoException {
+        executeUpdate(DELETE_BONUS, id);
     }
 
     @Override
     protected String getTableName() {
         return Bonus.TABLE;
     }
+
 }

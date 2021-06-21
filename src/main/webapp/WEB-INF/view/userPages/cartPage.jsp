@@ -29,8 +29,11 @@
         </c:if>
     </c:if>
 
+
     <c:if test="${not empty trackList}">
+        <div style="margin-bottom: 80px">
         <jsp:include page="../fragments/trackList.jsp"/>
+        </div>
     </c:if>
 
     <c:if test="${bonusDiscountExist}">
@@ -68,7 +71,7 @@
                        class="header__link__button">${deactivateBonus}</a>
                 </c:if>
                 <c:if test="${!sessionScope.activatedFreeTracksBonus || empty sessionScope.activatedFreeTracksBonus}">
-                    <a href="/musicwebapp/controller?command=activateFreeTracks" id="freeTracks"
+                    <a href="/musicwebapp/controller?command=activateFreeTracks&amount=${bonusFreeTracks.amount}" id="freeTracks"
                        class="header__link__button">${activateBonus}</a>
                 </c:if>
             </div>
@@ -76,7 +79,7 @@
     </c:if>
 
     <c:if test="${checkMessage}">
-        <h1 class="message_h1">${checkFreeTracksBonusInfo}.</h1>
+        <h1 style="color: red; margin-top: 35px; margin-bottom: 35px;">${checkFreeTracksBonusInfo}.</h1>
     </c:if>
 
     <c:if test="${not empty trackList}">

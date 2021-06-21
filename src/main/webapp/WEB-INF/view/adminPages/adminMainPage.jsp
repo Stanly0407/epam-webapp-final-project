@@ -10,13 +10,10 @@
 <fmt:message bundle="${local}" key="local.h1.userList" var="userList"/>
 
 <html>
-
 <body>
-
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
-
 <div class="container-login">
     <button class="button-admin" type="submit">
         <a href="/musicwebapp/controller?command=userList" class="header__link__button">${userList}</a>
@@ -40,8 +37,6 @@
     <br>
 </div>
 
-    <br/>
-    <br/>
 </div>
 </body>
 </html>

@@ -10,7 +10,6 @@ import java.util.Optional;
 
 
 public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
-
     private static final String FIND_COMMENTS_BY_TRACK_ID = "SELECT id, comment_date, content, track_id, user_id FROM track_comment WHERE track_id = ? ORDER BY comment_date DESC";
     private static final String FIND_COMMENT_BY_ID = "SELECT id, comment_date, content, track_id, user_id FROM track_comment WHERE id = ?";
     private static final String INSERT_COMMENT_TO_TRACK = "INSERT INTO track_comment (content, track_id, user_id) value (?, ?, ?)";
@@ -35,11 +34,6 @@ public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
         return executeQuery(FIND_COMMENTS_BY_TRACK_ID_EXCLUDED_EDITABLE, trackId, commentId);
     }
 
-    public Optional<Comment> getById(Long id) throws DaoException {
-        return executeForSingleResult(FIND_COMMENT_BY_ID, id);
-    }
-
-
     public void addNewCommentToTrack(String commentContent, Long trackId, Long userId) throws DaoException {
         executeUpdate(INSERT_COMMENT_TO_TRACK, commentContent, trackId, userId);
     }
@@ -49,7 +43,8 @@ public class CommentDao extends AbstractDao<Comment> implements Dao<Comment> {
     }
 
     @Override
-    public void save(Comment entity) {
+    public Optional<Comment> getById(Long id) throws DaoException {
+        return executeForSingleResult(FIND_COMMENT_BY_ID, id);
     }
 
     @Override

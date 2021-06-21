@@ -1,10 +1,10 @@
 package com.epam.web.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class MusicCollection extends Entity {
-
     public static final String TABLE = "collection";
     public static final String ID = "id";
     public static final String COLLECTION_TYPE = "type";
@@ -76,5 +76,26 @@ public class MusicCollection extends Entity {
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MusicCollection that = (MusicCollection) o;
+        return type == that.type &&
+                Objects.equals(releaseDate, that.releaseDate) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(artist, that.artist) &&
+                Objects.equals(filename, that.filename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, releaseDate, title, artist, filename);
     }
 }

@@ -1,9 +1,9 @@
 package com.epam.web.entities;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Order extends Entity {
-
     public static final String TABLE = "purchase_order";
     public static final String ID = "id";
     public static final String ORDER_DATE = "order_date";
@@ -46,6 +46,25 @@ public class Order extends Entity {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Order order = (Order) o;
+        return isPaid == order.isPaid &&
+                Objects.equals(orderDate, order.orderDate) &&
+                Objects.equals(userId, order.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orderDate, isPaid, userId);
     }
 
 }

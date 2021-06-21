@@ -1,8 +1,6 @@
 package com.epam.web.service;
 
 import com.epam.web.dao.*;
-import com.epam.web.dto.OrderDto;
-import com.epam.web.dto.TrackDto;
 import com.epam.web.dto.UserDto;
 import com.epam.web.entities.*;
 import com.epam.web.exceptions.DaoException;
@@ -11,7 +9,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +17,11 @@ import java.util.regex.Pattern;
 
 public class UserService {
     private static final Logger LOGGER = LogManager.getLogger(UserService.class);
+
+    private static final String PAYMENT_AMOUNT_PATTERN = "^\\d+(.\\d{1,2})?$";
+    private static final String CARD_NUMBER_PATTERN = "[0-9]{16}";
+    private static final String NAME_PATTERN = "[A-Z]{1,30}";
+    private static final String CVV_PATTERN = "[0-9]{3}";
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -45,7 +47,6 @@ public class UserService {
             throw new ServiceException(e);
         }
     }
-
 
     public Optional<User> getUserInfo(Long userId) throws ServiceException {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
@@ -78,7 +79,6 @@ public class UserService {
             throw new ServiceException(e);
         }
     }
-
 
     public List<UserDto> createUserDtoList(List<User> users, DaoHelper daoHelper) throws DaoException {
         List<UserDto> userDtoList = new ArrayList<>();
@@ -130,39 +130,34 @@ public class UserService {
                 .build();
     }
 
-
-    private static final String PAYMENT_AMOUNT_PATTERN = "[0-9]{1,5}";
-    private static final String CARD_NUMBER_PATTERN = "[0-9]{16}";
-    private static final String NAME_PATTERN = "[A-Z]{1,30}";
-    private static final String CVV_PATTERN = "[0-9]{3}";
-
     public String validatePaymentDetails(String paymentAmount, String cardNumber, String nameOnCard, String lastnameOnCard, String cvv) {
-
         Pattern paymentAmountPattern = Pattern.compile(PAYMENT_AMOUNT_PATTERN);
         Pattern cardNumberPattern = Pattern.compile(CARD_NUMBER_PATTERN);
         Pattern namePattern = Pattern.compile(NAME_PATTERN);
         Pattern cvvPattern = Pattern.compile(CVV_PATTERN);
-
-        Matcher paymentAmountMatcher = paymentAmountPattern.matcher(paymentAmount);
-        Matcher cardNumberMatcher = cardNumberPattern.matcher(cardNumber);
-        Matcher nameOnCardMatcher = namePattern.matcher(nameOnCard.toUpperCase());
-        Matcher lastnameOnCardMatcher = namePattern.matcher(lastnameOnCard.toUpperCase());
-        Matcher cvvOnCardMatcher = cvvPattern.matcher(cvv);
-
-        if (!paymentAmountMatcher.matches()) {
-            return "wrongPaymentAmount";
-        } else if (!cardNumberMatcher.matches()) {
-            return "wrongCardNumber";
-        } else if (!nameOnCardMatcher.matches()) {
-            return "wrongNameOnCard";
-        } else if (!lastnameOnCardMatcher.matches()) {
-            return "wrongLastnameOnCard";
-        } else if (!cvvOnCardMatcher.matches()) {
-            return "wrongCvvOnCard";
-        } else {
-            return "successful";
+        String validationResult = "successful";
+        if (paymentAmount != null && nameOnCard != null && lastnameOnCard != null && cvv != null) {
+            Matcher paymentAmountMatcher = paymentAmountPattern.matcher(paymentAmount);
+            Matcher cardNumberMatcher = cardNumberPattern.matcher(cardNumber);
+            Matcher nameOnCardMatcher = namePattern.matcher(nameOnCard.toUpperCase());
+            Matcher lastnameOnCardMatcher = namePattern.matcher(lastnameOnCard.toUpperCase());
+            Matcher cvvOnCardMatcher = cvvPattern.matcher(cvv);
+            if (!paymentAmountMatcher.matches()) {
+                validationResult = "wrongPaymentAmount";
+            } else if (!cardNumberMatcher.matches()) {
+                validationResult = "wrongCardNumber";
+            } else if (!nameOnCardMatcher.matches()) {
+                validationResult = "wrongNameOnCard";
+            } else if (!lastnameOnCardMatcher.matches()) {
+                validationResult = "wrongLastnameOnCard";
+            } else if (!cvvOnCardMatcher.matches()) {
+                validationResult = "wrongCvvOnCard";
+            } else {
+                validationResult = "successful";
+            }
         }
-
+        LOGGER.debug("validationResult  " + validationResult);
+        return validationResult;
     }
 
 }

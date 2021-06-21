@@ -69,7 +69,7 @@ public class CommentService {
             CommentDao commentDao = daoHelper.createCommentDao();
             Optional<Comment> commentOptional = commentDao.getById(commentId);
             String commentContent = null;
-            if(commentOptional.isPresent()){
+            if (commentOptional.isPresent()) {
                 Comment comment = commentOptional.get();
                 commentContent = comment.getContent();
             }
@@ -122,6 +122,5 @@ public class CommentService {
         }
         return commentsList;
     }
-
 
 }

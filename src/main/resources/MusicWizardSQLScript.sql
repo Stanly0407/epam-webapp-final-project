@@ -10,6 +10,13 @@ role enum ('ADMIN', 'USER'),
 balance decimal(10,2),
 status boolean default false);
 
+insert into user(id, login, password, name, lastname, role, balance) values
+(null, 'admin', 1111, 'Admin', null, 'ADMIN', 20.50),
+(null, 'user', 1111, 'Svetlana', 'Shelestova', 'USER', 100.00),
+(null, 'Ivan', 1111, 'Ivan', 'Ivanov', 'USER', 20.50),
+(null, 'Oleg', 1111, 'Oleg', 'Petrov', 'USER', 20.00),
+(null, 'Luther', 1111, 'John', 'Luther', 'USER', 150.00);
+
 create table artist (
 id bigint primary key auto_increment,
 name varchar(255),
@@ -70,12 +77,7 @@ constraint foreign key(user_id) references user(id));
 create table bonus (
 id bigint primary key auto_increment,
 bonus_type enum('DISCOUNT', 'FREE_TRACK'),
-title varchar(1020),
-description varchar(1020),
-track_id BIGINT,
-discount_percent int default 100,
-valid_from datetime default '1900-01-01',
-valid_to datetime default '9999-12-31',
-constraint foreign key(track_id) references track(id),
-customer_id BIGINT,
-constraint foreign key(customer_id) references user(id));
+amount int,
+status_use boolean default false,
+user_id BIGINT,
+constraint foreign key(user_id) references user(id));

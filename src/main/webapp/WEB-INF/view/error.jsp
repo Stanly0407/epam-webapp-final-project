@@ -18,7 +18,7 @@
     <p style="color: red; margin-left: 20%;">${noPageMessage}.</p>
 </c:if>
 <c:if test="${!noPage}">
-    <h1 class="headlines_type" style="color: red">Что-то пошло не так. Новая ошибка -> log.</h1>
+    <h1 class="headlines_type" style="color: red">${noPageHeadline}...</h1>
     <p style="color: red; margin-left: 20%;">${noPageMessage}.</p>
 </c:if>
 

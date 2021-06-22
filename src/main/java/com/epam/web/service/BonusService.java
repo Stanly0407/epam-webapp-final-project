@@ -12,6 +12,7 @@ import com.epam.web.exceptions.ServiceException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,6 +109,7 @@ public class BonusService {
                 Bonus bonus = bonusOptional.get();
                 freeTracksAmount = bonus.getAmount();
             }
+            tracks.sort(Comparator.comparing(Track::getPrice));
             BigDecimal defaultFreeTrackPrice = new BigDecimal(DEFAULT_FREE_TRACK_PRICE);
             for (int i = freeTracksAmount - 1; i >= 0; i--) {
                 Track track = tracks.get(i);

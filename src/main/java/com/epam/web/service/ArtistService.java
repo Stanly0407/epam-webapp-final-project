@@ -50,7 +50,8 @@ public class ArtistService {
         try (DaoHelper daoHelper = daoHelperFactory.create()) {
             ArtistDao artistDao = daoHelper.createArtistDao();
             Optional<Artist> artist = artistDao.getById(artistId);
-            return artist.get();
+            return artist.orElse(null);
+
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

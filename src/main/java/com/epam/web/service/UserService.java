@@ -22,6 +22,7 @@ public class UserService {
     private static final String CARD_NUMBER_PATTERN = "[0-9]{16}";
     private static final String NAME_PATTERN = "[A-Z]{1,30}";
     private static final String CVV_PATTERN = "[0-9]{3}";
+    private static final String SUCCESSFUL_VALIDATION = "successful";
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -135,7 +136,7 @@ public class UserService {
         Pattern cardNumberPattern = Pattern.compile(CARD_NUMBER_PATTERN);
         Pattern namePattern = Pattern.compile(NAME_PATTERN);
         Pattern cvvPattern = Pattern.compile(CVV_PATTERN);
-        String validationResult = "successful";
+        String validationResult = SUCCESSFUL_VALIDATION;
         if (paymentAmount != null && nameOnCard != null && lastnameOnCard != null && cvv != null) {
             Matcher paymentAmountMatcher = paymentAmountPattern.matcher(paymentAmount);
             Matcher cardNumberMatcher = cardNumberPattern.matcher(cardNumber);
@@ -153,7 +154,7 @@ public class UserService {
             } else if (!cvvOnCardMatcher.matches()) {
                 validationResult = "wrongCvvOnCard";
             } else {
-                validationResult = "successful";
+                validationResult = SUCCESSFUL_VALIDATION;
             }
         }
         LOGGER.debug("validationResult  " + validationResult);

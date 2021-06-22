@@ -80,4 +80,13 @@ public class Track extends Entity {
         return Objects.hash(releaseDate, title, price, filename);
     }
 
+    @Override
+    public String toString() {
+        return "Track{" +
+                "releaseDate=" + releaseDate +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", filename='" + filename + '\'' +
+                '}';
+    }
 }

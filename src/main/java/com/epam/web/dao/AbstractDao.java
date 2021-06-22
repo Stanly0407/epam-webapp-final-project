@@ -84,7 +84,6 @@ public abstract class AbstractDao<T extends Entity> implements Dao<T> {
         try (PreparedStatement preparedStatement = createStatement(query, params)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.debug(this.getClass() + "  " + e.getMessage() + e);
             throw new DaoException(e);
         }
     }

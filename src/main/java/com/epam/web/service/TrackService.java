@@ -81,7 +81,6 @@ public class TrackService {
             TrackDao trackDao = daoHelper.createTrackDao();
             Optional<Track> trackOptional = trackDao.getById(trackId);
             List<Long> artistsId = new ArrayList<>();
-            ;
             if (trackOptional.isPresent()) {
                 Track track = trackOptional.get();
                 TrackDto trackDto = createTrackDto(track, daoHelper, userId);

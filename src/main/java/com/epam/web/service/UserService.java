@@ -81,7 +81,7 @@ public class UserService {
         }
     }
 
-    public List<UserDto> createUserDtoList(List<User> users, DaoHelper daoHelper) throws DaoException {
+    private List<UserDto> createUserDtoList(List<User> users, DaoHelper daoHelper) throws DaoException {
         List<UserDto> userDtoList = new ArrayList<>();
         for (User user : users) {
             UserDto userDto = createUserDto(user, daoHelper);

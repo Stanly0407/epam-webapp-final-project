@@ -96,7 +96,7 @@ public class UserServiceTest {
         String expected = "successful";
 
         String actual = userService.validatePaymentDetails(CORRECT_PAYMENT_AMOUNT, CORRECT_CARD_NUMBER, CORRECT_NAME_ON_CARD,
-                 CORRECT_LASTNAME_ON_CARD, CORRECT_CVV);
+                CORRECT_LASTNAME_ON_CARD, CORRECT_CVV);
 
         Assert.assertEquals(expected, actual);
     }

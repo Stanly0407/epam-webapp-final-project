@@ -3,7 +3,10 @@ package com.epam.web.service;
 import com.epam.web.dao.*;
 import com.epam.web.dto.TrackDto;
 import com.epam.web.dto.TrackStatus;
-import com.epam.web.entities.*;
+import com.epam.web.entities.Artist;
+import com.epam.web.entities.Comment;
+import com.epam.web.entities.Order;
+import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
 import org.junit.Assert;
@@ -19,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Matchers.anyLong;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 public class TracksServiceTest {
@@ -30,9 +32,8 @@ public class TracksServiceTest {
     private static TrackService trackService;
     private static final Long TEST_ID = 1L;
 
-
     @BeforeClass
-    public static void init() throws DaoException {
+    public static void init() {
         DaoHelper mockDaoHelper = Mockito.mock(DaoHelper.class);
         DaoHelperFactory mockDaoHelperFactory = Mockito.mock(DaoHelperFactory.class);
         when(mockDaoHelperFactory.create()).thenReturn(mockDaoHelper);
@@ -82,11 +83,10 @@ public class TracksServiceTest {
         actual.add(trackDtoFirst);
         actual.add(trackDtoSecond);
 
-        List<TrackDto> expected= trackService.getPurchasedTracks(TEST_ID);
+        List<TrackDto> expected = trackService.getPurchasedTracks(TEST_ID);
 
         Assert.assertEquals(expected, actual);
     }
-
 
 
 }

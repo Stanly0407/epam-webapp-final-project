@@ -1,4 +1,4 @@
-package com.epam.web.commands.order;
+package com.epam.web.commands.bonus;
 
 import com.epam.web.commands.Command;
 import com.epam.web.commands.CommandResult;

@@ -51,6 +51,7 @@ public class ArtistService {
             ArtistDao artistDao = daoHelper.createArtistDao();
             Optional<Artist> artist = artistDao.getById(artistId);
             return artist.get();
+
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

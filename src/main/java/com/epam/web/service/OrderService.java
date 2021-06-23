@@ -7,16 +7,16 @@ import com.epam.web.entities.Track;
 import com.epam.web.entities.User;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderService {
-    private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
-    private static final int PERCENT = 100;
+    private static final int ONE_HUNDRED_PERCENT = 100;
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -123,13 +123,18 @@ public class OrderService {
     public BigDecimal countOrderTotalSum(List<Track> tracks, Bonus discount, Bonus freeTracks) {
         if (freeTracks != null) {
             int freeTracksAmount = freeTracks.getAmount();
+            tracks.sort(Comparator.comparing(Track::getPrice));
             tracks.subList(0, freeTracksAmount).clear();
         }
         BigDecimal total = sumOfOrderedTracks(tracks);
+        System.out.println(total);
         if (discount != null) {
-            BigDecimal discountAmount = new BigDecimal(discount.getAmount() / PERCENT);
-            total = total.multiply(discountAmount);
+            int bonusAmount = ONE_HUNDRED_PERCENT - discount.getAmount();
+            double discountDouble = ((double) bonusAmount / ONE_HUNDRED_PERCENT);
+            BigDecimal discountAmount = new BigDecimal(discountDouble).setScale(2, RoundingMode.HALF_UP);
+            total = discountAmount.multiply(total).setScale(2, RoundingMode.HALF_UP);
         }
+        System.out.println(total);
         return total;
     }
 

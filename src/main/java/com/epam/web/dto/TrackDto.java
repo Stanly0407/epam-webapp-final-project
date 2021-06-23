@@ -5,6 +5,7 @@ import com.epam.web.entities.Artist;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class TrackDto {
 
@@ -102,4 +103,23 @@ public class TrackDto {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        TrackDto trackDto = (TrackDto) o;
+        return commentsAmount == trackDto.commentsAmount &&
+                Objects.equals(id, trackDto.id) &&
+                Objects.equals(releaseDate, trackDto.releaseDate) &&
+                Objects.equals(title, trackDto.title) &&
+                Objects.equals(price, trackDto.price) &&
+                Objects.equals(filename, trackDto.filename) &&
+                Objects.equals(artists, trackDto.artists) &&
+                status == trackDto.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, releaseDate, title, price, filename, artists, status, commentsAmount);
+    }
 }

@@ -18,6 +18,9 @@ public class MusicCollection extends Entity {
     private Artist artist;
     private String filename;
 
+    public MusicCollection() {
+    }
+
     public MusicCollection(Long id, MusicCollectionType type, LocalDate releaseDate, String title, Artist artist, String filename) {
         super(id);
         this.type = type;
@@ -35,8 +38,7 @@ public class MusicCollection extends Entity {
         this.filename = filename;
     }
 
-    public MusicCollection() {
-    }
+
 
     public MusicCollectionType getType() {
         return type;

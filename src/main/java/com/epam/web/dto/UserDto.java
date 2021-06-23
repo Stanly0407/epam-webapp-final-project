@@ -3,6 +3,7 @@ package com.epam.web.dto;
 import com.epam.web.entities.Bonus;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class UserDto {
     private Long id;
@@ -116,6 +117,28 @@ public class UserDto {
         public UserDto build() {
             return newUser;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        UserDto userDto = (UserDto) o;
+        return commentsAmount == userDto.commentsAmount &&
+                purchasedTracksAmount == userDto.purchasedTracksAmount &&
+                status == userDto.status &&
+                Objects.equals(id, userDto.id) &&
+                Objects.equals(login, userDto.login) &&
+                Objects.equals(name, userDto.name) &&
+                Objects.equals(lastname, userDto.lastname) &&
+                Objects.equals(balance, userDto.balance) &&
+                Objects.equals(bonusDiscount, userDto.bonusDiscount) &&
+                Objects.equals(bonusFreeTracks, userDto.bonusFreeTracks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, name, lastname, balance, commentsAmount, purchasedTracksAmount, bonusDiscount, bonusFreeTracks, status);
     }
 
 }

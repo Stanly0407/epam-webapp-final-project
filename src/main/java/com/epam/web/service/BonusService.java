@@ -12,11 +12,12 @@ import com.epam.web.exceptions.ServiceException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 public class BonusService {
-    private static final int PERCENT = 100;
+    private static final int ONE_HUNDRED_PERCENT = 100;
     private static final int DEFAULT_DISCOUNT_VALUE = 1;
     private static final int DEFAULT_FREE_TRACK_PRICE = 0;
 
@@ -82,8 +83,8 @@ public class BonusService {
             BigDecimal discount = new BigDecimal(DEFAULT_DISCOUNT_VALUE);
             if (bonusOptional.isPresent()) {
                 Bonus bonus = bonusOptional.get();
-                int bonusAmount = PERCENT - bonus.getAmount();
-                double discountDouble = ((double) bonusAmount / PERCENT);
+                int bonusAmount = ONE_HUNDRED_PERCENT - bonus.getAmount();
+                double discountDouble = ((double) bonusAmount / ONE_HUNDRED_PERCENT);
                 discount = new BigDecimal(discountDouble);
             }
             List<Track> updatedTrackList = new ArrayList<>();
@@ -108,6 +109,7 @@ public class BonusService {
                 Bonus bonus = bonusOptional.get();
                 freeTracksAmount = bonus.getAmount();
             }
+            tracks.sort(Comparator.comparing(Track::getPrice));
             BigDecimal defaultFreeTrackPrice = new BigDecimal(DEFAULT_FREE_TRACK_PRICE);
             for (int i = freeTracksAmount - 1; i >= 0; i--) {
                 Track track = tracks.get(i);

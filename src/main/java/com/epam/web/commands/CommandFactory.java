@@ -1,6 +1,7 @@
 package com.epam.web.commands;
 
 import com.epam.web.commands.admin.*;
+import com.epam.web.commands.bonus.*;
 import com.epam.web.commands.order.*;
 import com.epam.web.commands.track.*;
 import com.epam.web.commands.user.*;
@@ -145,7 +146,7 @@ public class CommandFactory {
         }
     }
 
-    public CommandType getCommandType(String type) {
+    private CommandType getCommandType(String type) {
         String command = null;
         try {
             String[] commandsParts = type.split(SPLIT_CAMEL_CASE_PATTERN);
@@ -161,6 +162,7 @@ public class CommandFactory {
         }
         return CommandType.valueOf(command);
     }
+
 
 
 }

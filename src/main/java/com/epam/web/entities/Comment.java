@@ -16,6 +16,9 @@ public class Comment extends Entity {
     private Long trackId;
     private Long userId;
 
+    public Comment() {
+    }
+
     public Comment(Long id, LocalDateTime commentDate, String content, Long trackId, Long userId) {
         super(id);
         this.commentDate = commentDate;

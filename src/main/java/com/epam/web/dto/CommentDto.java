@@ -1,6 +1,7 @@
 package com.epam.web.dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class CommentDto {
 
@@ -95,6 +96,26 @@ public class CommentDto {
         public CommentDto build() {
             return newComment;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
+        CommentDto that = (CommentDto) o;
+        return currentUserAuthor == that.currentUserAuthor &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(commentDate, that.commentDate) &&
+                Objects.equals(content, that.content) &&
+                Objects.equals(trackId, that.trackId) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(lastname, that.lastname);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, commentDate, content, trackId, userId, name, lastname, currentUserAuthor);
     }
 
 }

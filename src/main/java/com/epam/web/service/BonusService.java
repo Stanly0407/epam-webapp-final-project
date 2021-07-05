@@ -8,6 +8,8 @@ import com.epam.web.entities.BonusType;
 import com.epam.web.entities.Track;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,11 +17,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class BonusService {
+    private static final Logger LOGGER = LogManager.getLogger(BonusService.class);
     private static final int ONE_HUNDRED_PERCENT = 100;
     private static final int DEFAULT_DISCOUNT_VALUE = 1;
     private static final int DEFAULT_FREE_TRACK_PRICE = 0;
+    private static final String BONUS_AMOUNT_PATTERN = "[0-9]{2}";
 
     private DaoHelperFactory daoHelperFactory;
 
@@ -120,5 +126,19 @@ public class BonusService {
             throw new ServiceException(e);
         }
     }
+
+    public boolean validateBonusDetails(String bonusAmount) {
+        Pattern bonusAmountPattern = Pattern.compile(BONUS_AMOUNT_PATTERN);
+        boolean validationResult = false;
+        if (bonusAmount != null) {
+            Matcher bonusAmountMatcher = bonusAmountPattern.matcher(bonusAmount);
+            if (bonusAmountMatcher.matches()) {
+                validationResult = true;
+            }
+        }
+        LOGGER.debug("validationResult  " + validationResult);
+        return validationResult;
+    }
+
 
 }

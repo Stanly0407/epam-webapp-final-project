@@ -7,7 +7,9 @@
     <jsp:include page="../fragments/header.jsp"/>
 </div>
 
+<div style="padding-left: 50px;">
 <jsp:include page="../fragments/search.jsp"/>
+</div>
 
 <jsp:include page="../fragments/pagination.jsp"/>
 

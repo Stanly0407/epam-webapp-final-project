@@ -7,15 +7,17 @@ import com.epam.web.entities.Track;
 import com.epam.web.entities.User;
 import com.epam.web.exceptions.DaoException;
 import com.epam.web.exceptions.ServiceException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderService {
+    private static final Logger LOGGER = LogManager.getLogger(OrderService.class);
     private static final int ONE_HUNDRED_PERCENT = 100;
 
     private DaoHelperFactory daoHelperFactory;
@@ -75,6 +77,7 @@ public class OrderService {
                 Optional<Bonus> freeTracksOptional = bonusDao.getUnusedFreeTracksBonus(userId);
                 freeTracks = freeTracksOptional.get();
             }
+            LOGGER.debug("freeTracks " + freeTracks);
             BigDecimal orderAmount = countOrderTotalSum(tracks, discount, freeTracks);
             Optional<User> userOptional = userDao.getById(userId);
             if (userOptional.isPresent()) {
@@ -99,8 +102,7 @@ public class OrderService {
                 }
             }
             return payResult;
-        } catch (
-                DaoException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -126,15 +128,20 @@ public class OrderService {
             tracks.sort(Comparator.comparing(Track::getPrice));
             tracks.subList(0, freeTracksAmount).clear();
         }
-        BigDecimal total = sumOfOrderedTracks(tracks);
-        System.out.println(total);
+        LOGGER.debug("tracks " + tracks);
+
+        BigDecimal total = new BigDecimal("0.00");
+        if (!tracks.isEmpty()){
+            total = sumOfOrderedTracks(tracks);}
+
+        LOGGER.debug("total " + total);
         if (discount != null) {
             int bonusAmount = ONE_HUNDRED_PERCENT - discount.getAmount();
             double discountDouble = ((double) bonusAmount / ONE_HUNDRED_PERCENT);
             BigDecimal discountAmount = new BigDecimal(discountDouble).setScale(2, RoundingMode.HALF_UP);
             total = discountAmount.multiply(total).setScale(2, RoundingMode.HALF_UP);
         }
-        System.out.println(total);
+
         return total;
     }
 

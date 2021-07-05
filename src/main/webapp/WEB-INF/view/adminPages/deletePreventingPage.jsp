@@ -13,6 +13,7 @@
 <fmt:message bundle="${local}" key="local.a.edit" var="edit"/>
 <fmt:message bundle="${local}" key="local.a.delete" var="delete"/>
 <fmt:message bundle="${local}" key="local.h1.noCommentsInfo" var="noCommentsInfo"/>
+<fmt:message bundle="${local}" key="local.deleteTrack.Preventing.Message" var="preventingMessage"/>
 
 <html>
 <body>
@@ -23,7 +24,7 @@
 
 
     <c:if test="${not empty track.id}">
-        <h1 class="headlines_type" style="color: red">Вы действительно хотите безвозвратно удалить трек?</h1>
+        <h1 class="headlines_type" style="color: red; padding-left: 30%;">${preventingMessage}?</h1>
         <table style="color: #b3d4fc;">
             <tr style="align-content: center">
                 <td><img src="img/svg/Note_song icon.svg" alt="Cart" class="header__cart-pic"></td>
@@ -35,7 +36,7 @@
                 <td>$ ${track.price} </td>
                 <td>
                     <form action="/musicwebapp/uploadNew?command=deleteTrack" method="post">
-                        <input type="hidden" name="${track.id}"/>
+                        <input type="hidden" value="${track.id}" name="trackId"/>
                         <button class="button-main" type="submit">Delete</button>
                     </form>
                 </td>

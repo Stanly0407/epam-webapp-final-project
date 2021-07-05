@@ -67,13 +67,13 @@
                             <c:if test="${not empty album.id}">
                                 <td  style="margin-right: 20px">
                                     <a class="header__link__button"
-                                       href="<c:url value='controller?command=deleteCollectionTrack&id=${album.id}trackId=${track.id}'/>">${deleteFromAlbum}</a>
+                                       href="<c:url value='controller?command=deleteCollectionTrack&id=${album.id}&trackId=${track.id}'/>">${deleteFromAlbum}</a>
                                 </td>
                             </c:if>
                             <c:if test="${not empty playlist.id}">
                                 <td>
                                     <a class="header__link__button"
-                                       href="<c:url value='controller?command=deleteCollectionTrack&id=${playlist.id}trackId=${track.id}'/>">${deleteFromPlaylist}</a>
+                                       href="<c:url value='controller?command=deleteCollectionTrack&id=${playlist.id}&trackId=${track.id}'/>">${deleteFromPlaylist}</a>
                                 </td>
                             </c:if>
 

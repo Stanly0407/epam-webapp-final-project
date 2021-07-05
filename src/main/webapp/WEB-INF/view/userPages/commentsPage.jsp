@@ -42,7 +42,7 @@
                 </c:if>
                 <c:if test="${track.status eq 'ORDERED'}">
                     <td><a class="header__link"
-                           href="<c:url value='controller?command=deleteTrack&id=${track.id}'/>">${delete}</a></td>
+                           href="<c:url value='controller?command=deleteTrackFromCart&id=${track.id}'/>">${delete}</a></td>
                 </c:if>
             </c:if>
             <c:if test="${sessionScope.role eq 'ADMIN'}">

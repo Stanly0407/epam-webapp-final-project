@@ -20,6 +20,7 @@ public class PayOrderCommand implements Command {
     private static final String ATTRIBUTE_ORDER_ID = "orderId";
     private static final String ACTIVATED_DISCOUNT = "activatedDiscountBonus";
     private static final String ACTIVATED_FREE_TRACKS = "activatedFreeTracksBonus";
+    private static final String ATTRIBUTE_NOT_ENOUGH_FUNDS = "notEnoughFundsMessage";
 
     private final OrderService orderService;
 
@@ -43,6 +44,8 @@ public class PayOrderCommand implements Command {
             session.removeAttribute(ACTIVATED_DISCOUNT);
             session.removeAttribute(ACTIVATED_FREE_TRACKS);
             return CommandResult.redirect(USER_MUSIC_PAGE);
+        } else {
+            session.setAttribute(ATTRIBUTE_NOT_ENOUGH_FUNDS, true);
         }
         return CommandResult.redirect(USER_ACCOUNT_PAGE);
     }

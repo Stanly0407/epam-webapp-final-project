@@ -17,6 +17,8 @@ public class ChangeLanguageCommand implements Command {
     private static final String RUSSIAN_LOCAL = "ru_RU";
     private static final String LOCAL = "local";
     private static final String CURRENT_PAGE = "currentPage";
+    private static final String ATTRIBUTE_USER = "userId";
+    private static final String START_PAGE = "/";
 
     public ChangeLanguageCommand() {
     }
@@ -25,6 +27,10 @@ public class ChangeLanguageCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+        Long userId = (Long) session.getAttribute(ATTRIBUTE_USER);
+        if (currentPage == null || userId == null) {
+            currentPage = START_PAGE;
+        }
         String language = request.getParameter(LANGUAGE);
         switch (language) {
             case GERMAN:

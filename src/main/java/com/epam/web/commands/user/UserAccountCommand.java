@@ -19,6 +19,7 @@ public class UserAccountCommand implements Command {
     private static final String USER = "user";
     private static final String ATTRIBUTE_USER_ID = "userId";
     private static final String BONUS_MESSAGE = "bonusMessage";
+    private static final String ATTRIBUTE_NOT_ENOUGH_FUNDS = "notEnoughFundsMessage";
 
     private final UserService userService;
     private final BonusService bonusService;
@@ -34,8 +35,13 @@ public class UserAccountCommand implements Command {
         Long userId = (Long) session.getAttribute(ATTRIBUTE_USER_ID);
         Optional<User> optionalUser = userService.getUserInfo(userId);
         List<Bonus> bonuses = bonusService.getUnusedUserBonuses(userId);
+        Boolean balanceInfo = (Boolean) session.getAttribute(ATTRIBUTE_NOT_ENOUGH_FUNDS);
         if (!bonuses.isEmpty()) {
             request.setAttribute(BONUS_MESSAGE, true);
+        }
+        if (balanceInfo != null && balanceInfo) {
+            request.setAttribute(ATTRIBUTE_NOT_ENOUGH_FUNDS, true);
+            session.removeAttribute(ATTRIBUTE_NOT_ENOUGH_FUNDS);
         }
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();

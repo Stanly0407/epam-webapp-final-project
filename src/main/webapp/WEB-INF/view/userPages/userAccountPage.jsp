@@ -9,6 +9,7 @@
 <fmt:message bundle="${local}" key="local.h1.changePassword" var="changePassword"/>
 <fmt:message bundle="${local}" key="local.placeholder.newPassword" var="newPassword"/>
 <fmt:message bundle="${local}" key="bonus.common.info" var="bonusInfoMessage"/>
+<fmt:message bundle="${local}" key="bonus.notEnoughFunds.Message" var="notEnoughFunds"/>
 
 <html>
 <body>
@@ -30,6 +31,10 @@
             <div style="color: #CF469D; margin-bottom: 40px">
                 <b>${balanceInfo} ${user.balance}</b>
             </div>
+
+            <c:if test="${notEnoughFundsMessage}">
+                <p style="color: red; margin: 25px; padding-left: 15%;">${notEnoughFunds}!</p>
+            </c:if>
 
             <div style="margin-bottom: 50px; width: 700px; margin-left: 300px;  margin-top: 40px;">
                 <a href="/musicwebapp/controller?command=refillBalancePage" class="header__link__button">${refill}</a>

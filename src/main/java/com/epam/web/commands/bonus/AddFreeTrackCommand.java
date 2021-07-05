@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AddFreeTrackCommand implements Command {
 
     private static final String USER_LIST_COMMAND = "/controller?command=userList";
-    private static final String WRONG_BONUS_MESSAGE = "wrongFreeTrackMessage";
+    private static final String WRONG_BONUS_MESSAGE = "wrongBonusAmountMessage";
     private static final String USER_ID = "userId";
 
     private static final String FREE_TRACKS_AMOUNT = "freeTracksAmount";
@@ -28,7 +28,7 @@ public class AddFreeTrackCommand implements Command {
         String idString = request.getParameter(USER_ID);
         Long userId = Long.valueOf(idString);
         String freeTracksAmountString = request.getParameter(FREE_TRACKS_AMOUNT);
-        if (freeTracksAmountString != null) {
+        if (bonusService.validateBonusDetails(freeTracksAmountString)) {
             int freeTracksAmount = Integer.parseInt(freeTracksAmountString);
             bonusService.addBonus(userId, freeTracksAmount, BonusType.FREE_TRACK);
         } else {

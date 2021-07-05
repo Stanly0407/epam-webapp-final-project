@@ -47,7 +47,7 @@ public class Controller extends HttpServlet {
         } catch (Exception e) {
             request.setAttribute(ERROR_MESSAGE, e.getMessage());
             page = ERROR_PAGE;
-            LOGGER.error("ERROR SE " + e + " | ERROR_MESSAGE: " + e.getMessage());
+            LOGGER.error("ERROR: " + e + " | ERROR_MESSAGE: " + e.getMessage());
         }
 
         createCurrentPage(request, isRedirect, commandType, page);
@@ -60,7 +60,7 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void createCurrentPage(HttpServletRequest request, boolean isRedirect,  String commandType, String page){
+    private void createCurrentPage(HttpServletRequest request, boolean isRedirect, String commandType, String page) {
         HttpSession session = request.getSession();
         String currentPage = (String) session.getAttribute(CURRENT_PAGE);
         if (currentPage == null) {

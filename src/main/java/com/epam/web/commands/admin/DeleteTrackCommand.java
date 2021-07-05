@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DeleteTrackCommand implements Command {
-
     private static final String SHOW_TRACK_LIST_PAGE_COMMAND = "/controller?command=allMusic";
     private static final String PARAMETER_TRACK_ID = "trackId";
 

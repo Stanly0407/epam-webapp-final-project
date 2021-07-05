@@ -17,12 +17,17 @@
 <fmt:message bundle="${local}" key="admin.userList.deleteDiscount" var="deleteDiscount"/>
 <fmt:message bundle="${local}" key="admin.userList.addFreeTracks" var="addFreeTracks"/>
 <fmt:message bundle="${local}" key="admin.userList.deleteFreeTracks" var="deleteFreeTracks"/>
+<fmt:message bundle="${local}" key="admin.userList.wrongBonusFieldMessage" var="wrongBonusFieldMessage"/>
 
 <html>
 <body>
 <div class="header">
     <jsp:include page="../fragments/header.jsp"/>
 </div>
+
+<c:if test="${wrongBonusAmountMessage}">
+    <p style="color: red; margin: 25px; padding-left: 35%;">${wrongBonusFieldMessage}!</p>
+</c:if>
 
 <div class="track-list">
     <table>
@@ -54,7 +59,7 @@
                     <td>
                         <form action="/musicwebapp/controller?command=addDiscount" method="post">
                             <input type="hidden" name="userId" value="${user.id}"/>
-                            <input type="number" min="1" max="100" class="user_bonus_input" name="discountAmount"/>
+                            <input type="number" min="1" max="99" class="user_bonus_input" name="discountAmount"/>
                             <button class="button-main" style="height: 40px; font-size: 15px" type="submit">${addDiscount}</button>
                         </form>
                     </td>

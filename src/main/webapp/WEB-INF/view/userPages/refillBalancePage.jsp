@@ -9,11 +9,11 @@
 <fmt:message bundle="${local}" key="local.h1.cardName" var="cardName"/>
 <fmt:message bundle="${local}" key="local.h1.cardExp" var="cardExp"/>
 <fmt:message bundle="${local}" key="local.button.refillBalance" var="refillBalance"/>
-<fmt:message bundle="${local}" key="local.placeholder.paymentAmount" var="paymentSum"/>
-<fmt:message bundle="${local}" key="local.messageError.wrongCardNumber" var="wrongCardNumber"/>
-<fmt:message bundle="${local}" key="local.messageError.headline.wrongCvvOnCard" var="wrongCvvOnCard"/>
-<fmt:message bundle="${local}" key="local.messageError.wrongNameOnCard" var="wrongNameOnCard"/>
-<fmt:message bundle="${local}" key="local.messageError.wrongLastnameOnCard" var="wrongLastnameOnCard"/>
+<fmt:message bundle="${local}" key="local.placeholder.paymentAmount" var="paymentSumMessage"/>
+<fmt:message bundle="${local}" key="local.messageError.wrongCardNumber" var="wrongCardNumberMessage"/>
+<fmt:message bundle="${local}" key="local.messageError.headline.wrongCvvOnCard" var="wrongCvvMessage"/>
+<fmt:message bundle="${local}" key="local.messageError.wrongNameOnCard" var="wrongNameMessage"/>
+<fmt:message bundle="${local}" key="local.messageError.wrongLastnameOnCard" var="wrongLastnameMessage"/>
 
 <html>
 <body>
@@ -27,9 +27,13 @@
         <form action="/musicwebapp/controller?command=refillBalance" method="post">
             <div class="payment-card_list">
                 <div class="payment_label"><label for="paymentAmount">${paymentAmount}</label></div>
-                <input class="payment-card_sum_input" type="text" pattern="^\d+(.\d{1,2})?$" id="paymentAmount"
+                <input class="payment-card_sum_input" type="number" min="1" max="999999.99" pattern="^\d+(.\d{1,2})?$" id="paymentAmount"
                        placeholder="${paymentSum}" name="paymentAmount" required/>
             </div>
+
+            <c:if test="${wrongPaymentAmount}">
+                <p style="color: red; margin: 25px">${wrongLastnameMessage}!</p>
+            </c:if>
 
             <div class="payment-card_list">
                 <div class="payment_label"><label for="cardNumber-1">${cardNumber}</label></div>
@@ -44,7 +48,7 @@
             </div>
 
             <c:if test="${wrongCardNumber}">
-                <p style="color: red; margin: 25px">${wrongCardNumber}!</p>
+                <p style="color: red; margin: 25px">${paymentSumMessage}!</p>
             </c:if>
 
             <div class="payment-card_list">
@@ -66,13 +70,13 @@
                        required/>
             </div>
             <c:if test="${wrongCvvOnCard}">
-                <p style="color: red; margin: 25px">${wrongCvvOnCard}!</p>
+                <p style="color: red; margin: 25px">${wrongCvvMessage}!</p>
             </c:if>
             <c:if test="${wrongNameOnCard}">
-                <p style="color: red; margin: 25px">${wrongNameOnCard}!</p>
+                <p style="color: red; margin: 25px">${wrongNameMessage}!</p>
             </c:if>
             <c:if test="${wrongLastnameOnCard}">
-                <p style="color: red; margin: 25px">${wrongLastnameOnCard}!</p>
+                <p style="color: red; margin: 25px">${wrongLastnameMessage}!</p>
             </c:if>
 
             <button style="margin-top: 50px;" class="button__center" type="submit">${refillBalance}</button>

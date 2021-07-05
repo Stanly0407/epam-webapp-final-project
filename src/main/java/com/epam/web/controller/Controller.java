@@ -36,11 +36,6 @@ public class Controller extends HttpServlet {
     }
 
     private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession();
-        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
-        if (currentPage == null) {
-            session.setAttribute(CURRENT_PAGE, START_PAGE);
-        }
         String commandType = request.getParameter(PARAMETER_COMMAND);
         Command command = commandFactory.create(commandType);
         String page;
@@ -54,15 +49,29 @@ public class Controller extends HttpServlet {
             page = ERROR_PAGE;
             LOGGER.error("ERROR SE " + e + " | ERROR_MESSAGE: " + e.getMessage());
         }
+
+        createCurrentPage(request, isRedirect, commandType, page);
+
         if (!isRedirect) {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher(page);
-            requestDispatcher.forward(request, response);
+            requestDispatcher.include(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + page);
+        }
+    }
+
+    private void createCurrentPage(HttpServletRequest request, boolean isRedirect,  String commandType, String page){
+        HttpSession session = request.getSession();
+        String currentPage = (String) session.getAttribute(CURRENT_PAGE);
+        if (currentPage == null) {
+            session.setAttribute(CURRENT_PAGE, START_PAGE);
+        }
+        if (!isRedirect) {
             if (!commandType.equals(CHANGE_LANGUAGE_COMMAND)) {
                 session.setAttribute(CURRENT_PAGE, ("/controller?command=" + commandType));
             }
         } else {
             session.setAttribute(CURRENT_PAGE, page);
-            response.sendRedirect(request.getContextPath() + page);
         }
     }
 

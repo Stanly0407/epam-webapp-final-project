@@ -26,6 +26,9 @@ public class RoleFilter implements Filter {
     private static final String LOW_LINE = "_";
     private static final int LAST_INDEX = 1;
     private static final String LOGIN_MAIN_PAGE = "/WEB-INF/view/login.jsp";
+    private static final String LOGIN = "LOGIN";
+    private static final String CHANGE_LANGUAGE = "CHANGE_LANGUAGE";
+    private static final String LOGIN_PAGE = "LOGIN_PAGE";
 
     private static final Map<CommandType, List<Role>> COMMANDS_PERMISSIONS = new HashMap<>();
 
@@ -111,7 +114,7 @@ public class RoleFilter implements Filter {
                 String currentRoleInSession = (String) session.getAttribute(PARAMETER_ROLE);
                 Role currentRole;
                 if (currentRoleInSession == null) {
-                    if ("LOGIN".equals(command) || "CHANGE_LANGUAGE".equals(command) || "LOGIN_PAGE".equals(command)) {
+                    if (LOGIN.equals(command) || CHANGE_LANGUAGE.equals(command) || LOGIN_PAGE.equals(command)) {
                         filterChain.doFilter(servletRequest, servletResponse);
                     } else {
                         errorForward(ERROR_NO_ROLE, LOGIN_MAIN_PAGE, servletRequest, servletResponse);
@@ -122,7 +125,7 @@ public class RoleFilter implements Filter {
                     if (permissions == null || !permissions.contains(currentRole)) {
                         errorForward(ERROR_NO_PAGE, ERROR_PAGE, servletRequest, servletResponse);
                     } else {
-                        if ("CHANGE_LANGUAGE".equals(command)) {
+                        if (CHANGE_LANGUAGE.equals(command)) {
                             filterChain.doFilter(servletRequest, servletResponse);
                             return;
                         }

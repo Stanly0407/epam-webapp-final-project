@@ -3,9 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="pagecontent" var="local"/>
-<fmt:message bundle="${local}" key="local.button.addToCart" var="add"/>
-<fmt:message bundle="${local}" key="local.purchased" var="purhased"/>
-<fmt:message bundle="${local}" key="local.button.deleteFromCart" var="delete"/>
+<fmt:message bundle="${local}" key="local.a.edit" var="edit"/>
+<fmt:message bundle="${local}" key="track.button.deleteFromPlaylist" var="deletefromPlaylist"/>
+<fmt:message bundle="${local}" key="track.button.deleteFromAlbum" var="deletefromAlbum"/>
 
 <div class="track-list">
     <table>
@@ -29,20 +29,20 @@
 
                 <td>
                     <a class="header__link__button"
-                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">Edit</a>
+                       href="<c:url value='controller?command=editTrack&id=${track.id}'/>">${edit}</a>
                 </td>
 
                 <c:if test="${not empty album.id}">
                 <td>
                     <a class="header__link__button"
-                       href="<c:url value='controller?command=deleteAlbumTrack&id=${album.id}&trackId=${track.id}'/>">Delete from album</a>
+                       href="<c:url value='controller?command=deleteAlbumTrack&id=${album.id}&trackId=${track.id}'/>">${deletefromAlbum}</a>
                 </td>
                 </c:if>
 
                 <c:if test="${not empty playlist.id}">
                     <td>
                         <a class="header__link__button"
-                           href="<c:url value='controller?command=deletePlaylistTrack&id=${playlist.id}&trackId=${track.id}'/>">Delete from playlist</a>
+                           href="<c:url value='controller?command=deletePlaylistTrack&id=${playlist.id}&trackId=${track.id}'/>">${deletefromPlaylist}</a>
                     </td>
                 </c:if>
 

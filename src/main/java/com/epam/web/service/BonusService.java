@@ -25,7 +25,7 @@ public class BonusService {
     private static final int ONE_HUNDRED_PERCENT = 100;
     private static final int DEFAULT_DISCOUNT_VALUE = 1;
     private static final int DEFAULT_FREE_TRACK_PRICE = 0;
-    private static final String BONUS_AMOUNT_PATTERN = "[0-9]{2}";
+    private static final String BONUS_AMOUNT_PATTERN = "[0-9]{1,2}";
 
     private DaoHelperFactory daoHelperFactory;
 

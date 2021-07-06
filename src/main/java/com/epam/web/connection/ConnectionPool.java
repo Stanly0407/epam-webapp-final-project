@@ -16,7 +16,7 @@ public class ConnectionPool {
     private ConnectionPool(final int size) {
         try {
             factory = new ConnectionFactory();
-            proxyConnections = new ArrayBlockingQueue<>(size);
+            proxyConnections = new ArrayBlockingQueue<>(size, true);
             for (int i = 0; i < size; i++) {
                 ProxyConnection connection = factory.create();
                 proxyConnections.offer(connection);
